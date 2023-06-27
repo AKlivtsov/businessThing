@@ -34,7 +34,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>Внести заметки </string>
+     <string> измененить</string>
     </property>
    </widget>
    <widget class="QPushButton" name="btn_save">

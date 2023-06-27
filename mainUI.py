@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file 'mainUI.ui'
+# Form implementation generated from reading ui file 'D:\!SubieProjects\businessThing\mainUI.ui'
 #
 # Created by: PyQt6 UI code generator 6.5.0
 #
@@ -53,7 +53,7 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.btn_notes.setText(_translate("MainWindow", "Внести заметки "))
+        self.btn_notes.setText(_translate("MainWindow", " измененить"))
         self.btn_save.setText(_translate("MainWindow", "сохранить"))
         self.btn_calendar.setText(_translate("MainWindow", "календарь"))
         self.btn_report.setText(_translate("MainWindow", "отчёт"))
