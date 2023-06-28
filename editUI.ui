@@ -55,9 +55,15 @@
      <rect>
       <x>10</x>
       <y>70</y>
-      <width>110</width>
+      <width>71</width>
       <height>22</height>
      </rect>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+    <property name="displayFormat">
+     <string>dd.MM</string>
     </property>
    </widget>
    <widget class="QLabel" name="lbl_timeIn">
@@ -83,9 +89,12 @@
      <rect>
       <x>150</x>
       <y>70</y>
-      <width>118</width>
+      <width>71</width>
       <height>22</height>
      </rect>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
     </property>
    </widget>
    <widget class="QTimeEdit" name="time_out">
@@ -93,9 +102,12 @@
      <rect>
       <x>150</x>
       <y>130</y>
-      <width>118</width>
+      <width>71</width>
       <height>22</height>
      </rect>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
     </property>
    </widget>
    <widget class="QLabel" name="lbl_timeOut">
@@ -121,9 +133,15 @@
      <rect>
       <x>10</x>
       <y>130</y>
-      <width>110</width>
+      <width>71</width>
       <height>22</height>
      </rect>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+    <property name="displayFormat">
+     <string>dd.MM</string>
     </property>
    </widget>
    <widget class="QLabel" name="lbl_dateOut">
