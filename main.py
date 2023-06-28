@@ -62,24 +62,21 @@ class MainWindow(QtWidgets.QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor):
         print(state)
 
     def converter(self, monthIn, dayIn, monthOut, dayOut):
-
+        '''
         print(monthIn)
         print(dayIn)
         print(monthOut)
         print(dayOut)
-
+        
         x = dayOut-dayIn
-
-        day = 0
-
-        while day <= dayOut:
-
 
         print(x)
 
         for day in range(x):
             self.tw_table.setItem(0, day, QTableWidgetItem())
-            self.tw_table.item(0, day).setBackground(QtGui.QColor(100,100,150))
+            self.tw_table.item(0, day).setBackground(QtGui.QColor(100,100,150))'''
+
+
 
 
 # окно изменения
@@ -111,6 +108,21 @@ class EditWindow(QtWidgets.QMainWindow, editUI.Ui_MainWindow, QDialog):
         self.monthOut = self.date_out.date().month()
         self.dayIn = self.date_in.date().day()
         self.dayOut = self.date_out.date().day()
+
+        self.monthDaysIn = self.date_in.date().daysInMonth()
+        self.monthDaysOut = self.date_out.date().daysInMonth()
+
+        do = True
+        month = 0
+
+        while do:
+            if self.dayIn <= self.monthDaysIn:
+                print(str(month)+ ':' + str(self.dayIn))
+            else:
+                month += 1
+                self.dayIn 
+
+
 
         self.mainInfo.emit(self.monthIn, self.dayIn, self.monthOut, self.dayOut)
 
