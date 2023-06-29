@@ -126,11 +126,11 @@ class EditWindow(QtWidgets.QMainWindow, editUI.Ui_MainWindow, QDialog):
                     print('------------------------------------------------')
                     day += 1
                 else:
-                    print(days)
-                    days -= monthCount.daysInMonth()
-                    print('days: ' + str(days))
-                    monthCount.addMonths(1)
-                    print('daysInMonth: ' + str(monthCount.daysInMonth()))
+
+                    day = 1 
+                    monthCount.addMonths(2)
+                    print(monthCount)
+                    print(day)
             else:
                 break
 
