@@ -113,14 +113,26 @@ class EditWindow(QtWidgets.QMainWindow, editUI.Ui_MainWindow, QDialog):
         self.monthDaysOut = self.date_out.date().daysInMonth()
 
         days = self.dayOut - self.dayIn
-        monthCount = self.monthDaysIn
+        monthCount = self.date_in.date()
+        day = self.date_in.date().day()
 
-        for day in range(days):
-            if day <= monthCount:
-                print(f"draw day: {day} in month: {monthCount}")
+        while True:
+            if days != -2:
+
+                if day <= monthCount.daysInMonth():
+                    print('------------------------------------------------')
+                    print('monthCount: ' + str(monthCount.daysInMonth()))
+                    print(f"draw day: {day} in month: {monthCount}")
+                    print('------------------------------------------------')
+                    day += 1
+                else:
+                    print(days)
+                    days -= monthCount.daysInMonth()
+                    print('days: ' + str(days))
+                    monthCount.addMonths(1)
+                    print('daysInMonth: ' + str(monthCount.daysInMonth()))
             else:
-                days -= monthCount
-                monthCount.addMonths(1)
+                break
 
         self.mainInfo.emit(self.monthIn, self.dayIn, self.monthOut, self.dayOut)
 
