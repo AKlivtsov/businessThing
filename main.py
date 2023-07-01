@@ -21,7 +21,7 @@ class MainWindow(QtWidgets.QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor):
         self.setWindowTitle("BusinessThing")
         self.settingTable()
 
-        self.tw_table.cellClicked.connect(self.cellWasClicked)
+        self.tw_table.cellClicked.connect(self.edit)
         self.tw_table.cellDoubleClicked.connect(self.clearCell)
 
         self.btn_notes.clicked.connect(self.edit)
@@ -48,18 +48,22 @@ class MainWindow(QtWidgets.QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor):
         
         self.tw_table.setVerticalHeaderLabels(monthTyple)
 
-    def cellWasClicked(self, row, column):
-        self.tw_table.setItem(row, column, QTableWidgetItem())
-        self.tw_table.item(row, column).setBackground(QtGui.QColor(100,100,150))
-
     def clearCell(self, row, column):
         self.tw_table.setItem(row, column, QTableWidgetItem())
 
+        #TODO: цикл for в for для итерирования всех обьектов в таблице
+
+        column = 0
+        # rowCount() This property holds the number of rows in the table
+        for row in range(self.tw_table.rowCount()): 
+            # item(row, 0) Returns the item for the given row and column if one has been set; otherwise returns nullptr.
+            _item = self.tw_table.item(row, column) 
+            if _item:            
+                item = self.tw_table.item(row, column).text()
+                print(f'row: {row}, column: {column}, item={item}')
+
     def edit(self):
         self.editWindow.show()
-
-    def update(self, satate):
-        print(state)
 
     def converter(self, month, day, color, notes):    
         row = month - 1  
@@ -82,6 +86,9 @@ class EditWindow(QtWidgets.QMainWindow, editUI.Ui_MainWindow, QDialog):
     def __init__(self):
         super(EditWindow, self).__init__()
         self.setupUi(self)
+ 
+        self.date_in.setDate(QDate.currentDate())
+        self.date_out.setDate(QDate.currentDate())
 
         self.btn_color.clicked.connect(self.colorDialog)
         self.btn_save.clicked.connect(self.save)
@@ -93,15 +100,16 @@ class EditWindow(QtWidgets.QMainWindow, editUI.Ui_MainWindow, QDialog):
         self.color = QColorDialog.getColor()
 
     def save(self):
-        monthIn = self.date_in.date().month()
-        monthOut = self.date_out.date().month()
-        dayOut = self.date_out.date().dayOfYear()
-
         notes = self.te_notes.toPlainText()
+        timeIn = self.time_in.time().toString(Qt.DateFormat.ISODate)
+        timeOut = self.time_out.time().toString(Qt.DateFormat.ISODate)
 
+        notes = f"Заезд: {timeIn}\nВыезд: {timeOut}\n\n{notes}"
+
+        dayOut = self.date_out.date().dayOfYear()
         monthCount = self.date_in.date()
-        curDay = self.date_in.date()
         day = self.date_in.date().day()
+        curDay = self.date_in.date()
         addedMonths = 0
         addedDays = 0
 
@@ -125,18 +133,13 @@ class EditWindow(QtWidgets.QMainWindow, editUI.Ui_MainWindow, QDialog):
 
             else:
                 monthCount = self.date_in.date()
-                curDay = self.date_in.date()
                 day = self.date_in.date().day()
+                curDay = self.date_in.date()
                 addedMonths = 0
                 addedDays = 0
                 workie = False
 
-        timeIn = self.time_in.time().toString(Qt.DateFormat.ISODate)
-        timeOut = self.time_out.time().toString(Qt.DateFormat.ISODate)
-
-        notes = self.te_notes.toPlainText()
         
-
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     m = MainWindow()
