@@ -48,19 +48,24 @@ class MainWindow(QtWidgets.QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor):
         
         self.tw_table.setVerticalHeaderLabels(monthTyple)
 
+    #TODO: replace print with DB stuff and rename to "save"
+    #TODO: also make DB with all months and days
+    #TODO: delete row and column from func arguments
     def clearCell(self, row, column):
-        self.tw_table.setItem(row, column, QTableWidgetItem())
 
-        #TODO: цикл for в for для итерирования всех обьектов в таблице
+        for column in range(self.tw_table.columnCount()):
 
-        column = 0
-        # rowCount() This property holds the number of rows in the table
-        for row in range(self.tw_table.rowCount()): 
-            # item(row, 0) Returns the item for the given row and column if one has been set; otherwise returns nullptr.
-            _item = self.tw_table.item(row, column) 
-            if _item:            
-                item = self.tw_table.item(row, column).text()
-                print(f'row: {row}, column: {column}, item={item}')
+            for row in range(self.tw_table.rowCount()): 
+                cell = self.tw_table.item(row, column)
+
+                if cell:            
+                    bg = self.tw_table.item(row, column).background()
+                    note = self.tw_table.item(row, column).toolTip()
+
+                    print(f"====================================")
+                    print(f'row: {row}, column: {column}, bg={bg}')
+                    print(f"ToolTip: {note}")
+                    print(f"====================================")
 
     def edit(self):
         self.editWindow.show()
