@@ -21,10 +21,13 @@ class MainWindow(QtWidgets.QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor):
         self.setWindowTitle("BusinessThing")
         self.settingTable()
 
+        self.user = "DefaultTable"
+
         self.tw_table.cellClicked.connect(self.edit)
-        self.tw_table.cellDoubleClicked.connect(self.clearCell)
+        # self.tw_table.cellDoubleClicked.connect(self.clearCell)
 
         self.btn_notes.clicked.connect(self.edit)
+        self.btn_save.clicked.connect(self.save)
 
         self.editWindow = EditWindow()
         self.editWindow.mainInfo.connect(self.converter)
@@ -48,10 +51,21 @@ class MainWindow(QtWidgets.QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor):
         
         self.tw_table.setVerticalHeaderLabels(monthTyple)
 
-    #TODO: replace print with DB stuff and rename to "save"
-    #TODO: also make DB with all months and days
-    #TODO: delete row and column from func arguments
-    def clearCell(self, row, column):
+    # TODO: make user change is able 
+    def userChange(self):
+        if user != userList:
+            # CREATE TABLE DefaultTable (
+            #   row     INTEGER,
+            #   column_ INTEGER,
+            #   notes   TEXT,
+            #   color   INTEGER
+            #   );
+            pass
+
+    def save(self):
+
+        connect = sqlite3.connect("d.db")
+        cursor = connect.cursor()
 
         for column in range(self.tw_table.columnCount()):
 
@@ -62,10 +76,32 @@ class MainWindow(QtWidgets.QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor):
                     bg = self.tw_table.item(row, column).background()
                     note = self.tw_table.item(row, column).toolTip()
 
-                    print(f"====================================")
-                    print(f'row: {row}, column: {column}, bg={bg}')
-                    print(f"ToolTip: {note}")
-                    print(f"====================================")
+                    red, green, blue, alpha = bg.color().getRgb()
+                    color = (red, green, blue)
+                    color = str(color)
+
+                    rowAndColumn = (row, column)
+                    rowAndColumn = str(rowAndColumn)
+
+                    cursor.execute(f"SELECT rowAndColumn FROM {self.user} WHERE rowAndColumn = ?",
+                        (rowAndColumn,))
+                    
+                    dbRowAndColumn = cursor.fetchone()
+
+                    if dbRowAndColumn is None:       
+                        cursor.execute(f"INSERT INTO {self.user}(rowAndColumn, notes, color) VALUES(?, ?, ?);",
+                            (rowAndColumn, note, color) )
+                    else:
+                        cursor.execute(f"UPDATE {self.user} SET notes = ? WHERE rowAndColumn = ?",
+                            (note, rowAndColumn))
+
+                        cursor.execute(f"UPDATE {self.user} SET color = ? WHERE rowAndColumn = ?", 
+                            (color, rowAndColumn))
+                    
+                    connect.commit()
+
+        connect.close()
+                    
 
     def edit(self):
         self.editWindow.show()
