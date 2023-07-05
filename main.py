@@ -22,6 +22,9 @@ class ReadThread(QtCore.QThread):
 
         self.user = None
 
+    def username(self, user):
+        self.user = user
+
     def run(self):
 
         connect = sqlite3.connect("d.db")
@@ -71,10 +74,80 @@ class ReadThread(QtCore.QThread):
                 green = int(color[1])
                 blue = int(color[2])
 
-                self.s_data.emit(row, column, red, green, blue, notes)
+                self.s_data.emit(row, column, red, green, blue, notes)   
+
+
+class SaveThread(QtCore.QThread):
+    s_update = QtCore.pyqtSignal(str)
+
+    def  __init__(self):
+        QtCore.QThread.__init__(self)
+
+        self.user = None
+        self.table = None
 
     def username(self, user):
-        self.user = user           
+        self.user = user
+
+    def setTable(self, table):
+        self.table = table
+
+    def run(self):
+
+        connect = sqlite3.connect("d.db")
+        cursor = connect.cursor()
+
+        for column in range(self.table.columnCount()):
+
+            for row in range(self.table.rowCount()): 
+                cell = self.table.item(row, column)
+
+                if cell:            
+                    bg = self.table.item(row, column).background()
+                    note = self.table.item(row, column).toolTip()
+
+                    red, green, blue, _ = bg.color().getRgb()
+                    color = f"{red}:{green}:{blue}"
+
+                    rowAndColumn = f"{row}:{column}"
+
+                    cursor.execute(f"SELECT rowAndColumn FROM {self.user} WHERE rowAndColumn = ?",
+                        (rowAndColumn,))
+                    
+                    dbRowAndColumn = cursor.fetchone()
+
+                    if dbRowAndColumn is None:       
+                        cursor.execute(f"INSERT INTO {self.user}(rowAndColumn, notes, color) VALUES(?, ?, ?);",
+                            (rowAndColumn, note, color) )
+
+                        self.s_update.emit('upd')
+
+                    else:
+                        cursor.execute(f"UPDATE {self.user} SET notes = ? WHERE rowAndColumn = ?",
+                            (note, rowAndColumn))
+
+                        cursor.execute(f"UPDATE {self.user} SET color = ? WHERE rowAndColumn = ?", 
+                            (color, rowAndColumn))
+
+                        self.s_update.emit('upd')
+                    
+                    connect.commit()
+
+        connect.close()
+        self.s_update.emit('cls')
+
+
+class SaveDialog(QtWidgets.QDialog, saveDialogUI.Ui_Dialog):
+    def __init__(self):
+        super(SaveDialog, self).__init__()
+        self.setupUi(self)
+
+    def setRange(self, range_):
+        self.pb_save.setRange(0, range_)
+
+    def add(self):
+        self.pb_save.setValue(self.pb_save.value() + 1)
+
 
 # основное окно
 class MainWindow(QtWidgets.QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor):
@@ -109,6 +182,9 @@ class MainWindow(QtWidgets.QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor):
 
         self.readThread = ReadThread()
         self.readThread.s_data.connect(self.write)
+
+        self.saveThread = SaveThread()
+        self.saveThread.s_update.connect(self.dialogUpd)
 
         self.saveDialog = SaveDialog()
 
@@ -147,47 +223,15 @@ class MainWindow(QtWidgets.QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor):
         self.saveDialog.show()
         self.saveDialog.setRange(self.tw_table.columnCount() * self.tw_table.rowCount())
 
-        connect = sqlite3.connect("d.db")
-        cursor = connect.cursor()
+        self.saveThread.username(self.user)
+        self.saveThread.setTable(self.tw_table)
+        self.saveThread.start()
 
-        for column in range(self.tw_table.columnCount()):
-
-            for row in range(self.tw_table.rowCount()): 
-                cell = self.tw_table.item(row, column)
-
-                if cell:            
-                    bg = self.tw_table.item(row, column).background()
-                    note = self.tw_table.item(row, column).toolTip()
-
-                    red, green, blue, _ = bg.color().getRgb()
-                    color = f"{red}:{green}:{blue}"
-
-                    rowAndColumn = f"{row}:{column}"
-
-                    cursor.execute(f"SELECT rowAndColumn FROM {self.user} WHERE rowAndColumn = ?",
-                        (rowAndColumn,))
-                    
-                    dbRowAndColumn = cursor.fetchone()
-
-                    if dbRowAndColumn is None:       
-                        cursor.execute(f"INSERT INTO {self.user}(rowAndColumn, notes, color) VALUES(?, ?, ?);",
-                            (rowAndColumn, note, color) )
-
-                        self.saveDialog.add()
-
-                    else:
-                        cursor.execute(f"UPDATE {self.user} SET notes = ? WHERE rowAndColumn = ?",
-                            (note, rowAndColumn))
-
-                        cursor.execute(f"UPDATE {self.user} SET color = ? WHERE rowAndColumn = ?", 
-                            (color, rowAndColumn))
-
-                        self.saveDialog.add()
-                    
-                    connect.commit()
-
-        connect.close()
-        self.saveDialog.close()
+    def dialogUpd(self, msg):
+        if msg == 'upd':
+            self.saveDialog.add()
+        else:
+            self.saveDialog.close()
     
     def commitUser(self):
         self.readThread.username(self.user)
@@ -214,7 +258,6 @@ class MainWindow(QtWidgets.QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor):
 # окно изменения
 class EditWindow(QtWidgets.QMainWindow, editUI.Ui_MainWindow, QDialog):
     mainInfo = QtCore.pyqtSignal(int, int, object, str)
-    otherInfo = QtCore.pyqtSignal(str)
 
     def __init__(self):
         super(EditWindow, self).__init__()
@@ -271,18 +314,6 @@ class EditWindow(QtWidgets.QMainWindow, editUI.Ui_MainWindow, QDialog):
                 addedMonths = 0
                 addedDays = 0
                 workie = False
-
-
-class SaveDialog(QtWidgets.QDialog, saveDialogUI.Ui_Dialog):
-    def __init__(self):
-        super(SaveDialog, self).__init__()
-        self.setupUi(self)
-
-    def setRange(self, range_):
-        self.pb_save.setRange(0, range_)
-
-    def add(self):
-        self.pb_save.setValue(self.pb_save.value() + 1)
 
         
 if __name__ == '__main__':
