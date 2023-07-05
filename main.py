@@ -8,9 +8,73 @@ from PyQt6.QtGui import QColor, QAction
 # окна
 import mainUI
 import editUI
+import saveDialogUI
 
 #прочее
 import sqlite3
+
+class ReadThread(QtCore.QThread):
+    # row, column, color(r, g, b), note
+    s_data = QtCore.pyqtSignal(int, int, int, int, int, str)
+
+    def  __init__(self):
+        QtCore.QThread.__init__(self)
+
+        self.user = None
+
+    def run(self):
+
+        connect = sqlite3.connect("d.db")
+        cursor = connect.cursor()
+
+        cursor.execute(f"SELECT count(*) FROM {self.user}")
+        count = cursor.fetchone()
+
+        countTemp = ""
+        for i in count:
+            countTemp += str(i)
+        count = int(countTemp)
+
+        for index in range(count):
+            if index != 0:
+
+                # row, column
+                cursor.execute(f"SELECT rowAndColumn FROM {self.user} WHERE ROWID = ?", (index,))
+                rowAndColumnTemp = cursor.fetchone()
+
+                rowAndColumn = ""
+                for i in rowAndColumnTemp:
+                    rowAndColumn += str(i)
+
+                rowAndColumn = rowAndColumn.split(":")
+                row = int(rowAndColumn[0])
+                column = int(rowAndColumn[1])
+
+                # notes
+                cursor.execute(f"SELECT notes FROM {self.user} WHERE ROWID = ?", (index,))
+                notesTemp = cursor.fetchone()
+
+                notes = ""
+                for i in notesTemp:
+                    notes += str(i)
+
+                # color
+                cursor.execute(f"SELECT color FROM {self.user} WHERE ROWID = ?", (index,))
+                colorTemp = cursor.fetchone()
+
+                color = ""
+                for i in colorTemp:
+                    color += str(i)
+
+                color = color.split(":")
+                red = int(color[0])
+                green = int(color[1])
+                blue = int(color[2])
+
+                self.s_data.emit(row, column, red, green, blue, notes)
+
+    def username(self, user):
+        self.user = user           
 
 # основное окно
 class MainWindow(QtWidgets.QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor):
@@ -27,21 +91,26 @@ class MainWindow(QtWidgets.QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor):
         self.m_file.addAction(self.loadAct)
 
         self.saveAct.triggered.connect(self.save)
-        self.loadAct.triggered.connect(self.write)
+        self.loadAct.triggered.connect(self.commitUser)
 
         self.setWindowTitle("BusinessThing")
         self.settingTable()
 
         self.user = "DefaultTable"
 
-        self.tw_table.cellClicked.connect(self.edit)
+        self.tw_table.cellClicked.connect(lambda: self.editWindow.show())
         # self.tw_table.cellDoubleClicked.connect(self.clearCell)
 
-        self.btn_notes.clicked.connect(self.edit)
+        self.btn_notes.clicked.connect(lambda: self.editWindow.show())
         self.btn_save.clicked.connect(self.save)
 
         self.editWindow = EditWindow()
         self.editWindow.mainInfo.connect(self.converter)
+
+        self.readThread = ReadThread()
+        self.readThread.s_data.connect(self.write)
+
+        self.saveDialog = SaveDialog()
 
     def settingTable(self):
 
@@ -75,6 +144,9 @@ class MainWindow(QtWidgets.QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor):
 
     def save(self):
 
+        self.saveDialog.show()
+        self.saveDialog.setRange(self.tw_table.columnCount() * self.tw_table.rowCount())
+
         connect = sqlite3.connect("d.db")
         cursor = connect.cursor()
 
@@ -87,7 +159,7 @@ class MainWindow(QtWidgets.QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor):
                     bg = self.tw_table.item(row, column).background()
                     note = self.tw_table.item(row, column).toolTip()
 
-                    red, green, blue, alpha = bg.color().getRgb()
+                    red, green, blue, _ = bg.color().getRgb()
                     color = f"{red}:{green}:{blue}"
 
                     rowAndColumn = f"{row}:{column}"
@@ -100,71 +172,31 @@ class MainWindow(QtWidgets.QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor):
                     if dbRowAndColumn is None:       
                         cursor.execute(f"INSERT INTO {self.user}(rowAndColumn, notes, color) VALUES(?, ?, ?);",
                             (rowAndColumn, note, color) )
+
+                        self.saveDialog.add()
+
                     else:
                         cursor.execute(f"UPDATE {self.user} SET notes = ? WHERE rowAndColumn = ?",
                             (note, rowAndColumn))
 
                         cursor.execute(f"UPDATE {self.user} SET color = ? WHERE rowAndColumn = ?", 
                             (color, rowAndColumn))
+
+                        self.saveDialog.add()
                     
                     connect.commit()
 
         connect.close()
-                    
-    def write(self):
-        connect = sqlite3.connect("d.db")
-        cursor = connect.cursor()
+        self.saveDialog.close()
+    
+    def commitUser(self):
+        self.readThread.username(self.user)
+        self.readThread.start()
 
-        cursor.execute(f"SELECT count(*) FROM {self.user}")
-        count = cursor.fetchone()
-
-        countTemp = ""
-        for i in count:
-            countTemp += str(i)
-        count = int(countTemp)
-
-        for index in range(count):
-            if index != 0:
-
-                cursor.execute(f"SELECT rowAndColumn FROM {self.user} WHERE ROWID = ?", (index,))
-                rowAndColumnTemp = cursor.fetchone()
-
-                rowAndColumn = ""
-                for i in rowAndColumnTemp:
-                    rowAndColumn += str(i)
-
-                rowAndColumn = rowAndColumn.split(":")
-                row = int(rowAndColumn[0])
-                column = int(rowAndColumn[1])
-
-                self.tw_table.setItem(row, column, QTableWidgetItem())
-                self.tw_table.item(row, column).setBackground(QtGui.QColor(100,100,150))
-
-                cursor.execute(f"SELECT notes FROM {self.user} WHERE ROWID = ?", (index,))
-                notesTemp = cursor.fetchone()
-
-                notes = ""
-                for i in notesTemp:
-                    notes += str(i)
-
-                self.tw_table.item(row, column).setToolTip(notes)
-
-                cursor.execute(f"SELECT color FROM {self.user} WHERE ROWID = ?", (index,))
-                colorTemp = cursor.fetchone()
-
-                color = ""
-                for i in colorTemp:
-                    color += str(i)
-
-                color = color.split(":")
-                red = int(color[0])
-                green = int(color[1])
-                blue = int(color[2])
-
-                self.tw_table.item(row, column).setBackground(QtGui.QColor(red,green,blue))
-
-    def edit(self):
-        self.editWindow.show()
+    def write(self, row, column, red, green, blue, notes):
+        self.tw_table.setItem(row, column, QTableWidgetItem())
+        self.tw_table.item(row, column).setBackground(QtGui.QColor(red,green,blue))
+        self.tw_table.item(row, column).setToolTip(notes)
 
     def converter(self, month, day, color, notes):    
         row = month - 1  
@@ -239,6 +271,18 @@ class EditWindow(QtWidgets.QMainWindow, editUI.Ui_MainWindow, QDialog):
                 addedMonths = 0
                 addedDays = 0
                 workie = False
+
+
+class SaveDialog(QtWidgets.QDialog, saveDialogUI.Ui_Dialog):
+    def __init__(self):
+        super(SaveDialog, self).__init__()
+        self.setupUi(self)
+
+    def setRange(self, range_):
+        self.pb_save.setRange(0, range_)
+
+    def add(self):
+        self.pb_save.setValue(self.pb_save.value() + 1)
 
         
 if __name__ == '__main__':
