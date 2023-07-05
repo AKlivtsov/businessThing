@@ -88,8 +88,7 @@ class MainWindow(QtWidgets.QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor):
                     note = self.tw_table.item(row, column).toolTip()
 
                     red, green, blue, alpha = bg.color().getRgb()
-                    color = (red, green, blue)
-                    color = str(color)
+                    color = f"{red}:{green}:{blue}"
 
                     rowAndColumn = f"{row}:{column}"
 
@@ -151,10 +150,18 @@ class MainWindow(QtWidgets.QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor):
                 self.tw_table.item(row, column).setToolTip(notes)
 
                 cursor.execute(f"SELECT color FROM {self.user} WHERE ROWID = ?", (index,))
-                color = cursor.fetchone()
-                print(color)
+                colorTemp = cursor.fetchone()
 
-                
+                color = ""
+                for i in colorTemp:
+                    color += str(i)
+
+                color = color.split(":")
+                red = int(color[0])
+                green = int(color[1])
+                blue = int(color[2])
+
+                self.tw_table.item(row, column).setBackground(QtGui.QColor(red,green,blue))
 
     def edit(self):
         self.editWindow.show()
