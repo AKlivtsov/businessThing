@@ -13,6 +13,7 @@ import saveDialogUI
 #прочее
 import sqlite3
 
+
 class ReadThread(QtCore.QThread):
     # row, column, color(r, g, b), note
     s_data = QtCore.pyqtSignal(int, int, int, int, int, str)
@@ -149,25 +150,14 @@ class SaveDialog(QtWidgets.QDialog, saveDialogUI.Ui_Dialog):
         self.pb_save.setValue(self.pb_save.value() + 1)
 
 
-# основное окно
 class MainWindow(QtWidgets.QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor):
     def __init__(self):
         super(MainWindow, self).__init__()
         self.setupUi(self)
 
-        menubar = self.menuBar()
-        fileMenu = self.m_file
-
-        self.loadAct = QAction('Загрузить', self)
-        self.saveAct = QAction('Сохранить', self)
-        self.m_file.addAction(self.saveAct)
-        self.m_file.addAction(self.loadAct)
-
-        self.saveAct.triggered.connect(self.save)
-        self.loadAct.triggered.connect(self.commitUser)
-
         self.setWindowTitle("BusinessThing")
-        self.settingTable()
+        self.setTable()
+        self.setBar()
 
         self.user = "DefaultTable"
 
@@ -188,7 +178,7 @@ class MainWindow(QtWidgets.QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor):
 
         self.saveDialog = SaveDialog()
 
-    def settingTable(self):
+    def setTable(self):
 
         self.tw_table.setRowCount(12)
         self.tw_table.setColumnCount(31)
@@ -208,18 +198,57 @@ class MainWindow(QtWidgets.QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor):
         self.tw_table.setVerticalHeaderLabels(monthTyple)
 
     # TODO: make user change is able 
-    def userChange(self):
-        if user != userList:
-            # CREATE TABLE DefaultTable (
-            #   row     INTEGER,
-            #   column_ INTEGER,
-            #   notes   TEXT,
-            #   color   INTEGER
-            #   );
-            pass
+    def setBar(self):
+
+        def makeAct(name, item):
+            self.name = QAction(str(item), self)
+            self.changeMenu.addAction(self.name)
+
+        # CREATE TABLE DefaultTable (
+        #   row     INTEGER,
+        #   column_ INTEGER,
+        #   notes   TEXT,
+        #   color   INTEGER
+        #   );
+
+        menubar = self.menuBar()
+        self.changeMenu = QMenu('сменить таблицу', self)
+
+        self.loadAct = QAction('Загрузить', self)
+        self.saveAct = QAction('Сохранить', self)
+        self.m_file.addAction(self.saveAct)
+        self.m_file.addAction(self.loadAct)
+
+        self.saveAct.triggered.connect(self.save)
+        self.loadAct.triggered.connect(self.commitUser)
+
+        connect = sqlite3.connect("d.db")
+        cursor = connect.cursor()
+
+        cursor.execute("""SELECT name FROM sqlite_master WHERE type='table';""")
+
+        tableList = cursor.fetchall()
+
+        indexCount = 0
+
+        for item in tableList:
+
+            clearItem = ""
+            for i in item:
+                clearItem += str(i)
+
+            tableList[indexCount] = clearItem
+            makeAct(f"{tableList[indexCount]}Act", tableList[indexCount])
+
+            self.m_file.addMenu(self.changeMenu)
+            indexCount += 1
+
+        indexCount = 0
+
+    def setMenuOption(self, name):
+        self.m_change
 
     def save(self):
-
         self.saveDialog.show()
         self.saveDialog.setRange(self.tw_table.columnCount() * self.tw_table.rowCount())
 
@@ -237,6 +266,7 @@ class MainWindow(QtWidgets.QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor):
         self.readThread.username(self.user)
         self.readThread.start()
 
+    # unite converter and write functions
     def write(self, row, column, red, green, blue, notes):
         self.tw_table.setItem(row, column, QTableWidgetItem())
         self.tw_table.item(row, column).setBackground(QtGui.QColor(red,green,blue))
@@ -255,7 +285,6 @@ class MainWindow(QtWidgets.QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor):
             self.tw_table.item(row, column).setBackground(QtGui.QColor(100,100,150))
 
 
-# окно изменения
 class EditWindow(QtWidgets.QMainWindow, editUI.Ui_MainWindow, QDialog):
     mainInfo = QtCore.pyqtSignal(int, int, object, str)
 
