@@ -282,7 +282,20 @@ class MainWindow(QtWidgets.QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor):
         indexCount = 0
 
     def createTable(self, name):
-        print(name)
+
+        connect = sqlite3.connect("d.db")
+        cursor = connect.cursor()
+
+        cursor.execute(f"""CREATE TABLE {name} (
+            rowAndColumn TEXT UNIQUE,
+            notes        TEXT,
+            color        TEXT
+            );""")
+
+        connect.commit()
+        connect.close()
+
+        self.fetchUsers()
 
     def save(self):
         self.saveDialog.show()
