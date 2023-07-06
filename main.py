@@ -21,19 +21,18 @@ class ReadThread(QtCore.QThread):
     def  __init__(self):
         QtCore.QThread.__init__(self)
 
-        self.user = None
+        self.tableName = None
 
-    def username(self, user):
-        self.user = user
+    def setTableName(self, tableName):
+        self.tableName = tableName
 
     def run(self):
 
         connect = sqlite3.connect("d.db")
         cursor = connect.cursor()
 
-        cursor.execute(f"SELECT count(*) FROM {self.user}")
+        cursor.execute(f"SELECT count(*) FROM {self.tableName}")
         count = cursor.fetchone()
-
         countTemp = ""
         for i in count:
             countTemp += str(i)
@@ -43,7 +42,7 @@ class ReadThread(QtCore.QThread):
             if index != 0:
 
                 # row, column
-                cursor.execute(f"SELECT rowAndColumn FROM {self.user} WHERE ROWID = ?", (index,))
+                cursor.execute(f"SELECT rowAndColumn FROM {self.tableName} WHERE ROWID = ?", (index,))
                 rowAndColumnTemp = cursor.fetchone()
                 print(rowAndColumnTemp)
 
@@ -58,7 +57,7 @@ class ReadThread(QtCore.QThread):
                     column = int(rowAndColumn[1])
 
                     # notes
-                    cursor.execute(f"SELECT notes FROM {self.user} WHERE ROWID = ?", (index,))
+                    cursor.execute(f"SELECT notes FROM {self.tableName} WHERE ROWID = ?", (index,))
                     notesTemp = cursor.fetchone()
 
                     notes = ""
@@ -66,7 +65,7 @@ class ReadThread(QtCore.QThread):
                         notes += str(i)
 
                     # color
-                    cursor.execute(f"SELECT color FROM {self.user} WHERE ROWID = ?", (index,))
+                    cursor.execute(f"SELECT color FROM {self.tableName} WHERE ROWID = ?", (index,))
                     colorTemp = cursor.fetchone()
 
                     color = ""
@@ -87,11 +86,11 @@ class SaveThread(QtCore.QThread):
     def  __init__(self):
         QtCore.QThread.__init__(self)
 
-        self.user = None
+        self.tableName = None
         self.table = None
 
-    def username(self, user):
-        self.user = user
+    def setTableName(self, tableName):
+        self.tableName = tableName
 
     def setTable(self, table):
         self.table = table
@@ -115,22 +114,22 @@ class SaveThread(QtCore.QThread):
 
                     rowAndColumn = f"{row}:{column}"
 
-                    cursor.execute(f"SELECT rowAndColumn FROM {self.user} WHERE rowAndColumn = ?",
+                    cursor.execute(f"SELECT rowAndColumn FROM {self.tableName} WHERE rowAndColumn = ?",
                         (rowAndColumn,))
                     
                     dbRowAndColumn = cursor.fetchone()
 
                     if dbRowAndColumn is None:       
-                        cursor.execute(f"INSERT INTO {self.user}(rowAndColumn, notes, color) VALUES(?, ?, ?);",
+                        cursor.execute(f"INSERT INTO {self.tableName}(rowAndColumn, notes, color) VALUES(?, ?, ?);",
                             (rowAndColumn, note, color) )
 
                         self.s_update.emit('upd')
 
                     else:
-                        cursor.execute(f"UPDATE {self.user} SET notes = ? WHERE rowAndColumn = ?",
+                        cursor.execute(f"UPDATE {self.tableName} SET notes = ? WHERE rowAndColumn = ?",
                             (note, rowAndColumn))
 
-                        cursor.execute(f"UPDATE {self.user} SET color = ? WHERE rowAndColumn = ?", 
+                        cursor.execute(f"UPDATE {self.tableName} SET color = ? WHERE rowAndColumn = ?", 
                             (color, rowAndColumn))
 
                         self.s_update.emit('upd')
@@ -197,11 +196,11 @@ class MainWindow(QtWidgets.QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor):
         self.m_file.addAction(self.loadAct)
 
         self.saveAct.triggered.connect(self.save)
-        self.loadAct.triggered.connect(self.commitUser)
+        self.loadAct.triggered.connect(self.read)
         self.createAct.triggered.connect(lambda: self.createDialog.show())
-        self.fetchUsers()
+        self.fetchTables()
 
-        self.user = "DefaultTable"
+        self.tableName = "DefaultTable"
 
         self.tw_table.cellClicked.connect(lambda: self.editWindow.show())
         # self.tw_table.cellDoubleClicked.connect(self.clearCell)
@@ -216,7 +215,7 @@ class MainWindow(QtWidgets.QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor):
         self.readThread.s_data.connect(self.write)
 
         self.saveThread = SaveThread()
-        self.saveThread.s_update.connect(self.dialogUpd)
+        self.saveThread.s_update.connect(self.savingDialog)
 
         self.createDialog = CreateDialog()
         self.createDialog.s_tableName.connect(self.createTable)
@@ -242,22 +241,17 @@ class MainWindow(QtWidgets.QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor):
         
         self.tw_table.setVerticalHeaderLabels(monthTyple)
 
-    def fetchUsers(self):
+    def fetchTables(self):
 
         def makeAct(name, item):
             self.name = QAction(str(item), self)
             self.changeMenu.addAction(self.name)
-            self.name.triggered.connect(lambda: userChange(item))
+            self.name.triggered.connect(lambda: tableChange(item))
+            print(name)
 
-        def userChange(name):
-            self.user = str(name)
-
-        # CREATE TABLE DefaultTable (
-        #   row     INTEGER,
-        #   column_ INTEGER,
-        #   notes   TEXT,
-        #   color   INTEGER
-        #   );
+        def tableChange(name):
+            self.tableName = str(name)
+            self.read()
 
         connect = sqlite3.connect("d.db")
         cursor = connect.cursor()
@@ -295,25 +289,25 @@ class MainWindow(QtWidgets.QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor):
         connect.commit()
         connect.close()
 
-        self.fetchUsers()
+        self.changeMenu.clear()
+        self.fetchTables()
 
     def save(self):
         self.saveDialog.show()
         self.saveDialog.setRange(self.tw_table.columnCount() * self.tw_table.rowCount())
 
-        print(self.user)
-        self.saveThread.username(self.user)
+        self.saveThread.setTableName(self.tableName)
         self.saveThread.setTable(self.tw_table)
         self.saveThread.start()
 
-    def dialogUpd(self, msg):
+    def savingDialog(self, msg):
         if msg == 'upd':
             self.saveDialog.add()
         else:
             self.saveDialog.close()
     
-    def commitUser(self):
-        self.readThread.username(self.user)
+    def read(self):
+        self.readThread.setTableName(self.tableName)
         self.readThread.start()
 
     def write(self, row, column, red, green, blue, notes):
