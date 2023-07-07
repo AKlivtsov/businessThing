@@ -373,17 +373,26 @@ class ReportDialog(QDialog, reportDialogUI.Ui_Dialog):
         self.calTable = table
 
     def setTable(self):
-        #self.tw_reportTable.setColumnCount(11)
+
+        def defaultWrite(row, column, text):
+
+            # TODO: запретить изменение ячейки 
+            item = QTableWidgetItem()
+            item.setFlags(ItemIsEnabled)
+            self.tw_reportTable.setItem(row, column, item)
+            self.tw_reportTable.item(row, column).setText(text)
+
+        self.tw_reportTable.verticalHeader().setVisible(False)
+        self.tw_reportTable.horizontalHeader().setVisible(False)
+        self.tw_reportTable.setColumnCount(10)
         self.tw_reportTable.setRowCount(2)
         self.tw_reportTable.setSpan(0, 4, 1, 6)
 
-        HeaderTyple = (
-            'Период аренды', 'Кол-во суток','Стоимость',
-            'Сумма','Оплата'
-            )
-        
-        self.tw_reportTable.setHorizontalHeaderLabels(HeaderTyple)
-
+        defaultWrite(0,0,'Период аренды')
+        defaultWrite(0,1,'Кол-во суток')
+        defaultWrite(0,2,'Стоимость')
+        defaultWrite(0,3,'Сумма')
+        defaultWrite(0,4,'Оплата')
 
 class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor):
     def __init__(self):
@@ -393,7 +402,6 @@ class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor):
         self.setWindowTitle("BusinessThing")
         self.setTable()
 
-        menubar = self.menuBar()
         self.changeMenu = QMenu('сменить таблицу', self)
 
         self.loadAct = QAction('Загрузить', self)
@@ -530,29 +538,6 @@ class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor):
     def clear(self, row, column):
 
         self.tw_table.setItem(row, column, None)
-        
-    """
-    Report table
-
-    def cleaningForReport(self):
-        self.tw_table.setColumnCount(0)
-        self.tw_table.setRowCount(0)
-        self.tw_table.setSpan(0, 4, 1, 6)
-
-        self.setTableReport()
-
-
-    def setTableReport(self):
-        self.tw_table.setColumnCount(11)
-        self.tw_table.setRowCount(2)
-
-        HeaderTyple = (
-            'Период аренды', 'Кол-во суток','Стоимость',
-            'Сумма','Оплата'
-            )
-        
-        self.tw_table.setHorizontalHeaderLabels(HeaderTyple)
-    """
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
