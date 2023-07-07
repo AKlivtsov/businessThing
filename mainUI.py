@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file 'mainUI.ui'
+# Form implementation generated from reading ui file '/Users/a.klivtsov/Desktop/CodieStuff/businessThing/mainUI.ui'
 #
 # Created by: PyQt6 UI code generator 6.5.0
 #
@@ -21,7 +21,7 @@ class Ui_MainWindow(object):
         self.tw_table.setColumnCount(0)
         self.tw_table.setRowCount(0)
         self.btn_notes = QtWidgets.QPushButton(parent=self.centralwidget)
-        self.btn_notes.setGeometry(QtCore.QRect(580, 460, 161, 31))
+        self.btn_notes.setGeometry(QtCore.QRect(620, 460, 121, 31))
         self.btn_notes.setObjectName("btn_notes")
         self.btn_save = QtWidgets.QPushButton(parent=self.centralwidget)
         self.btn_save.setGeometry(QtCore.QRect(750, 460, 121, 31))
@@ -35,9 +35,12 @@ class Ui_MainWindow(object):
         self.btn_additional = QtWidgets.QPushButton(parent=self.centralwidget)
         self.btn_additional.setGeometry(QtCore.QRect(270, 460, 121, 31))
         self.btn_additional.setObjectName("btn_additional")
+        self.btn_del = QtWidgets.QPushButton(parent=self.centralwidget)
+        self.btn_del.setGeometry(QtCore.QRect(500, 460, 113, 31))
+        self.btn_del.setObjectName("btn_del")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(parent=MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 888, 21))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 888, 24))
         self.menubar.setObjectName("menubar")
         self.m_file = QtWidgets.QMenu(parent=self.menubar)
         self.m_file.setObjectName("m_file")
@@ -53,10 +56,11 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.btn_notes.setText(_translate("MainWindow", " измененить"))
+        self.btn_notes.setText(_translate("MainWindow", "добавить"))
         self.btn_save.setText(_translate("MainWindow", "сохранить"))
         self.btn_calendar.setText(_translate("MainWindow", "календарь"))
         self.btn_report.setText(_translate("MainWindow", "отчёт"))
         self.btn_additional.setText(_translate("MainWindow", "дополнительно"))
+        self.btn_del.setText(_translate("MainWindow", "удалить"))
         self.m_file.setTitle(_translate("MainWindow", "файл"))
         self.m_settings.setTitle(_translate("MainWindow", "настройки"))

@@ -1,14 +1,15 @@
 import sys
 from PyQt6 import QtWidgets, QtCore, QtGui
-from PyQt6.QtWidgets import QDialog, QApplication, QTableWidgetItem, QColorDialog, QMessageBox, QMenu
+from PyQt6.QtWidgets import QMainWindow, QDialog, QApplication, QTableWidgetItem, QColorDialog, QMessageBox, QMenu
 from PyQt6.QtCore import QPropertyAnimation, QEasingCurve, QPoint, QTimer, QThread, QObject, Qt, QDate
 from PyQt6.QtGui import QColor, QAction
 
 # окна
 import mainUI
-import editUI
+import editDialogUI
 import saveDialogUI
 import createDialogUI
+import deleteDialogUI
 
 #прочее
 import sqlite3
@@ -44,9 +45,8 @@ class ReadThread(QtCore.QThread):
                 # row, column
                 cursor.execute(f"SELECT rowAndColumn FROM {self.tableName} WHERE ROWID = ?", (index,))
                 rowAndColumnTemp = cursor.fetchone()
-                print(rowAndColumnTemp)
 
-                if rowAndColumnTemp != None:
+                if rowAndColumnTemp != (None,):
 
                     rowAndColumn = ""
                     for i in rowAndColumnTemp:
@@ -60,22 +60,34 @@ class ReadThread(QtCore.QThread):
                     cursor.execute(f"SELECT notes FROM {self.tableName} WHERE ROWID = ?", (index,))
                     notesTemp = cursor.fetchone()
 
-                    notes = ""
-                    for i in notesTemp:
-                        notes += str(i)
+                    if notesTemp != (None,):
+
+                        notes = ""
+                        for i in notesTemp:
+                            notes += str(i)
+
+                    else:
+                        notes = None
 
                     # color
                     cursor.execute(f"SELECT color FROM {self.tableName} WHERE ROWID = ?", (index,))
                     colorTemp = cursor.fetchone()
 
-                    color = ""
-                    for i in colorTemp:
-                        color += str(i)
+                    if colorTemp != (None,):
 
-                    color = color.split(":")
-                    red = int(color[0])
-                    green = int(color[1])
-                    blue = int(color[2])
+                        color = ""
+                        for i in colorTemp:
+                            color += str(i)
+
+                        color = color.split(":")
+                        red = int(color[0])
+                        green = int(color[1])
+                        blue = int(color[2])
+
+                    else:
+                        red = None
+                        green = None
+                        blue = None
 
                     self.s_data.emit(row, column, red, green, blue, notes)   
 
@@ -136,14 +148,42 @@ class SaveThread(QtCore.QThread):
                     
                     connect.commit()
 
+                else:
+
+                    rowAndColumn = f"{row}:{column}"
+
+                    cursor.execute(f"SELECT rowAndColumn FROM {self.tableName} WHERE rowAndColumn = ?",
+                        (rowAndColumn,))
+                    
+                    dbRowAndColumn = cursor.fetchone()
+
+                    if dbRowAndColumn is None:       
+                        cursor.execute(f"INSERT INTO {self.tableName}(rowAndColumn, notes, color) VALUES(?, ?, ?);",
+                            (rowAndColumn, None, None) )
+
+                        self.s_update.emit('upd')
+
+                    else:
+                        cursor.execute(f"UPDATE {self.tableName} SET notes = ? WHERE rowAndColumn = ?",
+                            (None, rowAndColumn))
+
+                        cursor.execute(f"UPDATE {self.tableName} SET color = ? WHERE rowAndColumn = ?", 
+                            (None, rowAndColumn))
+
+                        self.s_update.emit('upd')
+                    
+                    connect.commit()
+
         connect.close()
         self.s_update.emit('cls')
 
 
-class SaveDialog(QtWidgets.QDialog, saveDialogUI.Ui_Dialog):
+class SaveDialog(QDialog, saveDialogUI.Ui_Dialog):
     def __init__(self):
         super(SaveDialog, self).__init__()
         self.setupUi(self)
+
+        self.setWindowTitle("Сохранение")
 
     def setRange(self, range_):
         self.pb_save.setRange(0, range_)
@@ -152,12 +192,14 @@ class SaveDialog(QtWidgets.QDialog, saveDialogUI.Ui_Dialog):
         self.pb_save.setValue(self.pb_save.value() + 1)
 
 
-class CreateDialog(QtWidgets.QDialog, createDialogUI.Ui_Dialog):
+class CreateDialog(QDialog, createDialogUI.Ui_Dialog):
     s_tableName = QtCore.pyqtSignal(str)
 
     def __init__(self):
         super(CreateDialog, self).__init__()
         self.setupUi(self)
+
+        self.setWindowTitle("Создать новую таблицу")
 
         self.btn_create.clicked.connect(self.emitName)
 
@@ -177,7 +219,125 @@ class CreateDialog(QtWidgets.QDialog, createDialogUI.Ui_Dialog):
         ret = msg.exec()
 
 
-class MainWindow(QtWidgets.QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor):
+class EditDialog(QDialog, editDialogUI.Ui_Dialog):
+    # row, column, color(r, g, b), note
+    s_info = QtCore.pyqtSignal(int, int, int, int, int, str)
+
+    def __init__(self):
+        super(EditDialog, self).__init__()
+        self.setupUi(self)
+
+        self.setWindowTitle("Редактирование")
+ 
+        self.date_in.setDate(QDate.currentDate())
+        self.date_out.setDate(QDate.currentDate())
+
+        self.btn_color.clicked.connect(self.colorDialog)
+        self.btn_save.clicked.connect(self.save)
+        
+        self.color = None
+        self.notes = None
+
+    def colorDialog(self):
+        self.color = QColorDialog.getColor()
+        print(self.color)
+
+    def save(self):
+        notes = self.te_notes.toPlainText()
+        timeIn = self.time_in.time().toString(Qt.DateFormat.ISODate)
+        timeOut = self.time_out.time().toString(Qt.DateFormat.ISODate)
+
+        notes = f"Заезд: {timeIn}\nВыезд: {timeOut}\n\n{notes}"
+
+        dayOut = self.date_out.date().dayOfYear()
+        monthCount = self.date_in.date()
+        day = self.date_in.date().day()
+        curDay = self.date_in.date()
+        addedMonths = 0
+        addedDays = 0
+
+        workie = True
+
+        while workie:
+
+            if curDay.dayOfYear() <= dayOut:
+
+                if day <= monthCount.daysInMonth():
+                    month = monthCount.month()
+
+                    if self.color != None:
+                        red, green, blue, _ = self.color.getRgb()
+                    else:
+                        red, green, blue = (100,100,150)
+
+                    self.s_info.emit(month -1 ,day -1, red, green, blue, notes)
+                    day += 1
+                    addedDays += 1
+                    curDay = self.date_in.date().addDays(addedDays) 
+
+                else:
+                    day = 1
+                    addedMonths += 1
+                    monthCount = self.date_in.date().addMonths(addedMonths)
+
+            else:
+                monthCount = self.date_in.date()
+                day = self.date_in.date().day()
+                curDay = self.date_in.date()
+                addedMonths = 0
+                addedDays = 0
+                workie = False
+
+
+class DeleteDialog(QDialog, deleteDialogUI.Ui_Dialog):
+    s_cords = QtCore.pyqtSignal(int, int)
+
+    def __init__(self):
+        super(DeleteDialog, self).__init__()
+        self.setupUi(self)
+
+        self.date_in.setDate(QDate.currentDate())
+        self.date_out.setDate(QDate.currentDate())
+
+        self.btn_cancel.clicked.connect(lambda: self.close())
+        self.btn_del.clicked.connect(self.delete)
+
+    def delete(self):
+        dayOut = self.date_out.date().dayOfYear()
+        monthCount = self.date_in.date()
+        day = self.date_in.date().day()
+        curDay = self.date_in.date()
+        addedMonths = 0
+        addedDays = 0
+
+        workie = True
+
+        while workie:
+
+            if curDay.dayOfYear() <= dayOut:
+
+                if day <= monthCount.daysInMonth():
+                    month = monthCount.month()
+                    self.s_cords.emit(month -1 ,day -1)
+                    day += 1
+                    addedDays += 1
+                    curDay = self.date_in.date().addDays(addedDays) 
+
+                else:
+                    day = 1
+                    addedMonths += 1
+                    monthCount = self.date_in.date().addMonths(addedMonths)
+
+            else:
+                monthCount = self.date_in.date()
+                day = self.date_in.date().day()
+                curDay = self.date_in.date()
+                addedMonths = 0
+                addedDays = 0
+                workie = False
+
+
+class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor):
     def __init__(self):
         super(MainWindow, self).__init__()
         self.setupUi(self)
@@ -202,14 +362,18 @@ class MainWindow(QtWidgets.QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor):
 
         self.tableName = "DefaultTable"
 
-        self.tw_table.cellClicked.connect(lambda: self.editWindow.show())
-        # self.tw_table.cellDoubleClicked.connect(self.clearCell)
+        self.tw_table.cellClicked.connect(lambda: self.editDialog.show())
+        self.tw_table.cellDoubleClicked.connect(lambda: self.deleteDialog.show())
 
-        self.btn_notes.clicked.connect(lambda: self.editWindow.show())
+        self.btn_notes.clicked.connect(lambda: self.editDialog.show())
         self.btn_save.clicked.connect(self.save)
+        self.btn_del.clicked.connect(lambda: self.deleteDialog.show())
 
-        self.editWindow = EditWindow()
-        self.editWindow.mainInfo.connect(self.write)
+        self.editDialog = EditDialog()
+        self.editDialog.s_info.connect(self.write)
+
+        self.deleteDialog = DeleteDialog()
+        self.deleteDialog.s_cords.connect(self.clear)
 
         self.readThread = ReadThread()
         self.readThread.s_data.connect(self.write)
@@ -221,6 +385,8 @@ class MainWindow(QtWidgets.QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor):
         self.createDialog.s_tableName.connect(self.createTable)
 
         self.saveDialog = SaveDialog()
+
+        self.read()
 
     def setTable(self):
 
@@ -247,10 +413,15 @@ class MainWindow(QtWidgets.QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor):
             self.name = QAction(str(item), self)
             self.changeMenu.addAction(self.name)
             self.name.triggered.connect(lambda: tableChange(item))
-            print(name)
 
         def tableChange(name):
             self.tableName = str(name)
+
+            # чистка таблицы
+            self.tw_table.setRowCount(0)
+            self.tw_table.setColumnCount(0)
+            self.setTable()
+
             self.read()
 
         connect = sqlite3.connect("d.db")
@@ -312,78 +483,17 @@ class MainWindow(QtWidgets.QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor):
 
     def write(self, row, column, red, green, blue, notes):
         self.tw_table.setItem(row, column, QTableWidgetItem())
-        self.tw_table.item(row, column).setBackground(QtGui.QColor(red,green,blue))
-        self.tw_table.item(row, column).setToolTip(notes)
 
+        if red or green or blue != None:
+            self.tw_table.item(row, column).setBackground(QtGui.QColor(red,green,blue))
 
-class EditWindow(QtWidgets.QMainWindow, editUI.Ui_MainWindow, QDialog):
-    # row, column, color(r, g, b), note
-    mainInfo = QtCore.pyqtSignal(int, int, int, int, int, str)
+        if notes != None:
+            self.tw_table.item(row, column).setToolTip(notes)
 
-    def __init__(self):
-        super(EditWindow, self).__init__()
-        self.setupUi(self)
- 
-        self.date_in.setDate(QDate.currentDate())
-        self.date_out.setDate(QDate.currentDate())
-
-        self.btn_color.clicked.connect(self.colorDialog)
-        self.btn_save.clicked.connect(self.save)
+    def clear(self, row, column):
+        self.tw_table.setItem(row, column, None)
         
-        self.color = None
-        self.notes = None
 
-    def colorDialog(self):
-        self.color = QColorDialog.getColor()
-        print(self.color)
-
-    def save(self):
-        notes = self.te_notes.toPlainText()
-        timeIn = self.time_in.time().toString(Qt.DateFormat.ISODate)
-        timeOut = self.time_out.time().toString(Qt.DateFormat.ISODate)
-
-        notes = f"Заезд: {timeIn}\nВыезд: {timeOut}\n\n{notes}"
-
-        dayOut = self.date_out.date().dayOfYear()
-        monthCount = self.date_in.date()
-        day = self.date_in.date().day()
-        curDay = self.date_in.date()
-        addedMonths = 0
-        addedDays = 0
-
-        workie = True
-
-        while workie:
-
-            if curDay.dayOfYear() <= dayOut:
-
-                if day <= monthCount.daysInMonth():
-                    month = monthCount.month()
-
-                    if self.color != None:
-                        red, green, blue, _ = self.color.getRgb()
-                    else:
-                        red, green, blue = (100,100,150)
-
-                    self.mainInfo.emit(month -1 ,day -1, red, green, blue, notes)
-                    day += 1
-                    addedDays += 1
-                    curDay = self.date_in.date().addDays(addedDays) 
-
-                else:
-                    day = 1
-                    addedMonths += 1
-                    monthCount = self.date_in.date().addMonths(addedMonths)
-
-            else:
-                monthCount = self.date_in.date()
-                day = self.date_in.date().day()
-                curDay = self.date_in.date()
-                addedMonths = 0
-                addedDays = 0
-                workie = False
-
-        
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     m = MainWindow()

@@ -27,14 +27,14 @@
    <widget class="QPushButton" name="btn_notes">
     <property name="geometry">
      <rect>
-      <x>580</x>
+      <x>620</x>
       <y>460</y>
-      <width>161</width>
+      <width>121</width>
       <height>31</height>
      </rect>
     </property>
     <property name="text">
-     <string> измененить</string>
+     <string>добавить</string>
     </property>
    </widget>
    <widget class="QPushButton" name="btn_save">
@@ -89,6 +89,19 @@
      <string>дополнительно</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="btn_del">
+    <property name="geometry">
+     <rect>
+      <x>500</x>
+      <y>460</y>
+      <width>113</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>удалить</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -96,7 +109,7 @@
      <x>0</x>
      <y>0</y>
      <width>888</width>
-     <height>21</height>
+     <height>24</height>
     </rect>
    </property>
    <widget class="QMenu" name="m_file">
