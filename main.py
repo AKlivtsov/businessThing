@@ -10,12 +10,13 @@ import editDialogUI
 import saveDialogUI
 import createDialogUI
 import deleteDialogUI
+import reportDialogUI
 
 #прочее
 import sqlite3
 
 
-class ReadThread(QtCore.QThread):
+class ReadThread(QThread):
     # row, column, color(r, g, b), note
     s_data = QtCore.pyqtSignal(int, int, int, int, int, str)
 
@@ -92,7 +93,7 @@ class ReadThread(QtCore.QThread):
                     self.s_data.emit(row, column, red, green, blue, notes)   
 
 
-class SaveThread(QtCore.QThread):
+class SaveThread(QThread):
     s_update = QtCore.pyqtSignal(str)
 
     def  __init__(self):
@@ -312,6 +313,8 @@ class DeleteDialog(QDialog, deleteDialogUI.Ui_Dialog):
         super(DeleteDialog, self).__init__()
         self.setupUi(self)
 
+        self.setWindowTitle("Редактирование")
+
         self.date_in.setDate(QDate.currentDate())
         self.date_out.setDate(QDate.currentDate())
 
@@ -353,6 +356,35 @@ class DeleteDialog(QDialog, deleteDialogUI.Ui_Dialog):
                 workie = False
 
 
+class ReportDialog(QDialog, reportDialogUI.Ui_Dialog):
+    def __init__(self):
+        super(ReportDialog, self).__init__()
+        self.setupUi(self)
+
+        self.setWindowTitle("Отчёт")
+
+        self.calTable = None
+
+        self.btn_close.clicked.connect(lambda: self.close())
+
+        self.setTable()
+
+    def setCalTable(self, table):
+        self.calTable = table
+
+    def setTable(self):
+        #self.tw_reportTable.setColumnCount(11)
+        self.tw_reportTable.setRowCount(2)
+        self.tw_reportTable.setSpan(0, 4, 1, 6)
+
+        HeaderTyple = (
+            'Период аренды', 'Кол-во суток','Стоимость',
+            'Сумма','Оплата'
+            )
+        
+        self.tw_reportTable.setHorizontalHeaderLabels(HeaderTyple)
+
+
 class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor):
     def __init__(self):
         super(MainWindow, self).__init__()
@@ -378,12 +410,13 @@ class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor):
 
         self.tableName = "DefaultTable"
 
-        self.tw_table.cellClicked.connect(lambda: self.editDialog.show())
         self.tw_table.cellDoubleClicked.connect(lambda: self.deleteDialog.show())
+        self.tw_table.cellClicked.connect(lambda: self.editDialog.show())
 
+        self.btn_report.clicked.connect(lambda: self.reportDialog.show())
         self.btn_notes.clicked.connect(lambda: self.editDialog.show())
-        self.btn_save.clicked.connect(self.save)
         self.btn_del.clicked.connect(lambda: self.deleteDialog.show())
+        self.btn_save.clicked.connect(self.save)
 
         self.editDialog = EditDialog()
         self.editDialog.s_info.connect(self.write)
@@ -401,6 +434,7 @@ class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor):
         self.createDialog.s_upd.connect(self.updateTableList)
 
         self.saveDialog = SaveDialog()
+        self.reportDialog = ReportDialog()
 
         self.read()
 
@@ -494,8 +528,31 @@ class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor):
             self.tw_table.item(row, column).setToolTip(notes)
 
     def clear(self, row, column):
+
         self.tw_table.setItem(row, column, None)
         
+    """
+    Report table
+
+    def cleaningForReport(self):
+        self.tw_table.setColumnCount(0)
+        self.tw_table.setRowCount(0)
+        self.tw_table.setSpan(0, 4, 1, 6)
+
+        self.setTableReport()
+
+
+    def setTableReport(self):
+        self.tw_table.setColumnCount(11)
+        self.tw_table.setRowCount(2)
+
+        HeaderTyple = (
+            'Период аренды', 'Кол-во суток','Стоимость',
+            'Сумма','Оплата'
+            )
+        
+        self.tw_table.setHorizontalHeaderLabels(HeaderTyple)
+    """
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
