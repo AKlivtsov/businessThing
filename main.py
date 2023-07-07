@@ -193,7 +193,7 @@ class SaveDialog(QDialog, saveDialogUI.Ui_Dialog):
 
 
 class CreateDialog(QDialog, createDialogUI.Ui_Dialog):
-    s_tableName = QtCore.pyqtSignal(str)
+    s_upd = QtCore.pyqtSignal()
 
     def __init__(self):
         super(CreateDialog, self).__init__()
@@ -204,16 +204,33 @@ class CreateDialog(QDialog, createDialogUI.Ui_Dialog):
         self.btn_create.clicked.connect(self.emitName)
 
     def emitName(self):
+        connect = sqlite3.connect("d.db")
+        cursor = connect.cursor()
+
         name = self.le_name.text()
 
         if name != '':
-            self.s_tableName.emit(name)
-            self.close()
-        else:
-            self.alert()
+            try:
+                cursor.execute(f"""CREATE TABLE {name} (
+                    rowAndColumn TEXT UNIQUE,
+                    notes        TEXT,
+                    color        TEXT
+                    );""")
 
-    def alert(self):
-        msg = QMessageBox(text="Вы не ввели имя таблицы!",parent=self)
+                connect.commit()
+                connect.close()
+
+                self.s_upd.emit()
+                self.close()
+
+            except sqlite3.OperationalError:
+                self.alert("Данная таблица уже существует!")
+
+        else:
+            self.alert("Вы не ввели имя таблицы!")
+
+    def alert(self, text):
+        msg = QMessageBox(text=text,parent=self)
         msg.setStandardButtons(QMessageBox.StandardButton.Ok)
         msg.setIcon(QMessageBox.Icon.Critical)
         ret = msg.exec()
@@ -240,7 +257,6 @@ class EditDialog(QDialog, editDialogUI.Ui_Dialog):
 
     def colorDialog(self):
         self.color = QColorDialog.getColor()
-        print(self.color)
 
     def save(self):
         notes = self.te_notes.toPlainText()
@@ -382,7 +398,7 @@ class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor):
         self.saveThread.s_update.connect(self.savingDialog)
 
         self.createDialog = CreateDialog()
-        self.createDialog.s_tableName.connect(self.createTable)
+        self.createDialog.s_upd.connect(self.updateTableList)
 
         self.saveDialog = SaveDialog()
 
@@ -446,20 +462,7 @@ class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor):
 
         indexCount = 0
 
-    def createTable(self, name):
-
-        connect = sqlite3.connect("d.db")
-        cursor = connect.cursor()
-
-        cursor.execute(f"""CREATE TABLE {name} (
-            rowAndColumn TEXT UNIQUE,
-            notes        TEXT,
-            color        TEXT
-            );""")
-
-        connect.commit()
-        connect.close()
-
+    def updateTableList(self):
         self.changeMenu.clear()
         self.fetchTables()
 
