@@ -375,17 +375,18 @@ class ReportDialog(QDialog, reportDialogUI.Ui_Dialog):
     def setTable(self):
 
         def defaultWrite(row, column, text):
-
-            # TODO: запретить изменение ячейки 
-            item = QTableWidgetItem()
-            item.setFlags(ItemIsEnabled)
-            self.tw_reportTable.setItem(row, column, item)
+            self.tw_reportTable.setItem(row, column, QTableWidgetItem())
             self.tw_reportTable.item(row, column).setText(text)
+            self.tw_reportTable.item(row, column).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
 
         self.tw_reportTable.verticalHeader().setVisible(False)
         self.tw_reportTable.horizontalHeader().setVisible(False)
         self.tw_reportTable.setColumnCount(10)
         self.tw_reportTable.setRowCount(2)
+
+        for i in range(4):
+            self.tw_reportTable.setSpan(0, i, 2, 1)
+
         self.tw_reportTable.setSpan(0, 4, 1, 6)
 
         defaultWrite(0,0,'Период аренды')
@@ -393,6 +394,12 @@ class ReportDialog(QDialog, reportDialogUI.Ui_Dialog):
         defaultWrite(0,2,'Стоимость')
         defaultWrite(0,3,'Сумма')
         defaultWrite(0,4,'Оплата')
+        defaultWrite(1,4,'Бронь')
+        defaultWrite(1,5,'Гость')
+        defaultWrite(1,6,'Авито')
+        defaultWrite(1,7,'Расход')
+        defaultWrite(1,8,'Показания')
+        defaultWrite(1,9,'Доход')
 
 class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor):
     def __init__(self):
