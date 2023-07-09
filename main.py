@@ -13,7 +13,9 @@ import deleteDialogUI
 import reportDialogUI
 
 #прочее
+from memory_profiler import profile      # Use @profile before method or func to check memory consumption
 import sqlite3
+import time
 
 
 class ReadThread(QThread):
@@ -61,6 +63,8 @@ class ReadThread(QThread):
                     cursor.execute(f"SELECT notes FROM {self.tableName} WHERE ROWID = ?", (index,))
                     notesTemp = cursor.fetchone()
 
+                    print(notesTemp)
+
                     if notesTemp != (None,):
 
                         notes = ""
@@ -73,6 +77,8 @@ class ReadThread(QThread):
                     # color
                     cursor.execute(f"SELECT color FROM {self.tableName} WHERE ROWID = ?", (index,))
                     colorTemp = cursor.fetchone()
+
+                    print(colorTemp)
 
                     if colorTemp != (None,):
 
@@ -136,6 +142,7 @@ class SaveThread(QThread):
                         cursor.execute(f"INSERT INTO {self.tableName}(rowAndColumn, notes, color) VALUES(?, ?, ?);",
                             (rowAndColumn, note, color) )
 
+                        connect.commit()
                         self.s_update.emit('upd')
 
                     else:
@@ -145,9 +152,8 @@ class SaveThread(QThread):
                         cursor.execute(f"UPDATE {self.tableName} SET color = ? WHERE rowAndColumn = ?", 
                             (color, rowAndColumn))
 
+                        connect.commit()
                         self.s_update.emit('upd')
-                    
-                    connect.commit()
 
                 else:
 
@@ -160,8 +166,9 @@ class SaveThread(QThread):
 
                     if dbRowAndColumn is None:       
                         cursor.execute(f"INSERT INTO {self.tableName}(rowAndColumn, notes, color) VALUES(?, ?, ?);",
-                            (rowAndColumn, None, None) )
+                            (None, None, None) )
 
+                        connect.commit()
                         self.s_update.emit('upd')
 
                     else:
@@ -171,9 +178,8 @@ class SaveThread(QThread):
                         cursor.execute(f"UPDATE {self.tableName} SET color = ? WHERE rowAndColumn = ?", 
                             (None, rowAndColumn))
 
+                        connect.commit()
                         self.s_update.emit('upd')
-                    
-                    connect.commit()
 
         connect.close()
         self.s_update.emit('cls')
@@ -215,7 +221,7 @@ class CreateDialog(QDialog, createDialogUI.Ui_Dialog):
                 cursor.execute(f"""CREATE TABLE {name} (
                     rowAndColumn TEXT UNIQUE,
                     notes        TEXT,
-                    color        TEXT
+                    color        TEXT,
                     );""")
 
                 connect.commit()
@@ -364,13 +370,19 @@ class ReportDialog(QDialog, reportDialogUI.Ui_Dialog):
         self.setWindowTitle("Отчёт")
 
         self.calTable = None
+        self.tableName = None
 
+        self.colorVariations = []
+        
         self.btn_close.clicked.connect(lambda: self.close())
 
+    def start(self):
         self.setTable()
+        self.write()
 
-    def setCalTable(self, table):
-        self.calTable = table
+    def setCalAndDBTables(self, calTable, tableName):
+        self.calTable = calTable
+        self.tableName = tableName
 
     def setTable(self):
 
@@ -389,17 +401,76 @@ class ReportDialog(QDialog, reportDialogUI.Ui_Dialog):
 
         self.tw_reportTable.setSpan(0, 4, 1, 6)
 
-        defaultWrite(0,0,'Период аренды')
-        defaultWrite(0,1,'Кол-во суток')
-        defaultWrite(0,2,'Стоимость')
-        defaultWrite(0,3,'Сумма')
-        defaultWrite(0,4,'Оплата')
-        defaultWrite(1,4,'Бронь')
-        defaultWrite(1,5,'Гость')
-        defaultWrite(1,6,'Авито')
-        defaultWrite(1,7,'Расход')
-        defaultWrite(1,8,'Показания')
-        defaultWrite(1,9,'Доход')
+        names = ('Период аренды','Кол-во суток','Стоимость',
+            'Сумма','Оплата','Бронь','Гость','Авито','Расход',
+            'Показания','Доход')
+
+        row = 0
+        column = 0 
+        i = 0
+
+        while column < 10:
+            
+            if column == 4: 
+                defaultWrite(row, column, names[i]) 
+                defaultWrite(row + 1, column, names[i + 1])
+                row = 1 
+                i += 1
+
+            else:
+                defaultWrite(row, column, names[i])
+
+            column += 1
+            i += 1
+
+    def write(self):
+
+        start = time.time()
+
+        for column in range(self.calTable.columnCount()):
+
+            for row in range(self.calTable.rowCount()): 
+                cell = self.calTable.item(row, column)
+
+                if cell:
+
+                    red, green, blue, _ = cell.background().color().getRgb()
+                    color = f"{red}:{green}:{blue}"
+
+                    if color != None:
+                        self.colorVariations.append(color)
+                        self.colorVariations.sort()
+                    
+                        self.colorVariations = list(dict.fromkeys(self.colorVariations))
+        print(self.colorVariations)
+
+        for color in self.colorVariations:
+            connect = sqlite3.connect("d.db")
+            cursor = connect.cursor()
+
+            cursor.execute(f"""SELECT rowAndColumn FROM {self.tableName} WHERE color = '{color}'""")
+            DBcords = cursor.fetchall()
+            DBcords.sort()
+
+            index = 0
+            for item in DBcords:
+
+                cords = ""
+                for i in item:
+                    cords += str(i)
+
+                DBcords[index] = cords
+                index += 1
+                            
+        print(DBcords)
+        minDate = DBcords[0]
+        maxDate = DBcords[-1]
+        print(minDate)
+        print(maxDate)
+
+        end = time.time()
+        print("The time is :", (end-start) * 10**3, "ms")
+
 
 class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor):
     def __init__(self):
@@ -428,7 +499,7 @@ class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor):
         self.tw_table.cellDoubleClicked.connect(lambda: self.deleteDialog.show())
         self.tw_table.cellClicked.connect(lambda: self.editDialog.show())
 
-        self.btn_report.clicked.connect(lambda: self.reportDialog.show())
+        self.btn_report.clicked.connect(self.report)
         self.btn_notes.clicked.connect(lambda: self.editDialog.show())
         self.btn_del.clicked.connect(lambda: self.deleteDialog.show())
         self.btn_save.clicked.connect(self.save)
@@ -515,6 +586,12 @@ class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor):
         self.changeMenu.clear()
         self.fetchTables()
 
+    def savingDialog(self, msg):
+        if msg == 'upd':
+            self.saveDialog.add()
+        else:
+            self.saveDialog.close()
+
     def save(self):
         self.saveDialog.show()
         self.saveDialog.setRange(self.tw_table.columnCount() * self.tw_table.rowCount())
@@ -522,12 +599,6 @@ class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor):
         self.saveThread.setTableName(self.tableName)
         self.saveThread.setTable(self.tw_table)
         self.saveThread.start()
-
-    def savingDialog(self, msg):
-        if msg == 'upd':
-            self.saveDialog.add()
-        else:
-            self.saveDialog.close()
     
     def read(self):
         self.readThread.setTableName(self.tableName)
@@ -545,6 +616,12 @@ class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor):
     def clear(self, row, column):
 
         self.tw_table.setItem(row, column, None)
+
+    def report(self):
+        self.reportDialog.setCalAndDBTables(self.tw_table, self.tableName)
+        self.reportDialog.start()
+        self.reportDialog.show()
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
