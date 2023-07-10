@@ -49,7 +49,7 @@ class ReadThread(QThread):
                 cursor.execute(f"SELECT day FROM {self.tableName} WHERE ROWID = ?", (index,))
                 column = cursor.fetchone()
 
-                if column != (None,):
+                if column != None:
 
                     columnTemp = ""
                     for i in column:
@@ -358,7 +358,7 @@ class DeleteDialog(QDialog, deleteDialogUI.Ui_Dialog):
                 workie = False
 
 
-class ReportDialog(QDialog, reportDialogUI.Ui_Dialog):
+class ReportDialog(QDialog, reportDialogUI.Ui_Dialog, QDate):
     def __init__(self):
         super(ReportDialog, self).__init__()
         self.setupUi(self)
@@ -372,7 +372,7 @@ class ReportDialog(QDialog, reportDialogUI.Ui_Dialog):
 
     def start(self):
         self.setTable()
-        self.fetchDates()
+        self.insertData()
 
     def set(self, calTable, tableName):
         self.calTable = calTable
@@ -417,8 +417,9 @@ class ReportDialog(QDialog, reportDialogUI.Ui_Dialog):
             column += 1
             i += 1
 
-    def fetchDates(self):
+    def insertData(self):
 
+        # fetching dates 
         self.colorVariations = []
 
         for column in range(self.calTable.columnCount()):
@@ -485,6 +486,7 @@ class ReportDialog(QDialog, reportDialogUI.Ui_Dialog):
             maxMonth = DBmonth[-1] + 1
 
             self.drawDates(minDay, minMonth, maxDay, maxMonth)
+            self.drawDays(minDay, minMonth, maxDay, maxMonth)
 
     def drawDates(self, minDay, minMonth, maxDay, maxMonth):
 
@@ -505,8 +507,14 @@ class ReportDialog(QDialog, reportDialogUI.Ui_Dialog):
         write(row, 0, text)
 
     # Дописать
-    def drawDays(self):
-        pass
+    def drawDays(self, minDay, minMonth, maxDay, maxMonth):
+        
+        curYear = QDate().currentDate().year()
+
+        minDate = QDate()
+
+        minDate.setDate(minDay, minMonth, curYear)
+        print(minDate.day())
 
 
 class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor):
@@ -592,7 +600,7 @@ class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor):
 
             # чистка таблицы
             self.tw_table.setRowCount(0)
-            self.tw_table.setColumnCount(0)ы
+            self.tw_table.setColumnCount(0)
             self.setTable()
 
             self.read()
