@@ -45,25 +45,28 @@ class ReadThread(QThread):
         for index in range(count):
             if index != 0:
 
-                # row, column
-                cursor.execute(f"SELECT rowAndColumn FROM {self.tableName} WHERE ROWID = ?", (index,))
-                rowAndColumnTemp = cursor.fetchone()
+                # column
+                cursor.execute(f"SELECT day FROM {self.tableName} WHERE ROWID = ?", (index,))
+                column = cursor.fetchone()
 
-                if rowAndColumnTemp != (None,):
+                if column != (None,):
 
-                    rowAndColumn = ""
-                    for i in rowAndColumnTemp:
-                        rowAndColumn += str(i)
+                    columnTemp = ""
+                    for i in column:
+                        columnTemp += str(i)
+                    column = int(columnTemp)
 
-                    rowAndColumn = rowAndColumn.split(":")
-                    row = int(rowAndColumn[0])
-                    column = int(rowAndColumn[1])
+                    cursor.execute(f"SELECT month FROM {self.tableName} WHERE ROWID = ?", (index,))
+                    row = cursor.fetchone()
+
+                    rowTemp = ""
+                    for i in row:
+                        rowTemp += str(i)
+                    row = int(rowTemp)
 
                     # notes
                     cursor.execute(f"SELECT notes FROM {self.tableName} WHERE ROWID = ?", (index,))
                     notesTemp = cursor.fetchone()
-
-                    print(notesTemp)
 
                     if notesTemp != (None,):
 
@@ -77,8 +80,6 @@ class ReadThread(QThread):
                     # color
                     cursor.execute(f"SELECT color FROM {self.tableName} WHERE ROWID = ?", (index,))
                     colorTemp = cursor.fetchone()
-
-                    print(colorTemp)
 
                     if colorTemp != (None,):
 
@@ -138,9 +139,9 @@ class SaveThread(QThread):
                     
                     dbRowAndColumn = cursor.fetchone()
 
-                    if dbRowAndColumn is None:       
-                        cursor.execute(f"INSERT INTO {self.tableName}(rowAndColumn, notes, color) VALUES(?, ?, ?);",
-                            (rowAndColumn, note, color) )
+                    if dbRowAndColumn == None:       
+                        cursor.execute(f"INSERT INTO {self.tableName}(rowAndColumn, notes, color, day, month) VALUES(?, ?, ?, ?, ?);",
+                            (rowAndColumn, note, color, column, row) )
 
                         connect.commit()
                         self.s_update.emit('upd')
@@ -151,6 +152,12 @@ class SaveThread(QThread):
 
                         cursor.execute(f"UPDATE {self.tableName} SET color = ? WHERE rowAndColumn = ?", 
                             (color, rowAndColumn))
+
+                        cursor.execute(f"UPDATE {self.tableName} SET day = ? WHERE rowAndColumn = ?", 
+                            (column, rowAndColumn))
+
+                        cursor.execute(f"UPDATE {self.tableName} SET month = ? WHERE rowAndColumn = ?", 
+                            (row, rowAndColumn))
 
                         connect.commit()
                         self.s_update.emit('upd')
@@ -164,22 +171,9 @@ class SaveThread(QThread):
                     
                     dbRowAndColumn = cursor.fetchone()
 
-                    if dbRowAndColumn is None:       
-                        cursor.execute(f"INSERT INTO {self.tableName}(rowAndColumn, notes, color) VALUES(?, ?, ?);",
-                            (None, None, None) )
-
-                        connect.commit()
-                        self.s_update.emit('upd')
-
-                    else:
-                        cursor.execute(f"UPDATE {self.tableName} SET notes = ? WHERE rowAndColumn = ?",
-                            (None, rowAndColumn))
-
-                        cursor.execute(f"UPDATE {self.tableName} SET color = ? WHERE rowAndColumn = ?", 
-                            (None, rowAndColumn))
-
-                        connect.commit()
-                        self.s_update.emit('upd')
+                    if dbRowAndColumn != None:
+                        cursor.execute(f"DELETE FROM {self.tableName} WHERE rowAndColumn = ?",
+                        (rowAndColumn,))
 
         connect.close()
         self.s_update.emit('cls')
@@ -219,9 +213,11 @@ class CreateDialog(QDialog, createDialogUI.Ui_Dialog):
         if name != '':
             try:
                 cursor.execute(f"""CREATE TABLE {name} (
-                    rowAndColumn TEXT UNIQUE,
+                    rowAndColumn TEXT    UNIQUE,
                     notes        TEXT,
                     color        TEXT,
+                    day          INTEGER,
+                    month        INTEGER
                     );""")
 
                 connect.commit()
@@ -371,16 +367,14 @@ class ReportDialog(QDialog, reportDialogUI.Ui_Dialog):
 
         self.calTable = None
         self.tableName = None
-
-        self.colorVariations = []
         
         self.btn_close.clicked.connect(lambda: self.close())
 
     def start(self):
         self.setTable()
-        self.write()
+        self.fetchDates()
 
-    def setCalAndDBTables(self, calTable, tableName):
+    def set(self, calTable, tableName):
         self.calTable = calTable
         self.tableName = tableName
 
@@ -423,9 +417,9 @@ class ReportDialog(QDialog, reportDialogUI.Ui_Dialog):
             column += 1
             i += 1
 
-    def write(self):
+    def fetchDates(self):
 
-        start = time.time()
+        self.colorVariations = []
 
         for column in range(self.calTable.columnCount()):
 
@@ -442,34 +436,77 @@ class ReportDialog(QDialog, reportDialogUI.Ui_Dialog):
                         self.colorVariations.sort()
                     
                         self.colorVariations = list(dict.fromkeys(self.colorVariations))
-        print(self.colorVariations)
 
         for color in self.colorVariations:
             connect = sqlite3.connect("d.db")
             cursor = connect.cursor()
 
-            cursor.execute(f"""SELECT rowAndColumn FROM {self.tableName} WHERE color = '{color}'""")
-            DBcords = cursor.fetchall()
-            DBcords.sort()
+            cursor.execute(f"""SELECT month FROM {self.tableName} WHERE color = '{color}'""")
+            DBmonth = cursor.fetchall()
+            DBmonth.sort()
 
             index = 0
-            for item in DBcords:
+            for item in DBmonth:
 
-                cords = ""
+                monthTemp = ""
                 for i in item:
-                    cords += str(i)
+                    monthTemp += str(i)
+                month = int(monthTemp)
 
-                DBcords[index] = cords
+                DBmonth[index] = month 
                 index += 1
-                            
-        print(DBcords)
-        minDate = DBcords[0]
-        maxDate = DBcords[-1]
-        print(minDate)
-        print(maxDate)
 
-        end = time.time()
-        print("The time is :", (end-start) * 10**3, "ms")
+            DBmonth = list(dict.fromkeys(DBmonth))
+
+            dayList = []
+
+
+            for month in DBmonth:
+                cursor.execute(f"""SELECT day FROM {self.tableName} WHERE month = {month} AND color = '{color}'""")
+                DBday = cursor.fetchall()
+
+                index = 0
+                for item in DBday:
+
+                    dayTemp = ""
+                    for i in item:
+                        dayTemp += str(i)
+                    day = int(dayTemp) + 1
+
+                    DBday[index] = day
+                    index += 1
+
+                dayList.append(DBday)
+
+            minDay = dayList[0][0]
+            maxDay = dayList[-1][-1]
+
+            minMonth = DBmonth[0] + 1
+            maxMonth = DBmonth[-1] + 1
+
+            self.drawDates(minDay, minMonth, maxDay, maxMonth)
+
+    def drawDates(self, minDay, minMonth, maxDay, maxMonth):
+
+        def write(row, column, text):
+            self.tw_reportTable.setItem(row, column, QTableWidgetItem())
+            self.tw_reportTable.item(row, column).setText(text)
+            self.tw_reportTable.item(row, column).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+
+        if self.tw_reportTable.rowCount() - 1 == 1:
+            self.tw_reportTable.setRowCount(3)
+
+        else:
+            self.tw_reportTable.setRowCount(self.tw_reportTable.rowCount() + 1)
+
+        row = self.tw_reportTable.rowCount() - 1 
+        text = f"{minDay}.{minMonth} - {maxDay}.{maxMonth}"
+
+        write(row, 0, text)
+
+    # Дописать
+    def drawDays(self):
+        pass
 
 
 class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor):
@@ -555,7 +592,7 @@ class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor):
 
             # чистка таблицы
             self.tw_table.setRowCount(0)
-            self.tw_table.setColumnCount(0)
+            self.tw_table.setColumnCount(0)ы
             self.setTable()
 
             self.read()
@@ -614,11 +651,10 @@ class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor):
             self.tw_table.item(row, column).setToolTip(notes)
 
     def clear(self, row, column):
-
         self.tw_table.setItem(row, column, None)
 
     def report(self):
-        self.reportDialog.setCalAndDBTables(self.tw_table, self.tableName)
+        self.reportDialog.set(self.tw_table, self.tableName)
         self.reportDialog.start()
         self.reportDialog.show()
 
