@@ -211,6 +211,8 @@ class CreateDialog(QDialog, createDialogUI.Ui_Dialog):
         name = self.le_name.text()
 
         if name != '':
+            reportName = '_' + name
+
             try:
                 cursor.execute(f"""CREATE TABLE {name} (
                     rowAndColumn TEXT    UNIQUE,
@@ -220,6 +222,10 @@ class CreateDialog(QDialog, createDialogUI.Ui_Dialog):
                     month        INTEGER
                     );""")
 
+                cursor.execute(f"""CREATE TABLE {reportName} (
+                    something TEXT
+                    );""")
+
                 connect.commit()
                 connect.close()
 
@@ -227,14 +233,15 @@ class CreateDialog(QDialog, createDialogUI.Ui_Dialog):
                 self.close()
 
             except sqlite3.OperationalError:
-                self.alert("Данная таблица уже существует!")
+                self.alert("Невозможно создать таблицу с эти именем!", "Возможно, таблица с эти именем уже существет, либо имя содержит недопустимые символы.")
 
         else:
             self.alert("Вы не ввели имя таблицы!")
 
-    def alert(self, text):
+    def alert(self, text, infoText):
         msg = QMessageBox(text=text,parent=self)
         msg.setStandardButtons(QMessageBox.StandardButton.Ok)
+        msg.setInformativeText(infoText)
         msg.setIcon(QMessageBox.Icon.Critical)
         ret = msg.exec()
 
@@ -372,7 +379,9 @@ class ReportDialog(QDialog, reportDialogUI.Ui_Dialog, QDate):
 
     def start(self):
         self.setTable()
-        self.insertData()
+        self.insertDates()
+
+        self.tw_reportTable.cellChanged.connect(self.calculate)
 
     def set(self, calTable, tableName):
         self.calTable = calTable
@@ -417,7 +426,12 @@ class ReportDialog(QDialog, reportDialogUI.Ui_Dialog, QDate):
             column += 1
             i += 1
 
-    def insertData(self):
+    def write(self, row, column, text):
+        self.tw_reportTable.setItem(row, column, QTableWidgetItem())
+        self.tw_reportTable.item(row, column).setText(text)
+        self.tw_reportTable.item(row, column).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+
+    def insertDates(self):
 
         # fetching dates 
         self.colorVariations = []
@@ -485,36 +499,38 @@ class ReportDialog(QDialog, reportDialogUI.Ui_Dialog, QDate):
             minMonth = DBmonth[0] + 1
             maxMonth = DBmonth[-1] + 1
 
-            self.drawDates(minDay, minMonth, maxDay, maxMonth)
-            self.drawDays(minDay, minMonth, maxDay, maxMonth)
+            # insert dates in table
 
-    def drawDates(self, minDay, minMonth, maxDay, maxMonth):
+            if self.tw_reportTable.rowCount() - 1 == 1:
+                self.tw_reportTable.setRowCount(3)
 
-        def write(row, column, text):
-            self.tw_reportTable.setItem(row, column, QTableWidgetItem())
-            self.tw_reportTable.item(row, column).setText(text)
-            self.tw_reportTable.item(row, column).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+            else:
+                self.tw_reportTable.setRowCount(self.tw_reportTable.rowCount() + 1)
 
-        if self.tw_reportTable.rowCount() - 1 == 1:
-            self.tw_reportTable.setRowCount(3)
+            row = self.tw_reportTable.rowCount() - 1 
+            text = f"{minDay}.{minMonth} - {maxDay}.{maxMonth}"
 
-        else:
-            self.tw_reportTable.setRowCount(self.tw_reportTable.rowCount() + 1)
+            self.write(row, 0, text)
 
-        row = self.tw_reportTable.rowCount() - 1 
-        text = f"{minDay}.{minMonth} - {maxDay}.{maxMonth}"
+            # insert days in table
 
-        write(row, 0, text)
+            curYear = QDate().currentDate().year()
+            minDate = QDate(curYear, minMonth, minDay)
+            maxDate = QDate(curYear, maxMonth, maxDay)
+            days = str(maxDate.dayOfYear() - minDate.dayOfYear())
 
-    # Дописать
-    def drawDays(self, minDay, minMonth, maxDay, maxMonth):
-        
-        curYear = QDate().currentDate().year()
+            if days == '0':
+                self.write(row, 1, '1')
+            else:    
+                self.write(row, 1, days)
 
-        minDate = QDate()
+    def calculate(self, row, column):
+        if column == 2:
+            entered = self.tw_reportTable.currentItem().text()
 
-        minDate.setDate(minDay, minMonth, curYear)
-        print(minDate.day())
+            if entered.isdigit():   
+                days = self.tw_reportTable.item(row, 1).text()
+                self.write(row, 3, str(int(entered) * int(days)))
 
 
 class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor):
@@ -620,10 +636,14 @@ class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor):
                 clearItem += str(i)
 
             tableList[indexCount] = clearItem
-            makeAct(f"{tableList[indexCount]}Act", tableList[indexCount])
 
-            self.m_file.addMenu(self.changeMenu)
-            indexCount += 1
+            if '_' in clearItem:
+                indexCount += 1
+
+            else:
+                makeAct(f"{tableList[indexCount]}Act", tableList[indexCount])
+                self.m_file.addMenu(self.changeMenu)
+                indexCount += 1
 
         indexCount = 0
 
