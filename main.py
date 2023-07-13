@@ -179,6 +179,64 @@ class SaveThread(QThread):
         self.s_update.emit('cls')
 
 
+class SaveReportThread(QThread):
+    s_updPB = QtCore.pyqtSignal(str)
+
+    def  __init__(self):
+        QtCore.QThread.__init__(self)
+
+        self.tableName = None
+        self.table = None
+        self.date = None
+
+    def set(self, tableName, table):
+        self.tableName = tableName
+        self.table = table
+
+    def run(self):
+
+        connect = sqlite3.connect("d.db")
+        cursor = connect.cursor()
+
+        for row in range(self.table.rowCount()):
+            for column in range(self.table.columnCount()):
+                cell = self.table.item(row, column)
+
+                if row > 1:
+                    match column:
+
+                        case 0:
+                            self.date = cell.text()
+                            cursor.execute(f"SELECT date FROM {self.tableName} WHERE date = ?", (self.date,))
+                            DBdate = cursor.fetchone()
+
+                            if DBdate == None:       
+                                cursor.execute(f"INSERT INTO {self.tableName}(date) VALUES(?);", (self.date,))
+
+                            connect.commit()
+                            self.s_updPB.emit('upd')
+
+                        case 2:
+                            price = cell.text()
+                            print(f"price: {price}")
+                            cursor.execute(f"UPDATE {self.tableName} SET price = ? WHERE date = ?", 
+                            (price, self.date))
+
+                            connect.commit()
+                            self.s_updPB.emit('upd')
+
+                        case 3:
+                            sum_ = cell.text()
+                            cursor.execute(f"UPDATE {self.tableName} SET sum = ? WHERE date = ?", 
+                            (sum_, self.date))
+
+                            connect.commit()
+                            self.s_updPB.emit('upd')
+
+        connect.close()
+        self.s_updPB.emit('cls')
+
+
 class SaveDialog(QDialog, saveDialogUI.Ui_Dialog):
     def __init__(self):
         super(SaveDialog, self).__init__()
@@ -223,7 +281,15 @@ class CreateDialog(QDialog, createDialogUI.Ui_Dialog):
                     );""")
 
                 cursor.execute(f"""CREATE TABLE {reportName} (
-                    something TEXT
+                        date        TEXT    UNIQUE,
+                        price       INTEGER,
+                        sum         INTEGER,
+                        rent        INTEGER,
+                        guest       INTEGER,
+                        avito       INTEGER,
+                        expense     INTEGER,
+                        indications TEXT,
+                        income      INTEGER                 
                     );""")
 
                 connect.commit()
@@ -233,7 +299,9 @@ class CreateDialog(QDialog, createDialogUI.Ui_Dialog):
                 self.close()
 
             except sqlite3.OperationalError:
-                self.alert("Невозможно создать таблицу с эти именем!", "Возможно, таблица с эти именем уже существет, либо имя содержит недопустимые символы.")
+                self.alert("Невозможно создать таблицу с эти именем!", 
+                    "Возможно, таблица с эти именем уже существет, "+
+                    "либо имя содержит недопустимые символы.")
 
         else:
             self.alert("Вы не ввели имя таблицы!")
@@ -374,8 +442,14 @@ class ReportDialog(QDialog, reportDialogUI.Ui_Dialog, QDate):
 
         self.calTable = None
         self.tableName = None
+
+        self.reportSave = SaveReportThread()
+        self.reportSave.s_updPB.connect(self.saveDialog)
+
+        self.saveDialog = SaveDialog()
         
         self.btn_close.clicked.connect(lambda: self.close())
+        self.btn_save.clicked.connect(self.save)
 
     def start(self):
         self.setTable()
@@ -531,6 +605,20 @@ class ReportDialog(QDialog, reportDialogUI.Ui_Dialog, QDate):
             if entered.isdigit():   
                 days = self.tw_reportTable.item(row, 1).text()
                 self.write(row, 3, str(int(entered) * int(days)))
+
+    def save(self):
+        self.saveDialog.setRange(self.tw_reportTable.rowCount() * self.tw_reportTable.columnCount())
+        self.saveDialog.show()
+
+        saveTable = '_' + self.tableName
+        self.reportSave.set(saveTable, self.tw_reportTable)
+        self.reportSave.start()
+
+    def saveDialog(self, msg):
+        if msg == 'upd':
+            self.saveDialog.add()
+        else:
+            self.saveDialog.close()
 
 
 class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor):
