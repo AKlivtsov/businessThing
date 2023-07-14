@@ -13,7 +13,7 @@ import deleteDialogUI
 import reportDialogUI
 
 #прочее
-from memory_profiler import profile      # Use @profile before method or func to check memory consumption
+from memory_profiler import profile      # Use @profile to check memory consumption
 import sqlite3
 import time
 
@@ -32,6 +32,8 @@ class ReadThread(QThread):
 
     def run(self):
 
+        tiny = 0
+
         connect = sqlite3.connect("d.db")
         cursor = connect.cursor()
 
@@ -48,8 +50,12 @@ class ReadThread(QThread):
                 # column
                 cursor.execute(f"SELECT day FROM {self.tableName} WHERE ROWID = ?", (index,))
                 column = cursor.fetchone()
+                print(column)
 
-                if column != None:
+                if column == None:
+                    pass
+
+                else:
 
                     columnTemp = ""
                     for i in column:
@@ -68,7 +74,7 @@ class ReadThread(QThread):
                     cursor.execute(f"SELECT notes FROM {self.tableName} WHERE ROWID = ?", (index,))
                     notesTemp = cursor.fetchone()
 
-                    if notesTemp != (None,):
+                    if notesTemp != None:
 
                         notes = ""
                         for i in notesTemp:
@@ -81,7 +87,7 @@ class ReadThread(QThread):
                     cursor.execute(f"SELECT color FROM {self.tableName} WHERE ROWID = ?", (index,))
                     colorTemp = cursor.fetchone()
 
-                    if colorTemp != (None,):
+                    if colorTemp != None:
 
                         color = ""
                         for i in colorTemp:
@@ -97,7 +103,11 @@ class ReadThread(QThread):
                         green = None
                         blue = None
 
-                    self.s_data.emit(row, column, red, green, blue, notes)   
+                    self.s_data.emit(row, column, red, green, blue, notes)
+                    tiny += 1   
+
+        print(tiny)
+        print(count)
 
 
 class SaveThread(QThread):
@@ -194,6 +204,13 @@ class SaveReportThread(QThread):
         self.table = table
 
     def run(self):
+        def standartSave(nameInDB):
+            item = cell.text()
+            cursor.execute(f"UPDATE {self.tableName} SET {nameInDB} = ? WHERE date = ?", 
+            (item, self.date))
+
+            connect.commit()
+            self.s_updPB.emit('upd')
 
         connect = sqlite3.connect("d.db")
         cursor = connect.cursor()
@@ -202,7 +219,7 @@ class SaveReportThread(QThread):
             for column in range(self.table.columnCount()):
                 cell = self.table.item(row, column)
 
-                if row > 1:
+                if cell and row > 1:
                     match column:
 
                         case 0:
@@ -217,25 +234,97 @@ class SaveReportThread(QThread):
                             self.s_updPB.emit('upd')
 
                         case 2:
-                            price = cell.text()
-                            print(f"price: {price}")
-                            cursor.execute(f"UPDATE {self.tableName} SET price = ? WHERE date = ?", 
-                            (price, self.date))
-
-                            connect.commit()
-                            self.s_updPB.emit('upd')
+                            standartSave('price')
 
                         case 3:
-                            sum_ = cell.text()
-                            cursor.execute(f"UPDATE {self.tableName} SET sum = ? WHERE date = ?", 
-                            (sum_, self.date))
+                            standartSave('sum')
 
-                            connect.commit()
-                            self.s_updPB.emit('upd')
+                        case 4:
+                            standartSave('rent')
+
+                        case 5:
+                            standartSave('guest')
+
+                        case 6:
+                            standartSave('avito')
+
+                        case 7:
+                            standartSave('expense')
+
+                        case 8:
+                            standartSave('indications')
+
+                        case 9:
+                            standartSave('income')
 
         connect.close()
         self.s_updPB.emit('cls')
 
+
+class ReadReportThread(QThread):
+    def  __init__(self):
+        QtCore.QThread.__init__(self)
+
+        self.tableName = None
+        self.table = None
+        self.date = None
+
+    def set(self, tableName, table):
+        self.tableName = tableName
+        self.table = table
+
+    def run(self):
+        def standartRead(nameInDB, row, column):
+            cursor.execute(f"SELECT {nameInDB} FROM {self.tableName} WHERE date = ?", (self.date,))
+            DBdataTemp = cursor.fetchone()
+
+            if DBdataTemp != None:
+
+                DBdata = ""
+                for i in DBdataTemp:
+                    DBdata += str(i) 
+
+                self.table.setItem(row, column, QTableWidgetItem())
+                self.table.item(row, column).setText(DBdata)
+                self.table.item(row, column).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+
+        connect = sqlite3.connect("d.db")
+        cursor = connect.cursor()
+
+        for row in range(self.table.rowCount()):
+            for column in range(self.table.columnCount()):
+                cell = self.table.item(row, column)
+
+                if row > 1:
+                    match column:
+
+                        case 0: 
+                            self.date = cell.text()
+
+                        case 2:
+                            standartRead('price', row, column)
+
+                        case 3:
+                            standartRead('sum', row, column)
+
+                        case 4:
+                            standartRead('rent', row, column)
+
+                        case 5:
+                            standartRead('guest', row, column)
+
+                        case 6:
+                            standartRead('avito', row, column)
+
+                        case 7:
+                            standartRead('expense', row, column)
+
+                        case 8:
+                            standartRead('indications', row, column)
+
+                        case 9:
+                            standartRead('income', row, column)
+                            
 
 class SaveDialog(QDialog, saveDialogUI.Ui_Dialog):
     def __init__(self):
@@ -455,6 +544,10 @@ class ReportDialog(QDialog, reportDialogUI.Ui_Dialog, QDate):
         self.setTable()
         self.insertDates()
 
+        self.reportRead = ReadReportThread()
+        self.reportRead.set('_' + self.tableName, self.tw_reportTable)
+        self.reportRead.start()
+
         self.tw_reportTable.cellChanged.connect(self.calculate)
 
     def set(self, calTable, tableName):
@@ -610,8 +703,7 @@ class ReportDialog(QDialog, reportDialogUI.Ui_Dialog, QDate):
         self.saveDialog.setRange(self.tw_reportTable.rowCount() * self.tw_reportTable.columnCount())
         self.saveDialog.show()
 
-        saveTable = '_' + self.tableName
-        self.reportSave.set(saveTable, self.tw_reportTable)
+        self.reportSave.set('_' + self.tableName, self.tw_reportTable)
         self.reportSave.start()
 
     def saveDialog(self, msg):
