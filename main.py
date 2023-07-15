@@ -39,23 +39,22 @@ class ReadThread(QThread):
 
         cursor.execute(f"SELECT count(*) FROM {self.tableName}")
         count = cursor.fetchone()
+
         countTemp = ""
         for i in count:
             countTemp += str(i)
         count = int(countTemp)
 
-        for index in range(count):
+        for index in range(count + 1):
             if index != 0:
+
+                print("index: " + str(index))
 
                 # column
                 cursor.execute(f"SELECT day FROM {self.tableName} WHERE ROWID = ?", (index,))
                 column = cursor.fetchone()
-                print(column)
 
-                if column == None:
-                    pass
-
-                else:
+                if column != None:
 
                     columnTemp = ""
                     for i in column:
@@ -119,10 +118,8 @@ class SaveThread(QThread):
         self.tableName = None
         self.table = None
 
-    def setTableName(self, tableName):
+    def set(self, tableName, table):
         self.tableName = tableName
-
-    def setTable(self, table):
         self.table = table
 
     def run(self):
@@ -134,10 +131,12 @@ class SaveThread(QThread):
 
             for row in range(self.table.rowCount()): 
                 cell = self.table.item(row, column)
+                print(f"{row}:{column}  {cell}")
 
-                if cell:            
-                    bg = self.table.item(row, column).background()
-                    note = self.table.item(row, column).toolTip()
+                if cell:     
+                    print(cell.background().color().getRgb())       
+                    bg = cell.background()
+                    note = cell.toolTip()
 
                     red, green, blue, _ = bg.color().getRgb()
                     color = f"{red}:{green}:{blue}"
@@ -841,8 +840,7 @@ class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor):
         self.saveDialog.show()
         self.saveDialog.setRange(self.tw_table.columnCount() * self.tw_table.rowCount())
 
-        self.saveThread.setTableName(self.tableName)
-        self.saveThread.setTable(self.tw_table)
+        self.saveThread.set(self.tableName, self.tw_table)
         self.saveThread.start()
     
     def read(self):
@@ -852,7 +850,7 @@ class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor):
     def write(self, row, column, red, green, blue, notes):
         self.tw_table.setItem(row, column, QTableWidgetItem())
 
-        if red or green or blue != None:
+        if red != None:
             self.tw_table.item(row, column).setBackground(QtGui.QColor(red,green,blue))
 
         if notes != None:
