@@ -131,10 +131,8 @@ class SaveThread(QThread):
 
             for row in range(self.table.rowCount()): 
                 cell = self.table.item(row, column)
-                print(f"{row}:{column}  {cell}")
 
-                if cell:     
-                    print(cell.background().color().getRgb())       
+                if cell:          
                     bg = cell.background()
                     note = cell.toolTip()
 
@@ -277,7 +275,7 @@ class ReadReportThread(QThread):
             cursor.execute(f"SELECT {nameInDB} FROM {self.tableName} WHERE date = ?", (self.date,))
             DBdataTemp = cursor.fetchone()
 
-            if DBdataTemp != None:
+            if DBdataTemp != (None,):
 
                 DBdata = ""
                 for i in DBdataTemp:
@@ -691,12 +689,19 @@ class ReportDialog(QDialog, reportDialogUI.Ui_Dialog, QDate):
                 self.write(row, 1, days)
 
     def calculate(self, row, column):
-        if column == 2:
-            entered = self.tw_reportTable.currentItem().text()
+        match column:
 
-            if entered.isdigit():   
-                days = self.tw_reportTable.item(row, 1).text()
-                self.write(row, 3, str(int(entered) * int(days)))
+            case 2:
+                entered = self.tw_reportTable.currentItem().text()
+                if entered.isdigit():   
+                    days = self.tw_reportTable.item(row, 1).text()
+                    self.write(row, 3, str(int(entered) * int(days)))
+
+                   
+
+            case 3:
+                pass
+
 
     def save(self):
         self.saveDialog.setRange(self.tw_reportTable.rowCount() * self.tw_reportTable.columnCount())
