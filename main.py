@@ -270,7 +270,6 @@ class ReadReportThread(QThread):
             DBdataTemp = cursor.fetchone()
 
             if DBdataTemp != (None,):
-
                 DBdata = ""
                 for i in DBdataTemp:
                     DBdata += str(i) 
@@ -280,7 +279,7 @@ class ReadReportThread(QThread):
         connect = sqlite3.connect("d.db")
         cursor = connect.cursor()
 
-        for row in range(self.table.rowCount()): # add -2 for sum line
+        for row in range(self.table.rowCount() - 2):
             for column in range(self.table.columnCount()):
                 cell = self.table.item(row, column)
 
@@ -313,7 +312,36 @@ class ReadReportThread(QThread):
 
                         case 9:
                             standartRead('income', row, column)
-                            
+   
+
+class SumReportThread(QThread):
+    s_sumData = QtCore.pyqtSignal(int)
+
+    def  __init__(self):
+        QtCore.QThread.__init__(self)
+
+        self.table = None
+        self.columnList = [4, 5, 6, 9]
+
+    def set(self, table):
+        self.table = table
+
+    def run(self):
+        self.msleep(120)
+
+        for column in self.columnList:
+
+            total = 0
+            row = self.table.rowCount() - 2
+
+            for row in range(row):
+                if row != 0:
+                    item = self.table.item(row, column)
+                    if item and item.text().isdigit():
+                        total += int(item.text())
+
+            self.s_sumData.emit(total)
+
 
 class SaveDialog(QDialog, saveDialogUI.Ui_Dialog):
     def __init__(self):
@@ -520,9 +548,13 @@ class ReportDialog(QDialog, reportDialogUI.Ui_Dialog, QDate):
 
         self.calTable = None
         self.tableName = None
+        self.totalList = []
 
         self.reportSave = SaveReportThread()
         self.reportSave.s_updPB.connect(self.saveDialog)
+
+        self.reportSum = SumReportThread()
+        self.reportSum.s_sumData.connect(self.changeSumRow)
 
         self.saveDialog = SaveDialog()
         
@@ -531,34 +563,55 @@ class ReportDialog(QDialog, reportDialogUI.Ui_Dialog, QDate):
         self.btn_toSum.clicked.connect(self.setSumRow)
 
     def start(self):
-        def twirt(row, column):
-            print(f"row: {row} column: {column}")
 
         self.setTable()
         self.insertDates()
+        self.setSumRow()
 
         self.reportRead = ReadReportThread()
         self.reportRead.set('_' + self.tableName, self.tw_reportTable)
         self.reportRead.s_readedData.connect(self.write)
         self.reportRead.start()
 
-        self.tw_reportTable.cellChanged.connect(self.calculate)  
-        self.tw_reportTable.cellClicked.connect(twirt)
+        self.tw_reportTable.cellChanged.connect(self.calculate)
+
+        self.reportSum.set(self.tw_reportTable)
 
     def setSumRow(self):
 
-        # try to use itemChanged function
+        if self.tw_reportTable.item(self.tw_reportTable.rowCount() - 2, 0) != None:
 
-        lastRow = self.tw_reportTable.rowCount() + 1 
-        self.tw_reportTable.setRowCount(self.tw_reportTable.rowCount() + 2)
+            lastRow = self.tw_reportTable.rowCount() + 1 
+            self.tw_reportTable.setRowCount(self.tw_reportTable.rowCount() + 2)
 
-        self.write(lastRow, 0, "Сумма:")
-        self.tw_reportTable.item(lastRow, 0).setBackground(QtGui.QColor(101,216,124))
+            self.write(lastRow, 0, "Сумма:")
+            self.tw_reportTable.item(lastRow, 0).setBackground(QtGui.QColor(101,216,124))
 
-        for i in range(10):
-            if i != 0:
-                self.tw_reportTable.setItem(lastRow, i, QTableWidgetItem())
-                self.tw_reportTable.item(lastRow, i).setBackground(QtGui.QColor(101,216,124))
+            for i in range(10):
+                if i != 0:
+                    self.tw_reportTable.setItem(lastRow, i, QTableWidgetItem())
+                    self.tw_reportTable.item(lastRow, i).setBackground(QtGui.QColor(101,216,124))
+
+    def changeSumRow(self, total):
+
+        lastRow = self.tw_reportTable.rowCount() - 1
+        aligment = QtCore.Qt.AlignmentFlag.AlignCenter
+
+        self.totalList.append(total)
+
+        if len(self.totalList) == 4 :
+            column = 4
+            for item in self.totalList:
+                cell = self.tw_reportTable.item(lastRow, column)
+                cell.setText(str(item))
+                cell.setTextAlignment(aligment)
+
+                if column < 6:
+                    column += 1
+                else:
+                    column = 9
+
+            self.totalList.clear()
 
     def set(self, calTable, tableName):
         self.calTable = calTable
@@ -604,8 +657,10 @@ class ReportDialog(QDialog, reportDialogUI.Ui_Dialog, QDate):
             i += 1
 
     def write(self, row, column, text):
-        self.tw_reportTable.setItem(row, column, QTableWidgetItem(str(text)))
-        self.tw_reportTable.item(row, column).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        aligment = QtCore.Qt.AlignmentFlag.AlignCenter
+        self.tw_reportTable.setItem(row, column, QTableWidgetItem())
+        self.tw_reportTable.item(row, column).setText(text)
+        self.tw_reportTable.item(row, column).setTextAlignment(aligment)
 
     def insertDates(self):
 
@@ -667,7 +722,7 @@ class ReportDialog(QDialog, reportDialogUI.Ui_Dialog, QDate):
                     DBday[index] = day
                     index += 1
 
-                dayList.append(DBday)
+                dayList.append(DBday)   
 
             minDay = dayList[0][0]
             maxDay = dayList[-1][-1]
@@ -701,14 +756,15 @@ class ReportDialog(QDialog, reportDialogUI.Ui_Dialog, QDate):
                 self.write(row, 1, days)
 
     def calculate(self, row, column):
-
         if column == 2:
-            if self.tw_reportTable.currentItem():
-                entered = self.tw_reportTable.currentItem().text()
+            entered = self.tw_reportTable.currentItem().text()
 
-                if entered.isdigit():
-                    days = self.tw_reportTable.item(row, 1).text()
-                    self.write(row, 3, str(int(entered) * int(days)))
+            if entered and entered.isdigit():
+                days = self.tw_reportTable.item(row, 1).text()
+                self.write(row, 3, str(int(entered) * int(days)))
+
+        elif column == 4 or 5 or 6:
+            self.reportSum.start()
 
     def save(self):
         self.saveDialog.setRange(self.tw_reportTable.rowCount() * self.tw_reportTable.columnCount())
@@ -853,7 +909,9 @@ class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor):
         self.saveDialog.setRange(self.tw_table.columnCount() * self.tw_table.rowCount())
 
         self.saveThread.set(self.tableName, self.tw_table)
-        self.saveThread.start()
+        state = self.saveThread.start()
+
+        return state
     
     def read(self):
         self.readThread.setTableName(self.tableName)
@@ -872,6 +930,8 @@ class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor):
         self.tw_table.setItem(row, column, None)
 
     def report(self):
+        # need to save and only then start report dialog
+        self.save()
         self.reportDialog.show()
         self.reportDialog.set(self.tw_table, self.tableName)
         self.reportDialog.start()
