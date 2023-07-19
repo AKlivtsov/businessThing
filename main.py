@@ -268,8 +268,9 @@ class ReadReportThread(QThread):
         def standartRead(nameInDB, row, column):
             cursor.execute(f"SELECT {nameInDB} FROM {self.tableName} WHERE date = ?", (self.date,))
             DBdataTemp = cursor.fetchone()
+            print(DBdataTemp)
 
-            if DBdataTemp != (None,):
+            if DBdataTemp != (None,) and DBdataTemp != None:
                 DBdata = ""
                 for i in DBdataTemp:
                     DBdata += str(i) 
@@ -930,11 +931,14 @@ class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor):
         self.tw_table.setItem(row, column, None)
 
     def report(self):
-        # need to save and only then start report dialog
         self.save()
-        self.reportDialog.show()
-        self.reportDialog.set(self.tw_table, self.tableName)
-        self.reportDialog.start()
+        self.saveThread.finished.connect(self.reportContinue)
+        
+
+    def reportContinue(self):
+            self.reportDialog.show()
+            self.reportDialog.set(self.tw_table, self.tableName)
+            self.reportDialog.start()
 
 
 if __name__ == '__main__':
