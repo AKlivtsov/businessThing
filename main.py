@@ -548,7 +548,6 @@ class ReportDialog(QDialog, reportDialogUI.Ui_Dialog, QDate):
         self.calTable = None
         self.tableName = None
         self.totalList = []
-        self.coldStart = True
 
         self.reportSave = SaveReportThread()
         self.reportSave.s_updPB.connect(self.saveDialog)
@@ -570,13 +569,11 @@ class ReportDialog(QDialog, reportDialogUI.Ui_Dialog, QDate):
 
         self.reportRead = ReadReportThread()
         self.reportRead.set('_' + self.tableName, self.tw_reportTable)
+        self.reportRead.finished.connect(lambda: self.reportSum.start())
         self.reportRead.s_readedData.connect(self.write)
-        # self.reportRead.finished.connect(self.writeSum)
         self.reportRead.start()
 
         self.reportSum.set(self.tw_reportTable)
-        self.reportSum.s_sumData.connect(self.changeSumRow)
-
         self.tw_reportTable.cellChanged.connect(self.calculate)
 
     def setSumRow(self):
