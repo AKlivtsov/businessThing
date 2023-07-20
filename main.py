@@ -268,7 +268,6 @@ class ReadReportThread(QThread):
         def standartRead(nameInDB, row, column):
             cursor.execute(f"SELECT {nameInDB} FROM {self.tableName} WHERE date = ?", (self.date,))
             DBdataTemp = cursor.fetchone()
-            print(DBdataTemp)
 
             if DBdataTemp != (None,) and DBdataTemp != None:
                 DBdata = ""
@@ -328,7 +327,6 @@ class SumReportThread(QThread):
         self.table = table
 
     def run(self):
-        self.msleep(120)
 
         for column in self.columnList:
 
@@ -550,6 +548,7 @@ class ReportDialog(QDialog, reportDialogUI.Ui_Dialog, QDate):
         self.calTable = None
         self.tableName = None
         self.totalList = []
+        self.coldStart = True
 
         self.reportSave = SaveReportThread()
         self.reportSave.s_updPB.connect(self.saveDialog)
@@ -572,14 +571,15 @@ class ReportDialog(QDialog, reportDialogUI.Ui_Dialog, QDate):
         self.reportRead = ReadReportThread()
         self.reportRead.set('_' + self.tableName, self.tw_reportTable)
         self.reportRead.s_readedData.connect(self.write)
+        # self.reportRead.finished.connect(self.writeSum)
         self.reportRead.start()
+
+        self.reportSum.set(self.tw_reportTable)
+        self.reportSum.s_sumData.connect(self.changeSumRow)
 
         self.tw_reportTable.cellChanged.connect(self.calculate)
 
-        self.reportSum.set(self.tw_reportTable)
-
     def setSumRow(self):
-
         if self.tw_reportTable.item(self.tw_reportTable.rowCount() - 2, 0) != None:
 
             lastRow = self.tw_reportTable.rowCount() + 1 
@@ -758,13 +758,13 @@ class ReportDialog(QDialog, reportDialogUI.Ui_Dialog, QDate):
 
     def calculate(self, row, column):
         if column == 2:
-            entered = self.tw_reportTable.currentItem().text()
+            entered = self.tw_reportTable.currentItem()
 
-            if entered and entered.isdigit():
+            if entered and entered.text().isdigit():
                 days = self.tw_reportTable.item(row, 1).text()
                 self.write(row, 3, str(int(entered) * int(days)))
 
-        elif column == 4 or 5 or 6:
+        elif column == 4 or 5 or 6 or 9:
             self.reportSum.start()
 
     def save(self):
@@ -932,13 +932,14 @@ class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor):
 
     def report(self):
         self.save()
-        self.saveThread.finished.connect(self.reportContinue)
-        
 
-    def reportContinue(self):
-            self.reportDialog.show()
+        if self.saveThread.finished:
             self.reportDialog.set(self.tw_table, self.tableName)
-            self.reportDialog.start()
+            state = self.reportDialog.start()
+            self.reportDialog.show()
+
+            if state:
+                self.reportDialog.tw_reportTable.cellChanged.connect(self.reportDialog.calculate)
 
 
 if __name__ == '__main__':
