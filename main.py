@@ -562,7 +562,6 @@ class ReportDialog(QDialog, reportDialogUI.Ui_Dialog, QDate):
         
         self.btn_close.clicked.connect(lambda: self.close())
         self.btn_save.clicked.connect(self.save)
-        self.btn_toSum.clicked.connect(self.setSumRow)
 
     def start(self):
 

@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file '/Users/a.klivtsov/Desktop/CodieStuff/businessThing/reportDialogUI.ui'
+# Form implementation generated from reading ui file 'D:\!SubieProjects\businessThing\reportDialogUI.ui'
 #
 # Created by: PyQt6 UI code generator 6.5.1
 #
@@ -30,9 +30,6 @@ class Ui_Dialog(object):
         self.btn_close = QtWidgets.QPushButton(parent=Dialog)
         self.btn_close.setGeometry(QtCore.QRect(10, 470, 121, 31))
         self.btn_close.setObjectName("btn_close")
-        self.btn_toSum = QtWidgets.QPushButton(parent=Dialog)
-        self.btn_toSum.setGeometry(QtCore.QRect(760, 470, 121, 31))
-        self.btn_toSum.setObjectName("btn_toSum")
 
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
@@ -42,4 +39,3 @@ class Ui_Dialog(object):
         Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
         self.btn_save.setText(_translate("Dialog", "сохранить"))
         self.btn_close.setText(_translate("Dialog", "Закрыть"))
-        self.btn_toSum.setText(_translate("Dialog", "Суммировать"))
