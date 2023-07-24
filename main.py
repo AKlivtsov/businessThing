@@ -12,10 +12,8 @@ import createDialogUI
 import deleteDialogUI
 import reportDialogUI
 
-#прочее
-from memory_profiler import profile      # Use @profile to check memory consumption
+# БД
 import sqlite3
-import time
 
 
 class ReadThread(QThread):
@@ -583,12 +581,12 @@ class ReportDialog(QDialog, reportDialogUI.Ui_Dialog, QDate):
             self.tw_reportTable.setRowCount(self.tw_reportTable.rowCount() + 2)
 
             self.write(lastRow, 0, "Сумма:")
-            self.tw_reportTable.item(lastRow, 0).setBackground(QtGui.QColor(101,216,124))
+            self.tw_reportTable.item(lastRow, 0).setBackground(QtGui.QColor(187,255,169))
 
             for i in range(10):
                 if i != 0:
                     self.tw_reportTable.setItem(lastRow, i, QTableWidgetItem())
-                    self.tw_reportTable.item(lastRow, i).setBackground(QtGui.QColor(101,216,124))
+                    self.tw_reportTable.item(lastRow, i).setBackground(QtGui.QColor(187,255,169))
 
     def changeSumRow(self, total):
 
@@ -617,10 +615,9 @@ class ReportDialog(QDialog, reportDialogUI.Ui_Dialog, QDate):
 
     def setTable(self):
 
-        def defaultWrite(row, column, text):
-            self.tw_reportTable.setItem(row, column, QTableWidgetItem())
-            self.tw_reportTable.item(row, column).setText(text)
-            self.tw_reportTable.item(row, column).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        def color(row, column, red, green, blue):
+            cell = self.tw_reportTable.item(row, column)
+            cell.setBackground(QtGui.QColor(red, green, blue))
 
         self.tw_reportTable.verticalHeader().setVisible(False)
         self.tw_reportTable.horizontalHeader().setVisible(False)
@@ -643,22 +640,71 @@ class ReportDialog(QDialog, reportDialogUI.Ui_Dialog, QDate):
         while column < 10:
             
             if column == 4: 
-                defaultWrite(row, column, names[i]) 
-                defaultWrite(row + 1, column, names[i + 1])
+                self.write(row, column, names[i]) 
+                self.write(row + 1, column, names[i + 1])
+                self.color(row, column) 
+                self.color(row + 1, column)
                 row = 1 
                 i += 1
 
             else:
-                defaultWrite(row, column, names[i])
+                self.write(row, column, names[i])
+                self.color(row, column)
 
             column += 1
             i += 1
+
+    def color(self, row, column):
+
+        colors = ((199,255,216), (255,212,181), (181,224,255), 
+            (250,255,163), (255,184,184), (193,229,255), 
+            (196,206,255))
+
+        match column: 
+
+            case 4:
+                if row == 0:
+                    red, green, blue = colors[0]
+                    cell = self.tw_reportTable.item(row, column)
+                    cell.setBackground(QtGui.QColor(red, green, blue))
+
+                else:
+                    red, green, blue = colors[1]
+                    cell = self.tw_reportTable.item(row, column)
+                    cell.setBackground(QtGui.QColor(red, green, blue))
+
+            case 5:
+                    red, green, blue = colors[2]
+                    cell = self.tw_reportTable.item(row, column)
+                    cell.setBackground(QtGui.QColor(red, green, blue))
+
+            case 6:
+                    red, green, blue = colors[3]
+                    cell = self.tw_reportTable.item(row, column)
+                    cell.setBackground(QtGui.QColor(red, green, blue))
+
+            case 7:
+                    red, green, blue = colors[4]
+                    cell = self.tw_reportTable.item(row, column)
+                    cell.setBackground(QtGui.QColor(red, green, blue))
+
+            case 8:
+                    red, green, blue = colors[5]
+                    cell = self.tw_reportTable.item(row, column)
+                    cell.setBackground(QtGui.QColor(red, green, blue))
+
+            case 9:
+                    red, green, blue = colors[6]
+                    cell = self.tw_reportTable.item(row, column)
+                    cell.setBackground(QtGui.QColor(red, green, blue))
 
     def write(self, row, column, text):
         aligment = QtCore.Qt.AlignmentFlag.AlignCenter
         self.tw_reportTable.setItem(row, column, QTableWidgetItem())
         self.tw_reportTable.item(row, column).setText(text)
         self.tw_reportTable.item(row, column).setTextAlignment(aligment)
+
+        self.color(row, column)
 
     def insertDates(self):
 
@@ -703,7 +749,6 @@ class ReportDialog(QDialog, reportDialogUI.Ui_Dialog, QDate):
             DBmonth = list(dict.fromkeys(DBmonth))
 
             dayList = []
-
 
             for month in DBmonth:
                 cursor.execute(f"""SELECT day FROM {self.tableName} WHERE month = {month} AND color = '{color}'""")
@@ -759,7 +804,7 @@ class ReportDialog(QDialog, reportDialogUI.Ui_Dialog, QDate):
 
             if entered and entered.text().isdigit():
                 days = self.tw_reportTable.item(row, 1).text()
-                self.write(row, 3, str(int(entered) * int(days)))
+                self.write(row, 3, str(int(entered.text()) * int(days)))
 
         elif column == 4 or 5 or 6 or 9:
             self.reportSum.start()
@@ -907,9 +952,7 @@ class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor):
         self.saveDialog.setRange(self.tw_table.columnCount() * self.tw_table.rowCount())
 
         self.saveThread.set(self.tableName, self.tw_table)
-        state = self.saveThread.start()
-
-        return state
+        self.saveThread.start()
     
     def read(self):
         self.readThread.setTableName(self.tableName)
@@ -932,11 +975,8 @@ class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor):
 
         if self.saveThread.finished:
             self.reportDialog.set(self.tw_table, self.tableName)
-            state = self.reportDialog.start()
+            self.reportDialog.start()
             self.reportDialog.show()
-
-            if state:
-                self.reportDialog.tw_reportTable.cellChanged.connect(self.reportDialog.calculate)
 
 
 if __name__ == '__main__':
