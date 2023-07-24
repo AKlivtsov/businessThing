@@ -345,6 +345,7 @@ class SaveDialog(QDialog, saveDialogUI.Ui_Dialog):
         super(SaveDialog, self).__init__()
         self.setupUi(self)
 
+        self.setWindowIcon(QtGui.QIcon('icon96px.ico'))
         self.setWindowTitle("Сохранение")
 
     def setRange(self, range_):
@@ -361,6 +362,7 @@ class CreateDialog(QDialog, createDialogUI.Ui_Dialog):
         super(CreateDialog, self).__init__()
         self.setupUi(self)
 
+        self.setWindowIcon(QtGui.QIcon('icon96px.ico'))
         self.setWindowTitle("Создать новую таблицу")
 
         self.btn_create.clicked.connect(self.emitName)
@@ -425,6 +427,7 @@ class EditDialog(QDialog, editDialogUI.Ui_Dialog):
         super(EditDialog, self).__init__()
         self.setupUi(self)
 
+        self.setWindowIcon(QtGui.QIcon('icon96px.ico'))
         self.setWindowTitle("Редактирование")
  
         self.date_in.setDate(QDate.currentDate())
@@ -493,6 +496,7 @@ class DeleteDialog(QDialog, deleteDialogUI.Ui_Dialog):
         super(DeleteDialog, self).__init__()
         self.setupUi(self)
 
+        self.setWindowIcon(QtGui.QIcon('icon96px.ico'))
         self.setWindowTitle("Редактирование")
 
         self.date_in.setDate(QDate.currentDate())
@@ -541,6 +545,7 @@ class ReportDialog(QDialog, reportDialogUI.Ui_Dialog, QDate):
         super(ReportDialog, self).__init__()
         self.setupUi(self)
 
+        self.setWindowIcon(QtGui.QIcon('icon96px.ico'))
         self.setWindowTitle("Отчёт")
 
         self.calTable = None
@@ -829,6 +834,7 @@ class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor):
         super(MainWindow, self).__init__()
         self.setupUi(self)
 
+        self.setWindowIcon(QtGui.QIcon('icon96px.ico'))
         self.setWindowTitle("BusinessThing")
         self.setTable()
 
