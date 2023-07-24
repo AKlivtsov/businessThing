@@ -656,9 +656,9 @@ class ReportDialog(QDialog, reportDialogUI.Ui_Dialog, QDate):
 
     def color(self, row, column):
 
-        colors = ((199,255,216), (255,212,181), (181,224,255), 
-            (250,255,163), (255,184,184), (193,229,255), 
-            (196,206,255))
+        colors = ((191,255,172), (255,219,224), (249,211,249), 
+            (249,211,249), (243,243,155), (255,237,178), 
+            (202,199,248))
 
         match column: 
 
@@ -681,6 +681,7 @@ class ReportDialog(QDialog, reportDialogUI.Ui_Dialog, QDate):
             case 6:
                     red, green, blue = colors[3]
                     cell = self.tw_reportTable.item(row, column)
+                    
                     cell.setBackground(QtGui.QColor(red, green, blue))
 
             case 7:
@@ -855,17 +856,17 @@ class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor):
         self.btn_del.clicked.connect(lambda: self.deleteDialog.show())
         self.btn_save.clicked.connect(self.save)
 
-        self.editDialog = EditDialog()
-        self.editDialog.s_info.connect(self.write)
-
-        self.deleteDialog = DeleteDialog()
-        self.deleteDialog.s_cords.connect(self.clear)
-
         self.readThread = ReadThread()
         self.readThread.s_data.connect(self.write)
 
         self.saveThread = SaveThread()
         self.saveThread.s_update.connect(self.savingDialog)
+
+        self.editDialog = EditDialog()
+        self.editDialog.s_info.connect(self.write)
+
+        self.deleteDialog = DeleteDialog()
+        self.deleteDialog.s_cords.connect(self.clear)
 
         self.createDialog = CreateDialog()
         self.createDialog.s_upd.connect(self.updateTableList)
