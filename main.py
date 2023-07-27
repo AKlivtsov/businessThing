@@ -1,6 +1,7 @@
 import sys
 from PyQt6 import QtWidgets, QtCore, QtGui
-from PyQt6.QtWidgets import QMainWindow, QDialog, QApplication, QTableWidgetItem, QColorDialog, QMessageBox, QMenu
+from PyQt6.QtWidgets import QMainWindow, QDialog, QApplication, QTableWidgetItem, QColorDialog, QMessageBox, QMenu 
+from PyQt6.QtWidgets import QVBoxLayout, QHBoxLayout
 from PyQt6.QtCore import QPropertyAnimation, QEasingCurve, QPoint, QTimer, QThread, QObject, Qt, QDate
 from PyQt6.QtGui import QColor, QAction
 
@@ -284,7 +285,7 @@ class ReadReportThread(QThread):
                 if row > 1:
                     match column:
 
-                        case 0: 
+                        case 0:
                             self.date = cell.text()
 
                         case 2:
@@ -348,6 +349,10 @@ class SaveDialog(QDialog, saveDialogUI.Ui_Dialog):
         self.setWindowIcon(QtGui.QIcon('icon96px.ico'))
         self.setWindowTitle("Сохранение")
 
+
+    def setTheme(self, style):
+        self.setStyleSheet(style)
+
     def setRange(self, range_):
         self.pb_save.setRange(0, range_)
 
@@ -366,6 +371,9 @@ class CreateDialog(QDialog, createDialogUI.Ui_Dialog):
         self.setWindowTitle("Создать новую таблицу")
 
         self.btn_create.clicked.connect(self.emitName)
+
+    def setTheme(self, style):
+        self.setStyleSheet(style)
 
     def emitName(self):
         connect = sqlite3.connect("d.db")
@@ -439,6 +447,9 @@ class EditDialog(QDialog, editDialogUI.Ui_Dialog):
         self.color = None
         self.notes = None
 
+    def setTheme(self, style):
+        self.setStyleSheet(style)
+
     def colorDialog(self):
         self.color = QColorDialog.getColor()
 
@@ -505,6 +516,9 @@ class DeleteDialog(QDialog, deleteDialogUI.Ui_Dialog):
         self.btn_cancel.clicked.connect(lambda: self.close())
         self.btn_del.clicked.connect(self.delete)
 
+    def setTheme(self, style):
+        self.setStyleSheet(style)
+
     def delete(self):
         dayOut = self.date_out.date().dayOfYear()
         monthCount = self.date_in.date()
@@ -540,7 +554,7 @@ class DeleteDialog(QDialog, deleteDialogUI.Ui_Dialog):
                 workie = False
 
 
-class ReportDialog(QDialog, reportDialogUI.Ui_Dialog, QDate):
+class ReportDialog(QDialog, reportDialogUI.Ui_Dialog, QDate, QVBoxLayout, QHBoxLayout):
     def __init__(self):
         super(ReportDialog, self).__init__()
         self.setupUi(self)
@@ -563,10 +577,25 @@ class ReportDialog(QDialog, reportDialogUI.Ui_Dialog, QDate):
         self.btn_close.clicked.connect(lambda: self.close())
         self.btn_save.clicked.connect(self.save)
 
+    def setTheme(self, theme, style):
+        if theme == "Dark":
+            for row in range(self.tw_reportTable.rowCount()):
+                for column in range(self.tw_reportTable.columnCount()):
+                    cell = self.tw_reportTable.item(row, column)
+
+                    if column > 3:
+                        print("d")
+                        cell.setForeground(rgb(0, 0, 0))
+
+            self.setStyleSheet(style)
+
+        else:
+            self.setStyleSheet(style)
+
     def start(self):
 
         self.setTable()
-        self.insertDates()
+        self.insertDates() 
         self.setSumRow()
 
         self.reportRead = ReadReportThread()
@@ -579,7 +608,7 @@ class ReportDialog(QDialog, reportDialogUI.Ui_Dialog, QDate):
         self.tw_reportTable.cellChanged.connect(self.calculate)
 
     def setSumRow(self):
-        if self.tw_reportTable.item(self.tw_reportTable.rowCount() - 2, 0) != None:
+        if self.tw_reportTable.item(self.tw_reportTable.rowCount()-1, 0) != None:
 
             lastRow = self.tw_reportTable.rowCount() + 1 
             self.tw_reportTable.setRowCount(self.tw_reportTable.rowCount() + 2)
@@ -603,7 +632,15 @@ class ReportDialog(QDialog, reportDialogUI.Ui_Dialog, QDate):
             column = 4
             for item in self.totalList:
                 cell = self.tw_reportTable.item(lastRow, column)
-                cell.setText(str(item))
+
+                """
+                FIX: AttributeError: 'NoneType' object has no attribute 'setText'
+                ошибка проявляется при выводе отчета при несохраненых клетках 
+
+                возможная причина: тайминг сохранения 
+                """
+                cell.setText(str(item))  #!
+
                 cell.setTextAlignment(aligment)
 
                 if column < 6:
@@ -772,7 +809,7 @@ class ReportDialog(QDialog, reportDialogUI.Ui_Dialog, QDate):
 
                 dayList.append(DBday)   
 
-            minDay = dayList[0][0]
+            minDay = dayList[0][0]   #FIX: IndexError: list index out of range
             maxDay = dayList[-1][-1]
 
             minMonth = DBmonth[0] + 1
@@ -833,6 +870,24 @@ class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor):
         super(MainWindow, self).__init__()
         self.setupUi(self)
 
+        self.tableName = "DefaultTable"
+        self.theme = "Light"
+
+        """ TODO: make windows resizable
+        verLayout = QVBoxLayout()
+        horLayout = QHBoxLayout()
+
+        horLayout.addWidget(self.btn_report)
+        horLayout.addSpacing(500)
+        horLayout.addWidget(self.btn_del)
+        horLayout.addWidget(self.btn_notes)
+        horLayout.addWidget(self.btn_save)
+
+        verLayout.addWidget(self.tw_table)
+        verLayout.addLayout(horLayout)
+        self.centralwidget.setLayout(verLayout)
+        """
+
         self.setWindowIcon(QtGui.QIcon('icon96px.ico'))
         self.setWindowTitle("BusinessThing")
         self.setTable()
@@ -846,12 +901,14 @@ class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor):
         self.m_file.addAction(self.saveAct)
         self.m_file.addAction(self.loadAct)
 
+        self.themeAct = QAction('Сменить тему', self)
+        self.m_settings.addAction(self.themeAct)
+
+        self.themeAct.triggered.connect(self.setTheme)
         self.saveAct.triggered.connect(self.save)
         self.loadAct.triggered.connect(self.read)
         self.createAct.triggered.connect(lambda: self.createDialog.show())
         self.fetchTables()
-
-        self.tableName = "DefaultTable"
 
         self.tw_table.cellDoubleClicked.connect(lambda: self.deleteDialog.show())
         self.tw_table.cellClicked.connect(lambda: self.editDialog.show())
@@ -880,6 +937,92 @@ class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor):
         self.reportDialog = ReportDialog()
 
         self.read()
+        self.setTheme()
+
+    def setTheme(self):
+        if self.theme == "Light":
+            style = """
+
+                QWidget{
+                    background-color: #E0E0E0;
+                    color: #1F1F1F;
+                    border-radius: 5px;
+                }
+
+                QPushButton{
+                    background-color: #7A7A7A;
+                    color: #FFFFFF;
+                }
+
+                QPushButton:pressed {
+                    background-color: #494949;
+                    color: #FFFFFF;
+                }
+
+                QTableWidget{
+                    background-color: #BDBDBD;
+                }
+
+                QLineEdit{
+                    background-color: #BDBDBD;
+                }
+
+                QTextEdit {
+                    background-color: #BDBDBD;
+                }
+
+                """
+
+            self.setStyleSheet(style)
+
+            self.reportDialog.setTheme(self.theme, style)
+            self.createDialog.setTheme(style)
+            self.deleteDialog.setTheme(style)
+            self.editDialog.setTheme(style)
+
+            self.theme = "Dark"
+
+        else:
+            style = """
+
+                QWidget{
+                    background-color: #2E2E2E;
+                    color: #FFFFFF;
+                    border-radius: 5px;
+                }
+
+                QPushButton{
+                    background-color: #5E5E5E;
+                    color: #FFFFFF;
+                }
+
+                QPushButton:pressed {
+                    background-color: #767676;
+                    color: #FFFFFF;
+                }
+
+                QTableWidget{
+                    background-color: #515151;
+                }
+
+                QLineEdit{
+                    background-color: #515151;
+                }
+
+                QTextEdit {
+                    background-color: #515151;
+                }
+
+                """
+
+            self.setStyleSheet(style)
+
+            self.reportDialog.setTheme(self.theme, style)
+            self.createDialog.setTheme(style)
+            self.deleteDialog.setTheme(style)
+            self.editDialog.setTheme(style)
+
+            self.theme = "Light"
 
     def setTable(self):
 
