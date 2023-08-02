@@ -1,8 +1,8 @@
 import sys
 from PyQt6 import QtWidgets, QtCore, QtGui
 from PyQt6.QtWidgets import QMainWindow, QDialog, QApplication, QTableWidgetItem, QColorDialog, QMessageBox, QMenu 
-from PyQt6.QtWidgets import QVBoxLayout, QHBoxLayout
-from PyQt6.QtCore import QPropertyAnimation, QEasingCurve, QPoint, QTimer, QThread, QObject, Qt, QDate
+from PyQt6.QtWidgets import QVBoxLayout, QHBoxLayout, QSizePolicy, QHeaderView
+from PyQt6.QtCore import QPropertyAnimation, QEasingCurve, QPoint, QTimer, QThread, QObject, Qt, QDate, QSize
 from PyQt6.QtGui import QColor, QAction
 
 # окна
@@ -554,7 +554,7 @@ class DeleteDialog(QDialog, deleteDialogUI.Ui_Dialog):
                 workie = False
 
 
-class ReportDialog(QDialog, reportDialogUI.Ui_Dialog, QDate, QVBoxLayout, QHBoxLayout):
+class ReportDialog(QDialog, reportDialogUI.Ui_Dialog, QDate):
     def __init__(self):
         super(ReportDialog, self).__init__()
         self.setupUi(self)
@@ -579,15 +579,13 @@ class ReportDialog(QDialog, reportDialogUI.Ui_Dialog, QDate, QVBoxLayout, QHBoxL
 
     def setTheme(self, theme, style):
         if theme == "Dark":
-            for row in range(self.tw_reportTable.rowCount()):
-                for column in range(self.tw_reportTable.columnCount()):
-                    cell = self.tw_reportTable.item(row, column)
-
-                    if column > 3:
-                        print("d")
-                        cell.setForeground(rgb(0, 0, 0))
-
             self.setStyleSheet(style)
+            self.setStyleSheet("""
+                QTableWidget{
+                    background-color: #8D8D8D;
+                    color: #000000;
+                }
+                """)
 
         else:
             self.setStyleSheet(style)
@@ -865,28 +863,16 @@ class ReportDialog(QDialog, reportDialogUI.Ui_Dialog, QDate, QVBoxLayout, QHBoxL
             self.saveDialog.close()
 
 
-class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor):
+class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor, QSize, QSizePolicy, QHeaderView):
     def __init__(self):
         super(MainWindow, self).__init__()
         self.setupUi(self)
 
         self.tableName = "DefaultTable"
         self.theme = "Light"
+        self.reportOpenAllow = False
 
-        """ TODO: make windows resizable
-        verLayout = QVBoxLayout()
-        horLayout = QHBoxLayout()
-
-        horLayout.addWidget(self.btn_report)
-        horLayout.addSpacing(500)
-        horLayout.addWidget(self.btn_del)
-        horLayout.addWidget(self.btn_notes)
-        horLayout.addWidget(self.btn_save)
-
-        verLayout.addWidget(self.tw_table)
-        verLayout.addLayout(horLayout)
-        self.centralwidget.setLayout(verLayout)
-        """
+        # self.resizeable()
 
         self.setWindowIcon(QtGui.QIcon('icon96px.ico'))
         self.setWindowTitle("BusinessThing")
@@ -923,6 +909,7 @@ class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor):
 
         self.saveThread = SaveThread()
         self.saveThread.s_update.connect(self.savingDialog)
+        self.saveThread.finished.connect(self.reportOpen)
 
         self.editDialog = EditDialog()
         self.editDialog.s_info.connect(self.write)
@@ -938,6 +925,26 @@ class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor):
 
         self.read()
         self.setTheme()
+
+    def resizeable(self):
+
+        verLayout = QVBoxLayout()
+        horLayout = QHBoxLayout()
+
+        btnList = [self.btn_report, self.btn_del, self.btn_notes, self.btn_save]
+
+        for button in btnList:
+            horLayout.addWidget(button)
+            button.setMinimumSize(QSize(130, 30))
+
+        
+        horLayout.insertStretch(1, 500)
+
+        verLayout.addWidget(self.tw_table)
+        self.tw_table.sizePolicy.setHorizontalStretch(1)
+        verLayout.addLayout(horLayout)
+        self.centralwidget.setLayout(verLayout)
+
 
     def setTheme(self):
         if self.theme == "Light":
@@ -1043,6 +1050,9 @@ class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor):
         
         self.tw_table.setVerticalHeaderLabels(monthTyple)
 
+        header = self.tw_table.verticalHeader()
+        header.ResizeMode(QHeaderView.stretch())
+
     def fetchTables(self):
 
         def makeAct(name, item):
@@ -1119,13 +1129,17 @@ class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor):
     def clear(self, row, column):
         self.tw_table.setItem(row, column, None)
 
-    def report(self):
+    def report(self): 
         self.save()
+        self.reportOpenAllow = True
 
-        if self.saveThread.finished:
+    def reportOpen(self):
+        if self.reportOpenAllow and self.saveThread.finished:
             self.reportDialog.set(self.tw_table, self.tableName)
             self.reportDialog.start()
             self.reportDialog.show()
+
+            self.reportOpen = False
 
 
 if __name__ == '__main__':

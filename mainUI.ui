@@ -32,6 +32,21 @@
     <property name="frameShape">
      <enum>QFrame::StyledPanel</enum>
     </property>
+    <property name="sizeAdjustPolicy">
+     <enum>QAbstractScrollArea::AdjustToContents</enum>
+    </property>
+    <attribute name="horizontalHeaderCascadingSectionResizes">
+     <bool>true</bool>
+    </attribute>
+    <attribute name="horizontalHeaderStretchLastSection">
+     <bool>false</bool>
+    </attribute>
+    <attribute name="verticalHeaderCascadingSectionResizes">
+     <bool>true</bool>
+    </attribute>
+    <attribute name="verticalHeaderStretchLastSection">
+     <bool>false</bool>
+    </attribute>
    </widget>
    <widget class="QPushButton" name="btn_notes">
     <property name="geometry">
@@ -92,7 +107,7 @@
      <x>0</x>
      <y>0</y>
      <width>933</width>
-     <height>21</height>
+     <height>24</height>
     </rect>
    </property>
    <widget class="QMenu" name="m_file">
