@@ -349,7 +349,6 @@ class SaveDialog(QDialog, saveDialogUI.Ui_Dialog):
         self.setWindowIcon(QtGui.QIcon('icon96px.ico'))
         self.setWindowTitle("Сохранение")
 
-
     def setTheme(self, style):
         self.setStyleSheet(style)
 
@@ -693,6 +692,11 @@ class ReportDialog(QDialog, reportDialogUI.Ui_Dialog, QDate):
             column += 1
             i += 1
 
+        horHeader = self.tw_reportTable.horizontalHeader()
+
+        for i in range(self.tw_reportTable.columnCount()):
+            horHeader.setSectionResizeMode(i, QHeaderView.ResizeMode.Stretch)
+
     def color(self, row, column):
 
         colors = ((191,255,172), (255,219,224), (249,211,249), 
@@ -872,7 +876,7 @@ class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor, QSize, QSiz
         self.theme = "Light"
         self.reportOpenAllow = False
 
-        # self.resizeable()
+        self.resizeable()
 
         self.setWindowIcon(QtGui.QIcon('icon96px.ico'))
         self.setWindowTitle("BusinessThing")
@@ -930,6 +934,7 @@ class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor, QSize, QSiz
 
         verLayout = QVBoxLayout()
         horLayout = QHBoxLayout()
+        horLayout2 = QHBoxLayout()
 
         btnList = [self.btn_report, self.btn_del, self.btn_notes, self.btn_save]
 
@@ -937,14 +942,14 @@ class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor, QSize, QSiz
             horLayout.addWidget(button)
             button.setMinimumSize(QSize(130, 30))
 
-        
         horLayout.insertStretch(1, 500)
 
-        verLayout.addWidget(self.tw_table)
-        self.tw_table.sizePolicy.setHorizontalStretch(1)
-        verLayout.addLayout(horLayout)
-        self.centralwidget.setLayout(verLayout)
+        horLayout2.addWidget(self.tw_table)
 
+        verLayout.addLayout(horLayout2)
+        verLayout.addLayout(horLayout)
+
+        self.centralwidget.setLayout(verLayout)
 
     def setTheme(self):
         if self.theme == "Light":
@@ -1050,8 +1055,16 @@ class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor, QSize, QSiz
         
         self.tw_table.setVerticalHeaderLabels(monthTyple)
 
-        header = self.tw_table.verticalHeader()
-        header.ResizeMode(QHeaderView.stretch())
+        # remove # when table size will be fixed 
+
+        # verHeader = self.tw_table.verticalHeader()
+        # horHeader = self.tw_table.horizontalHeader()
+
+        # for i in range(self.tw_table.rowCount()):
+        #     verHeader.setSectionResizeMode(i, QHeaderView.ResizeMode.Stretch)
+
+        # for i in range(self.tw_table.columnCount()):
+        #     horHeader.setSectionResizeMode(i, QHeaderView.ResizeMode.Stretch)
 
     def fetchTables(self):
 
