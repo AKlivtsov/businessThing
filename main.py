@@ -1,17 +1,17 @@
 import sys
 from PyQt6 import QtWidgets, QtCore, QtGui
 from PyQt6.QtWidgets import QMainWindow, QDialog, QApplication, QTableWidgetItem, QColorDialog, QMessageBox, QMenu 
-from PyQt6.QtWidgets import QVBoxLayout, QHBoxLayout, QSizePolicy, QHeaderView
+from PyQt6.QtWidgets import QGridLayout, QVBoxLayout, QHBoxLayout, QSizePolicy, QHeaderView
 from PyQt6.QtCore import QPropertyAnimation, QEasingCurve, QPoint, QTimer, QThread, QObject, Qt, QDate, QSize
 from PyQt6.QtGui import QColor, QAction
 
 # окна
 import mainUI
+import reportUI
 import editDialogUI
 import saveDialogUI
 import createDialogUI
 import deleteDialogUI
-import reportDialogUI
 
 # БД
 import sqlite3
@@ -553,13 +553,14 @@ class DeleteDialog(QDialog, deleteDialogUI.Ui_Dialog):
                 workie = False
 
 
-class ReportDialog(QDialog, reportDialogUI.Ui_Dialog, QDate):
+class ReportDialog(QMainWindow, reportUI.Ui_MainWindow, QDate):
     def __init__(self):
         super(ReportDialog, self).__init__()
         self.setupUi(self)
 
         self.setWindowIcon(QtGui.QIcon('icon96px.ico'))
         self.setWindowTitle("Отчёт")
+        self.resizeable()
 
         self.calTable = None
         self.tableName = None
@@ -603,6 +604,28 @@ class ReportDialog(QDialog, reportDialogUI.Ui_Dialog, QDate):
 
         self.reportSum.set(self.tw_reportTable)
         self.tw_reportTable.cellChanged.connect(self.calculate)
+
+    def resizeable(self):
+
+        verLayout = QVBoxLayout()
+        horLayout = QHBoxLayout()
+
+        btnList = [self.btn_close, self.btn_save]
+
+        for button in btnList:
+            horLayout.addWidget(button)
+            button.setMinimumSize(QSize(130, 30))
+
+        horLayout.insertStretch(1, 500)
+
+        verLayout.addWidget(self.tw_reportTable)
+
+        sizePolicy = QtWidgets.QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
+        self.tw_reportTable.setSizePolicy(sizePolicy)
+
+        verLayout.addLayout(horLayout)
+
+        self.centralwidget.setLayout(verLayout)
 
     def setSumRow(self):
         if self.tw_reportTable.item(self.tw_reportTable.rowCount()-1, 0) != None:
@@ -867,7 +890,7 @@ class ReportDialog(QDialog, reportDialogUI.Ui_Dialog, QDate):
             self.saveDialog.close()
 
 
-class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor, QSize, QSizePolicy, QHeaderView):
+class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor, QSize, QSizePolicy, QHeaderView, QGridLayout):
     def __init__(self):
         super(MainWindow, self).__init__()
         self.setupUi(self)
@@ -934,7 +957,6 @@ class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor, QSize, QSiz
 
         verLayout = QVBoxLayout()
         horLayout = QHBoxLayout()
-        horLayout2 = QHBoxLayout()
 
         btnList = [self.btn_report, self.btn_del, self.btn_notes, self.btn_save]
 
@@ -944,9 +966,11 @@ class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor, QSize, QSiz
 
         horLayout.insertStretch(1, 500)
 
-        horLayout2.addWidget(self.tw_table)
+        verLayout.addWidget(self.tw_table)
 
-        verLayout.addLayout(horLayout2)
+        sizePolicy = QtWidgets.QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
+        self.tw_table.setSizePolicy(sizePolicy)
+
         verLayout.addLayout(horLayout)
 
         self.centralwidget.setLayout(verLayout)
@@ -1053,18 +1077,16 @@ class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor, QSize, QSiz
             'Октябрь','Ноябрь','Декабрь',
             )
         
-        self.tw_table.setVerticalHeaderLabels(monthTyple)
+        self.tw_table.setVerticalHeaderLabels(monthTyple) 
 
-        # remove # when table size will be fixed 
+        verHeader = self.tw_table.verticalHeader()
+        horHeader = self.tw_table.horizontalHeader()
 
-        # verHeader = self.tw_table.verticalHeader()
-        # horHeader = self.tw_table.horizontalHeader()
+        for i in range(self.tw_table.rowCount()):
+            verHeader.setSectionResizeMode(i, QHeaderView.ResizeMode.Stretch)
 
-        # for i in range(self.tw_table.rowCount()):
-        #     verHeader.setSectionResizeMode(i, QHeaderView.ResizeMode.Stretch)
-
-        # for i in range(self.tw_table.columnCount()):
-        #     horHeader.setSectionResizeMode(i, QHeaderView.ResizeMode.Stretch)
+        for i in range(self.tw_table.columnCount()):
+            horHeader.setSectionResizeMode(i, QHeaderView.ResizeMode.Stretch)
 
     def fetchTables(self):
 
