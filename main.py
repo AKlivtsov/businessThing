@@ -995,16 +995,65 @@ class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor, QSize, QSiz
                     color: #FFFFFF;
                 }
 
-                QTableWidget{
-                    background-color: #BDBDBD;
-                }
-
                 QLineEdit{
                     background-color: #BDBDBD;
                 }
 
                 QTextEdit {
                     background-color: #BDBDBD;
+                }
+
+                QTableWidget{
+                    background-color: #BDBDBD;
+                }
+
+                QHeaderView::section{
+                    background-color: #E0E0E0;
+                    border: solid
+                }
+
+                QTableView QTableCornerButton::section {
+                    background-color: #E0E0E0;
+                    border: solid
+                }
+
+                QHeaderView::section:checked{
+                    background-color: #BDBDBD;
+                }
+
+                QScrollBar{
+                    margin: 2px 20px 2px 20px;
+                    border: 1px solid grey;
+                    border-radius: 2px;
+                    height: 15px;
+                }
+
+                QScrollBar::handle{
+                    background: #BDBDBD;
+                } 
+
+                QScrollBar::add-line:horizontal {
+                    border: solid;
+                    border-radius: 2px;
+                    background: #BDBDBD;
+                    width: 15px;
+
+                    image: url(assets/right-dark-arrow-50.png);
+
+                    subcontrol-position: right;
+                    subcontrol-origin: margin;
+                }
+
+                QScrollBar::sub-line:horizontal {
+                    border: solid;
+                    border-radius: 2px;
+                    background: #BDBDBD;
+                    width: 15px;
+
+                    image: url(assets/left-dark-arrow-50.png);
+
+                    subcontrol-position: left;
+                    subcontrol-origin: margin;
                 }
 
                 """
