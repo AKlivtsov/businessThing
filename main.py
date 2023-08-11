@@ -1008,13 +1008,13 @@ class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor, QSize, QSiz
                 }
 
                 QHeaderView::section{
-                    background-color: #E0E0E0;
-                    border: solid
+                    background-color: #d4d4d4;
+                    border: solid;
                 }
 
                 QTableView QTableCornerButton::section {
-                    background-color: #E0E0E0;
-                    border: solid
+                    background-color: #d4d4d4;
+                    border: solid;
                 }
 
                 QHeaderView::section:checked{
@@ -1090,12 +1090,62 @@ class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor, QSize, QSiz
                     background-color: #515151;
                 }
 
+                QHeaderView::section{
+                    background-color: #3e3e3e;
+                    border: solid;
+                }
+
+                QTableView QTableCornerButton::section {
+                    background-color: #3e3e3e;
+                    border: solid;
+                }
+
+                QHeaderView::section:checked{
+                    background-color: #BDBDBD;
+                }
+
                 QLineEdit{
                     background-color: #515151;
                 }
 
                 QTextEdit {
                     background-color: #515151;
+                }
+
+                QScrollBar{
+                    margin: 2px 20px 2px 20px;
+                    border: 1px solid grey;
+                    background: #5E5E5E;
+                    border-radius: 2px;
+                    height: 15px;
+                }
+
+                QScrollBar::handle{
+                    background: #5E5E5E;
+                } 
+
+                QScrollBar::add-line:horizontal {
+                    border: solid;
+                    border-radius: 2px;
+                    background: #5E5E5E;
+                    width: 15px;
+
+                    image: url(assets/right-light-arrow-50.png);
+
+                    subcontrol-position: right;
+                    subcontrol-origin: margin;
+                }
+
+                QScrollBar::sub-line:horizontal {
+                    border: solid;
+                    border-radius: 2px;
+                    background: #5E5E5E;
+                    width: 15px;
+
+                    image: url(assets/left-light-arrow-50.png);
+
+                    subcontrol-position: left;
+                    subcontrol-origin: margin;
                 }
 
                 """
