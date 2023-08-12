@@ -506,6 +506,8 @@ class DeleteDialog(QDialog, deleteDialogUI.Ui_Dialog):
         super(DeleteDialog, self).__init__()
         self.setupUi(self)
 
+        self.resizeable(False)
+
         self.setWindowIcon(QtGui.QIcon('icon96px.ico'))
         self.setWindowTitle("Редактирование")
 
@@ -581,10 +583,86 @@ class ReportDialog(QMainWindow, reportUI.Ui_MainWindow, QDate):
         if theme == "Dark":
             self.setStyleSheet(style)
             self.setStyleSheet("""
+
+                QWidget{
+                    background-color: #2E2E2E;
+                    color: #FFFFFF;
+                    border-radius: 5px;
+                }
+
+                QPushButton{
+                    background-color: #5E5E5E;
+                    color: #FFFFFF;
+                }
+
+                QPushButton:pressed {
+                    background-color: #767676;
+                    color: #FFFFFF;
+                }
+
                 QTableWidget{
                     background-color: #8D8D8D;
                     color: #000000;
                 }
+
+                QHeaderView::section{
+                    background-color: #3e3e3e;
+                    border: solid;
+                }
+
+                QTableView QTableCornerButton::section {
+                    background-color: #3e3e3e;
+                    border: solid;
+                }
+
+                QHeaderView::section:checked{
+                    background-color: #BDBDBD;
+                }
+
+                QLineEdit{
+                    background-color: #515151;
+                }
+
+                QTextEdit {
+                    background-color: #515151;
+                }
+
+                QScrollBar{
+                    margin: 2px 20px 2px 20px;
+                    border: 1px solid grey;
+                    background: #5E5E5E;
+                    border-radius: 2px;
+                    height: 15px;
+                }
+
+                QScrollBar::handle{
+                    background: #5E5E5E;
+                } 
+
+                QScrollBar::add-line:horizontal {
+                    border: solid;
+                    border-radius: 2px;
+                    background: #5E5E5E;
+                    width: 15px;
+
+                    image: url(assets/right-light-arrow-50.png);
+
+                    subcontrol-position: right;
+                    subcontrol-origin: margin;
+                }
+
+                QScrollBar::sub-line:horizontal {
+                    border: solid;
+                    border-radius: 2px;
+                    background: #5E5E5E;
+                    width: 15px;
+
+                    image: url(assets/left-light-arrow-50.png);
+
+                    subcontrol-position: left;
+                    subcontrol-origin: margin;
+                }
+
                 """)
 
         else:
