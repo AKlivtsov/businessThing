@@ -506,8 +506,6 @@ class DeleteDialog(QDialog, deleteDialogUI.Ui_Dialog):
         super(DeleteDialog, self).__init__()
         self.setupUi(self)
 
-        self.resizeable(False)
-
         self.setWindowIcon(QtGui.QIcon('icon96px.ico'))
         self.setWindowTitle("Редактирование")
 
@@ -730,15 +728,7 @@ class ReportDialog(QMainWindow, reportUI.Ui_MainWindow, QDate):
             column = 4
             for item in self.totalList:
                 cell = self.tw_reportTable.item(lastRow, column)
-
-                """
-                FIX: AttributeError: 'NoneType' object has no attribute 'setText'
-                ошибка проявляется при выводе отчета при несохраненых клетках 
-
-                возможная причина: тайминг сохранения 
-                """
-                cell.setText(str(item))  #!
-
+                cell.setText(str(item))  
                 cell.setTextAlignment(aligment)
 
                 if column < 6:
