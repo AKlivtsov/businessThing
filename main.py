@@ -1144,6 +1144,7 @@ class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor, QSize, QSiz
             self.createDialog.setTheme(style)
             self.deleteDialog.setTheme(style)
             self.editDialog.setTheme(style)
+            self.saveDialog.setTheme(style)
 
             self.theme = "Dark"
 
@@ -1236,6 +1237,7 @@ class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor, QSize, QSiz
             self.createDialog.setTheme(style)
             self.deleteDialog.setTheme(style)
             self.editDialog.setTheme(style)
+            self.saveDialog.setTheme(style)
 
             self.theme = "Light"
 
