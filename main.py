@@ -349,6 +349,9 @@ class SaveDialog(QDialog, saveDialogUI.Ui_Dialog):
         self.setWindowIcon(QtGui.QIcon('icon96px.ico'))
         self.setWindowTitle("Сохранение")
 
+        self.setFixedWidth(400)
+        self.setFixedHeight(84)
+
     def setTheme(self, style):
         self.setStyleSheet(style)
 
@@ -368,6 +371,9 @@ class CreateDialog(QDialog, createDialogUI.Ui_Dialog):
 
         self.setWindowIcon(QtGui.QIcon('icon96px.ico'))
         self.setWindowTitle("Создать новую таблицу")
+
+        self.setFixedWidth(350)
+        self.setFixedHeight(110)
 
         self.btn_create.clicked.connect(self.emitName)
 
@@ -436,6 +442,9 @@ class EditDialog(QDialog, editDialogUI.Ui_Dialog):
 
         self.setWindowIcon(QtGui.QIcon('icon96px.ico'))
         self.setWindowTitle("Редактирование")
+
+        self.setFixedWidth(370)
+        self.setFixedHeight(430)
  
         self.date_in.setDate(QDate.currentDate())
         self.date_out.setDate(QDate.currentDate())
@@ -508,6 +517,9 @@ class DeleteDialog(QDialog, deleteDialogUI.Ui_Dialog):
 
         self.setWindowIcon(QtGui.QIcon('icon96px.ico'))
         self.setWindowTitle("Редактирование")
+
+        self.setFixedWidth(302)
+        self.setFixedHeight(170)
 
         self.date_in.setDate(QDate.currentDate())
         self.date_out.setDate(QDate.currentDate())
@@ -1341,7 +1353,7 @@ class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor, QSize, QSiz
             self.reportDialog.start()
             self.reportDialog.show()
 
-            self.reportOpen = False
+            self.reportOpenAllow = False
 
 
 if __name__ == '__main__':
