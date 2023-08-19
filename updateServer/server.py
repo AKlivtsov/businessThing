@@ -1,42 +1,63 @@
 import socket
-import os
 
-# БД
-import sqlite3
+from _thread import *
+import threading
+
+print_lock = threading.Lock()
 
 
-class Server():
-    def __init__(self):
+def threaded(conn):
+    while True:
 
-        self.IP = '31.131.68.162'
-        self.PORT = 8080
-        self.ADDR = (self.IP, self.PORT)
+        # data received from client
+        data = conn.recv(1024)
 
-    def execute(self):
-        server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        server.bind(self.ADDR)
-        server.listen()
+        if not data:
 
-        print("[STARTING] Server has been started and now listening.")
-        print("[INFO] Server's addr is: " + str(self.IP) + ":"+ str(self.PORT))
-        print("[INFO] You can change ip and port by editing server.py file")
- 
-        while True:
-            conn, addr = server.accept()
-            print(f"[NEW CONNECTION] {addr} connected.")
-        
-            version = open(version.txt, "r")
-            conn.send(version.encode("utf-8"))
+            # lock released on exit
+            print_lock.release()
+            break
 
- 
+        # reverse the given string from client
+        data = data[::-1]
 
-            conn.send("File data received".encode("utf-8"))
- 
-            file.close()
-            conn.close()
-            print(f"[DISCONNECTED] {addr} disconnected.")
+        # send back reversed string to client
+        conn.send(data)
 
- 
-if __name__ == "__main__":
-    s = Server()
-    s.execute()
+    # connection closed
+    conn.close()
+
+
+def Main():
+    host = "127.0.0.1"
+
+    # reserve a port on your computer
+    # in our case it is 12345 but it
+    # can be anything
+    port = 8080
+
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    sock.bind((host, port))
+    print("socket binded to port", port)
+
+    # put the socket into listening mode
+    sock.listen(5)
+    print("socket is listening")
+
+    # a forever loop until client wants to exit
+    while True:
+
+        # establish connection with client
+        conn, addr = s.accept()
+
+        # lock acquired by client
+        print_lock.acquire()
+        print('Connected to :', addr[0], ':', addr[1])
+
+        # Start a new thread and return its identifier
+        start_new_thread(threaded, (conn,))
+    sock.close()
+
+
+if __name__ == '__main__':
+    Main()
