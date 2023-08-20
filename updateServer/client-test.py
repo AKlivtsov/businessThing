@@ -1,20 +1,29 @@
 import socket
 
-ClientSocket = socket.socket()
-host = '127.0.0.1'
-port = 1233
+IP = '127.0.0.1'
+PORT = 1233
 
-print('Waiting for connection')
-try:
-    ClientSocket.connect((host, port))
-except socket.error as e:
-    print(str(e))
+localVersion = 0.2
 
-Response = ClientSocket.recv(1024)
-while True:
-    Input = input('Say Something: ')
-    ClientSocket.send(str.encode(Input))
-    Response = ClientSocket.recv(1024)
-    print(Response.decode('utf-8'))
+sock = socket.socket()
+sock.connect((IP, PORT))
 
-ClientSocket.close()
+version = sock.recv(2048).decode('utf-8')
+
+if version != '[ERR] CANNOT GET ACTUAL VERSION':
+    print(f"actual version is: {version}")
+
+    if localVersion < float(version):
+        print("update me!")
+
+    else: 
+        print("i'am ia up to date!")
+
+    while True:
+        msg = input('Say Something: ')
+        sock.send(str.encode(msg))
+        Response = sock.recv(1024)
+        print(Response.decode('utf-8'))
+else:
+    print(version)
+sock.close()

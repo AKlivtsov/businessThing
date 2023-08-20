@@ -1,34 +1,49 @@
+from _thread import *
 import socket
 import os
-from _thread import *
+import sqlite3
 
-ServerSocket = socket.socket()
-host = '127.0.0.1'
-port = 1233
-ThreadCount = 0
-try:
-    ServerSocket.bind((host, port))
-except socket.error as e:
-    print(str(e))
+sock = socket.socket()
+IP = '127.0.0.1'
+PORT = 1233
+sock.bind((IP, PORT))
 
 print('Waitiing for a Connection..')
-ServerSocket.listen(5)
-
+sock.listen(5)
 
 def threaded_client(connection):
-    connection.send(str.encode('Welcome to the Servern'))
-    while True:
-        data = connection.recv(2048)
-        reply = 'Server Says: ' + data.decode('utf-8')
-        if not data:
-            break
-        connection.sendall(str.encode(reply))
+
+    connect = sqlite3.connect("server.db")
+    cursor = connect.cursor()
+
+    cursor.execute(f"SELECT version FROM server WHERE ROWID = ?", (1,))
+    versionTemp = cursor.fetchone()
+    
+    if versionTemp != None:
+
+        version = ""
+        for i in versionTemp:
+            version += str(i)
+
+        connection.send(version.encode('utf-8'))
+
+        while True:
+            data = connection.recv(2048).decode('utf-8')
+            print(data)
+
+            if not data:
+                break
+
+            reply = 'Server Says: ' + data
+            connection.sendall(str.encode(reply))
+
+    else:
+        connection.send("[ERR] CANNOT GET ACTUAL VERSION".encode('utf-8'))
+
     connection.close()
 
 while True:
-    Client, address = ServerSocket.accept()
+    Client, address = sock.accept()
     print('Connected to: ' + address[0] + ':' + str(address[1]))
     start_new_thread(threaded_client, (Client, ))
-    ThreadCount += 1
-    print('Thread Number: ' + str(ThreadCount))
-ServerSocket.close()
+sock.close()

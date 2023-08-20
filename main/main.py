@@ -31,7 +31,7 @@ class ReadThread(QThread):
 
     def run(self):
 
-        connect = sqlite3.connect("d.db")
+        connect = sqlite3.connect("database/d.db")
         cursor = connect.cursor()
 
         cursor.execute(f"SELECT count(*) FROM {self.tableName}")
@@ -115,7 +115,7 @@ class SaveThread(QThread):
 
     def run(self):
 
-        connect = sqlite3.connect("d.db")
+        connect = sqlite3.connect("database/d.db")
         cursor = connect.cursor()
 
         for column in range(self.table.columnCount()):
@@ -200,7 +200,7 @@ class SaveReportThread(QThread):
             connect.commit()
             self.s_updPB.emit('upd')
 
-        connect = sqlite3.connect("d.db")
+        connect = sqlite3.connect("database/d.db")
         cursor = connect.cursor()
 
         for row in range(self.table.rowCount() - 2):
@@ -275,7 +275,7 @@ class ReadReportThread(QThread):
 
                 self.s_readedData.emit(row, column, DBdata)
 
-        connect = sqlite3.connect("d.db")
+        connect = sqlite3.connect("database/d.db")
         cursor = connect.cursor()
 
         for row in range(self.table.rowCount() - 2):
@@ -346,7 +346,7 @@ class SaveDialog(QDialog, saveDialogUI.Ui_Dialog):
         super(SaveDialog, self).__init__()
         self.setupUi(self)
 
-        self.setWindowIcon(QtGui.QIcon('icon96px.ico'))
+        self.setWindowIcon(QtGui.QIcon('assets/icon96px.ico'))
         self.setWindowTitle("Сохранение")
 
         self.setFixedWidth(400)
@@ -369,7 +369,7 @@ class CreateDialog(QDialog, createDialogUI.Ui_Dialog):
         super(CreateDialog, self).__init__()
         self.setupUi(self)
 
-        self.setWindowIcon(QtGui.QIcon('icon96px.ico'))
+        self.setWindowIcon(QtGui.QIcon('assets/icon96px.ico'))
         self.setWindowTitle("Создать новую таблицу")
 
         self.setFixedWidth(350)
@@ -381,7 +381,7 @@ class CreateDialog(QDialog, createDialogUI.Ui_Dialog):
         self.setStyleSheet(style)
 
     def emitName(self):
-        connect = sqlite3.connect("d.db")
+        connect = sqlite3.connect("database/d.db")
         cursor = connect.cursor()
 
         name = self.le_name.text()
@@ -440,7 +440,7 @@ class EditDialog(QDialog, editDialogUI.Ui_Dialog):
         super(EditDialog, self).__init__()
         self.setupUi(self)
 
-        self.setWindowIcon(QtGui.QIcon('icon96px.ico'))
+        self.setWindowIcon(QtGui.QIcon('assets/icon96px.ico'))
         self.setWindowTitle("Редактирование")
 
         self.setFixedWidth(370)
@@ -515,7 +515,7 @@ class DeleteDialog(QDialog, deleteDialogUI.Ui_Dialog):
         super(DeleteDialog, self).__init__()
         self.setupUi(self)
 
-        self.setWindowIcon(QtGui.QIcon('icon96px.ico'))
+        self.setWindowIcon(QtGui.QIcon('assets/icon96px.ico'))
         self.setWindowTitle("Редактирование")
 
         self.setFixedWidth(302)
@@ -570,7 +570,7 @@ class ReportDialog(QMainWindow, reportUI.Ui_MainWindow, QDate):
         super(ReportDialog, self).__init__()
         self.setupUi(self)
 
-        self.setWindowIcon(QtGui.QIcon('icon96px.ico'))
+        self.setWindowIcon(QtGui.QIcon('assets/icon96px.ico'))
         self.setWindowTitle("Отчёт")
         self.resizeable()
 
@@ -875,7 +875,7 @@ class ReportDialog(QMainWindow, reportUI.Ui_MainWindow, QDate):
                         self.colorVariations = list(dict.fromkeys(self.colorVariations))
 
         for color in self.colorVariations:
-            connect = sqlite3.connect("d.db")
+            connect = sqlite3.connect("database/d.db")
             cursor = connect.cursor()
 
             cursor.execute(f"""SELECT month FROM {self.tableName} WHERE color = '{color}'""")
@@ -981,7 +981,7 @@ class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor, QSize, QSiz
 
         self.resizeable()
 
-        self.setWindowIcon(QtGui.QIcon('icon96px.ico'))
+        self.setWindowIcon(QtGui.QIcon('assets/icon96px.ico'))
         self.setWindowTitle("BusinessThing")
         self.setTable()
 
@@ -1286,7 +1286,7 @@ class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor, QSize, QSiz
 
             self.read()
 
-        connect = sqlite3.connect("d.db")
+        connect = sqlite3.connect("database/d.db")
         cursor = connect.cursor()
 
         cursor.execute("""SELECT name FROM sqlite_master WHERE type='table';""")
