@@ -1,63 +1,34 @@
 import socket
-
+import os
 from _thread import *
-import threading
 
-print_lock = threading.Lock()
+ServerSocket = socket.socket()
+host = '127.0.0.1'
+port = 1233
+ThreadCount = 0
+try:
+    ServerSocket.bind((host, port))
+except socket.error as e:
+    print(str(e))
+
+print('Waitiing for a Connection..')
+ServerSocket.listen(5)
 
 
-def threaded(conn):
+def threaded_client(connection):
+    connection.send(str.encode('Welcome to the Servern'))
     while True:
-
-        # data received from client
-        data = conn.recv(1024)
-
+        data = connection.recv(2048)
+        reply = 'Server Says: ' + data.decode('utf-8')
         if not data:
-
-            # lock released on exit
-            print_lock.release()
             break
+        connection.sendall(str.encode(reply))
+    connection.close()
 
-        # reverse the given string from client
-        data = data[::-1]
-
-        # send back reversed string to client
-        conn.send(data)
-
-    # connection closed
-    conn.close()
-
-
-def Main():
-    host = "127.0.0.1"
-
-    # reserve a port on your computer
-    # in our case it is 12345 but it
-    # can be anything
-    port = 8080
-
-    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    sock.bind((host, port))
-    print("socket binded to port", port)
-
-    # put the socket into listening mode
-    sock.listen(5)
-    print("socket is listening")
-
-    # a forever loop until client wants to exit
-    while True:
-
-        # establish connection with client
-        conn, addr = s.accept()
-
-        # lock acquired by client
-        print_lock.acquire()
-        print('Connected to :', addr[0], ':', addr[1])
-
-        # Start a new thread and return its identifier
-        start_new_thread(threaded, (conn,))
-    sock.close()
-
-
-if __name__ == '__main__':
-    Main()
+while True:
+    Client, address = ServerSocket.accept()
+    print('Connected to: ' + address[0] + ':' + str(address[1]))
+    start_new_thread(threaded_client, (Client, ))
+    ThreadCount += 1
+    print('Thread Number: ' + str(ThreadCount))
+ServerSocket.close()
