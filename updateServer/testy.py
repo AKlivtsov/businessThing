@@ -1,31 +1,44 @@
 import os 
 
+def clear():
+	for item in mainList:
+		if "." not in item:
+			mainList.pop(mainList.index(item))
+			clear()
+
 def pathCheck(dirList, startPath):
 	for item in dirList:
 		if "." not in item:
 			newPath = startPath + '/' + item
-			newList = os.listdir(newPath)
 
-			for newItem in newList:
-				pathToCheck = []
+			if os.path.isfile(newPath):
+				pass
 
-				if "." in newItem:
-					mainList.append(item + '/' + newItem)
+			else:
+				newList = os.listdir(newPath)
 
-				else:
-					pathToCheck.append(item + '/' + newItem)
+				for newItem in newList:
+					pathToCheck = []
 
-				if pathToCheck:
-					for path in  pathToCheck:
-						anoPath = startPath +'/' 
-						pathCheck(pathToCheck, anoPath)
+					if "." in newItem:
+						mainList.append(item + '/' + newItem)
 
-			
+					else:
+						pathToCheck.append(item + '/' + newItem)
 
-path = 'C:/Users/sasha/OneDrive/Рабочий стол/gfhjg'
+					if pathToCheck:
+						for path in  pathToCheck:
+							anoPath = startPath +'/' 
+							pathCheck(pathToCheck, anoPath)
+	
+	return True		
+
+path = 'D:/!SubieProjects/businessThing/updateServer/testFolder'
 
 mainList = os.listdir(path)
-pathCheck(mainList, path)
-		
-print(mainList)
+state = pathCheck(mainList, path)
+
+if state:
+	clear()
+	print(mainList)
 
