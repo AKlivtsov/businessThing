@@ -11,10 +11,7 @@ def pathCheck(dirList, startPath):
 		if "." not in item:
 			newPath = startPath + '/' + item
 
-			if os.path.isfile(newPath):
-				pass
-
-			else:
+			if not os.path.isfile(newPath):
 				newList = os.listdir(newPath)
 
 				for newItem in newList:
@@ -33,7 +30,7 @@ def pathCheck(dirList, startPath):
 	
 	return True		
 
-path = 'D:/!SubieProjects/businessThing/updateServer/testFolder'
+path = 'testFolder'
 
 mainList = os.listdir(path)
 state = pathCheck(mainList, path)

@@ -11,6 +11,48 @@ sock.bind((IP, PORT))
 print('Waitiing for a Connection..')
 sock.listen(5)
 
+def getFileList(path):
+    def clear():
+            for item in mainList:
+                if "." not in item:
+                    mainList.pop(mainList.index(item))
+                    clear()
+
+    def pathCheck(dirList, startPath):
+        for item in dirList:
+            if "." not in item:
+                newPath = startPath + '/' + item
+
+                if not os.path.isfile(newPath):
+                    newList = os.listdir(newPath)
+
+                    for newItem in newList:
+                        pathToCheck = []
+
+                        if "." in newItem:
+                            mainList.append(item + '/' + newItem)
+
+                        else:
+                            pathToCheck.append(item + '/' + newItem)
+
+                        if pathToCheck:
+                            for path in  pathToCheck:
+                                anoPath = startPath +'/' 
+                                pathCheck(pathToCheck, anoPath)
+    
+        return True     
+
+    mainList = os.listdir(path)
+    state = pathCheck(mainList, path)
+
+    if state:
+        clear()
+        return mainList
+
+def sendMagic(file):
+    #???
+    pass
+
 def threaded_client(connection):
 
     connect = sqlite3.connect("server.db")
