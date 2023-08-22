@@ -2,6 +2,7 @@ from _thread import *
 import socket
 import os
 import sqlite3
+import pathlib
 
 sock = socket.socket()
 IP = '127.0.0.1'
@@ -50,8 +51,20 @@ def getFileList(path):
         return mainList
 
 def sendMagic(file):
-    #???
-    pass
+    # отправляем путь, имя и расширние фалйа
+    connection.send(file.encode("utf-8"))
+
+    # открываем файл
+    openedFile = open(file, "rb")
+    data = openedFile.read(1024)
+
+    # отправляем файл
+    while (data):
+        connection.send(data)
+        data = openedFile.read(1024)
+
+    # завершаем 
+    openedFile.close()
 
 def threaded_client(connection):
 
@@ -70,14 +83,31 @@ def threaded_client(connection):
         connection.send(version.encode('utf-8'))
 
         while True:
-            data = connection.recv(2048).decode('utf-8')
-            print(data)
+            respond = connection.recv(2048).decode('utf-8')
+            
+            if respond == "True":
+                listOfFiles = getFileList("testFolder")
 
-            if not data:
-                break
+                for file in listOfFiles:
+                    # отправляем путь, имя и расширние фалйа
+                    connection.send(file.encode("utf-8"))
 
-            reply = 'Server Says: ' + data
-            connection.sendall(str.encode(reply))
+                    # открываем файл
+                    print(f"Working on: {file}              | for {address[0]}:{str(address[1])}")
+                    openedFile = open("testFolder/" + file, "rb")
+                    data = openedFile.read(1024)
+                    print(f" data of {file} :\n    {data}")
+                    print('\n')
+
+                    # отправляем файл
+                    while (data):
+                        connection.send(data)
+                        data = openedFile.read(1024)
+
+                    # завершаем 
+                    openedFile.close()
+
+                connection.close()
 
     else:
         connection.send("[ERR] CANNOT GET ACTUAL VERSION".encode('utf-8'))

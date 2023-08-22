@@ -50,5 +50,9 @@ if state:
 	foldersList.sort()
 
 	for folders in foldersList:
-		os.makedirs("exportFolder/" + folders)
+		try:
+			os.makedirs("exportFolder/" + folders)
+
+		except FileExistsError:
+			pass
 
