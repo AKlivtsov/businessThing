@@ -1,8 +1,9 @@
 from _thread import *
 import socket
-import os
+import struct
 import sqlite3
 import pathlib
+import os
 
 sock = socket.socket()
 IP = '127.0.0.1'
@@ -50,23 +51,7 @@ def getFileList(path):
         clear()
         return mainList
 
-def sendMagic(file):
-    # отправляем путь, имя и расширние фалйа
-    connection.send(file.encode("utf-8"))
-
-    # открываем файл
-    openedFile = open(file, "rb")
-    data = openedFile.read(1024)
-
-    # отправляем файл
-    while (data):
-        connection.send(data)
-        data = openedFile.read(1024)
-
-    # завершаем 
-    openedFile.close()
-
-def threaded_client(connection):
+def threaded_client(conn):
 
     connect = sqlite3.connect("server.db")
     cursor = connect.cursor()
@@ -80,39 +65,40 @@ def threaded_client(connection):
         for i in versionTemp:
             version += str(i)
 
-        connection.send(version.encode('utf-8'))
+        conn.send(version.encode('utf-8'))
 
         while True:
-            respond = connection.recv(2048).decode('utf-8')
+            respond = conn.recv(2048).decode('utf-8')
             
             if respond == "True":
                 listOfFiles = getFileList("testFolder")
 
                 for file in listOfFiles:
-                    # отправляем путь, имя и расширние фалйа
-                    connection.send(file.encode("utf-8"))
+                    print("file is: " + file)
+                    conn.send(file.encode('utf-8'))
 
-                    # открываем файл
-                    print(f"Working on: {file}              | for {address[0]}:{str(address[1])}")
-                    openedFile = open("testFolder/" + file, "rb")
-                    data = openedFile.read(1024)
-                    print(f" data of {file} :\n    {data}")
-                    print('\n')
+                    response = conn.recv(2048).decode('utf-8')
+                    if response == "Done":
+                        print('yep')
 
-                    # отправляем файл
-                    while (data):
-                        connection.send(data)
-                        data = openedFile.read(1024)
+                        filesize = os.path.getsize("testFolder/" + file)
+                        conn.sendall(struct.pack("<Q", filesize))
 
-                    # завершаем 
-                    openedFile.close()
+                        response = conn.recv(2048).decode('utf-8')
+                        if response == "DoneEnd":
+                            print('yepEnd')
+                   
+                            with open("testFolder/" + file, "rb") as f:
+                                while read_bytes := f.read(1024):
+                                    print(read_bytes)
+                                    conn.sendall(read_bytes)
 
-                connection.close()
+                conn.close()
 
     else:
-        connection.send("[ERR] CANNOT GET ACTUAL VERSION".encode('utf-8'))
+        conn.send("[ERR] CANNOT GET ACTUAL VERSION".encode('utf-8'))
 
-    connection.close()
+    conn.close()
 
 while True:
     Client, address = sock.accept()

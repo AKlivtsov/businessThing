@@ -1,70 +1,96 @@
 import socket
+import struct
 import os
 
 IP = '127.0.0.1'
 PORT = 1233
 
+update = False
 localVersion = 0.2
 
-sock = socket.socket()
-sock.connect((IP, PORT))
+def receive_file_size(sck: socket.socket):
+    fmt = "<Q"
+    expected_bytes = struct.calcsize(fmt)
+    received_bytes = 0
+    stream = bytes()
 
-version = sock.recv(2048).decode('utf-8')
+    while received_bytes < expected_bytes:
+        chunk = sck.recv(expected_bytes - received_bytes)
+        stream += chunk
+        received_bytes += len(chunk)
 
-if version != '[ERR] CANNOT GET ACTUAL VERSION':
-    print(f"actual version is: {version}")
+    filesize = struct.unpack(fmt, stream)[0]
 
-    if localVersion < float(version):
-        print("update me!")
-        sock.send("True".encode('utf-8'))
+    return filesize
 
-    else: 
-        print("i'am is up to date!")
+def receive_file(sck: socket.socket, filename, filesize):
 
-    while True:
-        path = sock.recv(2048).decode('utf-8')
-        print(f"Working on: {path}")
+    with open(filename, "wb") as f:
+        received_bytes = 0
 
-        if "/" in path:
-            filename = path.split("/")[-1]
-            folders = path.replace(filename, '')
-            folders = "exportFolder/" + folders
+        while received_bytes < filesize:
+            chunk = sck.recv(1024)
 
-            try:
-                os.makedirs(folders)
+            if chunk:
+                f.write(chunk)
+                received_bytes += len(chunk)
 
-            except FileExistsError:
-                pass
+with socket.create_connection((IP, PORT)) as conn:
+    version = conn.recv(2048).decode('utf-8')
 
-            file = open(folders + filename, "wb")
+    if version != '[ERR] CANNOT GET ACTUAL VERSION':
+        print(f"actual version is: {version}")
 
-        else:
+        if localVersion < float(version):
+            print("update me!")
+            conn.send("True".encode('utf-8'))
+            update = True
 
-            try:
-                os.mkdir("exportFolder/")
-
-            except FileExistsError: 
-                pass
-
-            filename = path.split("/")[-1]
-            file = open("exportFolder/" + filename, "wb")
+        else: 
+            print("i'am is up to date!")
 
         while True:
-            data = sock.recv(1024)
-            print(f"data of {file}:\n {data}")
-            file.write(data)
+            if update:
+                path = conn.recv(2048).decode('utf-8')
+                print(f"Working on: {path}")
 
-            if not data:
-                break
+                if "/" in path:
+                    filename = path.split("/")[-1]
+                    folders = path.replace(filename, '')
+                    folders = "exportFolder/" + folders
 
-        file.close()
+                    try:
+                        os.makedirs(folders)
+                    except FileExistsError:
+                        pass
+                    conn.send("Done".encode('utf-8'))
 
-        msg = sock.recv(2048).decode('utf-8')
-        if msg == "[DONE]":
-            print(msg)
-            break
-        
-else:
-    print(version)
+                else:
+                    filename = path.split("/")[-1]
 
-sock.close()
+                    try:
+                        os.mkdir("exportFolder/")
+                    except FileExistsError: 
+                        pass
+
+                    conn.send("Done".encode('utf-8'))
+
+                filesize = receive_file_size(conn)
+                print(filesize)
+                conn.send("DoneEnd".encode('utf-8'))
+
+                with open("exportFolder/" + filename, "wb") as f:
+                    received_bytes = 0
+
+                    while received_bytes < filesize:
+                        chunk = conn.recv(1024)
+                        print(chunk)
+
+                        if chunk:
+                            f.write(chunk)
+                            received_bytes += len(chunk)
+
+                print("s")
+
+    else:
+        print(version)
