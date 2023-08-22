@@ -1,9 +1,9 @@
 import os 
 
 def clear():
-	for item in mainList:
+	for item in listOfFiles:
 		if "." not in item:
-			mainList.pop(mainList.index(item))
+			del listOfFiles[listOfFiles.index(item)]
 			clear()
 
 def pathCheck(dirList, startPath):
@@ -18,7 +18,7 @@ def pathCheck(dirList, startPath):
 					pathToCheck = []
 
 					if "." in newItem:
-						mainList.append(item + '/' + newItem)
+						listOfFiles.append(item + '/' + newItem)
 
 					else:
 						pathToCheck.append(item + '/' + newItem)
@@ -32,10 +32,23 @@ def pathCheck(dirList, startPath):
 
 path = 'testFolder'
 
-mainList = os.listdir(path)
-state = pathCheck(mainList, path)
+listOfFiles = os.listdir(path)
+state = pathCheck(listOfFiles, path)
 
 if state:
 	clear()
-	print(mainList)
+	foldersList = []
+
+	for file in listOfFiles:
+		if "/" in file:
+			fileName = file.split("/")[-1]
+			folders = file.replace(fileName, '')
+			foldersList.append(folders)
+
+	# remove copies 
+	foldersList = list(set(foldersList))
+	foldersList.sort()
+
+	for folders in foldersList:
+		os.makedirs("exportFolder/" + folders)
 
