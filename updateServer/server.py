@@ -1,4 +1,5 @@
 from _thread import *
+from typing import Optional
 import socket
 import struct
 import sqlite3
@@ -12,6 +13,7 @@ sock.bind((IP, PORT))
 
 print('Waitiing for a Connection..')
 sock.listen(5)
+
 
 def getFileList(path):
     def clear():
@@ -51,6 +53,7 @@ def getFileList(path):
         clear()
         return mainList
 
+
 def threaded_client(conn):
 
     connect = sqlite3.connect("server.db")
@@ -74,31 +77,65 @@ def threaded_client(conn):
                 listOfFiles = getFileList("testFolder")
 
                 for file in listOfFiles:
-                    print("file is: " + file)
+
                     conn.send(file.encode('utf-8'))
 
-                    response = conn.recv(2048).decode('utf-8')
-                    if response == "Done":
-                        print('yep')
+                    startSending = conn.recv(2048).decode('utf-8')
+                    if startSending == "Ready!":
+                        
+                        with open("testFolder/" + file, 'rb') as f:
+                            data = f.read()
 
-                        filesize = os.path.getsize("testFolder/" + file)
-                        conn.sendall(struct.pack("<Q", filesize))
+                        print(f'Sending ({len(data)}): {data}')
 
-                        response = conn.recv(2048).decode('utf-8')
-                        if response == "DoneEnd":
-                            print('yepEnd')
-                   
-                            with open("testFolder/" + file, "rb") as f:
-                                while read_bytes := f.read(1024):
-                                    print(read_bytes)
-                                    conn.sendall(read_bytes)
+                        send_msg(conn, data)
 
-                conn.close()
+                        print('Receiving')
+
+                        response_data = recv_msg(conn)
+                        print(f'Response ({len(response_data)}): {response_data}')
+
+                        print('Close\n')
 
     else:
         conn.send("[ERR] CANNOT GET ACTUAL VERSION".encode('utf-8'))
 
     conn.close()
+
+
+def send_msg(sock, msg):
+    # Prefix each message with a 8-byte length (network byte order)
+    msg = struct.pack('>Q', len(msg)) + msg
+    sock.sendall(msg)
+
+
+def recv_msg(sock) -> Optional[bytes]:
+    # 8-byte
+    payload_size = struct.calcsize(">Q")
+
+    # Read message length and unpack it into an integer
+    raw_msg_len = recv_all(sock, payload_size)
+    if not raw_msg_len:
+        return None
+
+    msg_len = struct.unpack('>Q', raw_msg_len)[0]
+
+    # Read the message data
+    return recv_all(sock, msg_len)
+
+
+def recv_all(sock, n) -> Optional[bytes]:
+    # Helper function to recv n bytes or return None if EOF is hit
+    data = bytearray()
+
+    while len(data) < n:
+        packet = sock.recv(n - len(data))
+        if not packet:
+            return None
+
+        data += packet
+
+    return bytes(data)
 
 while True:
     Client, address = sock.accept()

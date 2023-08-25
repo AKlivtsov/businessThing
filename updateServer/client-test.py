@@ -1,3 +1,4 @@
+from typing import Optional
 import socket
 import struct
 import os
@@ -8,32 +9,41 @@ PORT = 1233
 update = False
 localVersion = 0.2
 
-def receive_file_size(sck: socket.socket):
-    fmt = "<Q"
-    expected_bytes = struct.calcsize(fmt)
-    received_bytes = 0
-    stream = bytes()
 
-    while received_bytes < expected_bytes:
-        chunk = sck.recv(expected_bytes - received_bytes)
-        stream += chunk
-        received_bytes += len(chunk)
+def send_msg(sock, msg):
+    # Prefix each message with a 8-byte length (network byte order)
+    msg = struct.pack('>Q', len(msg)) + msg
+    sock.sendall(msg)
 
-    filesize = struct.unpack(fmt, stream)[0]
 
-    return filesize
+def recv_msg(sock) -> Optional[bytes]:
+    # 8-byte
+    payload_size = struct.calcsize(">Q")
 
-def receive_file(sck: socket.socket, filename, filesize):
+    # Read message length and unpack it into an integer
+    raw_msg_len = recv_all(sock, payload_size)
+    if not raw_msg_len:
+        return None
 
-    with open(filename, "wb") as f:
-        received_bytes = 0
+    msg_len = struct.unpack('>Q', raw_msg_len)[0]
 
-        while received_bytes < filesize:
-            chunk = sck.recv(1024)
+    # Read the message data
+    return recv_all(sock, msg_len)
 
-            if chunk:
-                f.write(chunk)
-                received_bytes += len(chunk)
+
+def recv_all(sock, n) -> Optional[bytes]:
+    # Helper function to recv n bytes or return None if EOF is hit
+    data = bytearray()
+
+    while len(data) < n:
+        packet = sock.recv(n - len(data))
+        if not packet:
+            return None
+
+        data += packet
+
+    return bytes(data)
+
 
 with socket.create_connection((IP, PORT)) as conn:
     version = conn.recv(2048).decode('utf-8')
@@ -63,7 +73,7 @@ with socket.create_connection((IP, PORT)) as conn:
                         os.makedirs(folders)
                     except FileExistsError:
                         pass
-                    conn.send("Done".encode('utf-8'))
+                    conn.send("Ready!".encode('utf-8'))
 
                 else:
                     filename = path.split("/")[-1]
@@ -72,25 +82,18 @@ with socket.create_connection((IP, PORT)) as conn:
                         os.mkdir("exportFolder/")
                     except FileExistsError: 
                         pass
+                    conn.send("Ready!".encode('utf-8'))
 
-                    conn.send("Done".encode('utf-8'))
+                data = recv_msg(conn)
+                print('Receiving ({}): {}'.format(len(data), data))
 
-                filesize = receive_file_size(conn)
-                print(filesize)
-                conn.send("DoneEnd".encode('utf-8'))
+                text = 'Ok! Message size: {}'.format(len(data))
+                print('Sending: {}'.format(text))
 
-                with open("exportFolder/" + filename, "wb") as f:
-                    received_bytes = 0
+                rs = bytes(text, 'utf-8')
+                send_msg(conn, rs)
 
-                    while received_bytes < filesize:
-                        chunk = conn.recv(1024)
-                        print(chunk)
-
-                        if chunk:
-                            f.write(chunk)
-                            received_bytes += len(chunk)
-
-                print("s")
+                print('Close\n')
 
     else:
         print(version)
