@@ -48,10 +48,10 @@ class UpdateThread(QThread):
                     if self.update:
                         path = conn.recv(2048).decode('utf-8')
     
-                        if path != "ERR] CANNOT GET PATH":
+                        if path != "[ERR] CANNOT GET PATH":
 
                             try:
-                                os.mkdir("exp")
+                                os.mkdir("exp") # TODO: назвать папку в соотвествии с версией 
 
                             except FileExistsError:
                                 pass
