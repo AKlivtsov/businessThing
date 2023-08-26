@@ -1,6 +1,4 @@
-from typing import Optional
 import socket
-import struct
 import os
 
 IP = '127.0.0.1'
@@ -14,7 +12,6 @@ with socket.create_connection((IP, PORT)) as conn:
     version = conn.recv(2048).decode('utf-8')
 
     if version != '[ERR] CANNOT GET ACTUAL VERSION':
-        print(f"actual version is: {version}")
 
         if localVersion < float(version):
             print("update me!")
@@ -43,7 +40,6 @@ with socket.create_connection((IP, PORT)) as conn:
  
             # завершаем
             file.close()
-            conn.close()
 
     else:
         print(version)

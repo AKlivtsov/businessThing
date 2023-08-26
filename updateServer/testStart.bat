@@ -1,3 +1,3 @@
 color b
-python client-test.py
+python server.py
 pause

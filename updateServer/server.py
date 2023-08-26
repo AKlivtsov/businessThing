@@ -14,7 +14,6 @@ sock.listen(5)
 
 
 def threaded_client(conn):
-
     connect = sqlite3.connect("server.db")
     cursor = connect.cursor()
 
@@ -69,6 +68,7 @@ def threaded_client(conn):
         print(f"[ERR] CANNOT GET ACTUAL VERSION [ on {address[0]}:{str(address[1])}]")
 
     conn.close()
+
 
 while True:
 
