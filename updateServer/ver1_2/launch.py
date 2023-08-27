@@ -6,12 +6,14 @@ from PyQt6.QtCore import QThread, QObject
 # окно 
 import launchUI
 
+# программа
+import main
+
 # подключение
 import socket
 
 # прчоее
 import tarfile as tar
-import pathlib
 import os
 
 IP = '127.0.0.1'
@@ -20,13 +22,12 @@ PORT = 1233
 
 class UpdateThread(QThread):
     s_highMsg = QtCore.pyqtSignal(str)
-    s_lowMsg = QtCore.pyqtSignal(bool, str) 
-    s_path = QtCore.pyqtSignal(str)
+    s_lowMsg = QtCore.pyqtSignal(bool) 
 
     def  __init__(self):
         QtCore.QThread.__init__(self)
 
-        self.localVersion = 0.2 # extract from db
+        self.localVersion = 0.2
         self.update = False
 
     def run(self):
@@ -47,9 +48,15 @@ class UpdateThread(QThread):
                     if self.update:
                         path = conn.recv(2048).decode('utf-8')
     
-                        if path != "[ERR] CANNOT GET PATH":
-                            filename = pathlib.PurePath(path).name
-                            file = open(path, "wb")
+                        if path != "ERR] CANNOT GET PATH":
+
+                            try:
+                                os.mkdir("exp")
+
+                            except FileExistsError:
+                                pass
+    
+                            file = open("exp/" + path, "wb")
     
                             self.s_highMsg.emit("Получаем обновление...")
     
@@ -63,7 +70,7 @@ class UpdateThread(QThread):
                             self.s_highMsg.emit("Устанавливаем обновление...")
                             file.close()
 
-                            update = tar.open(filename, 'r:gz')
+                            update = tar.open("exp/update.tar", 'r:gz')
                             update.extractall()
     
                         else:
@@ -72,11 +79,11 @@ class UpdateThread(QThread):
                     else:
                         self.s_highMsg.emit(version)
 
-                    self.s_lowMsg.emit(True, filename)
+                    self.s_lowMsg.emit(True)
 
         except ConnectionRefusedError:
             self.s_highMsg.emit("Не удаётся подключится к серверу обновлений.")
-            self.s_lowMsg.emit(True, "ver1_2") # automaticly set folder
+            self.s_lowMsg.emit(True)
 
 
 class MainWindow(QMainWindow, launchUI.Ui_MainWindow):
@@ -106,15 +113,18 @@ class MainWindow(QMainWindow, launchUI.Ui_MainWindow):
         if msg == "Не удаётся подключится к серверу обновлений.":
             self.refusedConn = True
 
-    def startMainApp(self, state, filename):
+    def startMainApp(self, state):
         if state:
             self.lbl_status.setText("Запуск...")
 
-            sys.path.insert(1, f'{filename}/')
+            # path to main file
+            # sys.path.insert(1, 'testFolder/test1/testttt/xcx')
 
-            import main
-            app = main.MainWindow()
-            app.show()
+            import main # simple py files executes automaticly 
+
+            # for pyqt progs:
+            main = main.MainWindow()
+            main.show()  
 
             self.close()  
 
