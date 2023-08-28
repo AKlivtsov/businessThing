@@ -348,7 +348,7 @@ class SaveDialog(QDialog, saveDialogUI.Ui_Dialog):
         super(SaveDialog, self).__init__()
         self.setupUi(self)
 
-        self.setWindowIcon(QtGui.QIcon('assets/icon96px.ico'))
+        self.setWindowIcon(QtGui.QIcon(f'{VERSIONPATH}/assets/icon96px.ico'))
         self.setWindowTitle("Сохранение")
 
         self.setFixedWidth(400)
@@ -371,7 +371,7 @@ class CreateDialog(QDialog, createDialogUI.Ui_Dialog):
         super(CreateDialog, self).__init__()
         self.setupUi(self)
 
-        self.setWindowIcon(QtGui.QIcon('assets/icon96px.ico'))
+        self.setWindowIcon(QtGui.QIcon(f'{VERSIONPATH}/icon96px.ico'))
         self.setWindowTitle("Создать новую таблицу")
 
         self.setFixedWidth(350)
@@ -442,7 +442,7 @@ class EditDialog(QDialog, editDialogUI.Ui_Dialog):
         super(EditDialog, self).__init__()
         self.setupUi(self)
 
-        self.setWindowIcon(QtGui.QIcon('assets/icon96px.ico'))
+        self.setWindowIcon(QtGui.QIcon(f'{VERSIONPATH}/icon96px.ico'))
         self.setWindowTitle("Редактирование")
 
         self.setFixedWidth(370)
@@ -517,7 +517,7 @@ class DeleteDialog(QDialog, deleteDialogUI.Ui_Dialog):
         super(DeleteDialog, self).__init__()
         self.setupUi(self)
 
-        self.setWindowIcon(QtGui.QIcon('assets/icon96px.ico'))
+        self.setWindowIcon(QtGui.QIcon(f'{VERSIONPATH}/icon96px.ico'))
         self.setWindowTitle("Редактирование")
 
         self.setFixedWidth(302)
@@ -572,7 +572,7 @@ class ReportDialog(QMainWindow, reportUI.Ui_MainWindow, QDate):
         super(ReportDialog, self).__init__()
         self.setupUi(self)
 
-        self.setWindowIcon(QtGui.QIcon('assets/icon96px.ico'))
+        self.setWindowIcon(QtGui.QIcon(f'{VERSIONPATH}/icon96px.ico'))
         self.setWindowTitle("Отчёт")
         self.resizeable()
 
@@ -657,7 +657,7 @@ class ReportDialog(QMainWindow, reportUI.Ui_MainWindow, QDate):
                     background: #5E5E5E;
                     width: 15px;
 
-                    image: url(assets/right-light-arrow-50.png);
+                    image: url({}/assets/right-light-arrow-50.png);
 
                     subcontrol-position: right;
                     subcontrol-origin: margin;
@@ -669,13 +669,13 @@ class ReportDialog(QMainWindow, reportUI.Ui_MainWindow, QDate):
                     background: #5E5E5E;
                     width: 15px;
 
-                    image: url(assets/left-light-arrow-50.png);
+                    image: url({}/assets/left-light-arrow-50.png);
 
                     subcontrol-position: left;
                     subcontrol-origin: margin;
                 }
 
-                """)
+                """.format(VERSIONPATH, VERSIONPATH))
 
         else:
             self.setStyleSheet(style)
@@ -983,7 +983,7 @@ class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor, QSize, QSiz
 
         self.resizeable()
 
-        self.setWindowIcon(QtGui.QIcon('assets/icon96px.ico'))
+        self.setWindowIcon(QtGui.QIcon(f'{VERSIONPATH}/assets/icon96px.ico'))
         self.setWindowTitle("BusinessThing")
         self.setTable()
 
@@ -1120,7 +1120,7 @@ class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor, QSize, QSiz
                     background: #BDBDBD;
                     width: 15px;
 
-                    image: url(assets/right-dark-arrow-50.png);
+                    image: url({0}/assets/right-dark-arrow-50.png);
 
                     subcontrol-position: right;
                     subcontrol-origin: margin;
@@ -1132,13 +1132,13 @@ class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor, QSize, QSiz
                     background: #BDBDBD;
                     width: 15px;
 
-                    image: url(assets/left-dark-arrow-50.png);
+                    image: url({1}/assets/left-dark-arrow-50.png);
 
                     subcontrol-position: left;
                     subcontrol-origin: margin;
                 }
 
-                """
+                """.format(VERSIONPATH,VERSIONPATH)
 
             self.setStyleSheet(style)
 
