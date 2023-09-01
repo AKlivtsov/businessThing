@@ -1,7 +1,7 @@
 import sys
 from PyQt6 import QtWidgets, QtCore, QtGui
 from PyQt6.QtWidgets import QMainWindow, QApplication
-from PyQt6.QtCore import QThread, QObject
+from PyQt6.QtCore import QThread, QObject, QSize
 
 # окно 
 import launchUI
@@ -79,7 +79,7 @@ class UpdateThread(QThread):
             self.s_lowMsg.emit(True, "ver1_2") # automaticly set folder
 
 
-class MainWindow(QMainWindow, launchUI.Ui_MainWindow):
+class MainWindow(QMainWindow, launchUI.Ui_MainWindow, QSize):
     def __init__(self):
         super(MainWindow, self).__init__()
         self.setupUi(self)
@@ -87,8 +87,7 @@ class MainWindow(QMainWindow, launchUI.Ui_MainWindow):
         self.setWindowIcon(QtGui.QIcon('assets/icon96px.ico'))
         self.setWindowTitle("Запуск")
 
-        self.setFixedWidth(670)
-        self.setFixedHeight(300)
+        self.setFixedSize(QSize(670, 300))
 
         self.lbl_status.setText("Запуск проверки обновления...")
 
@@ -117,6 +116,7 @@ class MainWindow(QMainWindow, launchUI.Ui_MainWindow):
             app.show()
 
             self.close()  
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
