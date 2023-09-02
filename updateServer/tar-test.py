@@ -1,7 +1,7 @@
 import tarfile as tar
 
-archive = tar.open("ver1_2.tar", 'x:gz')
-archive.add('ver1_2/')
+archive = tar.open("ver1_3.tar", 'x:gz')
+archive.add('ver1_3/')
 
 # archive = tar.open("update", 'r:gz')
 

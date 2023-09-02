@@ -1,9 +1,8 @@
 import sys
 from PyQt6 import QtWidgets, QtCore, QtGui
-from PyQt6.QtWidgets import QMainWindow, QDialog, QApplication, QTableWidgetItem, QColorDialog, QMessageBox, QMenu 
-from PyQt6.QtWidgets import QGridLayout, QVBoxLayout, QHBoxLayout, QSizePolicy, QHeaderView
-from PyQt6.QtCore import QPropertyAnimation, QEasingCurve, QPoint, QTimer, QThread, QObject, Qt, QDate, QSize
-from PyQt6.QtGui import QColor, QAction
+from PyQt6.QtWidgets import *
+from PyQt6.QtCore import *
+from PyQt6.QtGui import *
 
 # окна
 import mainUI
@@ -15,6 +14,8 @@ import deleteDialogUI
 
 # БД
 import sqlite3
+
+VERSIONPATH = 'ver1_3'
 
 
 class ReadThread(QThread):
@@ -31,7 +32,7 @@ class ReadThread(QThread):
 
     def run(self):
 
-        connect = sqlite3.connect("database/d.db")
+        connect = sqlite3.connect(f"{VERSIONPATH}/database/d.db")
         cursor = connect.cursor()
 
         cursor.execute(f"SELECT count(*) FROM {self.tableName}")
@@ -115,7 +116,7 @@ class SaveThread(QThread):
 
     def run(self):
 
-        connect = sqlite3.connect("database/d.db")
+        connect = sqlite3.connect(f"{VERSIONPATH}/database/d.db")
         cursor = connect.cursor()
 
         for column in range(self.table.columnCount()):
@@ -200,7 +201,7 @@ class SaveReportThread(QThread):
             connect.commit()
             self.s_updPB.emit('upd')
 
-        connect = sqlite3.connect("database/d.db")
+        connect = sqlite3.connect(f"{VERSIONPATH}/database/d.db")
         cursor = connect.cursor()
 
         for row in range(self.table.rowCount() - 2):
@@ -275,7 +276,7 @@ class ReadReportThread(QThread):
 
                 self.s_readedData.emit(row, column, DBdata)
 
-        connect = sqlite3.connect("database/d.db")
+        connect = sqlite3.connect(f"{VERSIONPATH}/database/d.db")
         cursor = connect.cursor()
 
         for row in range(self.table.rowCount() - 2):
@@ -341,16 +342,14 @@ class SumReportThread(QThread):
             self.s_sumData.emit(total)
 
 
-class SaveDialog(QDialog, saveDialogUI.Ui_Dialog):
+class SaveDialog(QDialog, saveDialogUI.Ui_Dialog, QSize):
     def __init__(self):
         super(SaveDialog, self).__init__()
         self.setupUi(self)
 
-        self.setWindowIcon(QtGui.QIcon('assets/icon96px.ico'))
+        self.setWindowIcon(QtGui.QIcon(f'{VERSIONPATH}/assets/icon96px.ico'))
         self.setWindowTitle("Сохранение")
-
-        self.setFixedWidth(400)
-        self.setFixedHeight(84)
+        self.setFixedSize(QSize(400, 84))
 
     def setTheme(self, style):
         self.setStyleSheet(style)
@@ -362,18 +361,16 @@ class SaveDialog(QDialog, saveDialogUI.Ui_Dialog):
         self.pb_save.setValue(self.pb_save.value() + 1)
 
 
-class CreateDialog(QDialog, createDialogUI.Ui_Dialog):
+class CreateDialog(QDialog, createDialogUI.Ui_Dialog, QSize):
     s_upd = QtCore.pyqtSignal()
 
     def __init__(self):
         super(CreateDialog, self).__init__()
         self.setupUi(self)
 
-        self.setWindowIcon(QtGui.QIcon('assets/icon96px.ico'))
+        self.setWindowIcon(QtGui.QIcon(f'{VERSIONPATH}/icon96px.ico'))
         self.setWindowTitle("Создать новую таблицу")
-
-        self.setFixedWidth(350)
-        self.setFixedHeight(110)
+        self.setFixedSize(QSize(350, 110))
 
         self.btn_create.clicked.connect(self.emitName)
 
@@ -381,7 +378,7 @@ class CreateDialog(QDialog, createDialogUI.Ui_Dialog):
         self.setStyleSheet(style)
 
     def emitName(self):
-        connect = sqlite3.connect("database/d.db")
+        connect = sqlite3.connect(f"{VERSIONPATH}/database/d.db")
         cursor = connect.cursor()
 
         name = self.le_name.text()
@@ -432,7 +429,7 @@ class CreateDialog(QDialog, createDialogUI.Ui_Dialog):
         ret = msg.exec()
 
 
-class EditDialog(QDialog, editDialogUI.Ui_Dialog):
+class EditDialog(QDialog, editDialogUI.Ui_Dialog, QSize):
     # row, column, color(r, g, b), note
     s_info = QtCore.pyqtSignal(int, int, int, int, int, str)
 
@@ -440,11 +437,9 @@ class EditDialog(QDialog, editDialogUI.Ui_Dialog):
         super(EditDialog, self).__init__()
         self.setupUi(self)
 
-        self.setWindowIcon(QtGui.QIcon('assets/icon96px.ico'))
+        self.setWindowIcon(QtGui.QIcon(f'{VERSIONPATH}/icon96px.ico'))
         self.setWindowTitle("Редактирование")
-
-        self.setFixedWidth(370)
-        self.setFixedHeight(430)
+        self.setFixedSize(QSize(370, 430))
  
         self.date_in.setDate(QDate.currentDate())
         self.date_out.setDate(QDate.currentDate())
@@ -508,18 +503,16 @@ class EditDialog(QDialog, editDialogUI.Ui_Dialog):
                 workie = False
 
 
-class DeleteDialog(QDialog, deleteDialogUI.Ui_Dialog):
+class DeleteDialog(QDialog, deleteDialogUI.Ui_Dialog, QSize):
     s_cords = QtCore.pyqtSignal(int, int)
 
     def __init__(self):
         super(DeleteDialog, self).__init__()
         self.setupUi(self)
 
-        self.setWindowIcon(QtGui.QIcon('assets/icon96px.ico'))
+        self.setWindowIcon(QtGui.QIcon(f'{VERSIONPATH}/icon96px.ico'))
         self.setWindowTitle("Редактирование")
-
-        self.setFixedWidth(302)
-        self.setFixedHeight(170)
+        self.setFixedSize(QSize(302, 170))
 
         self.date_in.setDate(QDate.currentDate())
         self.date_out.setDate(QDate.currentDate())
@@ -570,7 +563,7 @@ class ReportDialog(QMainWindow, reportUI.Ui_MainWindow, QDate):
         super(ReportDialog, self).__init__()
         self.setupUi(self)
 
-        self.setWindowIcon(QtGui.QIcon('assets/icon96px.ico'))
+        self.setWindowIcon(QtGui.QIcon(f'{VERSIONPATH}/icon96px.ico'))
         self.setWindowTitle("Отчёт")
         self.resizeable()
 
@@ -655,7 +648,7 @@ class ReportDialog(QMainWindow, reportUI.Ui_MainWindow, QDate):
                     background: #5E5E5E;
                     width: 15px;
 
-                    image: url(assets/right-light-arrow-50.png);
+                    image: url(ver1_3/assets/right-light-arrow-50.png);
 
                     subcontrol-position: right;
                     subcontrol-origin: margin;
@@ -667,7 +660,7 @@ class ReportDialog(QMainWindow, reportUI.Ui_MainWindow, QDate):
                     background: #5E5E5E;
                     width: 15px;
 
-                    image: url(assets/left-light-arrow-50.png);
+                    image: url(ver1_3/assets/left-light-arrow-50.png);
 
                     subcontrol-position: left;
                     subcontrol-origin: margin;
@@ -875,7 +868,7 @@ class ReportDialog(QMainWindow, reportUI.Ui_MainWindow, QDate):
                         self.colorVariations = list(dict.fromkeys(self.colorVariations))
 
         for color in self.colorVariations:
-            connect = sqlite3.connect("database/d.db")
+            connect = sqlite3.connect(f"{VERSIONPATH}/database/d.db")
             cursor = connect.cursor()
 
             cursor.execute(f"""SELECT month FROM {self.tableName} WHERE color = '{color}'""")
@@ -981,7 +974,7 @@ class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor, QSize, QSiz
 
         self.resizeable()
 
-        self.setWindowIcon(QtGui.QIcon('assets/icon96px.ico'))
+        self.setWindowIcon(QtGui.QIcon(f'{VERSIONPATH}/assets/icon96px.ico'))
         self.setWindowTitle("BusinessThing")
         self.setTable()
 
@@ -1118,7 +1111,7 @@ class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor, QSize, QSiz
                     background: #BDBDBD;
                     width: 15px;
 
-                    image: url(assets/right-dark-arrow-50.png);
+                    image: url(ver1_3/assets/right-dark-arrow-50.png);
 
                     subcontrol-position: right;
                     subcontrol-origin: margin;
@@ -1130,7 +1123,7 @@ class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor, QSize, QSiz
                     background: #BDBDBD;
                     width: 15px;
 
-                    image: url(assets/left-dark-arrow-50.png);
+                    image: url(ver1_3/assets/left-dark-arrow-50.png);
 
                     subcontrol-position: left;
                     subcontrol-origin: margin;
@@ -1211,7 +1204,7 @@ class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor, QSize, QSiz
                     background: #5E5E5E;
                     width: 15px;
 
-                    image: url(assets/right-light-arrow-50.png);
+                    image: url(ver1_3/assets/right-light-arrow-50.png);
 
                     subcontrol-position: right;
                     subcontrol-origin: margin;
@@ -1223,7 +1216,7 @@ class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor, QSize, QSiz
                     background: #5E5E5E;
                     width: 15px;
 
-                    image: url(assets/left-light-arrow-50.png);
+                    image: url(ver1_3/assets/left-light-arrow-50.png);
 
                     subcontrol-position: left;
                     subcontrol-origin: margin;
@@ -1286,7 +1279,7 @@ class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor, QSize, QSiz
 
             self.read()
 
-        connect = sqlite3.connect("database/d.db")
+        connect = sqlite3.connect(f"{VERSIONPATH}/database/d.db")
         cursor = connect.cursor()
 
         cursor.execute("""SELECT name FROM sqlite_master WHERE type='table';""")
