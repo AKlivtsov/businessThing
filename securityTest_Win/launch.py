@@ -160,10 +160,17 @@ class MainWindow(QMainWindow, launchUI.Ui_MainWindow, QSize):
             self.lbl_status.setText("Запуск...")
 
             sys.path.insert(1, f'{filename}/')
+            """
+            Traceback (most recent call last):
+            File "ver1_3\\main.py", line 1337, in ver1_3.main.MainWindow.report
+            TypeError: report() takes exactly 1 positional argument (2 given)
+
+            надо посмотреть что приходит в метод, мб сделать пустышку-перменную чтобы это ловить 
+            """
 
             import main
-            app = main.MainWindow()
-            app.show()
+            m = main.MainWindow()
+            m.show()
 
             self.close()  
 
