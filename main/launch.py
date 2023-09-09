@@ -162,8 +162,8 @@ class MainWindow(QMainWindow, launchUI.Ui_MainWindow, QSize):
             sys.path.insert(1, f'{filename}/')
 
             import main
-            app = main.MainWindow()
-            app.show()
+            m = main.MainWindow()
+            m.show()
 
             self.close()  
 

@@ -209,42 +209,41 @@ class SaveReportThread(QThread):
                 cell = self.table.item(row, column)
 
                 if cell and row > 1:
-                    match column:
+                    
+                    if column == 0:
+                        self.date = cell.text()
+                        cursor.execute(f"SELECT date FROM {self.tableName} WHERE date = ?", (self.date,))
+                        DBdate = cursor.fetchone()
 
-                        case 0:
-                            self.date = cell.text()
-                            cursor.execute(f"SELECT date FROM {self.tableName} WHERE date = ?", (self.date,))
-                            DBdate = cursor.fetchone()
+                        if DBdate == None:       
+                            cursor.execute(f"INSERT INTO {self.tableName}(date) VALUES(?);", (self.date,))
 
-                            if DBdate == None:       
-                                cursor.execute(f"INSERT INTO {self.tableName}(date) VALUES(?);", (self.date,))
+                        connect.commit()
+                        self.s_updPB.emit('upd')
 
-                            connect.commit()
-                            self.s_updPB.emit('upd')
+                    elif column == 2:
+                        standartSave('price')
 
-                        case 2:
-                            standartSave('price')
+                    elif column == 3:
+                        standartSave('sum')
 
-                        case 3:
-                            standartSave('sum')
+                    elif column == 4:
+                        standartSave('rent')
 
-                        case 4:
-                            standartSave('rent')
+                    elif column == 5:
+                        standartSave('guest')
 
-                        case 5:
-                            standartSave('guest')
+                    elif column == 6:
+                        standartSave('avito')
 
-                        case 6:
-                            standartSave('avito')
+                    elif column == 7:
+                        standartSave('expense')
 
-                        case 7:
-                            standartSave('expense')
+                    elif column == 8:
+                        standartSave('indications')
 
-                        case 8:
-                            standartSave('indications')
-
-                        case 9:
-                            standartSave('income')
+                    elif column == 9:
+                        standartSave('income')
 
         connect.close()
         self.s_updPB.emit('cls')
@@ -284,34 +283,32 @@ class ReadReportThread(QThread):
                 cell = self.table.item(row, column)
 
                 if row > 1:
-                    match column:
+                    if column == 0:
+                        self.date = cell.text()
 
-                        case 0:
-                            self.date = cell.text()
+                    elif column == 2:
+                        standartRead('price', row, column)
 
-                        case 2:
-                            standartRead('price', row, column)
+                    elif column == 3:
+                        standartRead('sum', row, column)
 
-                        case 3:
-                            standartRead('sum', row, column)
+                    elif column == 4:
+                        standartRead('rent', row, column)
 
-                        case 4:
-                            standartRead('rent', row, column)
+                    elif column == 5:
+                        standartRead('guest', row, column)
 
-                        case 5:
-                            standartRead('guest', row, column)
+                    elif column == 6:
+                        standartRead('avito', row, column)
 
-                        case 6:
-                            standartRead('avito', row, column)
+                    elif column == 7:
+                        standartRead('expense', row, column)
 
-                        case 7:
-                            standartRead('expense', row, column)
+                    elif column == 8:
+                        standartRead('indications', row, column)
 
-                        case 8:
-                            standartRead('indications', row, column)
-
-                        case 9:
-                            standartRead('income', row, column)
+                    elif column == 9:
+                        standartRead('income', row, column)
    
 
 class SumReportThread(QThread):
@@ -799,44 +796,43 @@ class ReportDialog(QMainWindow, reportUI.Ui_MainWindow, QDate):
             (249,211,249), (243,243,155), (255,237,178), 
             (202,199,248))
 
-        match column: 
 
-            case 4:
-                if row == 0:
-                    red, green, blue = colors[0]
-                    cell = self.tw_reportTable.item(row, column)
-                    cell.setBackground(QtGui.QColor(red, green, blue))
+        if column == 0:
+            if row == 0:
+                red, green, blue = colors[0]
+                cell = self.tw_reportTable.item(row, column)
+                cell.setBackground(QtGui.QColor(red, green, blue))
 
-                else:
-                    red, green, blue = colors[1]
-                    cell = self.tw_reportTable.item(row, column)
-                    cell.setBackground(QtGui.QColor(red, green, blue))
+            else:
+                red, green, blue = colors[1]
+                cell = self.tw_reportTable.item(row, column)
+                cell.setBackground(QtGui.QColor(red, green, blue))
 
-            case 5:
-                    red, green, blue = colors[2]
-                    cell = self.tw_reportTable.item(row, column)
-                    cell.setBackground(QtGui.QColor(red, green, blue))
+        elif column == 2:
+                red, green, blue = colors[2]
+                cell = self.tw_reportTable.item(row, column)
+                cell.setBackground(QtGui.QColor(red, green, blue))
 
-            case 6:
-                    red, green, blue = colors[3]
-                    cell = self.tw_reportTable.item(row, column)
-                    
-                    cell.setBackground(QtGui.QColor(red, green, blue))
+        elif column == 3:
+                red, green, blue = colors[3]
+                cell = self.tw_reportTable.item(row, column)
+                
+                cell.setBackground(QtGui.QColor(red, green, blue))
 
-            case 7:
-                    red, green, blue = colors[4]
-                    cell = self.tw_reportTable.item(row, column)
-                    cell.setBackground(QtGui.QColor(red, green, blue))
+        elif column == 4:
+                red, green, blue = colors[4]
+                cell = self.tw_reportTable.item(row, column)
+                cell.setBackground(QtGui.QColor(red, green, blue))
 
-            case 8:
-                    red, green, blue = colors[5]
-                    cell = self.tw_reportTable.item(row, column)
-                    cell.setBackground(QtGui.QColor(red, green, blue))
+        elif column == 5:
+                red, green, blue = colors[5]
+                cell = self.tw_reportTable.item(row, column)
+                cell.setBackground(QtGui.QColor(red, green, blue))
 
-            case 9:
-                    red, green, blue = colors[6]
-                    cell = self.tw_reportTable.item(row, column)
-                    cell.setBackground(QtGui.QColor(red, green, blue))
+        elif column == 6:
+                red, green, blue = colors[6]
+                cell = self.tw_reportTable.item(row, column)
+                cell.setBackground(QtGui.QColor(red, green, blue))
 
     def write(self, row, column, text):
         aligment = QtCore.Qt.AlignmentFlag.AlignCenter
@@ -1349,3 +1345,10 @@ class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor, QSize, QSiz
             self.reportDialog.show()
 
             self.reportOpenAllow = False
+
+
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
+    m = MainWindow()
+    m.show()    
+    sys.exit(app.exec())
