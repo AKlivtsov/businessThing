@@ -1,12 +1,12 @@
 import re
 import os
 
-file = os.open('main.c', os.O_RDWR)
-print(file)
+file = open('main.c', 'r+')
 readed = file.read()
 
-stripped = re.sub("[/*].*[*/]", "", readed)
+stripped = re.sub("[/*].* [*/]", "", readed)
 
-newTest = os.write('test.c', stripped)
+newTest = open('test5.c', 'w')
+newTest.write(stripped) 
 
 

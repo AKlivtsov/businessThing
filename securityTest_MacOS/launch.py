@@ -16,6 +16,7 @@ import shutil
 import sqlite3
 import os
 
+
 IP = '127.0.0.1'
 PORT = 1233
 
@@ -159,11 +160,11 @@ class MainWindow(QMainWindow, launchUI.Ui_MainWindow, QSize):
         if state:
             self.lbl_status.setText("Запуск...")
 
-            sys.path.insert(1, f'{filename}/')
+            sys.path.insert(1, f'{filename}')
 
             import main
-            app = main.MainWindow()
-            app.show()
+            m = main.MainWindow()
+            m.show()
 
             self.close()  
 
