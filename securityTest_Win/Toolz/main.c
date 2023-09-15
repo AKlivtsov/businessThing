@@ -2,7 +2,7 @@
 
 #ifndef PY_SSIZE_T_CLEAN
 #define PY_SSIZE_T_CLEAN
-#endif /* PY_SSIZE_T_CLEAN */
+#endif 
 #if defined(CYTHON_LIMITED_API) && 0
   #ifndef Py_LIMITED_API
     #if CYTHON_LIMITED_API+0 > 0x03030000
@@ -1731,7 +1731,7 @@ static CYTHON_INLINE int __Pyx_PyObject_SetAttrStr(PyObject* obj, PyObject* attr
 #define __Pyx_PyObject_SetAttrStr(o,n,v) PyObject_SetAttr(o,n,v)
 #endif
 
-/* PyObjectFormatSimple.proto */
+
 #if CYTHON_COMPILING_IN_PYPY
     #define __Pyx_PyObject_FormatSimple(s, f) (\
         likely(PyUnicode_CheckExact(s)) ? (Py_INCREF(s), s) :\
@@ -1753,7 +1753,7 @@ static CYTHON_INLINE int __Pyx_PyObject_SetAttrStr(PyObject* obj, PyObject* attr
         PyObject_Format(s, f))
 #endif
 
-/* UnicodeConcatInPlace.proto */
+
 # if CYTHON_COMPILING_IN_CPYTHON && PY_MAJOR_VERSION >= 3
     #if CYTHON_REFNANNY
         #define __Pyx_PyUnicode_ConcatInPlace(left, right) __Pyx_PyUnicode_ConcatInPlaceImpl(&left, right, __pyx_refnanny)
@@ -1771,11 +1771,11 @@ static CYTHON_INLINE int __Pyx_PyObject_SetAttrStr(PyObject* obj, PyObject* attr
 #define __Pyx_PyUnicode_ConcatInPlaceSafe(left, right) ((unlikely((left) == Py_None) || unlikely((right) == Py_None)) ?\
     PyNumber_InPlaceAdd(left, right) : __Pyx_PyUnicode_ConcatInPlace(left, right))
 
-/* PyObject_Str.proto */
+
 #define __Pyx_PyObject_Str(obj)\
     (likely(PyString_CheckExact(obj)) ? __Pyx_NewRef(obj) : PyObject_Str(obj))
 
-/* PyIntBinop.proto */
+
 #if !CYTHON_COMPILING_IN_PYPY
 static PyObject* __Pyx_PyInt_AddObjC(PyObject *op1, PyObject *op2, long intval, int inplace, int zerodivision_check);
 #else
@@ -1783,17 +1783,17 @@ static PyObject* __Pyx_PyInt_AddObjC(PyObject *op1, PyObject *op2, long intval, 
     (inplace ? PyNumber_InPlaceAdd(op1, op2) : PyNumber_Add(op1, op2))
 #endif
 
-/* PyObjectCallOneArg.proto */
+
 static CYTHON_INLINE PyObject* __Pyx_PyObject_CallOneArg(PyObject *func, PyObject *arg);
 
-/* PyIntCompare.proto */
+
 static CYTHON_INLINE int __Pyx_PyInt_BoolNeObjC(PyObject *op1, PyObject *op2, long intval, long inplace);
 
-/* JoinPyUnicode.proto */
+
 static PyObject* __Pyx_PyUnicode_Join(PyObject* value_tuple, Py_ssize_t value_count, Py_ssize_t result_ulength,
                                       Py_UCS4 max_char);
 
-/* GetItemInt.proto */
+
 #define __Pyx_GetItemInt(o, i, type, is_signed, to_py_func, is_list, wraparound, boundscheck)\
     (__Pyx_fits_Py_ssize_t(i, type, is_signed) ?\
     __Pyx_GetItemInt_Fast(o, (Py_ssize_t)i, is_list, wraparound, boundscheck) :\
@@ -1815,40 +1815,40 @@ static PyObject *__Pyx_GetItemInt_Generic(PyObject *o, PyObject* j);
 static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Fast(PyObject *o, Py_ssize_t i,
                                                      int is_list, int wraparound, int boundscheck);
 
-/* RaiseTooManyValuesToUnpack.proto */
+
 static CYTHON_INLINE void __Pyx_RaiseTooManyValuesError(Py_ssize_t expected);
 
-/* RaiseNeedMoreValuesToUnpack.proto */
+
 static CYTHON_INLINE void __Pyx_RaiseNeedMoreValuesError(Py_ssize_t index);
 
-/* IterFinish.proto */
+
 static CYTHON_INLINE int __Pyx_IterFinish(void);
 
-/* UnpackItemEndCheck.proto */
+
 static int __Pyx_IternextUnpackEndCheck(PyObject *retval, Py_ssize_t expected);
 
-/* RaiseClosureNameError.proto */
+
 static CYTHON_INLINE void __Pyx_RaiseClosureNameError(const char *varname);
 
-/* IncludeStructmemberH.proto */
+
 #include <structmember.h>
 
-/* FixUpExtensionType.proto */
+
 #if CYTHON_USE_TYPE_SPECS
 static int __Pyx_fix_up_extension_type_from_spec(PyType_Spec *spec, PyTypeObject *type);
 #endif
 
-/* FetchSharedCythonModule.proto */
+
 static PyObject *__Pyx_FetchSharedCythonABIModule(void);
 
-/* FetchCommonType.proto */
+
 #if !CYTHON_USE_TYPE_SPECS
 static PyTypeObject* __Pyx_FetchCommonType(PyTypeObject* type);
 #else
 static PyTypeObject* __Pyx_FetchCommonTypeFromSpec(PyObject *module, PyType_Spec *spec, PyObject *bases);
 #endif
 
-/* PyMethodNew.proto */
+
 #if CYTHON_COMPILING_IN_LIMITED_API
 static PyObject *__Pyx_PyMethod_New(PyObject *func, PyObject *self, PyObject *typ) {
     PyObject *typesModule=NULL, *methodType=NULL, *result=NULL;
@@ -1875,12 +1875,12 @@ static PyObject *__Pyx_PyMethod_New(PyObject *func, PyObject *self, PyObject *ty
     #define __Pyx_PyMethod_New PyMethod_New
 #endif
 
-/* PyVectorcallFastCallDict.proto */
+
 #if CYTHON_METH_FASTCALL
 static CYTHON_INLINE PyObject *__Pyx_PyVectorcall_FastCallDict(PyObject *func, __pyx_vectorcallfunc vc, PyObject *const *args, size_t nargs, PyObject *kw);
 #endif
 
-/* CythonFunctionShared.proto */
+
 #define __Pyx_CyFunction_USED
 #define __Pyx_CYFUNCTION_STATICMETHOD  0x01
 #define __Pyx_CYFUNCTION_CLASSMETHOD   0x02
@@ -1967,14 +1967,14 @@ static PyObject * __Pyx_CyFunction_Vectorcall_FASTCALL_KEYWORDS_METHOD(PyObject 
 #endif
 #endif
 
-/* CythonFunction.proto */
+
 static PyObject *__Pyx_CyFunction_New(PyMethodDef *ml,
                                       int flags, PyObject* qualname,
                                       PyObject *closure,
                                       PyObject *module, PyObject *globals,
                                       PyObject* code);
 
-/* PyIntBinop.proto */
+
 #if !CYTHON_COMPILING_IN_PYPY
 static PyObject* __Pyx_PyInt_SubtractObjC(PyObject *op1, PyObject *op2, long intval, int inplace, int zerodivision_check);
 #else
@@ -1982,22 +1982,22 @@ static PyObject* __Pyx_PyInt_SubtractObjC(PyObject *op1, PyObject *op2, long int
     (inplace ? PyNumber_InPlaceSubtract(op1, op2) : PyNumber_Subtract(op1, op2))
 #endif
 
-/* PyIntCompare.proto */
+
 static CYTHON_INLINE int __Pyx_PyInt_BoolEqObjC(PyObject *op1, PyObject *op2, long intval, long inplace);
 
-/* StrEquals.proto */
+
 #if PY_MAJOR_VERSION >= 3
 #define __Pyx_PyString_Equals __Pyx_PyUnicode_Equals
 #else
 #define __Pyx_PyString_Equals __Pyx_PyBytes_Equals
 #endif
 
-/* GetTopmostException.proto */
+
 #if CYTHON_USE_EXC_INFO_STACK && CYTHON_FAST_THREAD_STATE
 static _PyErr_StackItem * __Pyx_PyErr_GetTopmostException(PyThreadState *tstate);
 #endif
 
-/* SaveResetException.proto */
+
 #if CYTHON_FAST_THREAD_STATE
 #define __Pyx_ExceptionSave(type, value, tb)  __Pyx__ExceptionSave(__pyx_tstate, type, value, tb)
 static CYTHON_INLINE void __Pyx__ExceptionSave(PyThreadState *tstate, PyObject **type, PyObject **value, PyObject **tb);
@@ -2008,7 +2008,7 @@ static CYTHON_INLINE void __Pyx__ExceptionReset(PyThreadState *tstate, PyObject 
 #define __Pyx_ExceptionReset(type, value, tb)  PyErr_SetExcInfo(type, value, tb)
 #endif
 
-/* FastTypeChecks.proto */
+
 #if CYTHON_COMPILING_IN_CPYTHON
 #define __Pyx_TypeCheck(obj, type) __Pyx_IsSubtype(Py_TYPE(obj), (PyTypeObject *)type)
 #define __Pyx_TypeCheck2(obj, type1, type2) __Pyx_IsAnySubtype2(Py_TYPE(obj), (PyTypeObject *)type1, (PyTypeObject *)type2)
@@ -2025,7 +2025,7 @@ static CYTHON_INLINE int __Pyx_PyErr_GivenExceptionMatches2(PyObject *err, PyObj
 #define __Pyx_PyErr_ExceptionMatches2(err1, err2)  __Pyx_PyErr_GivenExceptionMatches2(__Pyx_PyErr_CurrentExceptionType(), err1, err2)
 #define __Pyx_PyException_Check(obj) __Pyx_TypeCheck(obj, PyExc_Exception)
 
-/* GetException.proto */
+
 #if CYTHON_FAST_THREAD_STATE
 #define __Pyx_GetException(type, value, tb)  __Pyx__GetException(__pyx_tstate, type, value, tb)
 static int __Pyx__GetException(PyThreadState *tstate, PyObject **type, PyObject **value, PyObject **tb);
@@ -2033,7 +2033,7 @@ static int __Pyx__GetException(PyThreadState *tstate, PyObject **type, PyObject 
 static int __Pyx_GetException(PyObject **type, PyObject **value, PyObject **tb);
 #endif
 
-/* StrConcatInPlace.proto */
+
 #if PY_MAJOR_VERSION >= 3
     #define __Pyx_PyStr_Concat __Pyx_PyUnicode_Concat
     #define __Pyx_PyStr_ConcatInPlace __Pyx_PyUnicode_ConcatInPlace
@@ -2046,7 +2046,7 @@ static int __Pyx_GetException(PyObject **type, PyObject **value, PyObject **tb);
 #define __Pyx_PyStr_ConcatInPlaceSafe(a, b) ((unlikely((a) == Py_None) || unlikely((b) == Py_None)) ?\
     PyNumber_InPlaceAdd(a, b) : __Pyx_PyStr_ConcatInPlace(a, b))
 
-/* ListAppend.proto */
+
 #if CYTHON_USE_PYLIST_INTERNALS && CYTHON_ASSUME_SAFE_MACROS
 static CYTHON_INLINE int __Pyx_PyList_Append(PyObject* list, PyObject* x) {
     PyListObject* L = (PyListObject*) list;
@@ -2063,71 +2063,71 @@ static CYTHON_INLINE int __Pyx_PyList_Append(PyObject* list, PyObject* x) {
 #define __Pyx_PyList_Append(L,x) PyList_Append(L,x)
 #endif
 
-/* PyObjectCall2Args.proto */
+
 static CYTHON_INLINE PyObject* __Pyx_PyObject_Call2Args(PyObject* function, PyObject* arg1, PyObject* arg2);
 
-/* PyObjectGetMethod.proto */
+
 static int __Pyx_PyObject_GetMethod(PyObject *obj, PyObject *name, PyObject **method);
 
-/* PyObjectCallMethod1.proto */
+
 static PyObject* __Pyx_PyObject_CallMethod1(PyObject* obj, PyObject* method_name, PyObject* arg);
 
-/* append.proto */
+
 static CYTHON_INLINE int __Pyx_PyObject_Append(PyObject* L, PyObject* x);
 
-/* ObjectGetItem.proto */
+
 #if CYTHON_USE_TYPE_SLOTS
 static CYTHON_INLINE PyObject *__Pyx_PyObject_GetItem(PyObject *obj, PyObject *key);
 #else
 #define __Pyx_PyObject_GetItem(obj, key)  PyObject_GetItem(obj, key)
 #endif
 
-/* PySequenceContains.proto */
+
 static CYTHON_INLINE int __Pyx_PySequence_ContainsTF(PyObject* item, PyObject* seq, int eq) {
     int result = PySequence_Contains(seq, item);
     return unlikely(result < 0) ? result : (result == (eq == Py_EQ));
 }
 
-/* PyObjectCallNoArg.proto */
+
 static CYTHON_INLINE PyObject* __Pyx_PyObject_CallNoArg(PyObject *func);
 
-/* PyObjectCallMethod0.proto */
+
 static PyObject* __Pyx_PyObject_CallMethod0(PyObject* obj, PyObject* method_name);
 
-/* ValidateBasesTuple.proto */
+
 #if CYTHON_COMPILING_IN_CPYTHON || CYTHON_COMPILING_IN_LIMITED_API || CYTHON_USE_TYPE_SPECS
 static int __Pyx_validate_bases_tuple(const char *type_name, Py_ssize_t dictoffset, PyObject *bases);
 #endif
 
-/* PyType_Ready.proto */
+
 CYTHON_UNUSED static int __Pyx_PyType_Ready(PyTypeObject *t);
 
-/* PyObject_GenericGetAttrNoDict.proto */
+
 #if CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP && PY_VERSION_HEX < 0x03070000
 static CYTHON_INLINE PyObject* __Pyx_PyObject_GenericGetAttrNoDict(PyObject* obj, PyObject* attr_name);
 #else
 #define __Pyx_PyObject_GenericGetAttrNoDict PyObject_GenericGetAttr
 #endif
 
-/* Import.proto */
+
 static PyObject *__Pyx_Import(PyObject *name, PyObject *from_list, int level);
 
-/* ImportDottedModule.proto */
+
 static PyObject *__Pyx_ImportDottedModule(PyObject *name, PyObject *parts_tuple);
 #if PY_MAJOR_VERSION >= 3
 static PyObject *__Pyx_ImportDottedModule_WalkParts(PyObject *module, PyObject *name, PyObject *parts_tuple);
 #endif
 
-/* ImportFrom.proto */
+
 static PyObject* __Pyx_ImportFrom(PyObject* module, PyObject* name);
 
-/* Py3UpdateBases.proto */
+
 static PyObject* __Pyx_PEP560_update_bases(PyObject *bases);
 
-/* CalculateMetaclass.proto */
+
 static PyObject *__Pyx_CalculateMetaclass(PyTypeObject *metaclass, PyObject *bases);
 
-/* SetNameInClass.proto */
+
 #if CYTHON_COMPILING_IN_CPYTHON && PY_VERSION_HEX >= 0x030500A1
 #define __Pyx_SetNameInClass(ns, name, value)\
     (likely(PyDict_CheckExact(ns)) ? _PyDict_SetItem_KnownHash(ns, name, value, ((PyASCIIObject *) name)->hash) : PyObject_SetItem(ns, name, value))
@@ -2138,7 +2138,7 @@ static PyObject *__Pyx_CalculateMetaclass(PyTypeObject *metaclass, PyObject *bas
 #define __Pyx_SetNameInClass(ns, name, value)  PyObject_SetItem(ns, name, value)
 #endif
 
-/* PyObjectLookupSpecial.proto */
+
 #if CYTHON_USE_PYTYPE_LOOKUP && CYTHON_USE_TYPE_SLOTS
 #define __Pyx_PyObject_LookupSpecialNoError(obj, attr_name)  __Pyx__PyObject_LookupSpecial(obj, attr_name, 0)
 #define __Pyx_PyObject_LookupSpecial(obj, attr_name)  __Pyx__PyObject_LookupSpecial(obj, attr_name, 1)
@@ -2148,20 +2148,20 @@ static CYTHON_INLINE PyObject* __Pyx__PyObject_LookupSpecial(PyObject* obj, PyOb
 #define __Pyx_PyObject_LookupSpecial(o,n) __Pyx_PyObject_GetAttrStr(o,n)
 #endif
 
-/* Py3ClassCreate.proto */
+
 static PyObject *__Pyx_Py3MetaclassPrepare(PyObject *metaclass, PyObject *bases, PyObject *name, PyObject *qualname,
                                            PyObject *mkw, PyObject *modname, PyObject *doc);
 static PyObject *__Pyx_Py3ClassCreate(PyObject *metaclass, PyObject *name, PyObject *bases, PyObject *dict,
                                       PyObject *mkw, int calculate_metaclass, int allow_py2_metaclass);
 
-/* CLineInTraceback.proto */
+
 #ifdef CYTHON_CLINE_IN_TRACEBACK
 #define __Pyx_CLineForTraceback(tstate, c_line)  (((CYTHON_CLINE_IN_TRACEBACK)) ? c_line : 0)
 #else
 static int __Pyx_CLineForTraceback(PyThreadState *tstate, int c_line);
 #endif
 
-/* CodeObjectCache.proto */
+
 #if !CYTHON_COMPILING_IN_LIMITED_API
 typedef struct {
     PyCodeObject* code_object;
@@ -2178,22 +2178,22 @@ static PyCodeObject *__pyx_find_code_object(int code_line);
 static void __pyx_insert_code_object(int code_line, PyCodeObject* code_object);
 #endif
 
-/* AddTraceback.proto */
+
 static void __Pyx_AddTraceback(const char *funcname, int c_line,
                                int py_line, const char *filename);
 
-/* GCCDiagnostics.proto */
+
 #if !defined(__INTEL_COMPILER) && defined(__GNUC__) && (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 6))
 #define __Pyx_HAS_GCC_DIAGNOSTIC
 #endif
 
-/* CIntToPy.proto */
+
 static CYTHON_INLINE PyObject* __Pyx_PyInt_From_long(long value);
 
-/* CIntFromPy.proto */
+
 static CYTHON_INLINE long __Pyx_PyInt_As_long(PyObject *);
 
-/* FormatTypeName.proto */
+
 #if CYTHON_COMPILING_IN_LIMITED_API
 typedef PyObject *__Pyx_TypeName;
 #define __Pyx_FMT_TYPENAME "%U"
@@ -2206,32 +2206,32 @@ typedef const char *__Pyx_TypeName;
 #define __Pyx_DECREF_TypeName(obj)
 #endif
 
-/* CIntFromPy.proto */
+
 static CYTHON_INLINE int __Pyx_PyInt_As_int(PyObject *);
 
-/* CStringEquals.proto */
+
 static CYTHON_INLINE int __Pyx_StrEq(const char *, const char *);
 
-/* CheckBinaryVersion.proto */
+
 static int __Pyx_check_binary_version(void);
 
-/* InitStrings.proto */
+
 static int __Pyx_InitStrings(__Pyx_StringTabEntry *t);
 
-/* #### Code section: module_declarations ### */
 
-/* Module declarations from "ver1_3.main" */
-/* #### Code section: typeinfo ### */
-/* #### Code section: before_global_var ### */
+
+
+
+
 #define __Pyx_MODULE_NAME "ver1_3.main"
 extern int __pyx_module_is_main_ver1_3__main;
 int __pyx_module_is_main_ver1_3__main = 0;
 
-/* Implementation of "ver1_3.main" */
-/* #### Code section: global_var ### */
+
+
 static PyObject *__pyx_builtin_range;
 static PyObject *__pyx_builtin_super;
-/* #### Code section: string_decls ### */
+
 static const char __pyx_k_[] = "";
 static const char __pyx_k_0[] = "0";
 static const char __pyx_k_1[] = "1";
@@ -2719,89 +2719,89 @@ static const char __pyx_k_SELECT_name_FROM_sqlite_master_W[] = "SELECT name FROM
 static const char __pyx_k_SaveReportThread_run_locals_stan[] = "SaveReportThread.run.<locals>.standartSave";
 static const char __pyx_k_QWidget_background_color_2E2E2E_2[] = "\n\n                QWidget{\n                    background-color: #2E2E2E;\n                    color: #FFFFFF;\n                    border-radius: 5px;\n                }\n\n                QPushButton{\n                    background-color: #5E5E5E;\n                    color: #FFFFFF;\n                }\n\n                QPushButton:pressed {\n                    background-color: #767676;\n                    color: #FFFFFF;\n                }\n\n                QTableWidget{\n                    background-color: #515151;\n                }\n\n                QHeaderView::section{\n                    background-color: #3e3e3e;\n                    border: solid;\n                }\n\n                QTableView QTableCornerButton::section {\n                    background-color: #3e3e3e;\n                    border: solid;\n                }\n\n                QHeaderView::section:checked{\n                    background-color: #BDBDBD;\n                }\n\n                QLineEdit{\n                    background-color: #515151;\n                }\n\n                QTextEdit {\n                    background-color: #515151;\n                }\n\n                QScrollBar{\n                    margin: 2px 20px 2px 20px;\n                    border: 1px solid grey;\n                    background: #5E5E5E;\n                    border-radius: 2px;\n                    height: 15px;\n                }\n\n                QScrollBar::handle{\n                    background: #5E5E5E;\n                } \n\n                QScrollBar::add-line:horizontal {\n                    border: solid;\n                    border-radius: 2px;\n                    background: #5E5E5E;\n                    width: 15px;\n\n                    image: url(ver1_3/assets/right-light-arrow-50.png);\n\n                    subcontrol-position: right;\n                    subcontrol-origin: margin;\n                }\n\n                QScrollBar::sub-line:horizontal {\n            ""        border: solid;\n                    border-radius: 2px;\n                    background: #5E5E5E;\n                    width: 15px;\n\n                    image: url(ver1_3/assets/left-light-arrow-50.png);\n\n                    subcontrol-position: left;\n                    subcontrol-origin: margin;\n                }\n\n                ";
 static const char __pyx_k_MainWindow_fetchTables_locals_ma_2[] = "MainWindow.fetchTables.<locals>.makeAct";
-/* #### Code section: decls ### */
-static PyObject *__pyx_pf_6ver1_3_4main_10ReadThread___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6ver1_3_4main_10ReadThread_2setTableName(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_tableName); /* proto */
-static PyObject *__pyx_pf_6ver1_3_4main_10ReadThread_4run(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6ver1_3_4main_10SaveThread___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6ver1_3_4main_10SaveThread_2set(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_tableName, PyObject *__pyx_v_table); /* proto */
-static PyObject *__pyx_pf_6ver1_3_4main_10SaveThread_4run(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6ver1_3_4main_16SaveReportThread___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6ver1_3_4main_16SaveReportThread_2set(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_tableName, PyObject *__pyx_v_table); /* proto */
-static PyObject *__pyx_pf_6ver1_3_4main_16SaveReportThread_3run_standartSave(PyObject *__pyx_self, PyObject *__pyx_v_nameInDB); /* proto */
-static PyObject *__pyx_pf_6ver1_3_4main_16SaveReportThread_4run(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6ver1_3_4main_16ReadReportThread___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6ver1_3_4main_16ReadReportThread_2set(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_tableName, PyObject *__pyx_v_table); /* proto */
-static PyObject *__pyx_pf_6ver1_3_4main_16ReadReportThread_3run_standartRead(PyObject *__pyx_self, PyObject *__pyx_v_nameInDB, PyObject *__pyx_v_row, PyObject *__pyx_v_column); /* proto */
-static PyObject *__pyx_pf_6ver1_3_4main_16ReadReportThread_4run(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6ver1_3_4main_15SumReportThread___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6ver1_3_4main_15SumReportThread_2set(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_table); /* proto */
-static PyObject *__pyx_pf_6ver1_3_4main_15SumReportThread_4run(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6ver1_3_4main_10SaveDialog___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6ver1_3_4main_10SaveDialog_2setTheme(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_style); /* proto */
-static PyObject *__pyx_pf_6ver1_3_4main_10SaveDialog_4setRange(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_range_); /* proto */
-static PyObject *__pyx_pf_6ver1_3_4main_10SaveDialog_6add(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6ver1_3_4main_12CreateDialog___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6ver1_3_4main_12CreateDialog_2setTheme(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_style); /* proto */
-static PyObject *__pyx_pf_6ver1_3_4main_12CreateDialog_4emitName(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6ver1_3_4main_12CreateDialog_6alert(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_text, PyObject *__pyx_v_infoText); /* proto */
-static PyObject *__pyx_pf_6ver1_3_4main_10EditDialog___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6ver1_3_4main_10EditDialog_2setTheme(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_style); /* proto */
-static PyObject *__pyx_pf_6ver1_3_4main_10EditDialog_4colorDialog(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6ver1_3_4main_10EditDialog_6save(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_lambda_funcdef_lambda(PyObject *__pyx_self); /* proto */
-static PyObject *__pyx_pf_6ver1_3_4main_12DeleteDialog___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6ver1_3_4main_12DeleteDialog_2setTheme(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_style); /* proto */
-static PyObject *__pyx_pf_6ver1_3_4main_12DeleteDialog_4delete(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_lambda_funcdef_lambda1(PyObject *__pyx_self); /* proto */
-static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_2setTheme(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_theme, PyObject *__pyx_v_style); /* proto */
-static PyObject *__pyx_lambda_funcdef_lambda2(PyObject *__pyx_self); /* proto */
-static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_4start(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_6resizeable(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_8setSumRow(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_10changeSumRow(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_total); /* proto */
-static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_12set(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_calTable, PyObject *__pyx_v_tableName); /* proto */
-static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_8setTable_color(PyObject *__pyx_self, PyObject *__pyx_v_row, PyObject *__pyx_v_column, PyObject *__pyx_v_red, PyObject *__pyx_v_green, PyObject *__pyx_v_blue); /* proto */
-static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_14setTable(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_16color(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_row, PyObject *__pyx_v_column); /* proto */
-static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_18write(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_row, PyObject *__pyx_v_column, PyObject *__pyx_v_text); /* proto */
-static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_20insertDates(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_22calculate(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_row, PyObject *__pyx_v_column); /* proto */
-static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_24save(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_26saveDialog(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_msg); /* proto */
-static PyObject *__pyx_lambda_funcdef_lambda3(PyObject *__pyx_self); /* proto */
-static PyObject *__pyx_lambda_funcdef_lambda4(PyObject *__pyx_self); /* proto */
-static PyObject *__pyx_lambda_funcdef_lambda5(PyObject *__pyx_self); /* proto */
-static PyObject *__pyx_lambda_funcdef_lambda6(PyObject *__pyx_self); /* proto */
-static PyObject *__pyx_lambda_funcdef_lambda7(PyObject *__pyx_self); /* proto */
-static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_2resizeable(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_4setTheme(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_6setTable(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_lambda_funcdef_lambda8(PyObject *__pyx_self); /* proto */
-static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_11fetchTables_makeAct(PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_name, PyObject *__pyx_v_item); /* proto */
-static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_11fetchTables_2tableChange(PyObject *__pyx_self, PyObject *__pyx_v_name); /* proto */
-static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_8fetchTables(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_10updateTableList(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_12savingDialog(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_msg); /* proto */
-static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_14save(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v_uselessArg); /* proto */
-static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_16read(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_18write(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_row, PyObject *__pyx_v_column, PyObject *__pyx_v_red, PyObject *__pyx_v_green, PyObject *__pyx_v_blue, PyObject *__pyx_v_notes); /* proto */
-static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_20clear(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_row, PyObject *__pyx_v_column); /* proto */
-static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_22report(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_uselessArg); /* proto */
-static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_24reportOpen(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_tp_new_6ver1_3_4main___pyx_scope_struct__run(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
-static PyObject *__pyx_tp_new_6ver1_3_4main___pyx_scope_struct_1_run(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
-static PyObject *__pyx_tp_new_6ver1_3_4main___pyx_scope_struct_2___init__(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
-static PyObject *__pyx_tp_new_6ver1_3_4main___pyx_scope_struct_3___init__(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
-static PyObject *__pyx_tp_new_6ver1_3_4main___pyx_scope_struct_4_start(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
-static PyObject *__pyx_tp_new_6ver1_3_4main___pyx_scope_struct_5_setTable(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
-static PyObject *__pyx_tp_new_6ver1_3_4main___pyx_scope_struct_6___init__(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
-static PyObject *__pyx_tp_new_6ver1_3_4main___pyx_scope_struct_7_fetchTables(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
-static PyObject *__pyx_tp_new_6ver1_3_4main___pyx_scope_struct_8_makeAct(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
-/* #### Code section: late_includes ### */
-/* #### Code section: module_state ### */
+
+static PyObject *__pyx_pf_6ver1_3_4main_10ReadThread___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); 
+static PyObject *__pyx_pf_6ver1_3_4main_10ReadThread_2setTableName(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_tableName); 
+static PyObject *__pyx_pf_6ver1_3_4main_10ReadThread_4run(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); 
+static PyObject *__pyx_pf_6ver1_3_4main_10SaveThread___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); 
+static PyObject *__pyx_pf_6ver1_3_4main_10SaveThread_2set(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_tableName, PyObject *__pyx_v_table); 
+static PyObject *__pyx_pf_6ver1_3_4main_10SaveThread_4run(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); 
+static PyObject *__pyx_pf_6ver1_3_4main_16SaveReportThread___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); 
+static PyObject *__pyx_pf_6ver1_3_4main_16SaveReportThread_2set(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_tableName, PyObject *__pyx_v_table); 
+static PyObject *__pyx_pf_6ver1_3_4main_16SaveReportThread_3run_standartSave(PyObject *__pyx_self, PyObject *__pyx_v_nameInDB); 
+static PyObject *__pyx_pf_6ver1_3_4main_16SaveReportThread_4run(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); 
+static PyObject *__pyx_pf_6ver1_3_4main_16ReadReportThread___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); 
+static PyObject *__pyx_pf_6ver1_3_4main_16ReadReportThread_2set(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_tableName, PyObject *__pyx_v_table); 
+static PyObject *__pyx_pf_6ver1_3_4main_16ReadReportThread_3run_standartRead(PyObject *__pyx_self, PyObject *__pyx_v_nameInDB, PyObject *__pyx_v_row, PyObject *__pyx_v_column); 
+static PyObject *__pyx_pf_6ver1_3_4main_16ReadReportThread_4run(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); 
+static PyObject *__pyx_pf_6ver1_3_4main_15SumReportThread___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); 
+static PyObject *__pyx_pf_6ver1_3_4main_15SumReportThread_2set(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_table); 
+static PyObject *__pyx_pf_6ver1_3_4main_15SumReportThread_4run(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); 
+static PyObject *__pyx_pf_6ver1_3_4main_10SaveDialog___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); 
+static PyObject *__pyx_pf_6ver1_3_4main_10SaveDialog_2setTheme(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_style); 
+static PyObject *__pyx_pf_6ver1_3_4main_10SaveDialog_4setRange(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_range_); 
+static PyObject *__pyx_pf_6ver1_3_4main_10SaveDialog_6add(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); 
+static PyObject *__pyx_pf_6ver1_3_4main_12CreateDialog___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); 
+static PyObject *__pyx_pf_6ver1_3_4main_12CreateDialog_2setTheme(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_style); 
+static PyObject *__pyx_pf_6ver1_3_4main_12CreateDialog_4emitName(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); 
+static PyObject *__pyx_pf_6ver1_3_4main_12CreateDialog_6alert(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_text, PyObject *__pyx_v_infoText); 
+static PyObject *__pyx_pf_6ver1_3_4main_10EditDialog___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); 
+static PyObject *__pyx_pf_6ver1_3_4main_10EditDialog_2setTheme(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_style); 
+static PyObject *__pyx_pf_6ver1_3_4main_10EditDialog_4colorDialog(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); 
+static PyObject *__pyx_pf_6ver1_3_4main_10EditDialog_6save(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); 
+static PyObject *__pyx_lambda_funcdef_lambda(PyObject *__pyx_self); 
+static PyObject *__pyx_pf_6ver1_3_4main_12DeleteDialog___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); 
+static PyObject *__pyx_pf_6ver1_3_4main_12DeleteDialog_2setTheme(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_style); 
+static PyObject *__pyx_pf_6ver1_3_4main_12DeleteDialog_4delete(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); 
+static PyObject *__pyx_lambda_funcdef_lambda1(PyObject *__pyx_self); 
+static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); 
+static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_2setTheme(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_theme, PyObject *__pyx_v_style); 
+static PyObject *__pyx_lambda_funcdef_lambda2(PyObject *__pyx_self); 
+static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_4start(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); 
+static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_6resizeable(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); 
+static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_8setSumRow(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); 
+static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_10changeSumRow(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_total); 
+static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_12set(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_calTable, PyObject *__pyx_v_tableName); 
+static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_8setTable_color(PyObject *__pyx_self, PyObject *__pyx_v_row, PyObject *__pyx_v_column, PyObject *__pyx_v_red, PyObject *__pyx_v_green, PyObject *__pyx_v_blue); 
+static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_14setTable(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); 
+static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_16color(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_row, PyObject *__pyx_v_column); 
+static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_18write(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_row, PyObject *__pyx_v_column, PyObject *__pyx_v_text); 
+static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_20insertDates(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); 
+static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_22calculate(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_row, PyObject *__pyx_v_column); 
+static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_24save(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); 
+static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_26saveDialog(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_msg); 
+static PyObject *__pyx_lambda_funcdef_lambda3(PyObject *__pyx_self); 
+static PyObject *__pyx_lambda_funcdef_lambda4(PyObject *__pyx_self); 
+static PyObject *__pyx_lambda_funcdef_lambda5(PyObject *__pyx_self); 
+static PyObject *__pyx_lambda_funcdef_lambda6(PyObject *__pyx_self); 
+static PyObject *__pyx_lambda_funcdef_lambda7(PyObject *__pyx_self); 
+static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); 
+static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_2resizeable(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); 
+static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_4setTheme(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); 
+static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_6setTable(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); 
+static PyObject *__pyx_lambda_funcdef_lambda8(PyObject *__pyx_self); 
+static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_11fetchTables_makeAct(PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_name, PyObject *__pyx_v_item); 
+static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_11fetchTables_2tableChange(PyObject *__pyx_self, PyObject *__pyx_v_name); 
+static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_8fetchTables(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); 
+static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_10updateTableList(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); 
+static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_12savingDialog(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_msg); 
+static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_14save(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v_uselessArg); 
+static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_16read(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); 
+static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_18write(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_row, PyObject *__pyx_v_column, PyObject *__pyx_v_red, PyObject *__pyx_v_green, PyObject *__pyx_v_blue, PyObject *__pyx_v_notes); 
+static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_20clear(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_row, PyObject *__pyx_v_column); 
+static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_22report(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_uselessArg); 
+static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_24reportOpen(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); 
+static PyObject *__pyx_tp_new_6ver1_3_4main___pyx_scope_struct__run(PyTypeObject *t, PyObject *a, PyObject *k); 
+static PyObject *__pyx_tp_new_6ver1_3_4main___pyx_scope_struct_1_run(PyTypeObject *t, PyObject *a, PyObject *k); 
+static PyObject *__pyx_tp_new_6ver1_3_4main___pyx_scope_struct_2___init__(PyTypeObject *t, PyObject *a, PyObject *k); 
+static PyObject *__pyx_tp_new_6ver1_3_4main___pyx_scope_struct_3___init__(PyTypeObject *t, PyObject *a, PyObject *k); 
+static PyObject *__pyx_tp_new_6ver1_3_4main___pyx_scope_struct_4_start(PyTypeObject *t, PyObject *a, PyObject *k); 
+static PyObject *__pyx_tp_new_6ver1_3_4main___pyx_scope_struct_5_setTable(PyTypeObject *t, PyObject *a, PyObject *k); 
+static PyObject *__pyx_tp_new_6ver1_3_4main___pyx_scope_struct_6___init__(PyTypeObject *t, PyObject *a, PyObject *k); 
+static PyObject *__pyx_tp_new_6ver1_3_4main___pyx_scope_struct_7_fetchTables(PyTypeObject *t, PyObject *a, PyObject *k); 
+static PyObject *__pyx_tp_new_6ver1_3_4main___pyx_scope_struct_8_makeAct(PyTypeObject *t, PyObject *a, PyObject *k); 
+
+
 typedef struct {
   PyObject *__pyx_d;
   PyObject *__pyx_b;
@@ -3500,7 +3500,7 @@ typedef struct {
 #ifdef __cplusplus
 namespace {
   extern struct PyModuleDef __pyx_moduledef;
-} /* anonymous namespace */
+} 
 #else
 static struct PyModuleDef __pyx_moduledef;
 #endif
@@ -3519,7 +3519,7 @@ static __pyx_mstate __pyx_mstate_global_static =
 #endif
 static __pyx_mstate *__pyx_mstate_global = &__pyx_mstate_global_static;
 #endif
-/* #### Code section: module_state_clear ### */
+
 #if CYTHON_USE_MODULE_STATE
 static int __pyx_m_clear(PyObject *m) {
   __pyx_mstate *clear_module_state = __pyx_mstate(m);
@@ -4204,7 +4204,7 @@ static int __pyx_m_clear(PyObject *m) {
   return 0;
 }
 #endif
-/* #### Code section: module_state_traverse ### */
+
 #if CYTHON_USE_MODULE_STATE
 static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
   __pyx_mstate *traverse_module_state = __pyx_mstate(m);
@@ -4889,7 +4889,7 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
   return 0;
 }
 #endif
-/* #### Code section: module_state_defines ### */
+
 #define __pyx_d __pyx_mstate_global->__pyx_d
 #define __pyx_b __pyx_mstate_global->__pyx_b
 #define __pyx_cython_runtime __pyx_mstate_global->__pyx_cython_runtime
@@ -5581,24 +5581,18 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
 #define __pyx_codeobj__161 __pyx_mstate_global->__pyx_codeobj__161
 #define __pyx_codeobj__162 __pyx_mstate_global->__pyx_codeobj__162
 #define __pyx_codeobj__163 __pyx_mstate_global->__pyx_codeobj__163
-/* #### Code section: module_code ### */
 
-/* "main.py":25
- *     s_data = QtCore.pyqtSignal(int, int, int, int, int, str)
- * 
- *     def  __init__(self):             # <<<<<<<<<<<<<<
- *         QtCore.QThread.__init__(self)
- * 
- */
 
-/* Python wrapper */
+
+
+
 static PyObject *__pyx_pw_6ver1_3_4main_10ReadThread_1__init__(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
-); /*proto*/
+); 
 static PyMethodDef __pyx_mdef_6ver1_3_4main_10ReadThread_1__init__ = {"__init__", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6ver1_3_4main_10ReadThread_1__init__, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
 static PyObject *__pyx_pw_6ver1_3_4main_10ReadThread_1__init__(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
@@ -5676,7 +5670,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __pyx_L4_argument_unpacking_done:;
   __pyx_r = __pyx_pf_6ver1_3_4main_10ReadThread___init__(__pyx_self, __pyx_v_self);
 
-  /* function exit code */
+  
   {
     Py_ssize_t __pyx_temp;
     for (__pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
@@ -5699,13 +5693,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10ReadThread___init__(CYTHON_UNUSED PyOb
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__init__", 0);
 
-  /* "main.py":26
- * 
- *     def  __init__(self):
- *         QtCore.QThread.__init__(self)             # <<<<<<<<<<<<<<
- * 
- *         self.tableName = None
- */
+  
   __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_QtCore); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 26, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_QThread); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 26, __pyx_L1_error)
@@ -5738,24 +5726,12 @@ static PyObject *__pyx_pf_6ver1_3_4main_10ReadThread___init__(CYTHON_UNUSED PyOb
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":28
- *         QtCore.QThread.__init__(self)
- * 
- *         self.tableName = None             # <<<<<<<<<<<<<<
- * 
- *     def setTableName(self, tableName):
- */
+  
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_tableName, Py_None) < 0) __PYX_ERR(0, 28, __pyx_L1_error)
 
-  /* "main.py":25
- *     s_data = QtCore.pyqtSignal(int, int, int, int, int, str)
- * 
- *     def  __init__(self):             # <<<<<<<<<<<<<<
- *         QtCore.QThread.__init__(self)
- * 
- */
+  
 
-  /* function exit code */
+  
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
@@ -5770,22 +5746,16 @@ static PyObject *__pyx_pf_6ver1_3_4main_10ReadThread___init__(CYTHON_UNUSED PyOb
   return __pyx_r;
 }
 
-/* "main.py":30
- *         self.tableName = None
- * 
- *     def setTableName(self, tableName):             # <<<<<<<<<<<<<<
- *         self.tableName = tableName
- * 
- */
 
-/* Python wrapper */
+
+
 static PyObject *__pyx_pw_6ver1_3_4main_10ReadThread_3setTableName(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
-); /*proto*/
+); 
 static PyMethodDef __pyx_mdef_6ver1_3_4main_10ReadThread_3setTableName = {"setTableName", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6ver1_3_4main_10ReadThread_3setTableName, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
 static PyObject *__pyx_pw_6ver1_3_4main_10ReadThread_3setTableName(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
@@ -5878,7 +5848,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __pyx_L4_argument_unpacking_done:;
   __pyx_r = __pyx_pf_6ver1_3_4main_10ReadThread_2setTableName(__pyx_self, __pyx_v_self, __pyx_v_tableName);
 
-  /* function exit code */
+  
   {
     Py_ssize_t __pyx_temp;
     for (__pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
@@ -5897,24 +5867,12 @@ static PyObject *__pyx_pf_6ver1_3_4main_10ReadThread_2setTableName(CYTHON_UNUSED
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("setTableName", 0);
 
-  /* "main.py":31
- * 
- *     def setTableName(self, tableName):
- *         self.tableName = tableName             # <<<<<<<<<<<<<<
- * 
- *     def run(self):
- */
+  
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_tableName, __pyx_v_tableName) < 0) __PYX_ERR(0, 31, __pyx_L1_error)
 
-  /* "main.py":30
- *         self.tableName = None
- * 
- *     def setTableName(self, tableName):             # <<<<<<<<<<<<<<
- *         self.tableName = tableName
- * 
- */
+  
 
-  /* function exit code */
+  
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
@@ -5926,22 +5884,16 @@ static PyObject *__pyx_pf_6ver1_3_4main_10ReadThread_2setTableName(CYTHON_UNUSED
   return __pyx_r;
 }
 
-/* "main.py":33
- *         self.tableName = tableName
- * 
- *     def run(self):             # <<<<<<<<<<<<<<
- * 
- *         connect = sqlite3.connect(f"{VERSIONPATH}/database/d.db")
- */
 
-/* Python wrapper */
+
+
 static PyObject *__pyx_pw_6ver1_3_4main_10ReadThread_5run(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
-); /*proto*/
+); 
 static PyMethodDef __pyx_mdef_6ver1_3_4main_10ReadThread_5run = {"run", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6ver1_3_4main_10ReadThread_5run, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
 static PyObject *__pyx_pw_6ver1_3_4main_10ReadThread_5run(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
@@ -6019,7 +5971,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __pyx_L4_argument_unpacking_done:;
   __pyx_r = __pyx_pf_6ver1_3_4main_10ReadThread_4run(__pyx_self, __pyx_v_self);
 
-  /* function exit code */
+  
   {
     Py_ssize_t __pyx_temp;
     for (__pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
@@ -6068,13 +6020,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10ReadThread_4run(CYTHON_UNUSED PyObject
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("run", 0);
 
-  /* "main.py":35
- *     def run(self):
- * 
- *         connect = sqlite3.connect(f"{VERSIONPATH}/database/d.db")             # <<<<<<<<<<<<<<
- *         cursor = connect.cursor()
- * 
- */
+  
   __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_sqlite3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 35, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_connect); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 35, __pyx_L1_error)
@@ -6114,13 +6060,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10ReadThread_4run(CYTHON_UNUSED PyObject
   __pyx_v_connect = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "main.py":36
- * 
- *         connect = sqlite3.connect(f"{VERSIONPATH}/database/d.db")
- *         cursor = connect.cursor()             # <<<<<<<<<<<<<<
- * 
- *         cursor.execute(f"SELECT count(*) FROM {self.tableName}")
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_connect, __pyx_n_s_cursor); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 36, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = NULL;
@@ -6148,13 +6088,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10ReadThread_4run(CYTHON_UNUSED PyObject
   __pyx_v_cursor = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "main.py":38
- *         cursor = connect.cursor()
- * 
- *         cursor.execute(f"SELECT count(*) FROM {self.tableName}")             # <<<<<<<<<<<<<<
- *         count = cursor.fetchone()
- * 
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_cursor, __pyx_n_s_execute); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 38, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_tableName); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 38, __pyx_L1_error)
@@ -6190,13 +6124,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10ReadThread_4run(CYTHON_UNUSED PyObject
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":39
- * 
- *         cursor.execute(f"SELECT count(*) FROM {self.tableName}")
- *         count = cursor.fetchone()             # <<<<<<<<<<<<<<
- * 
- *         countTemp = ""
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_cursor, __pyx_n_s_fetchone); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 39, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = NULL;
@@ -6224,23 +6152,11 @@ static PyObject *__pyx_pf_6ver1_3_4main_10ReadThread_4run(CYTHON_UNUSED PyObject
   __pyx_v_count = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "main.py":41
- *         count = cursor.fetchone()
- * 
- *         countTemp = ""             # <<<<<<<<<<<<<<
- *         for i in count:
- *             countTemp += str(i)
- */
+  
   __Pyx_INCREF(__pyx_kp_s_);
   __pyx_v_countTemp = __pyx_kp_s_;
 
-  /* "main.py":42
- * 
- *         countTemp = ""
- *         for i in count:             # <<<<<<<<<<<<<<
- *             countTemp += str(i)
- *         count = int(countTemp)
- */
+  
   if (likely(PyList_CheckExact(__pyx_v_count)) || PyTuple_CheckExact(__pyx_v_count)) {
     __pyx_t_1 = __pyx_v_count; __Pyx_INCREF(__pyx_t_1); __pyx_t_6 = 0;
     __pyx_t_7 = NULL;
@@ -6283,13 +6199,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10ReadThread_4run(CYTHON_UNUSED PyObject
     __Pyx_XDECREF_SET(__pyx_v_i, __pyx_t_3);
     __pyx_t_3 = 0;
 
-    /* "main.py":43
- *         countTemp = ""
- *         for i in count:
- *             countTemp += str(i)             # <<<<<<<<<<<<<<
- *         count = int(countTemp)
- * 
- */
+    
     __pyx_t_3 = __Pyx_PyObject_Str(__pyx_v_i); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 43, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_2 = PyNumber_InPlaceAdd(__pyx_v_countTemp, __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 43, __pyx_L1_error)
@@ -6298,35 +6208,17 @@ static PyObject *__pyx_pf_6ver1_3_4main_10ReadThread_4run(CYTHON_UNUSED PyObject
     __Pyx_DECREF_SET(__pyx_v_countTemp, __pyx_t_2);
     __pyx_t_2 = 0;
 
-    /* "main.py":42
- * 
- *         countTemp = ""
- *         for i in count:             # <<<<<<<<<<<<<<
- *             countTemp += str(i)
- *         count = int(countTemp)
- */
+    
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":44
- *         for i in count:
- *             countTemp += str(i)
- *         count = int(countTemp)             # <<<<<<<<<<<<<<
- * 
- *         for index in range(count + 1):
- */
+  
   __pyx_t_1 = __Pyx_PyNumber_Int(__pyx_v_countTemp); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 44, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF_SET(__pyx_v_count, __pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "main.py":46
- *         count = int(countTemp)
- * 
- *         for index in range(count + 1):             # <<<<<<<<<<<<<<
- *             if index != 0:
- * 
- */
+  
   __pyx_t_1 = __Pyx_PyInt_AddObjC(__pyx_v_count, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 46, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_builtin_range, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 46, __pyx_L1_error)
@@ -6375,23 +6267,11 @@ static PyObject *__pyx_pf_6ver1_3_4main_10ReadThread_4run(CYTHON_UNUSED PyObject
     __Pyx_XDECREF_SET(__pyx_v_index, __pyx_t_2);
     __pyx_t_2 = 0;
 
-    /* "main.py":47
- * 
- *         for index in range(count + 1):
- *             if index != 0:             # <<<<<<<<<<<<<<
- * 
- *                 # column
- */
+    
     __pyx_t_8 = (__Pyx_PyInt_BoolNeObjC(__pyx_v_index, __pyx_int_0, 0, 0)); if (unlikely((__pyx_t_8 < 0))) __PYX_ERR(0, 47, __pyx_L1_error)
     if (__pyx_t_8) {
 
-      /* "main.py":50
- * 
- *                 # column
- *                 cursor.execute(f"SELECT day FROM {self.tableName} WHERE ROWID = ?", (index,))             # <<<<<<<<<<<<<<
- *                 column = cursor.fetchone()
- * 
- */
+      
       __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_cursor, __pyx_n_s_execute); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 50, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __pyx_t_4 = PyTuple_New(3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 50, __pyx_L1_error)
@@ -6450,13 +6330,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10ReadThread_4run(CYTHON_UNUSED PyObject
       }
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-      /* "main.py":51
- *                 # column
- *                 cursor.execute(f"SELECT day FROM {self.tableName} WHERE ROWID = ?", (index,))
- *                 column = cursor.fetchone()             # <<<<<<<<<<<<<<
- * 
- *                 if column != None:
- */
+      
       __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_cursor, __pyx_n_s_fetchone); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 51, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __pyx_t_4 = NULL;
@@ -6484,35 +6358,17 @@ static PyObject *__pyx_pf_6ver1_3_4main_10ReadThread_4run(CYTHON_UNUSED PyObject
       __Pyx_XDECREF_SET(__pyx_v_column, __pyx_t_2);
       __pyx_t_2 = 0;
 
-      /* "main.py":53
- *                 column = cursor.fetchone()
- * 
- *                 if column != None:             # <<<<<<<<<<<<<<
- * 
- *                     columnTemp = ""
- */
+      
       __pyx_t_2 = PyObject_RichCompare(__pyx_v_column, Py_None, Py_NE); __Pyx_XGOTREF(__pyx_t_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 53, __pyx_L1_error)
       __pyx_t_8 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely((__pyx_t_8 < 0))) __PYX_ERR(0, 53, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       if (__pyx_t_8) {
 
-        /* "main.py":55
- *                 if column != None:
- * 
- *                     columnTemp = ""             # <<<<<<<<<<<<<<
- *                     for i in column:
- *                         columnTemp += str(i)
- */
+        
         __Pyx_INCREF(__pyx_kp_s_);
         __Pyx_XDECREF_SET(__pyx_v_columnTemp, __pyx_kp_s_);
 
-        /* "main.py":56
- * 
- *                     columnTemp = ""
- *                     for i in column:             # <<<<<<<<<<<<<<
- *                         columnTemp += str(i)
- *                     column = int(columnTemp)
- */
+        
         if (likely(PyList_CheckExact(__pyx_v_column)) || PyTuple_CheckExact(__pyx_v_column)) {
           __pyx_t_2 = __pyx_v_column; __Pyx_INCREF(__pyx_t_2); __pyx_t_9 = 0;
           __pyx_t_13 = NULL;
@@ -6555,13 +6411,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10ReadThread_4run(CYTHON_UNUSED PyObject
           __Pyx_XDECREF_SET(__pyx_v_i, __pyx_t_3);
           __pyx_t_3 = 0;
 
-          /* "main.py":57
- *                     columnTemp = ""
- *                     for i in column:
- *                         columnTemp += str(i)             # <<<<<<<<<<<<<<
- *                     column = int(columnTemp)
- * 
- */
+          
           __pyx_t_3 = __Pyx_PyObject_Str(__pyx_v_i); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 57, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_3);
           __pyx_t_4 = PyNumber_InPlaceAdd(__pyx_v_columnTemp, __pyx_t_3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 57, __pyx_L1_error)
@@ -6570,35 +6420,17 @@ static PyObject *__pyx_pf_6ver1_3_4main_10ReadThread_4run(CYTHON_UNUSED PyObject
           __Pyx_DECREF_SET(__pyx_v_columnTemp, __pyx_t_4);
           __pyx_t_4 = 0;
 
-          /* "main.py":56
- * 
- *                     columnTemp = ""
- *                     for i in column:             # <<<<<<<<<<<<<<
- *                         columnTemp += str(i)
- *                     column = int(columnTemp)
- */
+          
         }
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-        /* "main.py":58
- *                     for i in column:
- *                         columnTemp += str(i)
- *                     column = int(columnTemp)             # <<<<<<<<<<<<<<
- * 
- *                     cursor.execute(f"SELECT month FROM {self.tableName} WHERE ROWID = ?", (index,))
- */
+        
         __pyx_t_2 = __Pyx_PyNumber_Int(__pyx_v_columnTemp); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 58, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_DECREF_SET(__pyx_v_column, __pyx_t_2);
         __pyx_t_2 = 0;
 
-        /* "main.py":60
- *                     column = int(columnTemp)
- * 
- *                     cursor.execute(f"SELECT month FROM {self.tableName} WHERE ROWID = ?", (index,))             # <<<<<<<<<<<<<<
- *                     row = cursor.fetchone()
- * 
- */
+        
         __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_cursor, __pyx_n_s_execute); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 60, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         __pyx_t_3 = PyTuple_New(3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 60, __pyx_L1_error)
@@ -6657,13 +6489,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10ReadThread_4run(CYTHON_UNUSED PyObject
         }
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-        /* "main.py":61
- * 
- *                     cursor.execute(f"SELECT month FROM {self.tableName} WHERE ROWID = ?", (index,))
- *                     row = cursor.fetchone()             # <<<<<<<<<<<<<<
- * 
- *                     rowTemp = ""
- */
+        
         __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_cursor, __pyx_n_s_fetchone); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 61, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         __pyx_t_3 = NULL;
@@ -6691,23 +6517,11 @@ static PyObject *__pyx_pf_6ver1_3_4main_10ReadThread_4run(CYTHON_UNUSED PyObject
         __Pyx_XDECREF_SET(__pyx_v_row, __pyx_t_2);
         __pyx_t_2 = 0;
 
-        /* "main.py":63
- *                     row = cursor.fetchone()
- * 
- *                     rowTemp = ""             # <<<<<<<<<<<<<<
- *                     for i in row:
- *                         rowTemp += str(i)
- */
+        
         __Pyx_INCREF(__pyx_kp_s_);
         __Pyx_XDECREF_SET(__pyx_v_rowTemp, __pyx_kp_s_);
 
-        /* "main.py":64
- * 
- *                     rowTemp = ""
- *                     for i in row:             # <<<<<<<<<<<<<<
- *                         rowTemp += str(i)
- *                     row = int(rowTemp)
- */
+        
         if (likely(PyList_CheckExact(__pyx_v_row)) || PyTuple_CheckExact(__pyx_v_row)) {
           __pyx_t_2 = __pyx_v_row; __Pyx_INCREF(__pyx_t_2); __pyx_t_9 = 0;
           __pyx_t_13 = NULL;
@@ -6750,13 +6564,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10ReadThread_4run(CYTHON_UNUSED PyObject
           __Pyx_XDECREF_SET(__pyx_v_i, __pyx_t_4);
           __pyx_t_4 = 0;
 
-          /* "main.py":65
- *                     rowTemp = ""
- *                     for i in row:
- *                         rowTemp += str(i)             # <<<<<<<<<<<<<<
- *                     row = int(rowTemp)
- * 
- */
+          
           __pyx_t_4 = __Pyx_PyObject_Str(__pyx_v_i); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 65, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_4);
           __pyx_t_3 = PyNumber_InPlaceAdd(__pyx_v_rowTemp, __pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 65, __pyx_L1_error)
@@ -6765,35 +6573,17 @@ static PyObject *__pyx_pf_6ver1_3_4main_10ReadThread_4run(CYTHON_UNUSED PyObject
           __Pyx_DECREF_SET(__pyx_v_rowTemp, __pyx_t_3);
           __pyx_t_3 = 0;
 
-          /* "main.py":64
- * 
- *                     rowTemp = ""
- *                     for i in row:             # <<<<<<<<<<<<<<
- *                         rowTemp += str(i)
- *                     row = int(rowTemp)
- */
+          
         }
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-        /* "main.py":66
- *                     for i in row:
- *                         rowTemp += str(i)
- *                     row = int(rowTemp)             # <<<<<<<<<<<<<<
- * 
- *                     # notes
- */
+        
         __pyx_t_2 = __Pyx_PyNumber_Int(__pyx_v_rowTemp); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 66, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_DECREF_SET(__pyx_v_row, __pyx_t_2);
         __pyx_t_2 = 0;
 
-        /* "main.py":69
- * 
- *                     # notes
- *                     cursor.execute(f"SELECT notes FROM {self.tableName} WHERE ROWID = ?", (index,))             # <<<<<<<<<<<<<<
- *                     notesTemp = cursor.fetchone()
- * 
- */
+        
         __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_cursor, __pyx_n_s_execute); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 69, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
         __pyx_t_4 = PyTuple_New(3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 69, __pyx_L1_error)
@@ -6852,13 +6642,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10ReadThread_4run(CYTHON_UNUSED PyObject
         }
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-        /* "main.py":70
- *                     # notes
- *                     cursor.execute(f"SELECT notes FROM {self.tableName} WHERE ROWID = ?", (index,))
- *                     notesTemp = cursor.fetchone()             # <<<<<<<<<<<<<<
- * 
- *                     if notesTemp != None:
- */
+        
         __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_cursor, __pyx_n_s_fetchone); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 70, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
         __pyx_t_4 = NULL;
@@ -6886,35 +6670,17 @@ static PyObject *__pyx_pf_6ver1_3_4main_10ReadThread_4run(CYTHON_UNUSED PyObject
         __Pyx_XDECREF_SET(__pyx_v_notesTemp, __pyx_t_2);
         __pyx_t_2 = 0;
 
-        /* "main.py":72
- *                     notesTemp = cursor.fetchone()
- * 
- *                     if notesTemp != None:             # <<<<<<<<<<<<<<
- * 
- *                         notes = ""
- */
+        
         __pyx_t_2 = PyObject_RichCompare(__pyx_v_notesTemp, Py_None, Py_NE); __Pyx_XGOTREF(__pyx_t_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 72, __pyx_L1_error)
         __pyx_t_8 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely((__pyx_t_8 < 0))) __PYX_ERR(0, 72, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
         if (__pyx_t_8) {
 
-          /* "main.py":74
- *                     if notesTemp != None:
- * 
- *                         notes = ""             # <<<<<<<<<<<<<<
- *                         for i in notesTemp:
- *                             notes += str(i)
- */
+          
           __Pyx_INCREF(__pyx_kp_s_);
           __Pyx_XDECREF_SET(__pyx_v_notes, __pyx_kp_s_);
 
-          /* "main.py":75
- * 
- *                         notes = ""
- *                         for i in notesTemp:             # <<<<<<<<<<<<<<
- *                             notes += str(i)
- * 
- */
+          
           if (likely(PyList_CheckExact(__pyx_v_notesTemp)) || PyTuple_CheckExact(__pyx_v_notesTemp)) {
             __pyx_t_2 = __pyx_v_notesTemp; __Pyx_INCREF(__pyx_t_2); __pyx_t_9 = 0;
             __pyx_t_13 = NULL;
@@ -6957,13 +6723,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10ReadThread_4run(CYTHON_UNUSED PyObject
             __Pyx_XDECREF_SET(__pyx_v_i, __pyx_t_3);
             __pyx_t_3 = 0;
 
-            /* "main.py":76
- *                         notes = ""
- *                         for i in notesTemp:
- *                             notes += str(i)             # <<<<<<<<<<<<<<
- * 
- *                     else:
- */
+            
             __pyx_t_3 = __Pyx_PyObject_Str(__pyx_v_i); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 76, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_3);
             __pyx_t_4 = PyNumber_InPlaceAdd(__pyx_v_notes, __pyx_t_3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 76, __pyx_L1_error)
@@ -6972,46 +6732,22 @@ static PyObject *__pyx_pf_6ver1_3_4main_10ReadThread_4run(CYTHON_UNUSED PyObject
             __Pyx_DECREF_SET(__pyx_v_notes, __pyx_t_4);
             __pyx_t_4 = 0;
 
-            /* "main.py":75
- * 
- *                         notes = ""
- *                         for i in notesTemp:             # <<<<<<<<<<<<<<
- *                             notes += str(i)
- * 
- */
+            
           }
           __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-          /* "main.py":72
- *                     notesTemp = cursor.fetchone()
- * 
- *                     if notesTemp != None:             # <<<<<<<<<<<<<<
- * 
- *                         notes = ""
- */
+          
           goto __pyx_L16;
         }
 
-        /* "main.py":79
- * 
- *                     else:
- *                         notes = None             # <<<<<<<<<<<<<<
- * 
- *                     # color
- */
-        /*else*/ {
+        
+         {
           __Pyx_INCREF(Py_None);
           __Pyx_XDECREF_SET(__pyx_v_notes, Py_None);
         }
         __pyx_L16:;
 
-        /* "main.py":82
- * 
- *                     # color
- *                     cursor.execute(f"SELECT color FROM {self.tableName} WHERE ROWID = ?", (index,))             # <<<<<<<<<<<<<<
- *                     colorTemp = cursor.fetchone()
- * 
- */
+        
         __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_cursor, __pyx_n_s_execute); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 82, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         __pyx_t_3 = PyTuple_New(3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 82, __pyx_L1_error)
@@ -7070,13 +6806,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10ReadThread_4run(CYTHON_UNUSED PyObject
         }
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-        /* "main.py":83
- *                     # color
- *                     cursor.execute(f"SELECT color FROM {self.tableName} WHERE ROWID = ?", (index,))
- *                     colorTemp = cursor.fetchone()             # <<<<<<<<<<<<<<
- * 
- *                     if colorTemp != None:
- */
+        
         __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_cursor, __pyx_n_s_fetchone); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 83, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         __pyx_t_3 = NULL;
@@ -7104,35 +6834,17 @@ static PyObject *__pyx_pf_6ver1_3_4main_10ReadThread_4run(CYTHON_UNUSED PyObject
         __Pyx_XDECREF_SET(__pyx_v_colorTemp, __pyx_t_2);
         __pyx_t_2 = 0;
 
-        /* "main.py":85
- *                     colorTemp = cursor.fetchone()
- * 
- *                     if colorTemp != None:             # <<<<<<<<<<<<<<
- * 
- *                         color = ""
- */
+        
         __pyx_t_2 = PyObject_RichCompare(__pyx_v_colorTemp, Py_None, Py_NE); __Pyx_XGOTREF(__pyx_t_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 85, __pyx_L1_error)
         __pyx_t_8 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely((__pyx_t_8 < 0))) __PYX_ERR(0, 85, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
         if (__pyx_t_8) {
 
-          /* "main.py":87
- *                     if colorTemp != None:
- * 
- *                         color = ""             # <<<<<<<<<<<<<<
- *                         for i in colorTemp:
- *                             color += str(i)
- */
+          
           __Pyx_INCREF(__pyx_kp_s_);
           __Pyx_XDECREF_SET(__pyx_v_color, __pyx_kp_s_);
 
-          /* "main.py":88
- * 
- *                         color = ""
- *                         for i in colorTemp:             # <<<<<<<<<<<<<<
- *                             color += str(i)
- * 
- */
+          
           if (likely(PyList_CheckExact(__pyx_v_colorTemp)) || PyTuple_CheckExact(__pyx_v_colorTemp)) {
             __pyx_t_2 = __pyx_v_colorTemp; __Pyx_INCREF(__pyx_t_2); __pyx_t_9 = 0;
             __pyx_t_13 = NULL;
@@ -7175,13 +6887,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10ReadThread_4run(CYTHON_UNUSED PyObject
             __Pyx_XDECREF_SET(__pyx_v_i, __pyx_t_4);
             __pyx_t_4 = 0;
 
-            /* "main.py":89
- *                         color = ""
- *                         for i in colorTemp:
- *                             color += str(i)             # <<<<<<<<<<<<<<
- * 
- *                         color = color.split(":")
- */
+            
             __pyx_t_4 = __Pyx_PyObject_Str(__pyx_v_i); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 89, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_4);
             __pyx_t_3 = PyNumber_InPlaceAdd(__pyx_v_color, __pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 89, __pyx_L1_error)
@@ -7190,23 +6896,11 @@ static PyObject *__pyx_pf_6ver1_3_4main_10ReadThread_4run(CYTHON_UNUSED PyObject
             __Pyx_DECREF_SET(__pyx_v_color, __pyx_t_3);
             __pyx_t_3 = 0;
 
-            /* "main.py":88
- * 
- *                         color = ""
- *                         for i in colorTemp:             # <<<<<<<<<<<<<<
- *                             color += str(i)
- * 
- */
+            
           }
           __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-          /* "main.py":91
- *                             color += str(i)
- * 
- *                         color = color.split(":")             # <<<<<<<<<<<<<<
- *                         red = int(color[0])
- *                         green = int(color[1])
- */
+          
           __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_color, __pyx_n_s_split); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 91, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_3);
           __pyx_t_4 = NULL;
@@ -7234,13 +6928,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10ReadThread_4run(CYTHON_UNUSED PyObject
           __Pyx_DECREF_SET(__pyx_v_color, __pyx_t_2);
           __pyx_t_2 = 0;
 
-          /* "main.py":92
- * 
- *                         color = color.split(":")
- *                         red = int(color[0])             # <<<<<<<<<<<<<<
- *                         green = int(color[1])
- *                         blue = int(color[2])
- */
+          
           __pyx_t_2 = __Pyx_GetItemInt(__pyx_v_color, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 92, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_2);
           __pyx_t_3 = __Pyx_PyNumber_Int(__pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 92, __pyx_L1_error)
@@ -7249,13 +6937,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10ReadThread_4run(CYTHON_UNUSED PyObject
           __Pyx_XDECREF_SET(__pyx_v_red, __pyx_t_3);
           __pyx_t_3 = 0;
 
-          /* "main.py":93
- *                         color = color.split(":")
- *                         red = int(color[0])
- *                         green = int(color[1])             # <<<<<<<<<<<<<<
- *                         blue = int(color[2])
- * 
- */
+          
           __pyx_t_3 = __Pyx_GetItemInt(__pyx_v_color, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 93, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_3);
           __pyx_t_2 = __Pyx_PyNumber_Int(__pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 93, __pyx_L1_error)
@@ -7264,13 +6946,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10ReadThread_4run(CYTHON_UNUSED PyObject
           __Pyx_XDECREF_SET(__pyx_v_green, __pyx_t_2);
           __pyx_t_2 = 0;
 
-          /* "main.py":94
- *                         red = int(color[0])
- *                         green = int(color[1])
- *                         blue = int(color[2])             # <<<<<<<<<<<<<<
- * 
- *                     else:
- */
+          
           __pyx_t_2 = __Pyx_GetItemInt(__pyx_v_color, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 94, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_2);
           __pyx_t_3 = __Pyx_PyNumber_Int(__pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 94, __pyx_L1_error)
@@ -7279,56 +6955,26 @@ static PyObject *__pyx_pf_6ver1_3_4main_10ReadThread_4run(CYTHON_UNUSED PyObject
           __Pyx_XDECREF_SET(__pyx_v_blue, __pyx_t_3);
           __pyx_t_3 = 0;
 
-          /* "main.py":85
- *                     colorTemp = cursor.fetchone()
- * 
- *                     if colorTemp != None:             # <<<<<<<<<<<<<<
- * 
- *                         color = ""
- */
+          
           goto __pyx_L20;
         }
 
-        /* "main.py":97
- * 
- *                     else:
- *                         red = None             # <<<<<<<<<<<<<<
- *                         green = None
- *                         blue = None
- */
-        /*else*/ {
+        
+         {
           __Pyx_INCREF(Py_None);
           __Pyx_XDECREF_SET(__pyx_v_red, Py_None);
 
-          /* "main.py":98
- *                     else:
- *                         red = None
- *                         green = None             # <<<<<<<<<<<<<<
- *                         blue = None
- * 
- */
+          
           __Pyx_INCREF(Py_None);
           __Pyx_XDECREF_SET(__pyx_v_green, Py_None);
 
-          /* "main.py":99
- *                         red = None
- *                         green = None
- *                         blue = None             # <<<<<<<<<<<<<<
- * 
- *                     self.s_data.emit(row, column, red, green, blue, notes)
- */
+          
           __Pyx_INCREF(Py_None);
           __Pyx_XDECREF_SET(__pyx_v_blue, Py_None);
         }
         __pyx_L20:;
 
-        /* "main.py":101
- *                         blue = None
- * 
- *                     self.s_data.emit(row, column, red, green, blue, notes)             # <<<<<<<<<<<<<<
- * 
- * 
- */
+        
         __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_s_data); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 101, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_emit); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 101, __pyx_L1_error)
@@ -7358,43 +7004,19 @@ static PyObject *__pyx_pf_6ver1_3_4main_10ReadThread_4run(CYTHON_UNUSED PyObject
         }
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-        /* "main.py":53
- *                 column = cursor.fetchone()
- * 
- *                 if column != None:             # <<<<<<<<<<<<<<
- * 
- *                     columnTemp = ""
- */
+        
       }
 
-      /* "main.py":47
- * 
- *         for index in range(count + 1):
- *             if index != 0:             # <<<<<<<<<<<<<<
- * 
- *                 # column
- */
+      
     }
 
-    /* "main.py":46
- *         count = int(countTemp)
- * 
- *         for index in range(count + 1):             # <<<<<<<<<<<<<<
- *             if index != 0:
- * 
- */
+    
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":33
- *         self.tableName = tableName
- * 
- *     def run(self):             # <<<<<<<<<<<<<<
- * 
- *         connect = sqlite3.connect(f"{VERSIONPATH}/database/d.db")
- */
+  
 
-  /* function exit code */
+  
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
@@ -7429,22 +7051,16 @@ static PyObject *__pyx_pf_6ver1_3_4main_10ReadThread_4run(CYTHON_UNUSED PyObject
   return __pyx_r;
 }
 
-/* "main.py":107
- *     s_update = QtCore.pyqtSignal(str)
- * 
- *     def  __init__(self):             # <<<<<<<<<<<<<<
- *         QtCore.QThread.__init__(self)
- * 
- */
 
-/* Python wrapper */
+
+
 static PyObject *__pyx_pw_6ver1_3_4main_10SaveThread_1__init__(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
-); /*proto*/
+); 
 static PyMethodDef __pyx_mdef_6ver1_3_4main_10SaveThread_1__init__ = {"__init__", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6ver1_3_4main_10SaveThread_1__init__, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
 static PyObject *__pyx_pw_6ver1_3_4main_10SaveThread_1__init__(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
@@ -7522,7 +7138,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __pyx_L4_argument_unpacking_done:;
   __pyx_r = __pyx_pf_6ver1_3_4main_10SaveThread___init__(__pyx_self, __pyx_v_self);
 
-  /* function exit code */
+  
   {
     Py_ssize_t __pyx_temp;
     for (__pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
@@ -7545,13 +7161,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10SaveThread___init__(CYTHON_UNUSED PyOb
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__init__", 0);
 
-  /* "main.py":108
- * 
- *     def  __init__(self):
- *         QtCore.QThread.__init__(self)             # <<<<<<<<<<<<<<
- * 
- *         self.tableName = None
- */
+  
   __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_QtCore); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 108, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_QThread); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 108, __pyx_L1_error)
@@ -7584,33 +7194,15 @@ static PyObject *__pyx_pf_6ver1_3_4main_10SaveThread___init__(CYTHON_UNUSED PyOb
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":110
- *         QtCore.QThread.__init__(self)
- * 
- *         self.tableName = None             # <<<<<<<<<<<<<<
- *         self.table = None
- * 
- */
+  
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_tableName, Py_None) < 0) __PYX_ERR(0, 110, __pyx_L1_error)
 
-  /* "main.py":111
- * 
- *         self.tableName = None
- *         self.table = None             # <<<<<<<<<<<<<<
- * 
- *     def set(self, tableName, table):
- */
+  
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_table, Py_None) < 0) __PYX_ERR(0, 111, __pyx_L1_error)
 
-  /* "main.py":107
- *     s_update = QtCore.pyqtSignal(str)
- * 
- *     def  __init__(self):             # <<<<<<<<<<<<<<
- *         QtCore.QThread.__init__(self)
- * 
- */
+  
 
-  /* function exit code */
+  
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
@@ -7625,22 +7217,16 @@ static PyObject *__pyx_pf_6ver1_3_4main_10SaveThread___init__(CYTHON_UNUSED PyOb
   return __pyx_r;
 }
 
-/* "main.py":113
- *         self.table = None
- * 
- *     def set(self, tableName, table):             # <<<<<<<<<<<<<<
- *         self.tableName = tableName
- *         self.table = table
- */
 
-/* Python wrapper */
+
+
 static PyObject *__pyx_pw_6ver1_3_4main_10SaveThread_3set(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
-); /*proto*/
+); 
 static PyMethodDef __pyx_mdef_6ver1_3_4main_10SaveThread_3set = {"set", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6ver1_3_4main_10SaveThread_3set, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
 static PyObject *__pyx_pw_6ver1_3_4main_10SaveThread_3set(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
@@ -7748,7 +7334,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __pyx_L4_argument_unpacking_done:;
   __pyx_r = __pyx_pf_6ver1_3_4main_10SaveThread_2set(__pyx_self, __pyx_v_self, __pyx_v_tableName, __pyx_v_table);
 
-  /* function exit code */
+  
   {
     Py_ssize_t __pyx_temp;
     for (__pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
@@ -7767,33 +7353,15 @@ static PyObject *__pyx_pf_6ver1_3_4main_10SaveThread_2set(CYTHON_UNUSED PyObject
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("set", 0);
 
-  /* "main.py":114
- * 
- *     def set(self, tableName, table):
- *         self.tableName = tableName             # <<<<<<<<<<<<<<
- *         self.table = table
- * 
- */
+  
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_tableName, __pyx_v_tableName) < 0) __PYX_ERR(0, 114, __pyx_L1_error)
 
-  /* "main.py":115
- *     def set(self, tableName, table):
- *         self.tableName = tableName
- *         self.table = table             # <<<<<<<<<<<<<<
- * 
- *     def run(self):
- */
+  
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_table, __pyx_v_table) < 0) __PYX_ERR(0, 115, __pyx_L1_error)
 
-  /* "main.py":113
- *         self.table = None
- * 
- *     def set(self, tableName, table):             # <<<<<<<<<<<<<<
- *         self.tableName = tableName
- *         self.table = table
- */
+  
 
-  /* function exit code */
+  
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
@@ -7805,22 +7373,16 @@ static PyObject *__pyx_pf_6ver1_3_4main_10SaveThread_2set(CYTHON_UNUSED PyObject
   return __pyx_r;
 }
 
-/* "main.py":117
- *         self.table = table
- * 
- *     def run(self):             # <<<<<<<<<<<<<<
- * 
- *         connect = sqlite3.connect(f"{VERSIONPATH}/database/d.db")
- */
 
-/* Python wrapper */
+
+
 static PyObject *__pyx_pw_6ver1_3_4main_10SaveThread_5run(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
-); /*proto*/
+); 
 static PyMethodDef __pyx_mdef_6ver1_3_4main_10SaveThread_5run = {"run", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6ver1_3_4main_10SaveThread_5run, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
 static PyObject *__pyx_pw_6ver1_3_4main_10SaveThread_5run(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
@@ -7898,7 +7460,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __pyx_L4_argument_unpacking_done:;
   __pyx_r = __pyx_pf_6ver1_3_4main_10SaveThread_4run(__pyx_self, __pyx_v_self);
 
-  /* function exit code */
+  
   {
     Py_ssize_t __pyx_temp;
     for (__pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
@@ -7948,13 +7510,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10SaveThread_4run(CYTHON_UNUSED PyObject
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("run", 0);
 
-  /* "main.py":119
- *     def run(self):
- * 
- *         connect = sqlite3.connect(f"{VERSIONPATH}/database/d.db")             # <<<<<<<<<<<<<<
- *         cursor = connect.cursor()
- * 
- */
+  
   __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_sqlite3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 119, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_connect); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 119, __pyx_L1_error)
@@ -7994,13 +7550,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10SaveThread_4run(CYTHON_UNUSED PyObject
   __pyx_v_connect = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "main.py":120
- * 
- *         connect = sqlite3.connect(f"{VERSIONPATH}/database/d.db")
- *         cursor = connect.cursor()             # <<<<<<<<<<<<<<
- * 
- *         for column in range(self.table.columnCount()):
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_connect, __pyx_n_s_cursor); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 120, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = NULL;
@@ -8028,13 +7578,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10SaveThread_4run(CYTHON_UNUSED PyObject
   __pyx_v_cursor = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "main.py":122
- *         cursor = connect.cursor()
- * 
- *         for column in range(self.table.columnCount()):             # <<<<<<<<<<<<<<
- * 
- *             for row in range(self.table.rowCount()):
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_table); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 122, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_columnCount); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 122, __pyx_L1_error)
@@ -8108,13 +7652,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10SaveThread_4run(CYTHON_UNUSED PyObject
     __Pyx_XDECREF_SET(__pyx_v_column, __pyx_t_2);
     __pyx_t_2 = 0;
 
-    /* "main.py":124
- *         for column in range(self.table.columnCount()):
- * 
- *             for row in range(self.table.rowCount()):             # <<<<<<<<<<<<<<
- *                 cell = self.table.item(row, column)
- * 
- */
+    
     __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_table); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 124, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_rowCount); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 124, __pyx_L1_error)
@@ -8188,13 +7726,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10SaveThread_4run(CYTHON_UNUSED PyObject
       __Pyx_XDECREF_SET(__pyx_v_row, __pyx_t_4);
       __pyx_t_4 = 0;
 
-      /* "main.py":125
- * 
- *             for row in range(self.table.rowCount()):
- *                 cell = self.table.item(row, column)             # <<<<<<<<<<<<<<
- * 
- *                 if cell:
- */
+      
       __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_table); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 125, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_item); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 125, __pyx_L1_error)
@@ -8225,23 +7757,11 @@ static PyObject *__pyx_pf_6ver1_3_4main_10SaveThread_4run(CYTHON_UNUSED PyObject
       __Pyx_XDECREF_SET(__pyx_v_cell, __pyx_t_4);
       __pyx_t_4 = 0;
 
-      /* "main.py":127
- *                 cell = self.table.item(row, column)
- * 
- *                 if cell:             # <<<<<<<<<<<<<<
- *                     bg = cell.background()
- *                     note = cell.toolTip()
- */
+      
       __pyx_t_11 = __Pyx_PyObject_IsTrue(__pyx_v_cell); if (unlikely((__pyx_t_11 < 0))) __PYX_ERR(0, 127, __pyx_L1_error)
       if (__pyx_t_11) {
 
-        /* "main.py":128
- * 
- *                 if cell:
- *                     bg = cell.background()             # <<<<<<<<<<<<<<
- *                     note = cell.toolTip()
- * 
- */
+        
         __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_v_cell, __pyx_n_s_background); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 128, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_10);
         __pyx_t_3 = NULL;
@@ -8269,13 +7789,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10SaveThread_4run(CYTHON_UNUSED PyObject
         __Pyx_XDECREF_SET(__pyx_v_bg, __pyx_t_4);
         __pyx_t_4 = 0;
 
-        /* "main.py":129
- *                 if cell:
- *                     bg = cell.background()
- *                     note = cell.toolTip()             # <<<<<<<<<<<<<<
- * 
- *                     red, green, blue, _ = bg.color().getRgb()
- */
+        
         __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_v_cell, __pyx_n_s_toolTip); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 129, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_10);
         __pyx_t_3 = NULL;
@@ -8303,13 +7817,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10SaveThread_4run(CYTHON_UNUSED PyObject
         __Pyx_XDECREF_SET(__pyx_v_note, __pyx_t_4);
         __pyx_t_4 = 0;
 
-        /* "main.py":131
- *                     note = cell.toolTip()
- * 
- *                     red, green, blue, _ = bg.color().getRgb()             # <<<<<<<<<<<<<<
- *                     color = f"{red}:{green}:{blue}"
- * 
- */
+        
         __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_bg, __pyx_n_s_color); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 131, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
         __pyx_t_12 = NULL;
@@ -8427,13 +7935,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10SaveThread_4run(CYTHON_UNUSED PyObject
         __Pyx_XDECREF_SET(__pyx_v__, __pyx_t_13);
         __pyx_t_13 = 0;
 
-        /* "main.py":132
- * 
- *                     red, green, blue, _ = bg.color().getRgb()
- *                     color = f"{red}:{green}:{blue}"             # <<<<<<<<<<<<<<
- * 
- *                     rowAndColumn = f"{row}:{column}"
- */
+        
         __pyx_t_4 = PyTuple_New(5); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 132, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         __pyx_t_16 = 0;
@@ -8473,13 +7975,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10SaveThread_4run(CYTHON_UNUSED PyObject
         __Pyx_XDECREF_SET(__pyx_v_color, ((PyObject*)__pyx_t_13));
         __pyx_t_13 = 0;
 
-        /* "main.py":134
- *                     color = f"{red}:{green}:{blue}"
- * 
- *                     rowAndColumn = f"{row}:{column}"             # <<<<<<<<<<<<<<
- * 
- *                     cursor.execute(f"SELECT rowAndColumn FROM {self.tableName} WHERE rowAndColumn = ?",
- */
+        
         __pyx_t_13 = PyTuple_New(3); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 134, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_13);
         __pyx_t_16 = 0;
@@ -8508,13 +8004,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10SaveThread_4run(CYTHON_UNUSED PyObject
         __Pyx_XDECREF_SET(__pyx_v_rowAndColumn, ((PyObject*)__pyx_t_4));
         __pyx_t_4 = 0;
 
-        /* "main.py":136
- *                     rowAndColumn = f"{row}:{column}"
- * 
- *                     cursor.execute(f"SELECT rowAndColumn FROM {self.tableName} WHERE rowAndColumn = ?",             # <<<<<<<<<<<<<<
- *                         (rowAndColumn,))
- * 
- */
+        
         __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_v_cursor, __pyx_n_s_execute); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 136, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_13);
         __pyx_t_12 = PyTuple_New(3); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 136, __pyx_L1_error)
@@ -8543,13 +8033,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10SaveThread_4run(CYTHON_UNUSED PyObject
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
 
-        /* "main.py":137
- * 
- *                     cursor.execute(f"SELECT rowAndColumn FROM {self.tableName} WHERE rowAndColumn = ?",
- *                         (rowAndColumn,))             # <<<<<<<<<<<<<<
- * 
- *                     dbRowAndColumn = cursor.fetchone()
- */
+        
         __pyx_t_12 = PyTuple_New(1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 137, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_12);
         __Pyx_INCREF(__pyx_v_rowAndColumn);
@@ -8581,13 +8065,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10SaveThread_4run(CYTHON_UNUSED PyObject
         }
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-        /* "main.py":139
- *                         (rowAndColumn,))
- * 
- *                     dbRowAndColumn = cursor.fetchone()             # <<<<<<<<<<<<<<
- * 
- *                     if dbRowAndColumn == None:
- */
+        
         __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_v_cursor, __pyx_n_s_fetchone); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 139, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_13);
         __pyx_t_12 = NULL;
@@ -8615,25 +8093,13 @@ static PyObject *__pyx_pf_6ver1_3_4main_10SaveThread_4run(CYTHON_UNUSED PyObject
         __Pyx_XDECREF_SET(__pyx_v_dbRowAndColumn, __pyx_t_4);
         __pyx_t_4 = 0;
 
-        /* "main.py":141
- *                     dbRowAndColumn = cursor.fetchone()
- * 
- *                     if dbRowAndColumn == None:             # <<<<<<<<<<<<<<
- *                         cursor.execute(f"INSERT INTO {self.tableName}(rowAndColumn, notes, color, day, month) VALUES(?, ?, ?, ?, ?);",
- *                             (rowAndColumn, note, color, column, row) )
- */
+        
         __pyx_t_4 = PyObject_RichCompare(__pyx_v_dbRowAndColumn, Py_None, Py_EQ); __Pyx_XGOTREF(__pyx_t_4); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 141, __pyx_L1_error)
         __pyx_t_11 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely((__pyx_t_11 < 0))) __PYX_ERR(0, 141, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
         if (__pyx_t_11) {
 
-          /* "main.py":142
- * 
- *                     if dbRowAndColumn == None:
- *                         cursor.execute(f"INSERT INTO {self.tableName}(rowAndColumn, notes, color, day, month) VALUES(?, ?, ?, ?, ?);",             # <<<<<<<<<<<<<<
- *                             (rowAndColumn, note, color, column, row) )
- * 
- */
+          
           __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_v_cursor, __pyx_n_s_execute); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 142, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_13);
           __pyx_t_12 = PyTuple_New(3); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 142, __pyx_L1_error)
@@ -8662,13 +8128,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10SaveThread_4run(CYTHON_UNUSED PyObject
           __Pyx_GOTREF(__pyx_t_10);
           __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
 
-          /* "main.py":143
- *                     if dbRowAndColumn == None:
- *                         cursor.execute(f"INSERT INTO {self.tableName}(rowAndColumn, notes, color, day, month) VALUES(?, ?, ?, ?, ?);",
- *                             (rowAndColumn, note, color, column, row) )             # <<<<<<<<<<<<<<
- * 
- *                         connect.commit()
- */
+          
           __pyx_t_12 = PyTuple_New(5); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 143, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_12);
           __Pyx_INCREF(__pyx_v_rowAndColumn);
@@ -8712,13 +8172,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10SaveThread_4run(CYTHON_UNUSED PyObject
           }
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-          /* "main.py":145
- *                             (rowAndColumn, note, color, column, row) )
- * 
- *                         connect.commit()             # <<<<<<<<<<<<<<
- *                         self.s_update.emit('upd')
- * 
- */
+          
           __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_v_connect, __pyx_n_s_commit); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 145, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_13);
           __pyx_t_12 = NULL;
@@ -8745,13 +8199,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10SaveThread_4run(CYTHON_UNUSED PyObject
           }
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-          /* "main.py":146
- * 
- *                         connect.commit()
- *                         self.s_update.emit('upd')             # <<<<<<<<<<<<<<
- * 
- *                     else:
- */
+          
           __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_s_update); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 146, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_13);
           __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_13, __pyx_n_s_emit); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 146, __pyx_L1_error)
@@ -8781,24 +8229,12 @@ static PyObject *__pyx_pf_6ver1_3_4main_10SaveThread_4run(CYTHON_UNUSED PyObject
           }
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-          /* "main.py":141
- *                     dbRowAndColumn = cursor.fetchone()
- * 
- *                     if dbRowAndColumn == None:             # <<<<<<<<<<<<<<
- *                         cursor.execute(f"INSERT INTO {self.tableName}(rowAndColumn, notes, color, day, month) VALUES(?, ?, ?, ?, ?);",
- *                             (rowAndColumn, note, color, column, row) )
- */
+          
           goto __pyx_L10;
         }
 
-        /* "main.py":149
- * 
- *                     else:
- *                         cursor.execute(f"UPDATE {self.tableName} SET notes = ? WHERE rowAndColumn = ?",             # <<<<<<<<<<<<<<
- *                             (note, rowAndColumn))
- * 
- */
-        /*else*/ {
+        
+         {
           __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_v_cursor, __pyx_n_s_execute); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 149, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_12);
           __pyx_t_13 = PyTuple_New(3); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 149, __pyx_L1_error)
@@ -8827,13 +8263,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10SaveThread_4run(CYTHON_UNUSED PyObject
           __Pyx_GOTREF(__pyx_t_3);
           __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
 
-          /* "main.py":150
- *                     else:
- *                         cursor.execute(f"UPDATE {self.tableName} SET notes = ? WHERE rowAndColumn = ?",
- *                             (note, rowAndColumn))             # <<<<<<<<<<<<<<
- * 
- *                         cursor.execute(f"UPDATE {self.tableName} SET color = ? WHERE rowAndColumn = ?",
- */
+          
           __pyx_t_13 = PyTuple_New(2); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 150, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_13);
           __Pyx_INCREF(__pyx_v_note);
@@ -8868,13 +8298,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10SaveThread_4run(CYTHON_UNUSED PyObject
           }
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-          /* "main.py":152
- *                             (note, rowAndColumn))
- * 
- *                         cursor.execute(f"UPDATE {self.tableName} SET color = ? WHERE rowAndColumn = ?",             # <<<<<<<<<<<<<<
- *                             (color, rowAndColumn))
- * 
- */
+          
           __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_v_cursor, __pyx_n_s_execute); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 152, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_12);
           __pyx_t_13 = PyTuple_New(3); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 152, __pyx_L1_error)
@@ -8903,13 +8327,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10SaveThread_4run(CYTHON_UNUSED PyObject
           __Pyx_GOTREF(__pyx_t_10);
           __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
 
-          /* "main.py":153
- * 
- *                         cursor.execute(f"UPDATE {self.tableName} SET color = ? WHERE rowAndColumn = ?",
- *                             (color, rowAndColumn))             # <<<<<<<<<<<<<<
- * 
- *                         cursor.execute(f"UPDATE {self.tableName} SET day = ? WHERE rowAndColumn = ?",
- */
+          
           __pyx_t_13 = PyTuple_New(2); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 153, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_13);
           __Pyx_INCREF(__pyx_v_color);
@@ -8944,13 +8362,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10SaveThread_4run(CYTHON_UNUSED PyObject
           }
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-          /* "main.py":155
- *                             (color, rowAndColumn))
- * 
- *                         cursor.execute(f"UPDATE {self.tableName} SET day = ? WHERE rowAndColumn = ?",             # <<<<<<<<<<<<<<
- *                             (column, rowAndColumn))
- * 
- */
+          
           __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_v_cursor, __pyx_n_s_execute); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 155, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_12);
           __pyx_t_13 = PyTuple_New(3); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 155, __pyx_L1_error)
@@ -8979,13 +8391,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10SaveThread_4run(CYTHON_UNUSED PyObject
           __Pyx_GOTREF(__pyx_t_3);
           __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
 
-          /* "main.py":156
- * 
- *                         cursor.execute(f"UPDATE {self.tableName} SET day = ? WHERE rowAndColumn = ?",
- *                             (column, rowAndColumn))             # <<<<<<<<<<<<<<
- * 
- *                         cursor.execute(f"UPDATE {self.tableName} SET month = ? WHERE rowAndColumn = ?",
- */
+          
           __pyx_t_13 = PyTuple_New(2); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 156, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_13);
           __Pyx_INCREF(__pyx_v_column);
@@ -9020,13 +8426,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10SaveThread_4run(CYTHON_UNUSED PyObject
           }
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-          /* "main.py":158
- *                             (column, rowAndColumn))
- * 
- *                         cursor.execute(f"UPDATE {self.tableName} SET month = ? WHERE rowAndColumn = ?",             # <<<<<<<<<<<<<<
- *                             (row, rowAndColumn))
- * 
- */
+          
           __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_v_cursor, __pyx_n_s_execute); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 158, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_12);
           __pyx_t_13 = PyTuple_New(3); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 158, __pyx_L1_error)
@@ -9055,13 +8455,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10SaveThread_4run(CYTHON_UNUSED PyObject
           __Pyx_GOTREF(__pyx_t_10);
           __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
 
-          /* "main.py":159
- * 
- *                         cursor.execute(f"UPDATE {self.tableName} SET month = ? WHERE rowAndColumn = ?",
- *                             (row, rowAndColumn))             # <<<<<<<<<<<<<<
- * 
- *                         connect.commit()
- */
+          
           __pyx_t_13 = PyTuple_New(2); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 159, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_13);
           __Pyx_INCREF(__pyx_v_row);
@@ -9096,13 +8490,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10SaveThread_4run(CYTHON_UNUSED PyObject
           }
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-          /* "main.py":161
- *                             (row, rowAndColumn))
- * 
- *                         connect.commit()             # <<<<<<<<<<<<<<
- *                         self.s_update.emit('upd')
- * 
- */
+          
           __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_v_connect, __pyx_n_s_commit); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 161, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_12);
           __pyx_t_13 = NULL;
@@ -9129,13 +8517,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10SaveThread_4run(CYTHON_UNUSED PyObject
           }
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-          /* "main.py":162
- * 
- *                         connect.commit()
- *                         self.s_update.emit('upd')             # <<<<<<<<<<<<<<
- * 
- *                 else:
- */
+          
           __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_s_update); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 162, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_12);
           __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_t_12, __pyx_n_s_emit); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 162, __pyx_L1_error)
@@ -9167,24 +8549,12 @@ static PyObject *__pyx_pf_6ver1_3_4main_10SaveThread_4run(CYTHON_UNUSED PyObject
         }
         __pyx_L10:;
 
-        /* "main.py":127
- *                 cell = self.table.item(row, column)
- * 
- *                 if cell:             # <<<<<<<<<<<<<<
- *                     bg = cell.background()
- *                     note = cell.toolTip()
- */
+        
         goto __pyx_L7;
       }
 
-      /* "main.py":166
- *                 else:
- * 
- *                     rowAndColumn = f"{row}:{column}"             # <<<<<<<<<<<<<<
- * 
- *                     cursor.execute(f"SELECT rowAndColumn FROM {self.tableName} WHERE rowAndColumn = ?",
- */
-      /*else*/ {
+      
+       {
         __pyx_t_4 = PyTuple_New(3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 166, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         __pyx_t_16 = 0;
@@ -9213,13 +8583,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10SaveThread_4run(CYTHON_UNUSED PyObject
         __Pyx_XDECREF_SET(__pyx_v_rowAndColumn, ((PyObject*)__pyx_t_13));
         __pyx_t_13 = 0;
 
-        /* "main.py":168
- *                     rowAndColumn = f"{row}:{column}"
- * 
- *                     cursor.execute(f"SELECT rowAndColumn FROM {self.tableName} WHERE rowAndColumn = ?",             # <<<<<<<<<<<<<<
- *                         (rowAndColumn,))
- * 
- */
+        
         __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_cursor, __pyx_n_s_execute); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 168, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         __pyx_t_12 = PyTuple_New(3); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 168, __pyx_L1_error)
@@ -9248,13 +8612,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10SaveThread_4run(CYTHON_UNUSED PyObject
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
 
-        /* "main.py":169
- * 
- *                     cursor.execute(f"SELECT rowAndColumn FROM {self.tableName} WHERE rowAndColumn = ?",
- *                         (rowAndColumn,))             # <<<<<<<<<<<<<<
- * 
- *                     dbRowAndColumn = cursor.fetchone()
- */
+        
         __pyx_t_12 = PyTuple_New(1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 169, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_12);
         __Pyx_INCREF(__pyx_v_rowAndColumn);
@@ -9286,13 +8644,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10SaveThread_4run(CYTHON_UNUSED PyObject
         }
         __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
 
-        /* "main.py":171
- *                         (rowAndColumn,))
- * 
- *                     dbRowAndColumn = cursor.fetchone()             # <<<<<<<<<<<<<<
- * 
- *                     if dbRowAndColumn != None:
- */
+        
         __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_cursor, __pyx_n_s_fetchone); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 171, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         __pyx_t_12 = NULL;
@@ -9320,25 +8672,13 @@ static PyObject *__pyx_pf_6ver1_3_4main_10SaveThread_4run(CYTHON_UNUSED PyObject
         __Pyx_XDECREF_SET(__pyx_v_dbRowAndColumn, __pyx_t_13);
         __pyx_t_13 = 0;
 
-        /* "main.py":173
- *                     dbRowAndColumn = cursor.fetchone()
- * 
- *                     if dbRowAndColumn != None:             # <<<<<<<<<<<<<<
- *                         cursor.execute(f"DELETE FROM {self.tableName} WHERE rowAndColumn = ?",
- *                         (rowAndColumn,))
- */
+        
         __pyx_t_13 = PyObject_RichCompare(__pyx_v_dbRowAndColumn, Py_None, Py_NE); __Pyx_XGOTREF(__pyx_t_13); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 173, __pyx_L1_error)
         __pyx_t_11 = __Pyx_PyObject_IsTrue(__pyx_t_13); if (unlikely((__pyx_t_11 < 0))) __PYX_ERR(0, 173, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
         if (__pyx_t_11) {
 
-          /* "main.py":174
- * 
- *                     if dbRowAndColumn != None:
- *                         cursor.execute(f"DELETE FROM {self.tableName} WHERE rowAndColumn = ?",             # <<<<<<<<<<<<<<
- *                         (rowAndColumn,))
- * 
- */
+          
           __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_cursor, __pyx_n_s_execute); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 174, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_4);
           __pyx_t_12 = PyTuple_New(3); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 174, __pyx_L1_error)
@@ -9367,13 +8707,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10SaveThread_4run(CYTHON_UNUSED PyObject
           __Pyx_GOTREF(__pyx_t_10);
           __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
 
-          /* "main.py":175
- *                     if dbRowAndColumn != None:
- *                         cursor.execute(f"DELETE FROM {self.tableName} WHERE rowAndColumn = ?",
- *                         (rowAndColumn,))             # <<<<<<<<<<<<<<
- * 
- *         connect.close()
- */
+          
           __pyx_t_12 = PyTuple_New(1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 175, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_12);
           __Pyx_INCREF(__pyx_v_rowAndColumn);
@@ -9405,44 +8739,20 @@ static PyObject *__pyx_pf_6ver1_3_4main_10SaveThread_4run(CYTHON_UNUSED PyObject
           }
           __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
 
-          /* "main.py":173
- *                     dbRowAndColumn = cursor.fetchone()
- * 
- *                     if dbRowAndColumn != None:             # <<<<<<<<<<<<<<
- *                         cursor.execute(f"DELETE FROM {self.tableName} WHERE rowAndColumn = ?",
- *                         (rowAndColumn,))
- */
+          
         }
       }
       __pyx_L7:;
 
-      /* "main.py":124
- *         for column in range(self.table.columnCount()):
- * 
- *             for row in range(self.table.rowCount()):             # <<<<<<<<<<<<<<
- *                 cell = self.table.item(row, column)
- * 
- */
+      
     }
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-    /* "main.py":122
- *         cursor = connect.cursor()
- * 
- *         for column in range(self.table.columnCount()):             # <<<<<<<<<<<<<<
- * 
- *             for row in range(self.table.rowCount()):
- */
+    
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":177
- *                         (rowAndColumn,))
- * 
- *         connect.close()             # <<<<<<<<<<<<<<
- *         self.s_update.emit('cls')
- * 
- */
+  
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_connect, __pyx_n_s_close); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 177, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_13 = NULL;
@@ -9469,13 +8779,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10SaveThread_4run(CYTHON_UNUSED PyObject
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":178
- * 
- *         connect.close()
- *         self.s_update.emit('cls')             # <<<<<<<<<<<<<<
- * 
- * 
- */
+  
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_s_update); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 178, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_emit); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 178, __pyx_L1_error)
@@ -9505,15 +8809,9 @@ static PyObject *__pyx_pf_6ver1_3_4main_10SaveThread_4run(CYTHON_UNUSED PyObject
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":117
- *         self.table = table
- * 
- *     def run(self):             # <<<<<<<<<<<<<<
- * 
- *         connect = sqlite3.connect(f"{VERSIONPATH}/database/d.db")
- */
+  
 
-  /* function exit code */
+  
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
@@ -9547,22 +8845,16 @@ static PyObject *__pyx_pf_6ver1_3_4main_10SaveThread_4run(CYTHON_UNUSED PyObject
   return __pyx_r;
 }
 
-/* "main.py":184
- *     s_updPB = QtCore.pyqtSignal(str)
- * 
- *     def  __init__(self):             # <<<<<<<<<<<<<<
- *         QtCore.QThread.__init__(self)
- * 
- */
 
-/* Python wrapper */
+
+
 static PyObject *__pyx_pw_6ver1_3_4main_16SaveReportThread_1__init__(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
-); /*proto*/
+); 
 static PyMethodDef __pyx_mdef_6ver1_3_4main_16SaveReportThread_1__init__ = {"__init__", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6ver1_3_4main_16SaveReportThread_1__init__, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
 static PyObject *__pyx_pw_6ver1_3_4main_16SaveReportThread_1__init__(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
@@ -9640,7 +8932,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __pyx_L4_argument_unpacking_done:;
   __pyx_r = __pyx_pf_6ver1_3_4main_16SaveReportThread___init__(__pyx_self, __pyx_v_self);
 
-  /* function exit code */
+  
   {
     Py_ssize_t __pyx_temp;
     for (__pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
@@ -9663,13 +8955,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_16SaveReportThread___init__(CYTHON_UNUSE
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__init__", 0);
 
-  /* "main.py":185
- * 
- *     def  __init__(self):
- *         QtCore.QThread.__init__(self)             # <<<<<<<<<<<<<<
- * 
- *         self.tableName = None
- */
+  
   __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_QtCore); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 185, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_QThread); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 185, __pyx_L1_error)
@@ -9702,42 +8988,18 @@ static PyObject *__pyx_pf_6ver1_3_4main_16SaveReportThread___init__(CYTHON_UNUSE
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":187
- *         QtCore.QThread.__init__(self)
- * 
- *         self.tableName = None             # <<<<<<<<<<<<<<
- *         self.table = None
- *         self.date = None
- */
+  
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_tableName, Py_None) < 0) __PYX_ERR(0, 187, __pyx_L1_error)
 
-  /* "main.py":188
- * 
- *         self.tableName = None
- *         self.table = None             # <<<<<<<<<<<<<<
- *         self.date = None
- * 
- */
+  
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_table, Py_None) < 0) __PYX_ERR(0, 188, __pyx_L1_error)
 
-  /* "main.py":189
- *         self.tableName = None
- *         self.table = None
- *         self.date = None             # <<<<<<<<<<<<<<
- * 
- *     def set(self, tableName, table):
- */
+  
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_date, Py_None) < 0) __PYX_ERR(0, 189, __pyx_L1_error)
 
-  /* "main.py":184
- *     s_updPB = QtCore.pyqtSignal(str)
- * 
- *     def  __init__(self):             # <<<<<<<<<<<<<<
- *         QtCore.QThread.__init__(self)
- * 
- */
+  
 
-  /* function exit code */
+  
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
@@ -9752,22 +9014,16 @@ static PyObject *__pyx_pf_6ver1_3_4main_16SaveReportThread___init__(CYTHON_UNUSE
   return __pyx_r;
 }
 
-/* "main.py":191
- *         self.date = None
- * 
- *     def set(self, tableName, table):             # <<<<<<<<<<<<<<
- *         self.tableName = tableName
- *         self.table = table
- */
 
-/* Python wrapper */
+
+
 static PyObject *__pyx_pw_6ver1_3_4main_16SaveReportThread_3set(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
-); /*proto*/
+); 
 static PyMethodDef __pyx_mdef_6ver1_3_4main_16SaveReportThread_3set = {"set", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6ver1_3_4main_16SaveReportThread_3set, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
 static PyObject *__pyx_pw_6ver1_3_4main_16SaveReportThread_3set(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
@@ -9875,7 +9131,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __pyx_L4_argument_unpacking_done:;
   __pyx_r = __pyx_pf_6ver1_3_4main_16SaveReportThread_2set(__pyx_self, __pyx_v_self, __pyx_v_tableName, __pyx_v_table);
 
-  /* function exit code */
+  
   {
     Py_ssize_t __pyx_temp;
     for (__pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
@@ -9894,33 +9150,15 @@ static PyObject *__pyx_pf_6ver1_3_4main_16SaveReportThread_2set(CYTHON_UNUSED Py
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("set", 0);
 
-  /* "main.py":192
- * 
- *     def set(self, tableName, table):
- *         self.tableName = tableName             # <<<<<<<<<<<<<<
- *         self.table = table
- * 
- */
+  
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_tableName, __pyx_v_tableName) < 0) __PYX_ERR(0, 192, __pyx_L1_error)
 
-  /* "main.py":193
- *     def set(self, tableName, table):
- *         self.tableName = tableName
- *         self.table = table             # <<<<<<<<<<<<<<
- * 
- *     def run(self):
- */
+  
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_table, __pyx_v_table) < 0) __PYX_ERR(0, 193, __pyx_L1_error)
 
-  /* "main.py":191
- *         self.date = None
- * 
- *     def set(self, tableName, table):             # <<<<<<<<<<<<<<
- *         self.tableName = tableName
- *         self.table = table
- */
+  
 
-  /* function exit code */
+  
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
@@ -9932,22 +9170,16 @@ static PyObject *__pyx_pf_6ver1_3_4main_16SaveReportThread_2set(CYTHON_UNUSED Py
   return __pyx_r;
 }
 
-/* "main.py":195
- *         self.table = table
- * 
- *     def run(self):             # <<<<<<<<<<<<<<
- *         def standartSave(nameInDB):
- *             item = cell.text()
- */
 
-/* Python wrapper */
+
+
 static PyObject *__pyx_pw_6ver1_3_4main_16SaveReportThread_5run(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
-); /*proto*/
+); 
 static PyMethodDef __pyx_mdef_6ver1_3_4main_16SaveReportThread_5run = {"run", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6ver1_3_4main_16SaveReportThread_5run, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
 static PyObject *__pyx_pw_6ver1_3_4main_16SaveReportThread_5run(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
@@ -10025,7 +9257,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __pyx_L4_argument_unpacking_done:;
   __pyx_r = __pyx_pf_6ver1_3_4main_16SaveReportThread_4run(__pyx_self, __pyx_v_self);
 
-  /* function exit code */
+  
   {
     Py_ssize_t __pyx_temp;
     for (__pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
@@ -10036,22 +9268,16 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-/* "main.py":196
- * 
- *     def run(self):
- *         def standartSave(nameInDB):             # <<<<<<<<<<<<<<
- *             item = cell.text()
- *             cursor.execute(f"UPDATE {self.tableName} SET {nameInDB} = ? WHERE date = ?",
- */
 
-/* Python wrapper */
+
+
 static PyObject *__pyx_pw_6ver1_3_4main_16SaveReportThread_3run_1standartSave(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
-); /*proto*/
+); 
 static PyMethodDef __pyx_mdef_6ver1_3_4main_16SaveReportThread_3run_1standartSave = {"standartSave", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6ver1_3_4main_16SaveReportThread_3run_1standartSave, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
 static PyObject *__pyx_pw_6ver1_3_4main_16SaveReportThread_3run_1standartSave(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
@@ -10129,7 +9355,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __pyx_L4_argument_unpacking_done:;
   __pyx_r = __pyx_pf_6ver1_3_4main_16SaveReportThread_3run_standartSave(__pyx_self, __pyx_v_nameInDB);
 
-  /* function exit code */
+  
   {
     Py_ssize_t __pyx_temp;
     for (__pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
@@ -10161,13 +9387,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_16SaveReportThread_3run_standartSave(PyO
   __pyx_outer_scope = (struct __pyx_obj_6ver1_3_4main___pyx_scope_struct__run *) __Pyx_CyFunction_GetClosure(__pyx_self);
   __pyx_cur_scope = __pyx_outer_scope;
 
-  /* "main.py":197
- *     def run(self):
- *         def standartSave(nameInDB):
- *             item = cell.text()             # <<<<<<<<<<<<<<
- *             cursor.execute(f"UPDATE {self.tableName} SET {nameInDB} = ? WHERE date = ?",
- *             (item, self.date))
- */
+  
   if (unlikely(!__pyx_cur_scope->__pyx_v_cell)) { __Pyx_RaiseClosureNameError("cell"); __PYX_ERR(0, 197, __pyx_L1_error) }
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_cell, __pyx_n_s_text); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 197, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
@@ -10196,13 +9416,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_16SaveReportThread_3run_standartSave(PyO
   __pyx_v_item = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "main.py":198
- *         def standartSave(nameInDB):
- *             item = cell.text()
- *             cursor.execute(f"UPDATE {self.tableName} SET {nameInDB} = ? WHERE date = ?",             # <<<<<<<<<<<<<<
- *             (item, self.date))
- * 
- */
+  
   if (unlikely(!__pyx_cur_scope->__pyx_v_cursor)) { __Pyx_RaiseClosureNameError("cursor"); __PYX_ERR(0, 198, __pyx_L1_error) }
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_cursor, __pyx_n_s_execute); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 198, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
@@ -10244,13 +9458,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_16SaveReportThread_3run_standartSave(PyO
   __Pyx_GOTREF(__pyx_t_8);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "main.py":199
- *             item = cell.text()
- *             cursor.execute(f"UPDATE {self.tableName} SET {nameInDB} = ? WHERE date = ?",
- *             (item, self.date))             # <<<<<<<<<<<<<<
- * 
- *             connect.commit()
- */
+  
   if (unlikely(!__pyx_cur_scope->__pyx_v_self)) { __Pyx_RaiseClosureNameError("self"); __PYX_ERR(0, 199, __pyx_L1_error) }
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_date); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 199, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
@@ -10288,13 +9496,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_16SaveReportThread_3run_standartSave(PyO
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":201
- *             (item, self.date))
- * 
- *             connect.commit()             # <<<<<<<<<<<<<<
- *             self.s_updPB.emit('upd')
- * 
- */
+  
   if (unlikely(!__pyx_cur_scope->__pyx_v_connect)) { __Pyx_RaiseClosureNameError("connect"); __PYX_ERR(0, 201, __pyx_L1_error) }
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_connect, __pyx_n_s_commit); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 201, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
@@ -10322,13 +9524,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_16SaveReportThread_3run_standartSave(PyO
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":202
- * 
- *             connect.commit()
- *             self.s_updPB.emit('upd')             # <<<<<<<<<<<<<<
- * 
- *         connect = sqlite3.connect(f"{VERSIONPATH}/database/d.db")
- */
+  
   if (unlikely(!__pyx_cur_scope->__pyx_v_self)) { __Pyx_RaiseClosureNameError("self"); __PYX_ERR(0, 202, __pyx_L1_error) }
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_s_updPB); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 202, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
@@ -10359,15 +9555,9 @@ static PyObject *__pyx_pf_6ver1_3_4main_16SaveReportThread_3run_standartSave(PyO
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":196
- * 
- *     def run(self):
- *         def standartSave(nameInDB):             # <<<<<<<<<<<<<<
- *             item = cell.text()
- *             cursor.execute(f"UPDATE {self.tableName} SET {nameInDB} = ? WHERE date = ?",
- */
+  
 
-  /* function exit code */
+  
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
@@ -10385,13 +9575,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_16SaveReportThread_3run_standartSave(PyO
   return __pyx_r;
 }
 
-/* "main.py":195
- *         self.table = table
- * 
- *     def run(self):             # <<<<<<<<<<<<<<
- *         def standartSave(nameInDB):
- *             item = cell.text()
- */
+
 
 static PyObject *__pyx_pf_6ver1_3_4main_16SaveReportThread_4run(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
   struct __pyx_obj_6ver1_3_4main___pyx_scope_struct__run *__pyx_cur_scope;
@@ -10433,25 +9617,13 @@ static PyObject *__pyx_pf_6ver1_3_4main_16SaveReportThread_4run(CYTHON_UNUSED Py
   __Pyx_INCREF(__pyx_cur_scope->__pyx_v_self);
   __Pyx_GIVEREF(__pyx_cur_scope->__pyx_v_self);
 
-  /* "main.py":196
- * 
- *     def run(self):
- *         def standartSave(nameInDB):             # <<<<<<<<<<<<<<
- *             item = cell.text()
- *             cursor.execute(f"UPDATE {self.tableName} SET {nameInDB} = ? WHERE date = ?",
- */
+  
   __pyx_t_1 = __Pyx_CyFunction_New(&__pyx_mdef_6ver1_3_4main_16SaveReportThread_3run_1standartSave, 0, __pyx_n_s_SaveReportThread_run_locals_stan, ((PyObject*)__pyx_cur_scope), __pyx_n_s_ver1_3_main, __pyx_d, ((PyObject *)__pyx_codeobj__4)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 196, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_standartSave = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "main.py":204
- *             self.s_updPB.emit('upd')
- * 
- *         connect = sqlite3.connect(f"{VERSIONPATH}/database/d.db")             # <<<<<<<<<<<<<<
- *         cursor = connect.cursor()
- * 
- */
+  
   __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_sqlite3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 204, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_connect); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 204, __pyx_L1_error)
@@ -10492,13 +9664,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_16SaveReportThread_4run(CYTHON_UNUSED Py
   __pyx_cur_scope->__pyx_v_connect = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "main.py":205
- * 
- *         connect = sqlite3.connect(f"{VERSIONPATH}/database/d.db")
- *         cursor = connect.cursor()             # <<<<<<<<<<<<<<
- * 
- *         for row in range(self.table.rowCount() - 2):
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_connect, __pyx_n_s_cursor); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 205, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = NULL;
@@ -10527,13 +9693,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_16SaveReportThread_4run(CYTHON_UNUSED Py
   __pyx_cur_scope->__pyx_v_cursor = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "main.py":207
- *         cursor = connect.cursor()
- * 
- *         for row in range(self.table.rowCount() - 2):             # <<<<<<<<<<<<<<
- *             for column in range(self.table.columnCount()):
- *                 cell = self.table.item(row, column)
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_table); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 207, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_rowCount); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 207, __pyx_L1_error)
@@ -10610,13 +9770,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_16SaveReportThread_4run(CYTHON_UNUSED Py
     __Pyx_XDECREF_SET(__pyx_v_row, __pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "main.py":208
- * 
- *         for row in range(self.table.rowCount() - 2):
- *             for column in range(self.table.columnCount()):             # <<<<<<<<<<<<<<
- *                 cell = self.table.item(row, column)
- * 
- */
+    
     __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_table); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 208, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_columnCount); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 208, __pyx_L1_error)
@@ -10690,13 +9844,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_16SaveReportThread_4run(CYTHON_UNUSED Py
       __Pyx_XDECREF_SET(__pyx_v_column, __pyx_t_4);
       __pyx_t_4 = 0;
 
-      /* "main.py":209
- *         for row in range(self.table.rowCount() - 2):
- *             for column in range(self.table.columnCount()):
- *                 cell = self.table.item(row, column)             # <<<<<<<<<<<<<<
- * 
- *                 if cell and row > 1:
- */
+      
       __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_table); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 209, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_item); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 209, __pyx_L1_error)
@@ -10729,13 +9877,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_16SaveReportThread_4run(CYTHON_UNUSED Py
       __Pyx_GIVEREF(__pyx_t_4);
       __pyx_t_4 = 0;
 
-      /* "main.py":211
- *                 cell = self.table.item(row, column)
- * 
- *                 if cell and row > 1:             # <<<<<<<<<<<<<<
- * 
- *                     if column == 0:
- */
+      
       __pyx_t_12 = __Pyx_PyObject_IsTrue(__pyx_cur_scope->__pyx_v_cell); if (unlikely((__pyx_t_12 < 0))) __PYX_ERR(0, 211, __pyx_L1_error)
       if (__pyx_t_12) {
       } else {
@@ -10749,23 +9891,11 @@ static PyObject *__pyx_pf_6ver1_3_4main_16SaveReportThread_4run(CYTHON_UNUSED Py
       __pyx_L8_bool_binop_done:;
       if (__pyx_t_11) {
 
-        /* "main.py":213
- *                 if cell and row > 1:
- * 
- *                     if column == 0:             # <<<<<<<<<<<<<<
- *                         self.date = cell.text()
- *                         cursor.execute(f"SELECT date FROM {self.tableName} WHERE date = ?", (self.date,))
- */
+        
         __pyx_t_11 = (__Pyx_PyInt_BoolEqObjC(__pyx_v_column, __pyx_int_0, 0, 0)); if (unlikely((__pyx_t_11 < 0))) __PYX_ERR(0, 213, __pyx_L1_error)
         if (__pyx_t_11) {
 
-          /* "main.py":214
- * 
- *                     if column == 0:
- *                         self.date = cell.text()             # <<<<<<<<<<<<<<
- *                         cursor.execute(f"SELECT date FROM {self.tableName} WHERE date = ?", (self.date,))
- *                         DBdate = cursor.fetchone()
- */
+          
           __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_cell, __pyx_n_s_text); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 214, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_10);
           __pyx_t_3 = NULL;
@@ -10793,13 +9923,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_16SaveReportThread_4run(CYTHON_UNUSED Py
           if (__Pyx_PyObject_SetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_date, __pyx_t_4) < 0) __PYX_ERR(0, 214, __pyx_L1_error)
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-          /* "main.py":215
- *                     if column == 0:
- *                         self.date = cell.text()
- *                         cursor.execute(f"SELECT date FROM {self.tableName} WHERE date = ?", (self.date,))             # <<<<<<<<<<<<<<
- *                         DBdate = cursor.fetchone()
- * 
- */
+          
           __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_cursor, __pyx_n_s_execute); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 215, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_10);
           __pyx_t_3 = PyTuple_New(3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 215, __pyx_L1_error)
@@ -10860,13 +9984,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_16SaveReportThread_4run(CYTHON_UNUSED Py
           }
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-          /* "main.py":216
- *                         self.date = cell.text()
- *                         cursor.execute(f"SELECT date FROM {self.tableName} WHERE date = ?", (self.date,))
- *                         DBdate = cursor.fetchone()             # <<<<<<<<<<<<<<
- * 
- *                         if DBdate == None:
- */
+          
           __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_cursor, __pyx_n_s_fetchone); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 216, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_10);
           __pyx_t_15 = NULL;
@@ -10894,25 +10012,13 @@ static PyObject *__pyx_pf_6ver1_3_4main_16SaveReportThread_4run(CYTHON_UNUSED Py
           __Pyx_XDECREF_SET(__pyx_v_DBdate, __pyx_t_4);
           __pyx_t_4 = 0;
 
-          /* "main.py":218
- *                         DBdate = cursor.fetchone()
- * 
- *                         if DBdate == None:             # <<<<<<<<<<<<<<
- *                             cursor.execute(f"INSERT INTO {self.tableName}(date) VALUES(?);", (self.date,))
- * 
- */
+          
           __pyx_t_4 = PyObject_RichCompare(__pyx_v_DBdate, Py_None, Py_EQ); __Pyx_XGOTREF(__pyx_t_4); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 218, __pyx_L1_error)
           __pyx_t_11 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely((__pyx_t_11 < 0))) __PYX_ERR(0, 218, __pyx_L1_error)
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
           if (__pyx_t_11) {
 
-            /* "main.py":219
- * 
- *                         if DBdate == None:
- *                             cursor.execute(f"INSERT INTO {self.tableName}(date) VALUES(?);", (self.date,))             # <<<<<<<<<<<<<<
- * 
- *                         connect.commit()
- */
+            
             __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_cursor, __pyx_n_s_execute); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 219, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_10);
             __pyx_t_15 = PyTuple_New(3); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 219, __pyx_L1_error)
@@ -10973,22 +10079,10 @@ static PyObject *__pyx_pf_6ver1_3_4main_16SaveReportThread_4run(CYTHON_UNUSED Py
             }
             __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-            /* "main.py":218
- *                         DBdate = cursor.fetchone()
- * 
- *                         if DBdate == None:             # <<<<<<<<<<<<<<
- *                             cursor.execute(f"INSERT INTO {self.tableName}(date) VALUES(?);", (self.date,))
- * 
- */
+            
           }
 
-          /* "main.py":221
- *                             cursor.execute(f"INSERT INTO {self.tableName}(date) VALUES(?);", (self.date,))
- * 
- *                         connect.commit()             # <<<<<<<<<<<<<<
- *                         self.s_updPB.emit('upd')
- * 
- */
+          
           __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_connect, __pyx_n_s_commit); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 221, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_10);
           __pyx_t_16 = NULL;
@@ -11015,13 +10109,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_16SaveReportThread_4run(CYTHON_UNUSED Py
           }
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-          /* "main.py":222
- * 
- *                         connect.commit()
- *                         self.s_updPB.emit('upd')             # <<<<<<<<<<<<<<
- * 
- *                     elif column == 2:
- */
+          
           __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_s_updPB); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 222, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_10);
           __pyx_t_16 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_emit); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 222, __pyx_L1_error)
@@ -11051,300 +10139,126 @@ static PyObject *__pyx_pf_6ver1_3_4main_16SaveReportThread_4run(CYTHON_UNUSED Py
           }
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-          /* "main.py":213
- *                 if cell and row > 1:
- * 
- *                     if column == 0:             # <<<<<<<<<<<<<<
- *                         self.date = cell.text()
- *                         cursor.execute(f"SELECT date FROM {self.tableName} WHERE date = ?", (self.date,))
- */
+          
           goto __pyx_L10;
         }
 
-        /* "main.py":224
- *                         self.s_updPB.emit('upd')
- * 
- *                     elif column == 2:             # <<<<<<<<<<<<<<
- *                         standartSave('price')
- * 
- */
+        
         __pyx_t_11 = (__Pyx_PyInt_BoolEqObjC(__pyx_v_column, __pyx_int_2, 2, 0)); if (unlikely((__pyx_t_11 < 0))) __PYX_ERR(0, 224, __pyx_L1_error)
         if (__pyx_t_11) {
 
-          /* "main.py":225
- * 
- *                     elif column == 2:
- *                         standartSave('price')             # <<<<<<<<<<<<<<
- * 
- *                     elif column == 3:
- */
+          
           __pyx_t_4 = __pyx_pf_6ver1_3_4main_16SaveReportThread_3run_standartSave(__pyx_v_standartSave, __pyx_n_s_price); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 225, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_4);
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-          /* "main.py":224
- *                         self.s_updPB.emit('upd')
- * 
- *                     elif column == 2:             # <<<<<<<<<<<<<<
- *                         standartSave('price')
- * 
- */
+          
           goto __pyx_L10;
         }
 
-        /* "main.py":227
- *                         standartSave('price')
- * 
- *                     elif column == 3:             # <<<<<<<<<<<<<<
- *                         standartSave('sum')
- * 
- */
+        
         __pyx_t_11 = (__Pyx_PyInt_BoolEqObjC(__pyx_v_column, __pyx_int_3, 3, 0)); if (unlikely((__pyx_t_11 < 0))) __PYX_ERR(0, 227, __pyx_L1_error)
         if (__pyx_t_11) {
 
-          /* "main.py":228
- * 
- *                     elif column == 3:
- *                         standartSave('sum')             # <<<<<<<<<<<<<<
- * 
- *                     elif column == 4:
- */
+          
           __pyx_t_4 = __pyx_pf_6ver1_3_4main_16SaveReportThread_3run_standartSave(__pyx_v_standartSave, __pyx_n_s_sum); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 228, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_4);
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-          /* "main.py":227
- *                         standartSave('price')
- * 
- *                     elif column == 3:             # <<<<<<<<<<<<<<
- *                         standartSave('sum')
- * 
- */
+          
           goto __pyx_L10;
         }
 
-        /* "main.py":230
- *                         standartSave('sum')
- * 
- *                     elif column == 4:             # <<<<<<<<<<<<<<
- *                         standartSave('rent')
- * 
- */
+        
         __pyx_t_11 = (__Pyx_PyInt_BoolEqObjC(__pyx_v_column, __pyx_int_4, 4, 0)); if (unlikely((__pyx_t_11 < 0))) __PYX_ERR(0, 230, __pyx_L1_error)
         if (__pyx_t_11) {
 
-          /* "main.py":231
- * 
- *                     elif column == 4:
- *                         standartSave('rent')             # <<<<<<<<<<<<<<
- * 
- *                     elif column == 5:
- */
+          
           __pyx_t_4 = __pyx_pf_6ver1_3_4main_16SaveReportThread_3run_standartSave(__pyx_v_standartSave, __pyx_n_s_rent); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 231, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_4);
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-          /* "main.py":230
- *                         standartSave('sum')
- * 
- *                     elif column == 4:             # <<<<<<<<<<<<<<
- *                         standartSave('rent')
- * 
- */
+          
           goto __pyx_L10;
         }
 
-        /* "main.py":233
- *                         standartSave('rent')
- * 
- *                     elif column == 5:             # <<<<<<<<<<<<<<
- *                         standartSave('guest')
- * 
- */
+        
         __pyx_t_11 = (__Pyx_PyInt_BoolEqObjC(__pyx_v_column, __pyx_int_5, 5, 0)); if (unlikely((__pyx_t_11 < 0))) __PYX_ERR(0, 233, __pyx_L1_error)
         if (__pyx_t_11) {
 
-          /* "main.py":234
- * 
- *                     elif column == 5:
- *                         standartSave('guest')             # <<<<<<<<<<<<<<
- * 
- *                     elif column == 6:
- */
+          
           __pyx_t_4 = __pyx_pf_6ver1_3_4main_16SaveReportThread_3run_standartSave(__pyx_v_standartSave, __pyx_n_s_guest); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 234, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_4);
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-          /* "main.py":233
- *                         standartSave('rent')
- * 
- *                     elif column == 5:             # <<<<<<<<<<<<<<
- *                         standartSave('guest')
- * 
- */
+          
           goto __pyx_L10;
         }
 
-        /* "main.py":236
- *                         standartSave('guest')
- * 
- *                     elif column == 6:             # <<<<<<<<<<<<<<
- *                         standartSave('avito')
- * 
- */
+        
         __pyx_t_11 = (__Pyx_PyInt_BoolEqObjC(__pyx_v_column, __pyx_int_6, 6, 0)); if (unlikely((__pyx_t_11 < 0))) __PYX_ERR(0, 236, __pyx_L1_error)
         if (__pyx_t_11) {
 
-          /* "main.py":237
- * 
- *                     elif column == 6:
- *                         standartSave('avito')             # <<<<<<<<<<<<<<
- * 
- *                     elif column == 7:
- */
+          
           __pyx_t_4 = __pyx_pf_6ver1_3_4main_16SaveReportThread_3run_standartSave(__pyx_v_standartSave, __pyx_n_s_avito); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 237, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_4);
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-          /* "main.py":236
- *                         standartSave('guest')
- * 
- *                     elif column == 6:             # <<<<<<<<<<<<<<
- *                         standartSave('avito')
- * 
- */
+          
           goto __pyx_L10;
         }
 
-        /* "main.py":239
- *                         standartSave('avito')
- * 
- *                     elif column == 7:             # <<<<<<<<<<<<<<
- *                         standartSave('expense')
- * 
- */
+        
         __pyx_t_11 = (__Pyx_PyInt_BoolEqObjC(__pyx_v_column, __pyx_int_7, 7, 0)); if (unlikely((__pyx_t_11 < 0))) __PYX_ERR(0, 239, __pyx_L1_error)
         if (__pyx_t_11) {
 
-          /* "main.py":240
- * 
- *                     elif column == 7:
- *                         standartSave('expense')             # <<<<<<<<<<<<<<
- * 
- *                     elif column == 8:
- */
+          
           __pyx_t_4 = __pyx_pf_6ver1_3_4main_16SaveReportThread_3run_standartSave(__pyx_v_standartSave, __pyx_n_s_expense); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 240, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_4);
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-          /* "main.py":239
- *                         standartSave('avito')
- * 
- *                     elif column == 7:             # <<<<<<<<<<<<<<
- *                         standartSave('expense')
- * 
- */
+          
           goto __pyx_L10;
         }
 
-        /* "main.py":242
- *                         standartSave('expense')
- * 
- *                     elif column == 8:             # <<<<<<<<<<<<<<
- *                         standartSave('indications')
- * 
- */
+        
         __pyx_t_11 = (__Pyx_PyInt_BoolEqObjC(__pyx_v_column, __pyx_int_8, 8, 0)); if (unlikely((__pyx_t_11 < 0))) __PYX_ERR(0, 242, __pyx_L1_error)
         if (__pyx_t_11) {
 
-          /* "main.py":243
- * 
- *                     elif column == 8:
- *                         standartSave('indications')             # <<<<<<<<<<<<<<
- * 
- *                     elif column == 9:
- */
+          
           __pyx_t_4 = __pyx_pf_6ver1_3_4main_16SaveReportThread_3run_standartSave(__pyx_v_standartSave, __pyx_n_s_indications); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 243, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_4);
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-          /* "main.py":242
- *                         standartSave('expense')
- * 
- *                     elif column == 8:             # <<<<<<<<<<<<<<
- *                         standartSave('indications')
- * 
- */
+          
           goto __pyx_L10;
         }
 
-        /* "main.py":245
- *                         standartSave('indications')
- * 
- *                     elif column == 9:             # <<<<<<<<<<<<<<
- *                         standartSave('income')
- * 
- */
+        
         __pyx_t_11 = (__Pyx_PyInt_BoolEqObjC(__pyx_v_column, __pyx_int_9, 9, 0)); if (unlikely((__pyx_t_11 < 0))) __PYX_ERR(0, 245, __pyx_L1_error)
         if (__pyx_t_11) {
 
-          /* "main.py":246
- * 
- *                     elif column == 9:
- *                         standartSave('income')             # <<<<<<<<<<<<<<
- * 
- *         connect.close()
- */
+          
           __pyx_t_4 = __pyx_pf_6ver1_3_4main_16SaveReportThread_3run_standartSave(__pyx_v_standartSave, __pyx_n_s_income); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 246, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_4);
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-          /* "main.py":245
- *                         standartSave('indications')
- * 
- *                     elif column == 9:             # <<<<<<<<<<<<<<
- *                         standartSave('income')
- * 
- */
+          
         }
         __pyx_L10:;
 
-        /* "main.py":211
- *                 cell = self.table.item(row, column)
- * 
- *                 if cell and row > 1:             # <<<<<<<<<<<<<<
- * 
- *                     if column == 0:
- */
+        
       }
 
-      /* "main.py":208
- * 
- *         for row in range(self.table.rowCount() - 2):
- *             for column in range(self.table.columnCount()):             # <<<<<<<<<<<<<<
- *                 cell = self.table.item(row, column)
- * 
- */
+      
     }
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "main.py":207
- *         cursor = connect.cursor()
- * 
- *         for row in range(self.table.rowCount() - 2):             # <<<<<<<<<<<<<<
- *             for column in range(self.table.columnCount()):
- *                 cell = self.table.item(row, column)
- */
+    
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "main.py":248
- *                         standartSave('income')
- * 
- *         connect.close()             # <<<<<<<<<<<<<<
- *         self.s_updPB.emit('cls')
- * 
- */
+  
   __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_connect, __pyx_n_s_close); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 248, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_4 = NULL;
@@ -11371,13 +10285,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_16SaveReportThread_4run(CYTHON_UNUSED Py
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "main.py":249
- * 
- *         connect.close()
- *         self.s_updPB.emit('cls')             # <<<<<<<<<<<<<<
- * 
- * 
- */
+  
   __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_s_updPB); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 249, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_emit); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 249, __pyx_L1_error)
@@ -11407,15 +10315,9 @@ static PyObject *__pyx_pf_6ver1_3_4main_16SaveReportThread_4run(CYTHON_UNUSED Py
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "main.py":195
- *         self.table = table
- * 
- *     def run(self):             # <<<<<<<<<<<<<<
- *         def standartSave(nameInDB):
- *             item = cell.text()
- */
+  
 
-  /* function exit code */
+  
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
@@ -11439,22 +10341,16 @@ static PyObject *__pyx_pf_6ver1_3_4main_16SaveReportThread_4run(CYTHON_UNUSED Py
   return __pyx_r;
 }
 
-/* "main.py":255
- *     s_readedData = QtCore.pyqtSignal(int, int, str)
- * 
- *     def  __init__(self):             # <<<<<<<<<<<<<<
- *         QtCore.QThread.__init__(self)
- * 
- */
 
-/* Python wrapper */
+
+
 static PyObject *__pyx_pw_6ver1_3_4main_16ReadReportThread_1__init__(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
-); /*proto*/
+); 
 static PyMethodDef __pyx_mdef_6ver1_3_4main_16ReadReportThread_1__init__ = {"__init__", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6ver1_3_4main_16ReadReportThread_1__init__, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
 static PyObject *__pyx_pw_6ver1_3_4main_16ReadReportThread_1__init__(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
@@ -11532,7 +10428,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __pyx_L4_argument_unpacking_done:;
   __pyx_r = __pyx_pf_6ver1_3_4main_16ReadReportThread___init__(__pyx_self, __pyx_v_self);
 
-  /* function exit code */
+  
   {
     Py_ssize_t __pyx_temp;
     for (__pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
@@ -11555,13 +10451,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_16ReadReportThread___init__(CYTHON_UNUSE
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__init__", 0);
 
-  /* "main.py":256
- * 
- *     def  __init__(self):
- *         QtCore.QThread.__init__(self)             # <<<<<<<<<<<<<<
- * 
- *         self.tableName = None
- */
+  
   __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_QtCore); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 256, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_QThread); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 256, __pyx_L1_error)
@@ -11594,42 +10484,18 @@ static PyObject *__pyx_pf_6ver1_3_4main_16ReadReportThread___init__(CYTHON_UNUSE
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":258
- *         QtCore.QThread.__init__(self)
- * 
- *         self.tableName = None             # <<<<<<<<<<<<<<
- *         self.table = None
- *         self.date = None
- */
+  
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_tableName, Py_None) < 0) __PYX_ERR(0, 258, __pyx_L1_error)
 
-  /* "main.py":259
- * 
- *         self.tableName = None
- *         self.table = None             # <<<<<<<<<<<<<<
- *         self.date = None
- * 
- */
+  
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_table, Py_None) < 0) __PYX_ERR(0, 259, __pyx_L1_error)
 
-  /* "main.py":260
- *         self.tableName = None
- *         self.table = None
- *         self.date = None             # <<<<<<<<<<<<<<
- * 
- *     def set(self, tableName, table):
- */
+  
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_date, Py_None) < 0) __PYX_ERR(0, 260, __pyx_L1_error)
 
-  /* "main.py":255
- *     s_readedData = QtCore.pyqtSignal(int, int, str)
- * 
- *     def  __init__(self):             # <<<<<<<<<<<<<<
- *         QtCore.QThread.__init__(self)
- * 
- */
+  
 
-  /* function exit code */
+  
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
@@ -11644,22 +10510,16 @@ static PyObject *__pyx_pf_6ver1_3_4main_16ReadReportThread___init__(CYTHON_UNUSE
   return __pyx_r;
 }
 
-/* "main.py":262
- *         self.date = None
- * 
- *     def set(self, tableName, table):             # <<<<<<<<<<<<<<
- *         self.tableName = tableName
- *         self.table = table
- */
 
-/* Python wrapper */
+
+
 static PyObject *__pyx_pw_6ver1_3_4main_16ReadReportThread_3set(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
-); /*proto*/
+); 
 static PyMethodDef __pyx_mdef_6ver1_3_4main_16ReadReportThread_3set = {"set", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6ver1_3_4main_16ReadReportThread_3set, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
 static PyObject *__pyx_pw_6ver1_3_4main_16ReadReportThread_3set(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
@@ -11767,7 +10627,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __pyx_L4_argument_unpacking_done:;
   __pyx_r = __pyx_pf_6ver1_3_4main_16ReadReportThread_2set(__pyx_self, __pyx_v_self, __pyx_v_tableName, __pyx_v_table);
 
-  /* function exit code */
+  
   {
     Py_ssize_t __pyx_temp;
     for (__pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
@@ -11786,33 +10646,15 @@ static PyObject *__pyx_pf_6ver1_3_4main_16ReadReportThread_2set(CYTHON_UNUSED Py
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("set", 0);
 
-  /* "main.py":263
- * 
- *     def set(self, tableName, table):
- *         self.tableName = tableName             # <<<<<<<<<<<<<<
- *         self.table = table
- * 
- */
+  
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_tableName, __pyx_v_tableName) < 0) __PYX_ERR(0, 263, __pyx_L1_error)
 
-  /* "main.py":264
- *     def set(self, tableName, table):
- *         self.tableName = tableName
- *         self.table = table             # <<<<<<<<<<<<<<
- * 
- *     def run(self):
- */
+  
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_table, __pyx_v_table) < 0) __PYX_ERR(0, 264, __pyx_L1_error)
 
-  /* "main.py":262
- *         self.date = None
- * 
- *     def set(self, tableName, table):             # <<<<<<<<<<<<<<
- *         self.tableName = tableName
- *         self.table = table
- */
+  
 
-  /* function exit code */
+  
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
@@ -11824,22 +10666,16 @@ static PyObject *__pyx_pf_6ver1_3_4main_16ReadReportThread_2set(CYTHON_UNUSED Py
   return __pyx_r;
 }
 
-/* "main.py":266
- *         self.table = table
- * 
- *     def run(self):             # <<<<<<<<<<<<<<
- *         def standartRead(nameInDB, row, column):
- *             cursor.execute(f"SELECT {nameInDB} FROM {self.tableName} WHERE date = ?", (self.date,))
- */
 
-/* Python wrapper */
+
+
 static PyObject *__pyx_pw_6ver1_3_4main_16ReadReportThread_5run(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
-); /*proto*/
+); 
 static PyMethodDef __pyx_mdef_6ver1_3_4main_16ReadReportThread_5run = {"run", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6ver1_3_4main_16ReadReportThread_5run, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
 static PyObject *__pyx_pw_6ver1_3_4main_16ReadReportThread_5run(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
@@ -11917,7 +10753,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __pyx_L4_argument_unpacking_done:;
   __pyx_r = __pyx_pf_6ver1_3_4main_16ReadReportThread_4run(__pyx_self, __pyx_v_self);
 
-  /* function exit code */
+  
   {
     Py_ssize_t __pyx_temp;
     for (__pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
@@ -11928,22 +10764,16 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-/* "main.py":267
- * 
- *     def run(self):
- *         def standartRead(nameInDB, row, column):             # <<<<<<<<<<<<<<
- *             cursor.execute(f"SELECT {nameInDB} FROM {self.tableName} WHERE date = ?", (self.date,))
- *             DBdataTemp = cursor.fetchone()
- */
 
-/* Python wrapper */
+
+
 static PyObject *__pyx_pw_6ver1_3_4main_16ReadReportThread_3run_1standartRead(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
-); /*proto*/
+); 
 static PyMethodDef __pyx_mdef_6ver1_3_4main_16ReadReportThread_3run_1standartRead = {"standartRead", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6ver1_3_4main_16ReadReportThread_3run_1standartRead, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
 static PyObject *__pyx_pw_6ver1_3_4main_16ReadReportThread_3run_1standartRead(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
@@ -12051,7 +10881,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __pyx_L4_argument_unpacking_done:;
   __pyx_r = __pyx_pf_6ver1_3_4main_16ReadReportThread_3run_standartRead(__pyx_self, __pyx_v_nameInDB, __pyx_v_row, __pyx_v_column);
 
-  /* function exit code */
+  
   {
     Py_ssize_t __pyx_temp;
     for (__pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
@@ -12088,13 +10918,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_16ReadReportThread_3run_standartRead(PyO
   __pyx_outer_scope = (struct __pyx_obj_6ver1_3_4main___pyx_scope_struct_1_run *) __Pyx_CyFunction_GetClosure(__pyx_self);
   __pyx_cur_scope = __pyx_outer_scope;
 
-  /* "main.py":268
- *     def run(self):
- *         def standartRead(nameInDB, row, column):
- *             cursor.execute(f"SELECT {nameInDB} FROM {self.tableName} WHERE date = ?", (self.date,))             # <<<<<<<<<<<<<<
- *             DBdataTemp = cursor.fetchone()
- * 
- */
+  
   if (unlikely(!__pyx_cur_scope->__pyx_v_cursor)) { __Pyx_RaiseClosureNameError("cursor"); __PYX_ERR(0, 268, __pyx_L1_error) }
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_cursor, __pyx_n_s_execute); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 268, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
@@ -12169,13 +10993,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_16ReadReportThread_3run_standartRead(PyO
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":269
- *         def standartRead(nameInDB, row, column):
- *             cursor.execute(f"SELECT {nameInDB} FROM {self.tableName} WHERE date = ?", (self.date,))
- *             DBdataTemp = cursor.fetchone()             # <<<<<<<<<<<<<<
- * 
- *             if DBdataTemp != (None,) and DBdataTemp != None:
- */
+  
   if (unlikely(!__pyx_cur_scope->__pyx_v_cursor)) { __Pyx_RaiseClosureNameError("cursor"); __PYX_ERR(0, 269, __pyx_L1_error) }
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_cursor, __pyx_n_s_fetchone); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 269, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
@@ -12204,13 +11022,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_16ReadReportThread_3run_standartRead(PyO
   __pyx_v_DBdataTemp = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "main.py":271
- *             DBdataTemp = cursor.fetchone()
- * 
- *             if DBdataTemp != (None,) and DBdataTemp != None:             # <<<<<<<<<<<<<<
- *                 DBdata = ""
- *                 for i in DBdataTemp:
- */
+  
   __pyx_t_1 = PyObject_RichCompare(__pyx_v_DBdataTemp, __pyx_tuple__5, Py_NE); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 271, __pyx_L1_error)
   __pyx_t_10 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely((__pyx_t_10 < 0))) __PYX_ERR(0, 271, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -12226,23 +11038,11 @@ static PyObject *__pyx_pf_6ver1_3_4main_16ReadReportThread_3run_standartRead(PyO
   __pyx_L4_bool_binop_done:;
   if (__pyx_t_9) {
 
-    /* "main.py":272
- * 
- *             if DBdataTemp != (None,) and DBdataTemp != None:
- *                 DBdata = ""             # <<<<<<<<<<<<<<
- *                 for i in DBdataTemp:
- *                     DBdata += str(i)
- */
+    
     __Pyx_INCREF(__pyx_kp_s_);
     __pyx_v_DBdata = __pyx_kp_s_;
 
-    /* "main.py":273
- *             if DBdataTemp != (None,) and DBdataTemp != None:
- *                 DBdata = ""
- *                 for i in DBdataTemp:             # <<<<<<<<<<<<<<
- *                     DBdata += str(i)
- * 
- */
+    
     if (likely(PyList_CheckExact(__pyx_v_DBdataTemp)) || PyTuple_CheckExact(__pyx_v_DBdataTemp)) {
       __pyx_t_1 = __pyx_v_DBdataTemp; __Pyx_INCREF(__pyx_t_1); __pyx_t_4 = 0;
       __pyx_t_11 = NULL;
@@ -12285,13 +11085,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_16ReadReportThread_3run_standartRead(PyO
       __Pyx_XDECREF_SET(__pyx_v_i, __pyx_t_2);
       __pyx_t_2 = 0;
 
-      /* "main.py":274
- *                 DBdata = ""
- *                 for i in DBdataTemp:
- *                     DBdata += str(i)             # <<<<<<<<<<<<<<
- * 
- *                 self.s_readedData.emit(row, column, DBdata)
- */
+      
       __pyx_t_2 = __Pyx_PyObject_Str(__pyx_v_i); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 274, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __pyx_t_6 = PyNumber_InPlaceAdd(__pyx_v_DBdata, __pyx_t_2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 274, __pyx_L1_error)
@@ -12300,23 +11094,11 @@ static PyObject *__pyx_pf_6ver1_3_4main_16ReadReportThread_3run_standartRead(PyO
       __Pyx_DECREF_SET(__pyx_v_DBdata, __pyx_t_6);
       __pyx_t_6 = 0;
 
-      /* "main.py":273
- *             if DBdataTemp != (None,) and DBdataTemp != None:
- *                 DBdata = ""
- *                 for i in DBdataTemp:             # <<<<<<<<<<<<<<
- *                     DBdata += str(i)
- * 
- */
+      
     }
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "main.py":276
- *                     DBdata += str(i)
- * 
- *                 self.s_readedData.emit(row, column, DBdata)             # <<<<<<<<<<<<<<
- * 
- *         connect = sqlite3.connect(f"{VERSIONPATH}/database/d.db")
- */
+    
     if (unlikely(!__pyx_cur_scope->__pyx_v_self)) { __Pyx_RaiseClosureNameError("self"); __PYX_ERR(0, 276, __pyx_L1_error) }
     __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_s_readedData); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 276, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
@@ -12347,24 +11129,12 @@ static PyObject *__pyx_pf_6ver1_3_4main_16ReadReportThread_3run_standartRead(PyO
     }
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "main.py":271
- *             DBdataTemp = cursor.fetchone()
- * 
- *             if DBdataTemp != (None,) and DBdataTemp != None:             # <<<<<<<<<<<<<<
- *                 DBdata = ""
- *                 for i in DBdataTemp:
- */
+    
   }
 
-  /* "main.py":267
- * 
- *     def run(self):
- *         def standartRead(nameInDB, row, column):             # <<<<<<<<<<<<<<
- *             cursor.execute(f"SELECT {nameInDB} FROM {self.tableName} WHERE date = ?", (self.date,))
- *             DBdataTemp = cursor.fetchone()
- */
+  
 
-  /* function exit code */
+  
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
@@ -12384,13 +11154,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_16ReadReportThread_3run_standartRead(PyO
   return __pyx_r;
 }
 
-/* "main.py":266
- *         self.table = table
- * 
- *     def run(self):             # <<<<<<<<<<<<<<
- *         def standartRead(nameInDB, row, column):
- *             cursor.execute(f"SELECT {nameInDB} FROM {self.tableName} WHERE date = ?", (self.date,))
- */
+
 
 static PyObject *__pyx_pf_6ver1_3_4main_16ReadReportThread_4run(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
   struct __pyx_obj_6ver1_3_4main___pyx_scope_struct_1_run *__pyx_cur_scope;
@@ -12428,25 +11192,13 @@ static PyObject *__pyx_pf_6ver1_3_4main_16ReadReportThread_4run(CYTHON_UNUSED Py
   __Pyx_INCREF(__pyx_cur_scope->__pyx_v_self);
   __Pyx_GIVEREF(__pyx_cur_scope->__pyx_v_self);
 
-  /* "main.py":267
- * 
- *     def run(self):
- *         def standartRead(nameInDB, row, column):             # <<<<<<<<<<<<<<
- *             cursor.execute(f"SELECT {nameInDB} FROM {self.tableName} WHERE date = ?", (self.date,))
- *             DBdataTemp = cursor.fetchone()
- */
+  
   __pyx_t_1 = __Pyx_CyFunction_New(&__pyx_mdef_6ver1_3_4main_16ReadReportThread_3run_1standartRead, 0, __pyx_n_s_ReadReportThread_run_locals_stan, ((PyObject*)__pyx_cur_scope), __pyx_n_s_ver1_3_main, __pyx_d, ((PyObject *)__pyx_codeobj__7)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 267, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_standartRead = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "main.py":278
- *                 self.s_readedData.emit(row, column, DBdata)
- * 
- *         connect = sqlite3.connect(f"{VERSIONPATH}/database/d.db")             # <<<<<<<<<<<<<<
- *         cursor = connect.cursor()
- * 
- */
+  
   __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_sqlite3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 278, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_connect); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 278, __pyx_L1_error)
@@ -12486,13 +11238,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_16ReadReportThread_4run(CYTHON_UNUSED Py
   __pyx_v_connect = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "main.py":279
- * 
- *         connect = sqlite3.connect(f"{VERSIONPATH}/database/d.db")
- *         cursor = connect.cursor()             # <<<<<<<<<<<<<<
- * 
- *         for row in range(self.table.rowCount() - 2):
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_connect, __pyx_n_s_cursor); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 279, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = NULL;
@@ -12521,13 +11267,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_16ReadReportThread_4run(CYTHON_UNUSED Py
   __pyx_cur_scope->__pyx_v_cursor = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "main.py":281
- *         cursor = connect.cursor()
- * 
- *         for row in range(self.table.rowCount() - 2):             # <<<<<<<<<<<<<<
- *             for column in range(self.table.columnCount()):
- *                 cell = self.table.item(row, column)
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_table); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 281, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_rowCount); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 281, __pyx_L1_error)
@@ -12604,13 +11344,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_16ReadReportThread_4run(CYTHON_UNUSED Py
     __Pyx_XDECREF_SET(__pyx_v_row, __pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "main.py":282
- * 
- *         for row in range(self.table.rowCount() - 2):
- *             for column in range(self.table.columnCount()):             # <<<<<<<<<<<<<<
- *                 cell = self.table.item(row, column)
- * 
- */
+    
     __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_table); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 282, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_columnCount); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 282, __pyx_L1_error)
@@ -12684,13 +11418,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_16ReadReportThread_4run(CYTHON_UNUSED Py
       __Pyx_XDECREF_SET(__pyx_v_column, __pyx_t_4);
       __pyx_t_4 = 0;
 
-      /* "main.py":283
- *         for row in range(self.table.rowCount() - 2):
- *             for column in range(self.table.columnCount()):
- *                 cell = self.table.item(row, column)             # <<<<<<<<<<<<<<
- * 
- *                 if row > 1:
- */
+      
       __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_table); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 283, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_item); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 283, __pyx_L1_error)
@@ -12721,35 +11449,17 @@ static PyObject *__pyx_pf_6ver1_3_4main_16ReadReportThread_4run(CYTHON_UNUSED Py
       __Pyx_XDECREF_SET(__pyx_v_cell, __pyx_t_4);
       __pyx_t_4 = 0;
 
-      /* "main.py":285
- *                 cell = self.table.item(row, column)
- * 
- *                 if row > 1:             # <<<<<<<<<<<<<<
- *                     if column == 0:
- *                         self.date = cell.text()
- */
+      
       __pyx_t_4 = PyObject_RichCompare(__pyx_v_row, __pyx_int_1, Py_GT); __Pyx_XGOTREF(__pyx_t_4); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 285, __pyx_L1_error)
       __pyx_t_11 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely((__pyx_t_11 < 0))) __PYX_ERR(0, 285, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       if (__pyx_t_11) {
 
-        /* "main.py":286
- * 
- *                 if row > 1:
- *                     if column == 0:             # <<<<<<<<<<<<<<
- *                         self.date = cell.text()
- * 
- */
+        
         __pyx_t_11 = (__Pyx_PyInt_BoolEqObjC(__pyx_v_column, __pyx_int_0, 0, 0)); if (unlikely((__pyx_t_11 < 0))) __PYX_ERR(0, 286, __pyx_L1_error)
         if (__pyx_t_11) {
 
-          /* "main.py":287
- *                 if row > 1:
- *                     if column == 0:
- *                         self.date = cell.text()             # <<<<<<<<<<<<<<
- * 
- *                     elif column == 2:
- */
+          
           __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_v_cell, __pyx_n_s_text); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 287, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_10);
           __pyx_t_3 = NULL;
@@ -12777,302 +11487,128 @@ static PyObject *__pyx_pf_6ver1_3_4main_16ReadReportThread_4run(CYTHON_UNUSED Py
           if (__Pyx_PyObject_SetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_date, __pyx_t_4) < 0) __PYX_ERR(0, 287, __pyx_L1_error)
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-          /* "main.py":286
- * 
- *                 if row > 1:
- *                     if column == 0:             # <<<<<<<<<<<<<<
- *                         self.date = cell.text()
- * 
- */
+          
           goto __pyx_L8;
         }
 
-        /* "main.py":289
- *                         self.date = cell.text()
- * 
- *                     elif column == 2:             # <<<<<<<<<<<<<<
- *                         standartRead('price', row, column)
- * 
- */
+        
         __pyx_t_11 = (__Pyx_PyInt_BoolEqObjC(__pyx_v_column, __pyx_int_2, 2, 0)); if (unlikely((__pyx_t_11 < 0))) __PYX_ERR(0, 289, __pyx_L1_error)
         if (__pyx_t_11) {
 
-          /* "main.py":290
- * 
- *                     elif column == 2:
- *                         standartRead('price', row, column)             # <<<<<<<<<<<<<<
- * 
- *                     elif column == 3:
- */
+          
           __pyx_t_4 = __pyx_pf_6ver1_3_4main_16ReadReportThread_3run_standartRead(__pyx_v_standartRead, __pyx_n_s_price, __pyx_v_row, __pyx_v_column); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 290, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_4);
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-          /* "main.py":289
- *                         self.date = cell.text()
- * 
- *                     elif column == 2:             # <<<<<<<<<<<<<<
- *                         standartRead('price', row, column)
- * 
- */
+          
           goto __pyx_L8;
         }
 
-        /* "main.py":292
- *                         standartRead('price', row, column)
- * 
- *                     elif column == 3:             # <<<<<<<<<<<<<<
- *                         standartRead('sum', row, column)
- * 
- */
+        
         __pyx_t_11 = (__Pyx_PyInt_BoolEqObjC(__pyx_v_column, __pyx_int_3, 3, 0)); if (unlikely((__pyx_t_11 < 0))) __PYX_ERR(0, 292, __pyx_L1_error)
         if (__pyx_t_11) {
 
-          /* "main.py":293
- * 
- *                     elif column == 3:
- *                         standartRead('sum', row, column)             # <<<<<<<<<<<<<<
- * 
- *                     elif column == 4:
- */
+          
           __pyx_t_4 = __pyx_pf_6ver1_3_4main_16ReadReportThread_3run_standartRead(__pyx_v_standartRead, __pyx_n_s_sum, __pyx_v_row, __pyx_v_column); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 293, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_4);
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-          /* "main.py":292
- *                         standartRead('price', row, column)
- * 
- *                     elif column == 3:             # <<<<<<<<<<<<<<
- *                         standartRead('sum', row, column)
- * 
- */
+          
           goto __pyx_L8;
         }
 
-        /* "main.py":295
- *                         standartRead('sum', row, column)
- * 
- *                     elif column == 4:             # <<<<<<<<<<<<<<
- *                         standartRead('rent', row, column)
- * 
- */
+        
         __pyx_t_11 = (__Pyx_PyInt_BoolEqObjC(__pyx_v_column, __pyx_int_4, 4, 0)); if (unlikely((__pyx_t_11 < 0))) __PYX_ERR(0, 295, __pyx_L1_error)
         if (__pyx_t_11) {
 
-          /* "main.py":296
- * 
- *                     elif column == 4:
- *                         standartRead('rent', row, column)             # <<<<<<<<<<<<<<
- * 
- *                     elif column == 5:
- */
+          
           __pyx_t_4 = __pyx_pf_6ver1_3_4main_16ReadReportThread_3run_standartRead(__pyx_v_standartRead, __pyx_n_s_rent, __pyx_v_row, __pyx_v_column); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 296, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_4);
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-          /* "main.py":295
- *                         standartRead('sum', row, column)
- * 
- *                     elif column == 4:             # <<<<<<<<<<<<<<
- *                         standartRead('rent', row, column)
- * 
- */
+          
           goto __pyx_L8;
         }
 
-        /* "main.py":298
- *                         standartRead('rent', row, column)
- * 
- *                     elif column == 5:             # <<<<<<<<<<<<<<
- *                         standartRead('guest', row, column)
- * 
- */
+        
         __pyx_t_11 = (__Pyx_PyInt_BoolEqObjC(__pyx_v_column, __pyx_int_5, 5, 0)); if (unlikely((__pyx_t_11 < 0))) __PYX_ERR(0, 298, __pyx_L1_error)
         if (__pyx_t_11) {
 
-          /* "main.py":299
- * 
- *                     elif column == 5:
- *                         standartRead('guest', row, column)             # <<<<<<<<<<<<<<
- * 
- *                     elif column == 6:
- */
+          
           __pyx_t_4 = __pyx_pf_6ver1_3_4main_16ReadReportThread_3run_standartRead(__pyx_v_standartRead, __pyx_n_s_guest, __pyx_v_row, __pyx_v_column); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 299, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_4);
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-          /* "main.py":298
- *                         standartRead('rent', row, column)
- * 
- *                     elif column == 5:             # <<<<<<<<<<<<<<
- *                         standartRead('guest', row, column)
- * 
- */
+          
           goto __pyx_L8;
         }
 
-        /* "main.py":301
- *                         standartRead('guest', row, column)
- * 
- *                     elif column == 6:             # <<<<<<<<<<<<<<
- *                         standartRead('avito', row, column)
- * 
- */
+        
         __pyx_t_11 = (__Pyx_PyInt_BoolEqObjC(__pyx_v_column, __pyx_int_6, 6, 0)); if (unlikely((__pyx_t_11 < 0))) __PYX_ERR(0, 301, __pyx_L1_error)
         if (__pyx_t_11) {
 
-          /* "main.py":302
- * 
- *                     elif column == 6:
- *                         standartRead('avito', row, column)             # <<<<<<<<<<<<<<
- * 
- *                     elif column == 7:
- */
+          
           __pyx_t_4 = __pyx_pf_6ver1_3_4main_16ReadReportThread_3run_standartRead(__pyx_v_standartRead, __pyx_n_s_avito, __pyx_v_row, __pyx_v_column); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 302, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_4);
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-          /* "main.py":301
- *                         standartRead('guest', row, column)
- * 
- *                     elif column == 6:             # <<<<<<<<<<<<<<
- *                         standartRead('avito', row, column)
- * 
- */
+          
           goto __pyx_L8;
         }
 
-        /* "main.py":304
- *                         standartRead('avito', row, column)
- * 
- *                     elif column == 7:             # <<<<<<<<<<<<<<
- *                         standartRead('expense', row, column)
- * 
- */
+        
         __pyx_t_11 = (__Pyx_PyInt_BoolEqObjC(__pyx_v_column, __pyx_int_7, 7, 0)); if (unlikely((__pyx_t_11 < 0))) __PYX_ERR(0, 304, __pyx_L1_error)
         if (__pyx_t_11) {
 
-          /* "main.py":305
- * 
- *                     elif column == 7:
- *                         standartRead('expense', row, column)             # <<<<<<<<<<<<<<
- * 
- *                     elif column == 8:
- */
+          
           __pyx_t_4 = __pyx_pf_6ver1_3_4main_16ReadReportThread_3run_standartRead(__pyx_v_standartRead, __pyx_n_s_expense, __pyx_v_row, __pyx_v_column); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 305, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_4);
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-          /* "main.py":304
- *                         standartRead('avito', row, column)
- * 
- *                     elif column == 7:             # <<<<<<<<<<<<<<
- *                         standartRead('expense', row, column)
- * 
- */
+          
           goto __pyx_L8;
         }
 
-        /* "main.py":307
- *                         standartRead('expense', row, column)
- * 
- *                     elif column == 8:             # <<<<<<<<<<<<<<
- *                         standartRead('indications', row, column)
- * 
- */
+        
         __pyx_t_11 = (__Pyx_PyInt_BoolEqObjC(__pyx_v_column, __pyx_int_8, 8, 0)); if (unlikely((__pyx_t_11 < 0))) __PYX_ERR(0, 307, __pyx_L1_error)
         if (__pyx_t_11) {
 
-          /* "main.py":308
- * 
- *                     elif column == 8:
- *                         standartRead('indications', row, column)             # <<<<<<<<<<<<<<
- * 
- *                     elif column == 9:
- */
+          
           __pyx_t_4 = __pyx_pf_6ver1_3_4main_16ReadReportThread_3run_standartRead(__pyx_v_standartRead, __pyx_n_s_indications, __pyx_v_row, __pyx_v_column); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 308, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_4);
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-          /* "main.py":307
- *                         standartRead('expense', row, column)
- * 
- *                     elif column == 8:             # <<<<<<<<<<<<<<
- *                         standartRead('indications', row, column)
- * 
- */
+          
           goto __pyx_L8;
         }
 
-        /* "main.py":310
- *                         standartRead('indications', row, column)
- * 
- *                     elif column == 9:             # <<<<<<<<<<<<<<
- *                         standartRead('income', row, column)
- * 
- */
+        
         __pyx_t_11 = (__Pyx_PyInt_BoolEqObjC(__pyx_v_column, __pyx_int_9, 9, 0)); if (unlikely((__pyx_t_11 < 0))) __PYX_ERR(0, 310, __pyx_L1_error)
         if (__pyx_t_11) {
 
-          /* "main.py":311
- * 
- *                     elif column == 9:
- *                         standartRead('income', row, column)             # <<<<<<<<<<<<<<
- * 
- * 
- */
+          
           __pyx_t_4 = __pyx_pf_6ver1_3_4main_16ReadReportThread_3run_standartRead(__pyx_v_standartRead, __pyx_n_s_income, __pyx_v_row, __pyx_v_column); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 311, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_4);
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-          /* "main.py":310
- *                         standartRead('indications', row, column)
- * 
- *                     elif column == 9:             # <<<<<<<<<<<<<<
- *                         standartRead('income', row, column)
- * 
- */
+          
         }
         __pyx_L8:;
 
-        /* "main.py":285
- *                 cell = self.table.item(row, column)
- * 
- *                 if row > 1:             # <<<<<<<<<<<<<<
- *                     if column == 0:
- *                         self.date = cell.text()
- */
+        
       }
 
-      /* "main.py":282
- * 
- *         for row in range(self.table.rowCount() - 2):
- *             for column in range(self.table.columnCount()):             # <<<<<<<<<<<<<<
- *                 cell = self.table.item(row, column)
- * 
- */
+      
     }
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "main.py":281
- *         cursor = connect.cursor()
- * 
- *         for row in range(self.table.rowCount() - 2):             # <<<<<<<<<<<<<<
- *             for column in range(self.table.columnCount()):
- *                 cell = self.table.item(row, column)
- */
+    
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "main.py":266
- *         self.table = table
- * 
- *     def run(self):             # <<<<<<<<<<<<<<
- *         def standartRead(nameInDB, row, column):
- *             cursor.execute(f"SELECT {nameInDB} FROM {self.tableName} WHERE date = ?", (self.date,))
- */
+  
 
-  /* function exit code */
+  
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
@@ -13095,22 +11631,16 @@ static PyObject *__pyx_pf_6ver1_3_4main_16ReadReportThread_4run(CYTHON_UNUSED Py
   return __pyx_r;
 }
 
-/* "main.py":317
- *     s_sumData = QtCore.pyqtSignal(int)
- * 
- *     def  __init__(self):             # <<<<<<<<<<<<<<
- *         QtCore.QThread.__init__(self)
- * 
- */
 
-/* Python wrapper */
+
+
 static PyObject *__pyx_pw_6ver1_3_4main_15SumReportThread_1__init__(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
-); /*proto*/
+); 
 static PyMethodDef __pyx_mdef_6ver1_3_4main_15SumReportThread_1__init__ = {"__init__", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6ver1_3_4main_15SumReportThread_1__init__, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
 static PyObject *__pyx_pw_6ver1_3_4main_15SumReportThread_1__init__(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
@@ -13188,7 +11718,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __pyx_L4_argument_unpacking_done:;
   __pyx_r = __pyx_pf_6ver1_3_4main_15SumReportThread___init__(__pyx_self, __pyx_v_self);
 
-  /* function exit code */
+  
   {
     Py_ssize_t __pyx_temp;
     for (__pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
@@ -13211,13 +11741,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_15SumReportThread___init__(CYTHON_UNUSED
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__init__", 0);
 
-  /* "main.py":318
- * 
- *     def  __init__(self):
- *         QtCore.QThread.__init__(self)             # <<<<<<<<<<<<<<
- * 
- *         self.table = None
- */
+  
   __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_QtCore); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 318, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_QThread); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 318, __pyx_L1_error)
@@ -13250,22 +11774,10 @@ static PyObject *__pyx_pf_6ver1_3_4main_15SumReportThread___init__(CYTHON_UNUSED
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":320
- *         QtCore.QThread.__init__(self)
- * 
- *         self.table = None             # <<<<<<<<<<<<<<
- *         self.columnList = [4, 5, 6, 9]
- * 
- */
+  
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_table, Py_None) < 0) __PYX_ERR(0, 320, __pyx_L1_error)
 
-  /* "main.py":321
- * 
- *         self.table = None
- *         self.columnList = [4, 5, 6, 9]             # <<<<<<<<<<<<<<
- * 
- *     def set(self, table):
- */
+  
   __pyx_t_1 = PyList_New(4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 321, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(__pyx_int_4);
@@ -13283,15 +11795,9 @@ static PyObject *__pyx_pf_6ver1_3_4main_15SumReportThread___init__(CYTHON_UNUSED
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_columnList, __pyx_t_1) < 0) __PYX_ERR(0, 321, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":317
- *     s_sumData = QtCore.pyqtSignal(int)
- * 
- *     def  __init__(self):             # <<<<<<<<<<<<<<
- *         QtCore.QThread.__init__(self)
- * 
- */
+  
 
-  /* function exit code */
+  
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
@@ -13306,22 +11812,16 @@ static PyObject *__pyx_pf_6ver1_3_4main_15SumReportThread___init__(CYTHON_UNUSED
   return __pyx_r;
 }
 
-/* "main.py":323
- *         self.columnList = [4, 5, 6, 9]
- * 
- *     def set(self, table):             # <<<<<<<<<<<<<<
- *         self.table = table
- * 
- */
 
-/* Python wrapper */
+
+
 static PyObject *__pyx_pw_6ver1_3_4main_15SumReportThread_3set(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
-); /*proto*/
+); 
 static PyMethodDef __pyx_mdef_6ver1_3_4main_15SumReportThread_3set = {"set", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6ver1_3_4main_15SumReportThread_3set, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
 static PyObject *__pyx_pw_6ver1_3_4main_15SumReportThread_3set(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
@@ -13414,7 +11914,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __pyx_L4_argument_unpacking_done:;
   __pyx_r = __pyx_pf_6ver1_3_4main_15SumReportThread_2set(__pyx_self, __pyx_v_self, __pyx_v_table);
 
-  /* function exit code */
+  
   {
     Py_ssize_t __pyx_temp;
     for (__pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
@@ -13433,24 +11933,12 @@ static PyObject *__pyx_pf_6ver1_3_4main_15SumReportThread_2set(CYTHON_UNUSED PyO
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("set", 0);
 
-  /* "main.py":324
- * 
- *     def set(self, table):
- *         self.table = table             # <<<<<<<<<<<<<<
- * 
- *     def run(self):
- */
+  
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_table, __pyx_v_table) < 0) __PYX_ERR(0, 324, __pyx_L1_error)
 
-  /* "main.py":323
- *         self.columnList = [4, 5, 6, 9]
- * 
- *     def set(self, table):             # <<<<<<<<<<<<<<
- *         self.table = table
- * 
- */
+  
 
-  /* function exit code */
+  
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
@@ -13462,22 +11950,16 @@ static PyObject *__pyx_pf_6ver1_3_4main_15SumReportThread_2set(CYTHON_UNUSED PyO
   return __pyx_r;
 }
 
-/* "main.py":326
- *         self.table = table
- * 
- *     def run(self):             # <<<<<<<<<<<<<<
- * 
- *         for column in self.columnList:
- */
 
-/* Python wrapper */
+
+
 static PyObject *__pyx_pw_6ver1_3_4main_15SumReportThread_5run(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
-); /*proto*/
+); 
 static PyMethodDef __pyx_mdef_6ver1_3_4main_15SumReportThread_5run = {"run", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6ver1_3_4main_15SumReportThread_5run, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
 static PyObject *__pyx_pw_6ver1_3_4main_15SumReportThread_5run(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
@@ -13555,7 +12037,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __pyx_L4_argument_unpacking_done:;
   __pyx_r = __pyx_pf_6ver1_3_4main_15SumReportThread_4run(__pyx_self, __pyx_v_self);
 
-  /* function exit code */
+  
   {
     Py_ssize_t __pyx_temp;
     for (__pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
@@ -13591,13 +12073,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_15SumReportThread_4run(CYTHON_UNUSED PyO
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("run", 0);
 
-  /* "main.py":328
- *     def run(self):
- * 
- *         for column in self.columnList:             # <<<<<<<<<<<<<<
- * 
- *             total = 0
- */
+  
   __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_columnList); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 328, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   if (likely(PyList_CheckExact(__pyx_t_1)) || PyTuple_CheckExact(__pyx_t_1)) {
@@ -13643,23 +12119,11 @@ static PyObject *__pyx_pf_6ver1_3_4main_15SumReportThread_4run(CYTHON_UNUSED PyO
     __Pyx_XDECREF_SET(__pyx_v_column, __pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "main.py":330
- *         for column in self.columnList:
- * 
- *             total = 0             # <<<<<<<<<<<<<<
- *             row = self.table.rowCount() - 2
- * 
- */
+    
     __Pyx_INCREF(__pyx_int_0);
     __Pyx_XDECREF_SET(__pyx_v_total, __pyx_int_0);
 
-    /* "main.py":331
- * 
- *             total = 0
- *             row = self.table.rowCount() - 2             # <<<<<<<<<<<<<<
- * 
- *             for row in range(row):
- */
+    
     __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_table); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 331, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_rowCount); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 331, __pyx_L1_error)
@@ -13693,13 +12157,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_15SumReportThread_4run(CYTHON_UNUSED PyO
     __Pyx_XDECREF_SET(__pyx_v_row, __pyx_t_6);
     __pyx_t_6 = 0;
 
-    /* "main.py":333
- *             row = self.table.rowCount() - 2
- * 
- *             for row in range(row):             # <<<<<<<<<<<<<<
- *                 if row != 0:
- *                     item = self.table.item(row, column)
- */
+    
     __pyx_t_6 = __Pyx_PyObject_CallOneArg(__pyx_builtin_range, __pyx_v_row); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 333, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     if (likely(PyList_CheckExact(__pyx_t_6)) || PyTuple_CheckExact(__pyx_t_6)) {
@@ -13745,23 +12203,11 @@ static PyObject *__pyx_pf_6ver1_3_4main_15SumReportThread_4run(CYTHON_UNUSED PyO
       __Pyx_DECREF_SET(__pyx_v_row, __pyx_t_6);
       __pyx_t_6 = 0;
 
-      /* "main.py":334
- * 
- *             for row in range(row):
- *                 if row != 0:             # <<<<<<<<<<<<<<
- *                     item = self.table.item(row, column)
- *                     if item and item.text().isdigit():
- */
+      
       __pyx_t_10 = (__Pyx_PyInt_BoolNeObjC(__pyx_v_row, __pyx_int_0, 0, 0)); if (unlikely((__pyx_t_10 < 0))) __PYX_ERR(0, 334, __pyx_L1_error)
       if (__pyx_t_10) {
 
-        /* "main.py":335
- *             for row in range(row):
- *                 if row != 0:
- *                     item = self.table.item(row, column)             # <<<<<<<<<<<<<<
- *                     if item and item.text().isdigit():
- *                         total += int(item.text())
- */
+        
         __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_table); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 335, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_5);
         __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_item); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 335, __pyx_L1_error)
@@ -13792,13 +12238,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_15SumReportThread_4run(CYTHON_UNUSED PyO
         __Pyx_XDECREF_SET(__pyx_v_item, __pyx_t_6);
         __pyx_t_6 = 0;
 
-        /* "main.py":336
- *                 if row != 0:
- *                     item = self.table.item(row, column)
- *                     if item and item.text().isdigit():             # <<<<<<<<<<<<<<
- *                         total += int(item.text())
- * 
- */
+        
         __pyx_t_12 = __Pyx_PyObject_IsTrue(__pyx_v_item); if (unlikely((__pyx_t_12 < 0))) __PYX_ERR(0, 336, __pyx_L1_error)
         if (__pyx_t_12) {
         } else {
@@ -13860,13 +12300,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_15SumReportThread_4run(CYTHON_UNUSED PyO
         __pyx_L9_bool_binop_done:;
         if (__pyx_t_10) {
 
-          /* "main.py":337
- *                     item = self.table.item(row, column)
- *                     if item and item.text().isdigit():
- *                         total += int(item.text())             # <<<<<<<<<<<<<<
- * 
- *             self.s_sumData.emit(total)
- */
+          
           __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_item, __pyx_n_s_text); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 337, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_5);
           __pyx_t_11 = NULL;
@@ -13900,41 +12334,17 @@ static PyObject *__pyx_pf_6ver1_3_4main_15SumReportThread_4run(CYTHON_UNUSED PyO
           __Pyx_DECREF_SET(__pyx_v_total, __pyx_t_6);
           __pyx_t_6 = 0;
 
-          /* "main.py":336
- *                 if row != 0:
- *                     item = self.table.item(row, column)
- *                     if item and item.text().isdigit():             # <<<<<<<<<<<<<<
- *                         total += int(item.text())
- * 
- */
+          
         }
 
-        /* "main.py":334
- * 
- *             for row in range(row):
- *                 if row != 0:             # <<<<<<<<<<<<<<
- *                     item = self.table.item(row, column)
- *                     if item and item.text().isdigit():
- */
+        
       }
 
-      /* "main.py":333
- *             row = self.table.rowCount() - 2
- * 
- *             for row in range(row):             # <<<<<<<<<<<<<<
- *                 if row != 0:
- *                     item = self.table.item(row, column)
- */
+      
     }
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "main.py":339
- *                         total += int(item.text())
- * 
- *             self.s_sumData.emit(total)             # <<<<<<<<<<<<<<
- * 
- * 
- */
+    
     __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_s_sumData); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 339, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_emit); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 339, __pyx_L1_error)
@@ -13964,25 +12374,13 @@ static PyObject *__pyx_pf_6ver1_3_4main_15SumReportThread_4run(CYTHON_UNUSED PyO
     }
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "main.py":328
- *     def run(self):
- * 
- *         for column in self.columnList:             # <<<<<<<<<<<<<<
- * 
- *             total = 0
- */
+    
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "main.py":326
- *         self.table = table
- * 
- *     def run(self):             # <<<<<<<<<<<<<<
- * 
- *         for column in self.columnList:
- */
+  
 
-  /* function exit code */
+  
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
@@ -14004,22 +12402,16 @@ static PyObject *__pyx_pf_6ver1_3_4main_15SumReportThread_4run(CYTHON_UNUSED PyO
   return __pyx_r;
 }
 
-/* "main.py":343
- * 
- * class SaveDialog(QDialog, saveDialogUI.Ui_Dialog, QSize):
- *     def __init__(self):             # <<<<<<<<<<<<<<
- *         super(SaveDialog, self).__init__()
- *         self.setupUi(self)
- */
 
-/* Python wrapper */
+
+
 static PyObject *__pyx_pw_6ver1_3_4main_10SaveDialog_1__init__(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
-); /*proto*/
+); 
 static PyMethodDef __pyx_mdef_6ver1_3_4main_10SaveDialog_1__init__ = {"__init__", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6ver1_3_4main_10SaveDialog_1__init__, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
 static PyObject *__pyx_pw_6ver1_3_4main_10SaveDialog_1__init__(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
@@ -14097,7 +12489,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __pyx_L4_argument_unpacking_done:;
   __pyx_r = __pyx_pf_6ver1_3_4main_10SaveDialog___init__(__pyx_self, __pyx_v_self);
 
-  /* function exit code */
+  
   {
     Py_ssize_t __pyx_temp;
     for (__pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
@@ -14123,13 +12515,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10SaveDialog___init__(CYTHON_UNUSED PyOb
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__init__", 0);
 
-  /* "main.py":344
- * class SaveDialog(QDialog, saveDialogUI.Ui_Dialog, QSize):
- *     def __init__(self):
- *         super(SaveDialog, self).__init__()             # <<<<<<<<<<<<<<
- *         self.setupUi(self)
- * 
- */
+  
   __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_SaveDialog); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 344, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 344, __pyx_L1_error)
@@ -14170,13 +12556,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10SaveDialog___init__(CYTHON_UNUSED PyOb
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":345
- *     def __init__(self):
- *         super(SaveDialog, self).__init__()
- *         self.setupUi(self)             # <<<<<<<<<<<<<<
- * 
- *         self.setWindowIcon(QtGui.QIcon(f'{VERSIONPATH}/assets/icon96px.ico'))
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_setupUi); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 345, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = NULL;
@@ -14203,13 +12583,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10SaveDialog___init__(CYTHON_UNUSED PyOb
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":347
- *         self.setupUi(self)
- * 
- *         self.setWindowIcon(QtGui.QIcon(f'{VERSIONPATH}/assets/icon96px.ico'))             # <<<<<<<<<<<<<<
- *         self.setWindowTitle("")
- *         self.setFixedSize(QSize(400, 84))
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_setWindowIcon); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 347, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_QtGui); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 347, __pyx_L1_error)
@@ -14273,13 +12647,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10SaveDialog___init__(CYTHON_UNUSED PyOb
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":348
- * 
- *         self.setWindowIcon(QtGui.QIcon(f'{VERSIONPATH}/assets/icon96px.ico'))
- *         self.setWindowTitle("")             # <<<<<<<<<<<<<<
- *         self.setFixedSize(QSize(400, 84))
- * 
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_setWindowTitle); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 348, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = NULL;
@@ -14306,13 +12674,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10SaveDialog___init__(CYTHON_UNUSED PyOb
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":349
- *         self.setWindowIcon(QtGui.QIcon(f'{VERSIONPATH}/assets/icon96px.ico'))
- *         self.setWindowTitle("")
- *         self.setFixedSize(QSize(400, 84))             # <<<<<<<<<<<<<<
- * 
- *     def setTheme(self, style):
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_setFixedSize); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 349, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_QSize); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 349, __pyx_L1_error)
@@ -14345,15 +12707,9 @@ static PyObject *__pyx_pf_6ver1_3_4main_10SaveDialog___init__(CYTHON_UNUSED PyOb
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":343
- * 
- * class SaveDialog(QDialog, saveDialogUI.Ui_Dialog, QSize):
- *     def __init__(self):             # <<<<<<<<<<<<<<
- *         super(SaveDialog, self).__init__()
- *         self.setupUi(self)
- */
+  
 
-  /* function exit code */
+  
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
@@ -14371,22 +12727,16 @@ static PyObject *__pyx_pf_6ver1_3_4main_10SaveDialog___init__(CYTHON_UNUSED PyOb
   return __pyx_r;
 }
 
-/* "main.py":351
- *         self.setFixedSize(QSize(400, 84))
- * 
- *     def setTheme(self, style):             # <<<<<<<<<<<<<<
- *         self.setStyleSheet(style)
- * 
- */
 
-/* Python wrapper */
+
+
 static PyObject *__pyx_pw_6ver1_3_4main_10SaveDialog_3setTheme(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
-); /*proto*/
+); 
 static PyMethodDef __pyx_mdef_6ver1_3_4main_10SaveDialog_3setTheme = {"setTheme", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6ver1_3_4main_10SaveDialog_3setTheme, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
 static PyObject *__pyx_pw_6ver1_3_4main_10SaveDialog_3setTheme(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
@@ -14479,7 +12829,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __pyx_L4_argument_unpacking_done:;
   __pyx_r = __pyx_pf_6ver1_3_4main_10SaveDialog_2setTheme(__pyx_self, __pyx_v_self, __pyx_v_style);
 
-  /* function exit code */
+  
   {
     Py_ssize_t __pyx_temp;
     for (__pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
@@ -14502,13 +12852,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10SaveDialog_2setTheme(CYTHON_UNUSED PyO
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("setTheme", 0);
 
-  /* "main.py":352
- * 
- *     def setTheme(self, style):
- *         self.setStyleSheet(style)             # <<<<<<<<<<<<<<
- * 
- *     def setRange(self, range_):
- */
+  
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_setStyleSheet); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 352, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
@@ -14535,15 +12879,9 @@ static PyObject *__pyx_pf_6ver1_3_4main_10SaveDialog_2setTheme(CYTHON_UNUSED PyO
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":351
- *         self.setFixedSize(QSize(400, 84))
- * 
- *     def setTheme(self, style):             # <<<<<<<<<<<<<<
- *         self.setStyleSheet(style)
- * 
- */
+  
 
-  /* function exit code */
+  
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
@@ -14558,22 +12896,16 @@ static PyObject *__pyx_pf_6ver1_3_4main_10SaveDialog_2setTheme(CYTHON_UNUSED PyO
   return __pyx_r;
 }
 
-/* "main.py":354
- *         self.setStyleSheet(style)
- * 
- *     def setRange(self, range_):             # <<<<<<<<<<<<<<
- *         self.pb_save.setRange(0, range_)
- * 
- */
 
-/* Python wrapper */
+
+
 static PyObject *__pyx_pw_6ver1_3_4main_10SaveDialog_5setRange(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
-); /*proto*/
+); 
 static PyMethodDef __pyx_mdef_6ver1_3_4main_10SaveDialog_5setRange = {"setRange", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6ver1_3_4main_10SaveDialog_5setRange, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
 static PyObject *__pyx_pw_6ver1_3_4main_10SaveDialog_5setRange(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
@@ -14666,7 +12998,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __pyx_L4_argument_unpacking_done:;
   __pyx_r = __pyx_pf_6ver1_3_4main_10SaveDialog_4setRange(__pyx_self, __pyx_v_self, __pyx_v_range_);
 
-  /* function exit code */
+  
   {
     Py_ssize_t __pyx_temp;
     for (__pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
@@ -14689,13 +13021,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10SaveDialog_4setRange(CYTHON_UNUSED PyO
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("setRange", 0);
 
-  /* "main.py":355
- * 
- *     def setRange(self, range_):
- *         self.pb_save.setRange(0, range_)             # <<<<<<<<<<<<<<
- * 
- *     def add(self):
- */
+  
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_pb_save); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 355, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_setRange); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 355, __pyx_L1_error)
@@ -14725,15 +13051,9 @@ static PyObject *__pyx_pf_6ver1_3_4main_10SaveDialog_4setRange(CYTHON_UNUSED PyO
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":354
- *         self.setStyleSheet(style)
- * 
- *     def setRange(self, range_):             # <<<<<<<<<<<<<<
- *         self.pb_save.setRange(0, range_)
- * 
- */
+  
 
-  /* function exit code */
+  
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
@@ -14748,22 +13068,16 @@ static PyObject *__pyx_pf_6ver1_3_4main_10SaveDialog_4setRange(CYTHON_UNUSED PyO
   return __pyx_r;
 }
 
-/* "main.py":357
- *         self.pb_save.setRange(0, range_)
- * 
- *     def add(self):             # <<<<<<<<<<<<<<
- *         self.pb_save.setValue(self.pb_save.value() + 1)
- * 
- */
 
-/* Python wrapper */
+
+
 static PyObject *__pyx_pw_6ver1_3_4main_10SaveDialog_7add(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
-); /*proto*/
+); 
 static PyMethodDef __pyx_mdef_6ver1_3_4main_10SaveDialog_7add = {"add", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6ver1_3_4main_10SaveDialog_7add, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
 static PyObject *__pyx_pw_6ver1_3_4main_10SaveDialog_7add(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
@@ -14841,7 +13155,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __pyx_L4_argument_unpacking_done:;
   __pyx_r = __pyx_pf_6ver1_3_4main_10SaveDialog_6add(__pyx_self, __pyx_v_self);
 
-  /* function exit code */
+  
   {
     Py_ssize_t __pyx_temp;
     for (__pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
@@ -14866,13 +13180,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10SaveDialog_6add(CYTHON_UNUSED PyObject
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("add", 0);
 
-  /* "main.py":358
- * 
- *     def add(self):
- *         self.pb_save.setValue(self.pb_save.value() + 1)             # <<<<<<<<<<<<<<
- * 
- * 
- */
+  
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_pb_save); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 358, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_setValue); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 358, __pyx_L1_error)
@@ -14933,15 +13241,9 @@ static PyObject *__pyx_pf_6ver1_3_4main_10SaveDialog_6add(CYTHON_UNUSED PyObject
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":357
- *         self.pb_save.setRange(0, range_)
- * 
- *     def add(self):             # <<<<<<<<<<<<<<
- *         self.pb_save.setValue(self.pb_save.value() + 1)
- * 
- */
+  
 
-  /* function exit code */
+  
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
@@ -14958,22 +13260,16 @@ static PyObject *__pyx_pf_6ver1_3_4main_10SaveDialog_6add(CYTHON_UNUSED PyObject
   return __pyx_r;
 }
 
-/* "main.py":364
- *     s_upd = QtCore.pyqtSignal()
- * 
- *     def __init__(self):             # <<<<<<<<<<<<<<
- *         super(CreateDialog, self).__init__()
- *         self.setupUi(self)
- */
 
-/* Python wrapper */
+
+
 static PyObject *__pyx_pw_6ver1_3_4main_12CreateDialog_1__init__(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
-); /*proto*/
+); 
 static PyMethodDef __pyx_mdef_6ver1_3_4main_12CreateDialog_1__init__ = {"__init__", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6ver1_3_4main_12CreateDialog_1__init__, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
 static PyObject *__pyx_pw_6ver1_3_4main_12CreateDialog_1__init__(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
@@ -15051,7 +13347,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __pyx_L4_argument_unpacking_done:;
   __pyx_r = __pyx_pf_6ver1_3_4main_12CreateDialog___init__(__pyx_self, __pyx_v_self);
 
-  /* function exit code */
+  
   {
     Py_ssize_t __pyx_temp;
     for (__pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
@@ -15077,13 +13373,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12CreateDialog___init__(CYTHON_UNUSED Py
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__init__", 0);
 
-  /* "main.py":365
- * 
- *     def __init__(self):
- *         super(CreateDialog, self).__init__()             # <<<<<<<<<<<<<<
- *         self.setupUi(self)
- * 
- */
+  
   __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_CreateDialog); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 365, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 365, __pyx_L1_error)
@@ -15124,13 +13414,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12CreateDialog___init__(CYTHON_UNUSED Py
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":366
- *     def __init__(self):
- *         super(CreateDialog, self).__init__()
- *         self.setupUi(self)             # <<<<<<<<<<<<<<
- * 
- *         self.setWindowIcon(QtGui.QIcon(f'{VERSIONPATH}/icon96px.ico'))
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_setupUi); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 366, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = NULL;
@@ -15157,13 +13441,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12CreateDialog___init__(CYTHON_UNUSED Py
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":368
- *         self.setupUi(self)
- * 
- *         self.setWindowIcon(QtGui.QIcon(f'{VERSIONPATH}/icon96px.ico'))             # <<<<<<<<<<<<<<
- *         self.setWindowTitle("  ")
- *         self.setFixedSize(QSize(350, 110))
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_setWindowIcon); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 368, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_QtGui); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 368, __pyx_L1_error)
@@ -15227,13 +13505,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12CreateDialog___init__(CYTHON_UNUSED Py
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":369
- * 
- *         self.setWindowIcon(QtGui.QIcon(f'{VERSIONPATH}/icon96px.ico'))
- *         self.setWindowTitle("  ")             # <<<<<<<<<<<<<<
- *         self.setFixedSize(QSize(350, 110))
- * 
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_setWindowTitle); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 369, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = NULL;
@@ -15260,13 +13532,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12CreateDialog___init__(CYTHON_UNUSED Py
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":370
- *         self.setWindowIcon(QtGui.QIcon(f'{VERSIONPATH}/icon96px.ico'))
- *         self.setWindowTitle("  ")
- *         self.setFixedSize(QSize(350, 110))             # <<<<<<<<<<<<<<
- * 
- *         self.btn_create.clicked.connect(self.emitName)
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_setFixedSize); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 370, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_QSize); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 370, __pyx_L1_error)
@@ -15299,13 +13565,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12CreateDialog___init__(CYTHON_UNUSED Py
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":372
- *         self.setFixedSize(QSize(350, 110))
- * 
- *         self.btn_create.clicked.connect(self.emitName)             # <<<<<<<<<<<<<<
- * 
- *     def setTheme(self, style):
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_btn_create); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 372, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_clicked); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 372, __pyx_L1_error)
@@ -15341,15 +13601,9 @@ static PyObject *__pyx_pf_6ver1_3_4main_12CreateDialog___init__(CYTHON_UNUSED Py
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":364
- *     s_upd = QtCore.pyqtSignal()
- * 
- *     def __init__(self):             # <<<<<<<<<<<<<<
- *         super(CreateDialog, self).__init__()
- *         self.setupUi(self)
- */
+  
 
-  /* function exit code */
+  
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
@@ -15367,22 +13621,16 @@ static PyObject *__pyx_pf_6ver1_3_4main_12CreateDialog___init__(CYTHON_UNUSED Py
   return __pyx_r;
 }
 
-/* "main.py":374
- *         self.btn_create.clicked.connect(self.emitName)
- * 
- *     def setTheme(self, style):             # <<<<<<<<<<<<<<
- *         self.setStyleSheet(style)
- * 
- */
 
-/* Python wrapper */
+
+
 static PyObject *__pyx_pw_6ver1_3_4main_12CreateDialog_3setTheme(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
-); /*proto*/
+); 
 static PyMethodDef __pyx_mdef_6ver1_3_4main_12CreateDialog_3setTheme = {"setTheme", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6ver1_3_4main_12CreateDialog_3setTheme, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
 static PyObject *__pyx_pw_6ver1_3_4main_12CreateDialog_3setTheme(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
@@ -15475,7 +13723,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __pyx_L4_argument_unpacking_done:;
   __pyx_r = __pyx_pf_6ver1_3_4main_12CreateDialog_2setTheme(__pyx_self, __pyx_v_self, __pyx_v_style);
 
-  /* function exit code */
+  
   {
     Py_ssize_t __pyx_temp;
     for (__pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
@@ -15498,13 +13746,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12CreateDialog_2setTheme(CYTHON_UNUSED P
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("setTheme", 0);
 
-  /* "main.py":375
- * 
- *     def setTheme(self, style):
- *         self.setStyleSheet(style)             # <<<<<<<<<<<<<<
- * 
- *     def emitName(self):
- */
+  
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_setStyleSheet); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 375, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
@@ -15531,15 +13773,9 @@ static PyObject *__pyx_pf_6ver1_3_4main_12CreateDialog_2setTheme(CYTHON_UNUSED P
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":374
- *         self.btn_create.clicked.connect(self.emitName)
- * 
- *     def setTheme(self, style):             # <<<<<<<<<<<<<<
- *         self.setStyleSheet(style)
- * 
- */
+  
 
-  /* function exit code */
+  
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
@@ -15554,22 +13790,16 @@ static PyObject *__pyx_pf_6ver1_3_4main_12CreateDialog_2setTheme(CYTHON_UNUSED P
   return __pyx_r;
 }
 
-/* "main.py":377
- *         self.setStyleSheet(style)
- * 
- *     def emitName(self):             # <<<<<<<<<<<<<<
- *         connect = sqlite3.connect(f"{VERSIONPATH}/database/d.db")
- *         cursor = connect.cursor()
- */
 
-/* Python wrapper */
+
+
 static PyObject *__pyx_pw_6ver1_3_4main_12CreateDialog_5emitName(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
-); /*proto*/
+); 
 static PyMethodDef __pyx_mdef_6ver1_3_4main_12CreateDialog_5emitName = {"emitName", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6ver1_3_4main_12CreateDialog_5emitName, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
 static PyObject *__pyx_pw_6ver1_3_4main_12CreateDialog_5emitName(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
@@ -15647,7 +13877,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __pyx_L4_argument_unpacking_done:;
   __pyx_r = __pyx_pf_6ver1_3_4main_12CreateDialog_4emitName(__pyx_self, __pyx_v_self);
 
-  /* function exit code */
+  
   {
     Py_ssize_t __pyx_temp;
     for (__pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
@@ -15684,13 +13914,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12CreateDialog_4emitName(CYTHON_UNUSED P
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("emitName", 0);
 
-  /* "main.py":378
- * 
- *     def emitName(self):
- *         connect = sqlite3.connect(f"{VERSIONPATH}/database/d.db")             # <<<<<<<<<<<<<<
- *         cursor = connect.cursor()
- * 
- */
+  
   __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_sqlite3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 378, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_connect); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 378, __pyx_L1_error)
@@ -15730,13 +13954,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12CreateDialog_4emitName(CYTHON_UNUSED P
   __pyx_v_connect = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "main.py":379
- *     def emitName(self):
- *         connect = sqlite3.connect(f"{VERSIONPATH}/database/d.db")
- *         cursor = connect.cursor()             # <<<<<<<<<<<<<<
- * 
- *         name = self.le_name.text()
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_connect, __pyx_n_s_cursor); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 379, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = NULL;
@@ -15764,13 +13982,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12CreateDialog_4emitName(CYTHON_UNUSED P
   __pyx_v_cursor = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "main.py":381
- *         cursor = connect.cursor()
- * 
- *         name = self.le_name.text()             # <<<<<<<<<<<<<<
- * 
- *         if name != '':
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_le_name); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 381, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_text); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 381, __pyx_L1_error)
@@ -15801,35 +14013,17 @@ static PyObject *__pyx_pf_6ver1_3_4main_12CreateDialog_4emitName(CYTHON_UNUSED P
   __pyx_v_name = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "main.py":383
- *         name = self.le_name.text()
- * 
- *         if name != '':             # <<<<<<<<<<<<<<
- *             reportName = '_' + name
- * 
- */
+  
   __pyx_t_6 = (__Pyx_PyString_Equals(__pyx_v_name, __pyx_kp_s_, Py_NE)); if (unlikely((__pyx_t_6 < 0))) __PYX_ERR(0, 383, __pyx_L1_error)
   if (__pyx_t_6) {
 
-    /* "main.py":384
- * 
- *         if name != '':
- *             reportName = '_' + name             # <<<<<<<<<<<<<<
- * 
- *             try:
- */
+    
     __pyx_t_1 = PyNumber_Add(__pyx_n_s__12, __pyx_v_name); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 384, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_v_reportName = __pyx_t_1;
     __pyx_t_1 = 0;
 
-    /* "main.py":386
- *             reportName = '_' + name
- * 
- *             try:             # <<<<<<<<<<<<<<
- *                 cursor.execute(f"""CREATE TABLE {name} (
- *                     rowAndColumn TEXT    UNIQUE,
- */
+    
     {
       __Pyx_PyThreadState_declare
       __Pyx_PyThreadState_assign
@@ -15837,15 +14031,9 @@ static PyObject *__pyx_pf_6ver1_3_4main_12CreateDialog_4emitName(CYTHON_UNUSED P
       __Pyx_XGOTREF(__pyx_t_7);
       __Pyx_XGOTREF(__pyx_t_8);
       __Pyx_XGOTREF(__pyx_t_9);
-      /*try:*/ {
+       {
 
-        /* "main.py":387
- * 
- *             try:
- *                 cursor.execute(f"""CREATE TABLE {name} (             # <<<<<<<<<<<<<<
- *                     rowAndColumn TEXT    UNIQUE,
- *                     notes        TEXT,
- */
+        
         __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_cursor, __pyx_n_s_execute); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 387, __pyx_L4_error)
         __Pyx_GOTREF(__pyx_t_2);
         __pyx_t_3 = PyTuple_New(3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 387, __pyx_L4_error)
@@ -15895,13 +14083,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12CreateDialog_4emitName(CYTHON_UNUSED P
         }
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-        /* "main.py":395
- *                     );""")
- * 
- *                 cursor.execute(f"""CREATE TABLE {reportName} (             # <<<<<<<<<<<<<<
- *                         date        TEXT    UNIQUE,
- *                         price       INTEGER,
- */
+        
         __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_cursor, __pyx_n_s_execute); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 395, __pyx_L4_error)
         __Pyx_GOTREF(__pyx_t_2);
         __pyx_t_4 = PyTuple_New(3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 395, __pyx_L4_error)
@@ -15951,13 +14133,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12CreateDialog_4emitName(CYTHON_UNUSED P
         }
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-        /* "main.py":407
- *                     );""")
- * 
- *                 connect.commit()             # <<<<<<<<<<<<<<
- *                 connect.close()
- * 
- */
+        
         __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_connect, __pyx_n_s_commit); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 407, __pyx_L4_error)
         __Pyx_GOTREF(__pyx_t_2);
         __pyx_t_3 = NULL;
@@ -15984,13 +14160,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12CreateDialog_4emitName(CYTHON_UNUSED P
         }
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-        /* "main.py":408
- * 
- *                 connect.commit()
- *                 connect.close()             # <<<<<<<<<<<<<<
- * 
- *                 self.s_upd.emit()
- */
+        
         __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_connect, __pyx_n_s_close); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 408, __pyx_L4_error)
         __Pyx_GOTREF(__pyx_t_2);
         __pyx_t_3 = NULL;
@@ -16017,13 +14187,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12CreateDialog_4emitName(CYTHON_UNUSED P
         }
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-        /* "main.py":410
- *                 connect.close()
- * 
- *                 self.s_upd.emit()             # <<<<<<<<<<<<<<
- *                 self.close()
- * 
- */
+        
         __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_s_upd); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 410, __pyx_L4_error)
         __Pyx_GOTREF(__pyx_t_2);
         __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_emit); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 410, __pyx_L4_error)
@@ -16053,13 +14217,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12CreateDialog_4emitName(CYTHON_UNUSED P
         }
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-        /* "main.py":411
- * 
- *                 self.s_upd.emit()
- *                 self.close()             # <<<<<<<<<<<<<<
- * 
- *             except sqlite3.OperationalError:
- */
+        
         __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_close); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 411, __pyx_L4_error)
         __Pyx_GOTREF(__pyx_t_3);
         __pyx_t_2 = NULL;
@@ -16086,13 +14244,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12CreateDialog_4emitName(CYTHON_UNUSED P
         }
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-        /* "main.py":386
- *             reportName = '_' + name
- * 
- *             try:             # <<<<<<<<<<<<<<
- *                 cursor.execute(f"""CREATE TABLE {name} (
- *                     rowAndColumn TEXT    UNIQUE,
- */
+        
       }
       __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
       __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
@@ -16104,13 +14256,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12CreateDialog_4emitName(CYTHON_UNUSED P
       __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
       __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-      /* "main.py":413
- *                 self.close()
- * 
- *             except sqlite3.OperationalError:             # <<<<<<<<<<<<<<
- *                 self.alert("     !",
- *                     ",      , "+
- */
+      
       __Pyx_ErrFetch(&__pyx_t_1, &__pyx_t_3, &__pyx_t_2);
       __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_sqlite3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 413, __pyx_L6_except_error)
       __Pyx_GOTREF(__pyx_t_4);
@@ -16128,23 +14274,11 @@ static PyObject *__pyx_pf_6ver1_3_4main_12CreateDialog_4emitName(CYTHON_UNUSED P
         __Pyx_XGOTREF(__pyx_t_3);
         __Pyx_XGOTREF(__pyx_t_1);
 
-        /* "main.py":414
- * 
- *             except sqlite3.OperationalError:
- *                 self.alert("     !",             # <<<<<<<<<<<<<<
- *                     ",      , "+
- *                     "    .")
- */
+        
         __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_alert); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 414, __pyx_L6_except_error)
         __Pyx_GOTREF(__pyx_t_4);
 
-        /* "main.py":415
- *             except sqlite3.OperationalError:
- *                 self.alert("     !",
- *                     ",      , "+             # <<<<<<<<<<<<<<
- *                     "    .")
- * 
- */
+        
         __pyx_t_13 = __Pyx_PyStr_Concat(__pyx_kp_s__14, __pyx_kp_s__15); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 415, __pyx_L6_except_error)
         __Pyx_GOTREF(__pyx_t_13);
         __pyx_t_14 = NULL;
@@ -16178,13 +14312,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12CreateDialog_4emitName(CYTHON_UNUSED P
       }
       goto __pyx_L6_except_error;
 
-      /* "main.py":386
- *             reportName = '_' + name
- * 
- *             try:             # <<<<<<<<<<<<<<
- *                 cursor.execute(f"""CREATE TABLE {name} (
- *                     rowAndColumn TEXT    UNIQUE,
- */
+      
       __pyx_L6_except_error:;
       __Pyx_XGIVEREF(__pyx_t_7);
       __Pyx_XGIVEREF(__pyx_t_8);
@@ -16199,24 +14327,12 @@ static PyObject *__pyx_pf_6ver1_3_4main_12CreateDialog_4emitName(CYTHON_UNUSED P
       __pyx_L9_try_end:;
     }
 
-    /* "main.py":383
- *         name = self.le_name.text()
- * 
- *         if name != '':             # <<<<<<<<<<<<<<
- *             reportName = '_' + name
- * 
- */
+    
     goto __pyx_L3;
   }
 
-  /* "main.py":419
- * 
- *         else:
- *             self.alert("    !")             # <<<<<<<<<<<<<<
- * 
- *     def alert(self, text, infoText):
- */
-  /*else*/ {
+  
+   {
     __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_alert); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 419, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_2 = NULL;
@@ -16245,15 +14361,9 @@ static PyObject *__pyx_pf_6ver1_3_4main_12CreateDialog_4emitName(CYTHON_UNUSED P
   }
   __pyx_L3:;
 
-  /* "main.py":377
- *         self.setStyleSheet(style)
- * 
- *     def emitName(self):             # <<<<<<<<<<<<<<
- *         connect = sqlite3.connect(f"{VERSIONPATH}/database/d.db")
- *         cursor = connect.cursor()
- */
+  
 
-  /* function exit code */
+  
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
@@ -16276,22 +14386,16 @@ static PyObject *__pyx_pf_6ver1_3_4main_12CreateDialog_4emitName(CYTHON_UNUSED P
   return __pyx_r;
 }
 
-/* "main.py":421
- *             self.alert("    !")
- * 
- *     def alert(self, text, infoText):             # <<<<<<<<<<<<<<
- *         msg = QMessageBox(text=text,parent=self)
- *         msg.setStandardButtons(QMessageBox.StandardButton.Ok)
- */
 
-/* Python wrapper */
+
+
 static PyObject *__pyx_pw_6ver1_3_4main_12CreateDialog_7alert(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
-); /*proto*/
+); 
 static PyMethodDef __pyx_mdef_6ver1_3_4main_12CreateDialog_7alert = {"alert", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6ver1_3_4main_12CreateDialog_7alert, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
 static PyObject *__pyx_pw_6ver1_3_4main_12CreateDialog_7alert(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
@@ -16399,7 +14503,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __pyx_L4_argument_unpacking_done:;
   __pyx_r = __pyx_pf_6ver1_3_4main_12CreateDialog_6alert(__pyx_self, __pyx_v_self, __pyx_v_text, __pyx_v_infoText);
 
-  /* function exit code */
+  
   {
     Py_ssize_t __pyx_temp;
     for (__pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
@@ -16425,13 +14529,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12CreateDialog_6alert(CYTHON_UNUSED PyOb
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("alert", 0);
 
-  /* "main.py":422
- * 
- *     def alert(self, text, infoText):
- *         msg = QMessageBox(text=text,parent=self)             # <<<<<<<<<<<<<<
- *         msg.setStandardButtons(QMessageBox.StandardButton.Ok)
- *         msg.setInformativeText(infoText)
- */
+  
   __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_QMessageBox); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 422, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_2 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 422, __pyx_L1_error)
@@ -16445,13 +14543,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12CreateDialog_6alert(CYTHON_UNUSED PyOb
   __pyx_v_msg = __pyx_t_3;
   __pyx_t_3 = 0;
 
-  /* "main.py":423
- *     def alert(self, text, infoText):
- *         msg = QMessageBox(text=text,parent=self)
- *         msg.setStandardButtons(QMessageBox.StandardButton.Ok)             # <<<<<<<<<<<<<<
- *         msg.setInformativeText(infoText)
- *         msg.setIcon(QMessageBox.Icon.Critical)
- */
+  
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_msg, __pyx_n_s_setStandardButtons); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 423, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_QMessageBox); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 423, __pyx_L1_error)
@@ -16487,13 +14579,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12CreateDialog_6alert(CYTHON_UNUSED PyOb
   }
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "main.py":424
- *         msg = QMessageBox(text=text,parent=self)
- *         msg.setStandardButtons(QMessageBox.StandardButton.Ok)
- *         msg.setInformativeText(infoText)             # <<<<<<<<<<<<<<
- *         msg.setIcon(QMessageBox.Icon.Critical)
- *         ret = msg.exec()
- */
+  
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_msg, __pyx_n_s_setInformativeText); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 424, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_1 = NULL;
@@ -16520,13 +14606,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12CreateDialog_6alert(CYTHON_UNUSED PyOb
   }
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "main.py":425
- *         msg.setStandardButtons(QMessageBox.StandardButton.Ok)
- *         msg.setInformativeText(infoText)
- *         msg.setIcon(QMessageBox.Icon.Critical)             # <<<<<<<<<<<<<<
- *         ret = msg.exec()
- * 
- */
+  
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_msg, __pyx_n_s_setIcon); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 425, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_QMessageBox); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 425, __pyx_L1_error)
@@ -16562,13 +14642,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12CreateDialog_6alert(CYTHON_UNUSED PyOb
   }
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "main.py":426
- *         msg.setInformativeText(infoText)
- *         msg.setIcon(QMessageBox.Icon.Critical)
- *         ret = msg.exec()             # <<<<<<<<<<<<<<
- * 
- * 
- */
+  
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_msg, __pyx_n_s_exec); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 426, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_1 = NULL;
@@ -16596,15 +14670,9 @@ static PyObject *__pyx_pf_6ver1_3_4main_12CreateDialog_6alert(CYTHON_UNUSED PyOb
   __pyx_v_ret = __pyx_t_3;
   __pyx_t_3 = 0;
 
-  /* "main.py":421
- *             self.alert("    !")
- * 
- *     def alert(self, text, infoText):             # <<<<<<<<<<<<<<
- *         msg = QMessageBox(text=text,parent=self)
- *         msg.setStandardButtons(QMessageBox.StandardButton.Ok)
- */
+  
 
-  /* function exit code */
+  
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
@@ -16622,22 +14690,16 @@ static PyObject *__pyx_pf_6ver1_3_4main_12CreateDialog_6alert(CYTHON_UNUSED PyOb
   return __pyx_r;
 }
 
-/* "main.py":433
- *     s_info = QtCore.pyqtSignal(int, int, int, int, int, str)
- * 
- *     def __init__(self):             # <<<<<<<<<<<<<<
- *         super(EditDialog, self).__init__()
- *         self.setupUi(self)
- */
 
-/* Python wrapper */
+
+
 static PyObject *__pyx_pw_6ver1_3_4main_10EditDialog_1__init__(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
-); /*proto*/
+); 
 static PyMethodDef __pyx_mdef_6ver1_3_4main_10EditDialog_1__init__ = {"__init__", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6ver1_3_4main_10EditDialog_1__init__, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
 static PyObject *__pyx_pw_6ver1_3_4main_10EditDialog_1__init__(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
@@ -16715,7 +14777,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __pyx_L4_argument_unpacking_done:;
   __pyx_r = __pyx_pf_6ver1_3_4main_10EditDialog___init__(__pyx_self, __pyx_v_self);
 
-  /* function exit code */
+  
   {
     Py_ssize_t __pyx_temp;
     for (__pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
@@ -16741,13 +14803,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10EditDialog___init__(CYTHON_UNUSED PyOb
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__init__", 0);
 
-  /* "main.py":434
- * 
- *     def __init__(self):
- *         super(EditDialog, self).__init__()             # <<<<<<<<<<<<<<
- *         self.setupUi(self)
- * 
- */
+  
   __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_EditDialog); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 434, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 434, __pyx_L1_error)
@@ -16788,13 +14844,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10EditDialog___init__(CYTHON_UNUSED PyOb
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":435
- *     def __init__(self):
- *         super(EditDialog, self).__init__()
- *         self.setupUi(self)             # <<<<<<<<<<<<<<
- * 
- *         self.setWindowIcon(QtGui.QIcon(f'{VERSIONPATH}/icon96px.ico'))
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_setupUi); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 435, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = NULL;
@@ -16821,13 +14871,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10EditDialog___init__(CYTHON_UNUSED PyOb
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":437
- *         self.setupUi(self)
- * 
- *         self.setWindowIcon(QtGui.QIcon(f'{VERSIONPATH}/icon96px.ico'))             # <<<<<<<<<<<<<<
- *         self.setWindowTitle("")
- *         self.setFixedSize(QSize(370, 430))
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_setWindowIcon); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 437, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_QtGui); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 437, __pyx_L1_error)
@@ -16891,13 +14935,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10EditDialog___init__(CYTHON_UNUSED PyOb
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":438
- * 
- *         self.setWindowIcon(QtGui.QIcon(f'{VERSIONPATH}/icon96px.ico'))
- *         self.setWindowTitle("")             # <<<<<<<<<<<<<<
- *         self.setFixedSize(QSize(370, 430))
- * 
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_setWindowTitle); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 438, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = NULL;
@@ -16924,13 +14962,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10EditDialog___init__(CYTHON_UNUSED PyOb
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":439
- *         self.setWindowIcon(QtGui.QIcon(f'{VERSIONPATH}/icon96px.ico'))
- *         self.setWindowTitle("")
- *         self.setFixedSize(QSize(370, 430))             # <<<<<<<<<<<<<<
- * 
- *         self.date_in.setDate(QDate.currentDate())
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_setFixedSize); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 439, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_QSize); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 439, __pyx_L1_error)
@@ -16963,13 +14995,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10EditDialog___init__(CYTHON_UNUSED PyOb
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":441
- *         self.setFixedSize(QSize(370, 430))
- * 
- *         self.date_in.setDate(QDate.currentDate())             # <<<<<<<<<<<<<<
- *         self.date_out.setDate(QDate.currentDate())
- * 
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_date_in); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 441, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_setDate); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 441, __pyx_L1_error)
@@ -17027,13 +15053,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10EditDialog___init__(CYTHON_UNUSED PyOb
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":442
- * 
- *         self.date_in.setDate(QDate.currentDate())
- *         self.date_out.setDate(QDate.currentDate())             # <<<<<<<<<<<<<<
- * 
- *         self.btn_color.clicked.connect(self.colorDialog)
- */
+  
   __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_date_out); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 442, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_setDate); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 442, __pyx_L1_error)
@@ -17091,13 +15111,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10EditDialog___init__(CYTHON_UNUSED PyOb
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":444
- *         self.date_out.setDate(QDate.currentDate())
- * 
- *         self.btn_color.clicked.connect(self.colorDialog)             # <<<<<<<<<<<<<<
- *         self.btn_save.clicked.connect(self.save)
- * 
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_btn_color); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 444, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_clicked); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 444, __pyx_L1_error)
@@ -17133,13 +15147,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10EditDialog___init__(CYTHON_UNUSED PyOb
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":445
- * 
- *         self.btn_color.clicked.connect(self.colorDialog)
- *         self.btn_save.clicked.connect(self.save)             # <<<<<<<<<<<<<<
- * 
- *         self.color = None
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_btn_save); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 445, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_clicked); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 445, __pyx_L1_error)
@@ -17175,33 +15183,15 @@ static PyObject *__pyx_pf_6ver1_3_4main_10EditDialog___init__(CYTHON_UNUSED PyOb
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":447
- *         self.btn_save.clicked.connect(self.save)
- * 
- *         self.color = None             # <<<<<<<<<<<<<<
- *         self.notes = None
- * 
- */
+  
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_color, Py_None) < 0) __PYX_ERR(0, 447, __pyx_L1_error)
 
-  /* "main.py":448
- * 
- *         self.color = None
- *         self.notes = None             # <<<<<<<<<<<<<<
- * 
- *     def setTheme(self, style):
- */
+  
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_notes, Py_None) < 0) __PYX_ERR(0, 448, __pyx_L1_error)
 
-  /* "main.py":433
- *     s_info = QtCore.pyqtSignal(int, int, int, int, int, str)
- * 
- *     def __init__(self):             # <<<<<<<<<<<<<<
- *         super(EditDialog, self).__init__()
- *         self.setupUi(self)
- */
+  
 
-  /* function exit code */
+  
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
@@ -17219,22 +15209,16 @@ static PyObject *__pyx_pf_6ver1_3_4main_10EditDialog___init__(CYTHON_UNUSED PyOb
   return __pyx_r;
 }
 
-/* "main.py":450
- *         self.notes = None
- * 
- *     def setTheme(self, style):             # <<<<<<<<<<<<<<
- *         self.setStyleSheet(style)
- * 
- */
 
-/* Python wrapper */
+
+
 static PyObject *__pyx_pw_6ver1_3_4main_10EditDialog_3setTheme(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
-); /*proto*/
+); 
 static PyMethodDef __pyx_mdef_6ver1_3_4main_10EditDialog_3setTheme = {"setTheme", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6ver1_3_4main_10EditDialog_3setTheme, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
 static PyObject *__pyx_pw_6ver1_3_4main_10EditDialog_3setTheme(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
@@ -17327,7 +15311,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __pyx_L4_argument_unpacking_done:;
   __pyx_r = __pyx_pf_6ver1_3_4main_10EditDialog_2setTheme(__pyx_self, __pyx_v_self, __pyx_v_style);
 
-  /* function exit code */
+  
   {
     Py_ssize_t __pyx_temp;
     for (__pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
@@ -17350,13 +15334,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10EditDialog_2setTheme(CYTHON_UNUSED PyO
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("setTheme", 0);
 
-  /* "main.py":451
- * 
- *     def setTheme(self, style):
- *         self.setStyleSheet(style)             # <<<<<<<<<<<<<<
- * 
- *     def colorDialog(self):
- */
+  
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_setStyleSheet); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 451, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
@@ -17383,15 +15361,9 @@ static PyObject *__pyx_pf_6ver1_3_4main_10EditDialog_2setTheme(CYTHON_UNUSED PyO
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":450
- *         self.notes = None
- * 
- *     def setTheme(self, style):             # <<<<<<<<<<<<<<
- *         self.setStyleSheet(style)
- * 
- */
+  
 
-  /* function exit code */
+  
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
@@ -17406,22 +15378,16 @@ static PyObject *__pyx_pf_6ver1_3_4main_10EditDialog_2setTheme(CYTHON_UNUSED PyO
   return __pyx_r;
 }
 
-/* "main.py":453
- *         self.setStyleSheet(style)
- * 
- *     def colorDialog(self):             # <<<<<<<<<<<<<<
- *         self.color = QColorDialog.getColor()
- * 
- */
 
-/* Python wrapper */
+
+
 static PyObject *__pyx_pw_6ver1_3_4main_10EditDialog_5colorDialog(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
-); /*proto*/
+); 
 static PyMethodDef __pyx_mdef_6ver1_3_4main_10EditDialog_5colorDialog = {"colorDialog", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6ver1_3_4main_10EditDialog_5colorDialog, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
 static PyObject *__pyx_pw_6ver1_3_4main_10EditDialog_5colorDialog(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
@@ -17499,7 +15465,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __pyx_L4_argument_unpacking_done:;
   __pyx_r = __pyx_pf_6ver1_3_4main_10EditDialog_4colorDialog(__pyx_self, __pyx_v_self);
 
-  /* function exit code */
+  
   {
     Py_ssize_t __pyx_temp;
     for (__pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
@@ -17522,13 +15488,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10EditDialog_4colorDialog(CYTHON_UNUSED 
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("colorDialog", 0);
 
-  /* "main.py":454
- * 
- *     def colorDialog(self):
- *         self.color = QColorDialog.getColor()             # <<<<<<<<<<<<<<
- * 
- *     def save(self):
- */
+  
   __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_QColorDialog); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 454, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_getColor); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 454, __pyx_L1_error)
@@ -17559,15 +15519,9 @@ static PyObject *__pyx_pf_6ver1_3_4main_10EditDialog_4colorDialog(CYTHON_UNUSED 
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_color, __pyx_t_1) < 0) __PYX_ERR(0, 454, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":453
- *         self.setStyleSheet(style)
- * 
- *     def colorDialog(self):             # <<<<<<<<<<<<<<
- *         self.color = QColorDialog.getColor()
- * 
- */
+  
 
-  /* function exit code */
+  
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
@@ -17582,22 +15536,16 @@ static PyObject *__pyx_pf_6ver1_3_4main_10EditDialog_4colorDialog(CYTHON_UNUSED 
   return __pyx_r;
 }
 
-/* "main.py":456
- *         self.color = QColorDialog.getColor()
- * 
- *     def save(self):             # <<<<<<<<<<<<<<
- *         notes = self.te_notes.toPlainText()
- *         timeIn = self.time_in.time().toString(Qt.DateFormat.ISODate)
- */
 
-/* Python wrapper */
+
+
 static PyObject *__pyx_pw_6ver1_3_4main_10EditDialog_7save(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
-); /*proto*/
+); 
 static PyMethodDef __pyx_mdef_6ver1_3_4main_10EditDialog_7save = {"save", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6ver1_3_4main_10EditDialog_7save, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
 static PyObject *__pyx_pw_6ver1_3_4main_10EditDialog_7save(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
@@ -17675,7 +15623,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __pyx_L4_argument_unpacking_done:;
   __pyx_r = __pyx_pf_6ver1_3_4main_10EditDialog_6save(__pyx_self, __pyx_v_self);
 
-  /* function exit code */
+  
   {
     Py_ssize_t __pyx_temp;
     for (__pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
@@ -17720,13 +15668,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10EditDialog_6save(CYTHON_UNUSED PyObjec
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("save", 0);
 
-  /* "main.py":457
- * 
- *     def save(self):
- *         notes = self.te_notes.toPlainText()             # <<<<<<<<<<<<<<
- *         timeIn = self.time_in.time().toString(Qt.DateFormat.ISODate)
- *         timeOut = self.time_out.time().toString(Qt.DateFormat.ISODate)
- */
+  
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_te_notes); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 457, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_toPlainText); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 457, __pyx_L1_error)
@@ -17757,13 +15699,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10EditDialog_6save(CYTHON_UNUSED PyObjec
   __pyx_v_notes = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "main.py":458
- *     def save(self):
- *         notes = self.te_notes.toPlainText()
- *         timeIn = self.time_in.time().toString(Qt.DateFormat.ISODate)             # <<<<<<<<<<<<<<
- *         timeOut = self.time_out.time().toString(Qt.DateFormat.ISODate)
- * 
- */
+  
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_time_in); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 458, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_time); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 458, __pyx_L1_error)
@@ -17828,13 +15764,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10EditDialog_6save(CYTHON_UNUSED PyObjec
   __pyx_v_timeIn = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "main.py":459
- *         notes = self.te_notes.toPlainText()
- *         timeIn = self.time_in.time().toString(Qt.DateFormat.ISODate)
- *         timeOut = self.time_out.time().toString(Qt.DateFormat.ISODate)             # <<<<<<<<<<<<<<
- * 
- *         notes = f": {timeIn}\n: {timeOut}\n\n{notes}"
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_time_out); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 459, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_time); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 459, __pyx_L1_error)
@@ -17899,13 +15829,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10EditDialog_6save(CYTHON_UNUSED PyObjec
   __pyx_v_timeOut = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "main.py":461
- *         timeOut = self.time_out.time().toString(Qt.DateFormat.ISODate)
- * 
- *         notes = f": {timeIn}\n: {timeOut}\n\n{notes}"             # <<<<<<<<<<<<<<
- * 
- *         dayOut = self.date_out.date().dayOfYear()
- */
+  
   __pyx_t_1 = PyTuple_New(6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 461, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_6 = 0;
@@ -17951,13 +15875,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10EditDialog_6save(CYTHON_UNUSED PyObjec
   __Pyx_DECREF_SET(__pyx_v_notes, __pyx_t_2);
   __pyx_t_2 = 0;
 
-  /* "main.py":463
- *         notes = f": {timeIn}\n: {timeOut}\n\n{notes}"
- * 
- *         dayOut = self.date_out.date().dayOfYear()             # <<<<<<<<<<<<<<
- *         monthCount = self.date_in.date()
- *         day = self.date_in.date().day()
- */
+  
   __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_date_out); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 463, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_date); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 463, __pyx_L1_error)
@@ -18013,13 +15931,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10EditDialog_6save(CYTHON_UNUSED PyObjec
   __pyx_v_dayOut = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "main.py":464
- * 
- *         dayOut = self.date_out.date().dayOfYear()
- *         monthCount = self.date_in.date()             # <<<<<<<<<<<<<<
- *         day = self.date_in.date().day()
- *         curDay = self.date_in.date()
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_date_in); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 464, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_date); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 464, __pyx_L1_error)
@@ -18050,13 +15962,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10EditDialog_6save(CYTHON_UNUSED PyObjec
   __pyx_v_monthCount = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "main.py":465
- *         dayOut = self.date_out.date().dayOfYear()
- *         monthCount = self.date_in.date()
- *         day = self.date_in.date().day()             # <<<<<<<<<<<<<<
- *         curDay = self.date_in.date()
- *         addedMonths = 0
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_date_in); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 465, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_date); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 465, __pyx_L1_error)
@@ -18112,13 +16018,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10EditDialog_6save(CYTHON_UNUSED PyObjec
   __pyx_v_day = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "main.py":466
- *         monthCount = self.date_in.date()
- *         day = self.date_in.date().day()
- *         curDay = self.date_in.date()             # <<<<<<<<<<<<<<
- *         addedMonths = 0
- *         addedDays = 0
- */
+  
   __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_date_in); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 466, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_date); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 466, __pyx_L1_error)
@@ -18149,52 +16049,22 @@ static PyObject *__pyx_pf_6ver1_3_4main_10EditDialog_6save(CYTHON_UNUSED PyObjec
   __pyx_v_curDay = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "main.py":467
- *         day = self.date_in.date().day()
- *         curDay = self.date_in.date()
- *         addedMonths = 0             # <<<<<<<<<<<<<<
- *         addedDays = 0
- * 
- */
+  
   __Pyx_INCREF(__pyx_int_0);
   __pyx_v_addedMonths = __pyx_int_0;
 
-  /* "main.py":468
- *         curDay = self.date_in.date()
- *         addedMonths = 0
- *         addedDays = 0             # <<<<<<<<<<<<<<
- * 
- *         workie = True
- */
+  
   __Pyx_INCREF(__pyx_int_0);
   __pyx_v_addedDays = __pyx_int_0;
 
-  /* "main.py":470
- *         addedDays = 0
- * 
- *         workie = True             # <<<<<<<<<<<<<<
- * 
- *         while workie:
- */
+  
   __pyx_v_workie = 1;
 
-  /* "main.py":472
- *         workie = True
- * 
- *         while workie:             # <<<<<<<<<<<<<<
- * 
- *             if curDay.dayOfYear() <= dayOut:
- */
+  
   while (1) {
     if (!__pyx_v_workie) break;
 
-    /* "main.py":474
- *         while workie:
- * 
- *             if curDay.dayOfYear() <= dayOut:             # <<<<<<<<<<<<<<
- * 
- *                 if day <= monthCount.daysInMonth():
- */
+    
     __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_curDay, __pyx_n_s_dayOfYear); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 474, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_t_5 = NULL;
@@ -18225,13 +16095,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10EditDialog_6save(CYTHON_UNUSED PyObjec
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     if (__pyx_t_8) {
 
-      /* "main.py":476
- *             if curDay.dayOfYear() <= dayOut:
- * 
- *                 if day <= monthCount.daysInMonth():             # <<<<<<<<<<<<<<
- *                     month = monthCount.month()
- * 
- */
+      
       __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_monthCount, __pyx_n_s_daysInMonth); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 476, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __pyx_t_5 = NULL;
@@ -18262,13 +16126,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10EditDialog_6save(CYTHON_UNUSED PyObjec
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       if (__pyx_t_8) {
 
-        /* "main.py":477
- * 
- *                 if day <= monthCount.daysInMonth():
- *                     month = monthCount.month()             # <<<<<<<<<<<<<<
- * 
- *                     if self.color != None:
- */
+        
         __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_monthCount, __pyx_n_s_month); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 477, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         __pyx_t_5 = NULL;
@@ -18296,13 +16154,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10EditDialog_6save(CYTHON_UNUSED PyObjec
         __Pyx_XDECREF_SET(__pyx_v_month, __pyx_t_2);
         __pyx_t_2 = 0;
 
-        /* "main.py":479
- *                     month = monthCount.month()
- * 
- *                     if self.color != None:             # <<<<<<<<<<<<<<
- *                         red, green, blue, _ = self.color.getRgb()
- *                     else:
- */
+        
         __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_color); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 479, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         __pyx_t_1 = PyObject_RichCompare(__pyx_t_2, Py_None, Py_NE); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 479, __pyx_L1_error)
@@ -18311,13 +16163,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10EditDialog_6save(CYTHON_UNUSED PyObjec
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
         if (__pyx_t_8) {
 
-          /* "main.py":480
- * 
- *                     if self.color != None:
- *                         red, green, blue, _ = self.color.getRgb()             # <<<<<<<<<<<<<<
- *                     else:
- *                         red, green, blue = (100,100,150)
- */
+          
           __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_color); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 480, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_2);
           __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_getRgb); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 480, __pyx_L1_error)
@@ -18413,24 +16259,12 @@ static PyObject *__pyx_pf_6ver1_3_4main_10EditDialog_6save(CYTHON_UNUSED PyObjec
           __Pyx_XDECREF_SET(__pyx_v__, __pyx_t_9);
           __pyx_t_9 = 0;
 
-          /* "main.py":479
- *                     month = monthCount.month()
- * 
- *                     if self.color != None:             # <<<<<<<<<<<<<<
- *                         red, green, blue, _ = self.color.getRgb()
- *                     else:
- */
+          
           goto __pyx_L7;
         }
 
-        /* "main.py":482
- *                         red, green, blue, _ = self.color.getRgb()
- *                     else:
- *                         red, green, blue = (100,100,150)             # <<<<<<<<<<<<<<
- * 
- *                     self.s_info.emit(month -1 ,day -1, red, green, blue, notes)
- */
-        /*else*/ {
+        
+         {
           __pyx_t_1 = __pyx_int_100;
           __Pyx_INCREF(__pyx_t_1);
           __pyx_t_9 = __pyx_int_100;
@@ -18446,13 +16280,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10EditDialog_6save(CYTHON_UNUSED PyObjec
         }
         __pyx_L7:;
 
-        /* "main.py":484
- *                         red, green, blue = (100,100,150)
- * 
- *                     self.s_info.emit(month -1 ,day -1, red, green, blue, notes)             # <<<<<<<<<<<<<<
- *                     day += 1
- *                     addedDays += 1
- */
+        
         __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_s_info); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 484, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_9);
         __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_emit); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 484, __pyx_L1_error)
@@ -18488,37 +16316,19 @@ static PyObject *__pyx_pf_6ver1_3_4main_10EditDialog_6save(CYTHON_UNUSED PyObjec
         }
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-        /* "main.py":485
- * 
- *                     self.s_info.emit(month -1 ,day -1, red, green, blue, notes)
- *                     day += 1             # <<<<<<<<<<<<<<
- *                     addedDays += 1
- *                     curDay = self.date_in.date().addDays(addedDays)
- */
+        
         __pyx_t_3 = __Pyx_PyInt_AddObjC(__pyx_v_day, __pyx_int_1, 1, 1, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 485, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_DECREF_SET(__pyx_v_day, __pyx_t_3);
         __pyx_t_3 = 0;
 
-        /* "main.py":486
- *                     self.s_info.emit(month -1 ,day -1, red, green, blue, notes)
- *                     day += 1
- *                     addedDays += 1             # <<<<<<<<<<<<<<
- *                     curDay = self.date_in.date().addDays(addedDays)
- * 
- */
+        
         __pyx_t_3 = __Pyx_PyInt_AddObjC(__pyx_v_addedDays, __pyx_int_1, 1, 1, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 486, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_DECREF_SET(__pyx_v_addedDays, __pyx_t_3);
         __pyx_t_3 = 0;
 
-        /* "main.py":487
- *                     day += 1
- *                     addedDays += 1
- *                     curDay = self.date_in.date().addDays(addedDays)             # <<<<<<<<<<<<<<
- * 
- *                 else:
- */
+        
         __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_date_in); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 487, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_date); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 487, __pyx_L1_error)
@@ -18574,46 +16384,22 @@ static PyObject *__pyx_pf_6ver1_3_4main_10EditDialog_6save(CYTHON_UNUSED PyObjec
         __Pyx_DECREF_SET(__pyx_v_curDay, __pyx_t_3);
         __pyx_t_3 = 0;
 
-        /* "main.py":476
- *             if curDay.dayOfYear() <= dayOut:
- * 
- *                 if day <= monthCount.daysInMonth():             # <<<<<<<<<<<<<<
- *                     month = monthCount.month()
- * 
- */
+        
         goto __pyx_L6;
       }
 
-      /* "main.py":490
- * 
- *                 else:
- *                     day = 1             # <<<<<<<<<<<<<<
- *                     addedMonths += 1
- *                     monthCount = self.date_in.date().addMonths(addedMonths)
- */
-      /*else*/ {
+      
+       {
         __Pyx_INCREF(__pyx_int_1);
         __Pyx_DECREF_SET(__pyx_v_day, __pyx_int_1);
 
-        /* "main.py":491
- *                 else:
- *                     day = 1
- *                     addedMonths += 1             # <<<<<<<<<<<<<<
- *                     monthCount = self.date_in.date().addMonths(addedMonths)
- * 
- */
+        
         __pyx_t_3 = __Pyx_PyInt_AddObjC(__pyx_v_addedMonths, __pyx_int_1, 1, 1, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 491, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_DECREF_SET(__pyx_v_addedMonths, __pyx_t_3);
         __pyx_t_3 = 0;
 
-        /* "main.py":492
- *                     day = 1
- *                     addedMonths += 1
- *                     monthCount = self.date_in.date().addMonths(addedMonths)             # <<<<<<<<<<<<<<
- * 
- *             else:
- */
+        
         __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_date_in); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 492, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_date); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 492, __pyx_L1_error)
@@ -18671,24 +16457,12 @@ static PyObject *__pyx_pf_6ver1_3_4main_10EditDialog_6save(CYTHON_UNUSED PyObjec
       }
       __pyx_L6:;
 
-      /* "main.py":474
- *         while workie:
- * 
- *             if curDay.dayOfYear() <= dayOut:             # <<<<<<<<<<<<<<
- * 
- *                 if day <= monthCount.daysInMonth():
- */
+      
       goto __pyx_L5;
     }
 
-    /* "main.py":495
- * 
- *             else:
- *                 monthCount = self.date_in.date()             # <<<<<<<<<<<<<<
- *                 day = self.date_in.date().day()
- *                 curDay = self.date_in.date()
- */
-    /*else*/ {
+    
+     {
       __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_date_in); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 495, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_date); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 495, __pyx_L1_error)
@@ -18719,13 +16493,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10EditDialog_6save(CYTHON_UNUSED PyObjec
       __Pyx_DECREF_SET(__pyx_v_monthCount, __pyx_t_3);
       __pyx_t_3 = 0;
 
-      /* "main.py":496
- *             else:
- *                 monthCount = self.date_in.date()
- *                 day = self.date_in.date().day()             # <<<<<<<<<<<<<<
- *                 curDay = self.date_in.date()
- *                 addedMonths = 0
- */
+      
       __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_date_in); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 496, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_date); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 496, __pyx_L1_error)
@@ -18781,13 +16549,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10EditDialog_6save(CYTHON_UNUSED PyObjec
       __Pyx_DECREF_SET(__pyx_v_day, __pyx_t_3);
       __pyx_t_3 = 0;
 
-      /* "main.py":497
- *                 monthCount = self.date_in.date()
- *                 day = self.date_in.date().day()
- *                 curDay = self.date_in.date()             # <<<<<<<<<<<<<<
- *                 addedMonths = 0
- *                 addedDays = 0
- */
+      
       __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_date_in); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 497, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_date); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 497, __pyx_L1_error)
@@ -18818,47 +16580,23 @@ static PyObject *__pyx_pf_6ver1_3_4main_10EditDialog_6save(CYTHON_UNUSED PyObjec
       __Pyx_DECREF_SET(__pyx_v_curDay, __pyx_t_3);
       __pyx_t_3 = 0;
 
-      /* "main.py":498
- *                 day = self.date_in.date().day()
- *                 curDay = self.date_in.date()
- *                 addedMonths = 0             # <<<<<<<<<<<<<<
- *                 addedDays = 0
- *                 workie = False
- */
+      
       __Pyx_INCREF(__pyx_int_0);
       __Pyx_DECREF_SET(__pyx_v_addedMonths, __pyx_int_0);
 
-      /* "main.py":499
- *                 curDay = self.date_in.date()
- *                 addedMonths = 0
- *                 addedDays = 0             # <<<<<<<<<<<<<<
- *                 workie = False
- * 
- */
+      
       __Pyx_INCREF(__pyx_int_0);
       __Pyx_DECREF_SET(__pyx_v_addedDays, __pyx_int_0);
 
-      /* "main.py":500
- *                 addedMonths = 0
- *                 addedDays = 0
- *                 workie = False             # <<<<<<<<<<<<<<
- * 
- * 
- */
+      
       __pyx_v_workie = 0;
     }
     __pyx_L5:;
   }
 
-  /* "main.py":456
- *         self.color = QColorDialog.getColor()
- * 
- *     def save(self):             # <<<<<<<<<<<<<<
- *         notes = self.te_notes.toPlainText()
- *         timeIn = self.time_in.time().toString(Qt.DateFormat.ISODate)
- */
+  
 
-  /* function exit code */
+  
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
@@ -18890,22 +16628,16 @@ static PyObject *__pyx_pf_6ver1_3_4main_10EditDialog_6save(CYTHON_UNUSED PyObjec
   return __pyx_r;
 }
 
-/* "main.py":506
- *     s_cords = QtCore.pyqtSignal(int, int)
- * 
- *     def __init__(self):             # <<<<<<<<<<<<<<
- *         super(DeleteDialog, self).__init__()
- *         self.setupUi(self)
- */
 
-/* Python wrapper */
+
+
 static PyObject *__pyx_pw_6ver1_3_4main_12DeleteDialog_1__init__(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
-); /*proto*/
+); 
 static PyMethodDef __pyx_mdef_6ver1_3_4main_12DeleteDialog_1__init__ = {"__init__", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6ver1_3_4main_12DeleteDialog_1__init__, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
 static PyObject *__pyx_pw_6ver1_3_4main_12DeleteDialog_1__init__(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
@@ -18983,7 +16715,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __pyx_L4_argument_unpacking_done:;
   __pyx_r = __pyx_pf_6ver1_3_4main_12DeleteDialog___init__(__pyx_self, __pyx_v_self);
 
-  /* function exit code */
+  
   {
     Py_ssize_t __pyx_temp;
     for (__pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
@@ -18994,16 +16726,10 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-/* "main.py":517
- *         self.date_out.setDate(QDate.currentDate())
- * 
- *         self.btn_cancel.clicked.connect(lambda: self.close())             # <<<<<<<<<<<<<<
- *         self.btn_del.clicked.connect(self.delete)
- * 
- */
 
-/* Python wrapper */
-static PyObject *__pyx_pw_6ver1_3_4main_12DeleteDialog_8__init___lambda(PyObject *__pyx_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+
+
+static PyObject *__pyx_pw_6ver1_3_4main_12DeleteDialog_8__init___lambda(PyObject *__pyx_self, CYTHON_UNUSED PyObject *unused); 
 static PyMethodDef __pyx_mdef_6ver1_3_4main_12DeleteDialog_8__init___lambda = {"lambda", (PyCFunction)__pyx_pw_6ver1_3_4main_12DeleteDialog_8__init___lambda, METH_NOARGS, 0};
 static PyObject *__pyx_pw_6ver1_3_4main_12DeleteDialog_8__init___lambda(PyObject *__pyx_self, CYTHON_UNUSED PyObject *unused) {
   CYTHON_UNUSED PyObject *const *__pyx_kwvalues;
@@ -19013,7 +16739,7 @@ static PyObject *__pyx_pw_6ver1_3_4main_12DeleteDialog_8__init___lambda(PyObject
   __pyx_kwvalues = __Pyx_KwValues_VARARGS(__pyx_args, __pyx_nargs);
   __pyx_r = __pyx_lambda_funcdef_lambda(__pyx_self);
 
-  /* function exit code */
+  
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
@@ -19063,7 +16789,7 @@ static PyObject *__pyx_lambda_funcdef_lambda(PyObject *__pyx_self) {
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* function exit code */
+  
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
@@ -19076,13 +16802,7 @@ static PyObject *__pyx_lambda_funcdef_lambda(PyObject *__pyx_self) {
   return __pyx_r;
 }
 
-/* "main.py":506
- *     s_cords = QtCore.pyqtSignal(int, int)
- * 
- *     def __init__(self):             # <<<<<<<<<<<<<<
- *         super(DeleteDialog, self).__init__()
- *         self.setupUi(self)
- */
+
 
 static PyObject *__pyx_pf_6ver1_3_4main_12DeleteDialog___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
   struct __pyx_obj_6ver1_3_4main___pyx_scope_struct_2___init__ *__pyx_cur_scope;
@@ -19111,13 +16831,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12DeleteDialog___init__(CYTHON_UNUSED Py
   __Pyx_INCREF(__pyx_cur_scope->__pyx_v_self);
   __Pyx_GIVEREF(__pyx_cur_scope->__pyx_v_self);
 
-  /* "main.py":507
- * 
- *     def __init__(self):
- *         super(DeleteDialog, self).__init__()             # <<<<<<<<<<<<<<
- *         self.setupUi(self)
- * 
- */
+  
   __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_DeleteDialog); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 507, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 507, __pyx_L1_error)
@@ -19158,13 +16872,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12DeleteDialog___init__(CYTHON_UNUSED Py
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":508
- *     def __init__(self):
- *         super(DeleteDialog, self).__init__()
- *         self.setupUi(self)             # <<<<<<<<<<<<<<
- * 
- *         self.setWindowIcon(QtGui.QIcon(f'{VERSIONPATH}/icon96px.ico'))
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_setupUi); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 508, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = NULL;
@@ -19191,13 +16899,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12DeleteDialog___init__(CYTHON_UNUSED Py
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":510
- *         self.setupUi(self)
- * 
- *         self.setWindowIcon(QtGui.QIcon(f'{VERSIONPATH}/icon96px.ico'))             # <<<<<<<<<<<<<<
- *         self.setWindowTitle("")
- *         self.setFixedSize(QSize(302, 170))
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_setWindowIcon); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 510, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_QtGui); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 510, __pyx_L1_error)
@@ -19261,13 +16963,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12DeleteDialog___init__(CYTHON_UNUSED Py
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":511
- * 
- *         self.setWindowIcon(QtGui.QIcon(f'{VERSIONPATH}/icon96px.ico'))
- *         self.setWindowTitle("")             # <<<<<<<<<<<<<<
- *         self.setFixedSize(QSize(302, 170))
- * 
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_setWindowTitle); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 511, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = NULL;
@@ -19294,13 +16990,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12DeleteDialog___init__(CYTHON_UNUSED Py
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":512
- *         self.setWindowIcon(QtGui.QIcon(f'{VERSIONPATH}/icon96px.ico'))
- *         self.setWindowTitle("")
- *         self.setFixedSize(QSize(302, 170))             # <<<<<<<<<<<<<<
- * 
- *         self.date_in.setDate(QDate.currentDate())
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_setFixedSize); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 512, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_QSize); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 512, __pyx_L1_error)
@@ -19333,13 +17023,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12DeleteDialog___init__(CYTHON_UNUSED Py
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":514
- *         self.setFixedSize(QSize(302, 170))
- * 
- *         self.date_in.setDate(QDate.currentDate())             # <<<<<<<<<<<<<<
- *         self.date_out.setDate(QDate.currentDate())
- * 
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_date_in); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 514, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_setDate); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 514, __pyx_L1_error)
@@ -19397,13 +17081,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12DeleteDialog___init__(CYTHON_UNUSED Py
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":515
- * 
- *         self.date_in.setDate(QDate.currentDate())
- *         self.date_out.setDate(QDate.currentDate())             # <<<<<<<<<<<<<<
- * 
- *         self.btn_cancel.clicked.connect(lambda: self.close())
- */
+  
   __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_date_out); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 515, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_setDate); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 515, __pyx_L1_error)
@@ -19461,13 +17139,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12DeleteDialog___init__(CYTHON_UNUSED Py
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":517
- *         self.date_out.setDate(QDate.currentDate())
- * 
- *         self.btn_cancel.clicked.connect(lambda: self.close())             # <<<<<<<<<<<<<<
- *         self.btn_del.clicked.connect(self.delete)
- * 
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_btn_cancel); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 517, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_clicked); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 517, __pyx_L1_error)
@@ -19503,13 +17175,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12DeleteDialog___init__(CYTHON_UNUSED Py
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":518
- * 
- *         self.btn_cancel.clicked.connect(lambda: self.close())
- *         self.btn_del.clicked.connect(self.delete)             # <<<<<<<<<<<<<<
- * 
- *     def setTheme(self, style):
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_btn_del); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 518, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_clicked); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 518, __pyx_L1_error)
@@ -19545,15 +17211,9 @@ static PyObject *__pyx_pf_6ver1_3_4main_12DeleteDialog___init__(CYTHON_UNUSED Py
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":506
- *     s_cords = QtCore.pyqtSignal(int, int)
- * 
- *     def __init__(self):             # <<<<<<<<<<<<<<
- *         super(DeleteDialog, self).__init__()
- *         self.setupUi(self)
- */
+  
 
-  /* function exit code */
+  
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
@@ -19572,22 +17232,16 @@ static PyObject *__pyx_pf_6ver1_3_4main_12DeleteDialog___init__(CYTHON_UNUSED Py
   return __pyx_r;
 }
 
-/* "main.py":520
- *         self.btn_del.clicked.connect(self.delete)
- * 
- *     def setTheme(self, style):             # <<<<<<<<<<<<<<
- *         self.setStyleSheet(style)
- * 
- */
 
-/* Python wrapper */
+
+
 static PyObject *__pyx_pw_6ver1_3_4main_12DeleteDialog_3setTheme(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
-); /*proto*/
+); 
 static PyMethodDef __pyx_mdef_6ver1_3_4main_12DeleteDialog_3setTheme = {"setTheme", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6ver1_3_4main_12DeleteDialog_3setTheme, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
 static PyObject *__pyx_pw_6ver1_3_4main_12DeleteDialog_3setTheme(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
@@ -19680,7 +17334,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __pyx_L4_argument_unpacking_done:;
   __pyx_r = __pyx_pf_6ver1_3_4main_12DeleteDialog_2setTheme(__pyx_self, __pyx_v_self, __pyx_v_style);
 
-  /* function exit code */
+  
   {
     Py_ssize_t __pyx_temp;
     for (__pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
@@ -19703,13 +17357,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12DeleteDialog_2setTheme(CYTHON_UNUSED P
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("setTheme", 0);
 
-  /* "main.py":521
- * 
- *     def setTheme(self, style):
- *         self.setStyleSheet(style)             # <<<<<<<<<<<<<<
- * 
- *     def delete(self):
- */
+  
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_setStyleSheet); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 521, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
@@ -19736,15 +17384,9 @@ static PyObject *__pyx_pf_6ver1_3_4main_12DeleteDialog_2setTheme(CYTHON_UNUSED P
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":520
- *         self.btn_del.clicked.connect(self.delete)
- * 
- *     def setTheme(self, style):             # <<<<<<<<<<<<<<
- *         self.setStyleSheet(style)
- * 
- */
+  
 
-  /* function exit code */
+  
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
@@ -19759,22 +17401,16 @@ static PyObject *__pyx_pf_6ver1_3_4main_12DeleteDialog_2setTheme(CYTHON_UNUSED P
   return __pyx_r;
 }
 
-/* "main.py":523
- *         self.setStyleSheet(style)
- * 
- *     def delete(self):             # <<<<<<<<<<<<<<
- *         dayOut = self.date_out.date().dayOfYear()
- *         monthCount = self.date_in.date()
- */
 
-/* Python wrapper */
+
+
 static PyObject *__pyx_pw_6ver1_3_4main_12DeleteDialog_5delete(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
-); /*proto*/
+); 
 static PyMethodDef __pyx_mdef_6ver1_3_4main_12DeleteDialog_5delete = {"delete", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6ver1_3_4main_12DeleteDialog_5delete, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
 static PyObject *__pyx_pw_6ver1_3_4main_12DeleteDialog_5delete(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
@@ -19852,7 +17488,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __pyx_L4_argument_unpacking_done:;
   __pyx_r = __pyx_pf_6ver1_3_4main_12DeleteDialog_4delete(__pyx_self, __pyx_v_self);
 
-  /* function exit code */
+  
   {
     Py_ssize_t __pyx_temp;
     for (__pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
@@ -19886,13 +17522,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12DeleteDialog_4delete(CYTHON_UNUSED PyO
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("delete", 0);
 
-  /* "main.py":524
- * 
- *     def delete(self):
- *         dayOut = self.date_out.date().dayOfYear()             # <<<<<<<<<<<<<<
- *         monthCount = self.date_in.date()
- *         day = self.date_in.date().day()
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_date_out); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 524, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_date); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 524, __pyx_L1_error)
@@ -19948,13 +17578,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12DeleteDialog_4delete(CYTHON_UNUSED PyO
   __pyx_v_dayOut = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "main.py":525
- *     def delete(self):
- *         dayOut = self.date_out.date().dayOfYear()
- *         monthCount = self.date_in.date()             # <<<<<<<<<<<<<<
- *         day = self.date_in.date().day()
- *         curDay = self.date_in.date()
- */
+  
   __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_date_in); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 525, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_date); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 525, __pyx_L1_error)
@@ -19985,13 +17609,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12DeleteDialog_4delete(CYTHON_UNUSED PyO
   __pyx_v_monthCount = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "main.py":526
- *         dayOut = self.date_out.date().dayOfYear()
- *         monthCount = self.date_in.date()
- *         day = self.date_in.date().day()             # <<<<<<<<<<<<<<
- *         curDay = self.date_in.date()
- *         addedMonths = 0
- */
+  
   __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_date_in); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 526, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_date); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 526, __pyx_L1_error)
@@ -20047,13 +17665,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12DeleteDialog_4delete(CYTHON_UNUSED PyO
   __pyx_v_day = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "main.py":527
- *         monthCount = self.date_in.date()
- *         day = self.date_in.date().day()
- *         curDay = self.date_in.date()             # <<<<<<<<<<<<<<
- *         addedMonths = 0
- *         addedDays = 0
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_date_in); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 527, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_date); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 527, __pyx_L1_error)
@@ -20084,52 +17696,22 @@ static PyObject *__pyx_pf_6ver1_3_4main_12DeleteDialog_4delete(CYTHON_UNUSED PyO
   __pyx_v_curDay = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "main.py":528
- *         day = self.date_in.date().day()
- *         curDay = self.date_in.date()
- *         addedMonths = 0             # <<<<<<<<<<<<<<
- *         addedDays = 0
- * 
- */
+  
   __Pyx_INCREF(__pyx_int_0);
   __pyx_v_addedMonths = __pyx_int_0;
 
-  /* "main.py":529
- *         curDay = self.date_in.date()
- *         addedMonths = 0
- *         addedDays = 0             # <<<<<<<<<<<<<<
- * 
- *         workie = True
- */
+  
   __Pyx_INCREF(__pyx_int_0);
   __pyx_v_addedDays = __pyx_int_0;
 
-  /* "main.py":531
- *         addedDays = 0
- * 
- *         workie = True             # <<<<<<<<<<<<<<
- * 
- *         while workie:
- */
+  
   __pyx_v_workie = 1;
 
-  /* "main.py":533
- *         workie = True
- * 
- *         while workie:             # <<<<<<<<<<<<<<
- * 
- *             if curDay.dayOfYear() <= dayOut:
- */
+  
   while (1) {
     if (!__pyx_v_workie) break;
 
-    /* "main.py":535
- *         while workie:
- * 
- *             if curDay.dayOfYear() <= dayOut:             # <<<<<<<<<<<<<<
- * 
- *                 if day <= monthCount.daysInMonth():
- */
+    
     __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_curDay, __pyx_n_s_dayOfYear); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 535, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_t_3 = NULL;
@@ -20160,13 +17742,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12DeleteDialog_4delete(CYTHON_UNUSED PyO
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     if (__pyx_t_6) {
 
-      /* "main.py":537
- *             if curDay.dayOfYear() <= dayOut:
- * 
- *                 if day <= monthCount.daysInMonth():             # <<<<<<<<<<<<<<
- *                     month = monthCount.month()
- *                     self.s_cords.emit(month -1 ,day -1)
- */
+      
       __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_monthCount, __pyx_n_s_daysInMonth); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 537, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __pyx_t_3 = NULL;
@@ -20197,13 +17773,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12DeleteDialog_4delete(CYTHON_UNUSED PyO
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       if (__pyx_t_6) {
 
-        /* "main.py":538
- * 
- *                 if day <= monthCount.daysInMonth():
- *                     month = monthCount.month()             # <<<<<<<<<<<<<<
- *                     self.s_cords.emit(month -1 ,day -1)
- *                     day += 1
- */
+        
         __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_monthCount, __pyx_n_s_month); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 538, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         __pyx_t_3 = NULL;
@@ -20231,13 +17801,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12DeleteDialog_4delete(CYTHON_UNUSED PyO
         __Pyx_XDECREF_SET(__pyx_v_month, __pyx_t_1);
         __pyx_t_1 = 0;
 
-        /* "main.py":539
- *                 if day <= monthCount.daysInMonth():
- *                     month = monthCount.month()
- *                     self.s_cords.emit(month -1 ,day -1)             # <<<<<<<<<<<<<<
- *                     day += 1
- *                     addedDays += 1
- */
+        
         __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_s_cords); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 539, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_emit); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 539, __pyx_L1_error)
@@ -20273,37 +17837,19 @@ static PyObject *__pyx_pf_6ver1_3_4main_12DeleteDialog_4delete(CYTHON_UNUSED PyO
         }
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-        /* "main.py":540
- *                     month = monthCount.month()
- *                     self.s_cords.emit(month -1 ,day -1)
- *                     day += 1             # <<<<<<<<<<<<<<
- *                     addedDays += 1
- *                     curDay = self.date_in.date().addDays(addedDays)
- */
+        
         __pyx_t_1 = __Pyx_PyInt_AddObjC(__pyx_v_day, __pyx_int_1, 1, 1, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 540, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF_SET(__pyx_v_day, __pyx_t_1);
         __pyx_t_1 = 0;
 
-        /* "main.py":541
- *                     self.s_cords.emit(month -1 ,day -1)
- *                     day += 1
- *                     addedDays += 1             # <<<<<<<<<<<<<<
- *                     curDay = self.date_in.date().addDays(addedDays)
- * 
- */
+        
         __pyx_t_1 = __Pyx_PyInt_AddObjC(__pyx_v_addedDays, __pyx_int_1, 1, 1, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 541, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF_SET(__pyx_v_addedDays, __pyx_t_1);
         __pyx_t_1 = 0;
 
-        /* "main.py":542
- *                     day += 1
- *                     addedDays += 1
- *                     curDay = self.date_in.date().addDays(addedDays)             # <<<<<<<<<<<<<<
- * 
- *                 else:
- */
+        
         __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_date_in); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 542, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_date); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 542, __pyx_L1_error)
@@ -20359,46 +17905,22 @@ static PyObject *__pyx_pf_6ver1_3_4main_12DeleteDialog_4delete(CYTHON_UNUSED PyO
         __Pyx_DECREF_SET(__pyx_v_curDay, __pyx_t_1);
         __pyx_t_1 = 0;
 
-        /* "main.py":537
- *             if curDay.dayOfYear() <= dayOut:
- * 
- *                 if day <= monthCount.daysInMonth():             # <<<<<<<<<<<<<<
- *                     month = monthCount.month()
- *                     self.s_cords.emit(month -1 ,day -1)
- */
+        
         goto __pyx_L6;
       }
 
-      /* "main.py":545
- * 
- *                 else:
- *                     day = 1             # <<<<<<<<<<<<<<
- *                     addedMonths += 1
- *                     monthCount = self.date_in.date().addMonths(addedMonths)
- */
-      /*else*/ {
+      
+       {
         __Pyx_INCREF(__pyx_int_1);
         __Pyx_DECREF_SET(__pyx_v_day, __pyx_int_1);
 
-        /* "main.py":546
- *                 else:
- *                     day = 1
- *                     addedMonths += 1             # <<<<<<<<<<<<<<
- *                     monthCount = self.date_in.date().addMonths(addedMonths)
- * 
- */
+        
         __pyx_t_1 = __Pyx_PyInt_AddObjC(__pyx_v_addedMonths, __pyx_int_1, 1, 1, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 546, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF_SET(__pyx_v_addedMonths, __pyx_t_1);
         __pyx_t_1 = 0;
 
-        /* "main.py":547
- *                     day = 1
- *                     addedMonths += 1
- *                     monthCount = self.date_in.date().addMonths(addedMonths)             # <<<<<<<<<<<<<<
- * 
- *             else:
- */
+        
         __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_date_in); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 547, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
         __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_date); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 547, __pyx_L1_error)
@@ -20456,24 +17978,12 @@ static PyObject *__pyx_pf_6ver1_3_4main_12DeleteDialog_4delete(CYTHON_UNUSED PyO
       }
       __pyx_L6:;
 
-      /* "main.py":535
- *         while workie:
- * 
- *             if curDay.dayOfYear() <= dayOut:             # <<<<<<<<<<<<<<
- * 
- *                 if day <= monthCount.daysInMonth():
- */
+      
       goto __pyx_L5;
     }
 
-    /* "main.py":550
- * 
- *             else:
- *                 monthCount = self.date_in.date()             # <<<<<<<<<<<<<<
- *                 day = self.date_in.date().day()
- *                 curDay = self.date_in.date()
- */
-    /*else*/ {
+    
+     {
       __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_date_in); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 550, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_date); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 550, __pyx_L1_error)
@@ -20504,13 +18014,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12DeleteDialog_4delete(CYTHON_UNUSED PyO
       __Pyx_DECREF_SET(__pyx_v_monthCount, __pyx_t_1);
       __pyx_t_1 = 0;
 
-      /* "main.py":551
- *             else:
- *                 monthCount = self.date_in.date()
- *                 day = self.date_in.date().day()             # <<<<<<<<<<<<<<
- *                 curDay = self.date_in.date()
- *                 addedMonths = 0
- */
+      
       __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_date_in); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 551, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_date); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 551, __pyx_L1_error)
@@ -20566,13 +18070,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12DeleteDialog_4delete(CYTHON_UNUSED PyO
       __Pyx_DECREF_SET(__pyx_v_day, __pyx_t_1);
       __pyx_t_1 = 0;
 
-      /* "main.py":552
- *                 monthCount = self.date_in.date()
- *                 day = self.date_in.date().day()
- *                 curDay = self.date_in.date()             # <<<<<<<<<<<<<<
- *                 addedMonths = 0
- *                 addedDays = 0
- */
+      
       __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_date_in); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 552, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_date); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 552, __pyx_L1_error)
@@ -20603,47 +18101,23 @@ static PyObject *__pyx_pf_6ver1_3_4main_12DeleteDialog_4delete(CYTHON_UNUSED PyO
       __Pyx_DECREF_SET(__pyx_v_curDay, __pyx_t_1);
       __pyx_t_1 = 0;
 
-      /* "main.py":553
- *                 day = self.date_in.date().day()
- *                 curDay = self.date_in.date()
- *                 addedMonths = 0             # <<<<<<<<<<<<<<
- *                 addedDays = 0
- *                 workie = False
- */
+      
       __Pyx_INCREF(__pyx_int_0);
       __Pyx_DECREF_SET(__pyx_v_addedMonths, __pyx_int_0);
 
-      /* "main.py":554
- *                 curDay = self.date_in.date()
- *                 addedMonths = 0
- *                 addedDays = 0             # <<<<<<<<<<<<<<
- *                 workie = False
- * 
- */
+      
       __Pyx_INCREF(__pyx_int_0);
       __Pyx_DECREF_SET(__pyx_v_addedDays, __pyx_int_0);
 
-      /* "main.py":555
- *                 addedMonths = 0
- *                 addedDays = 0
- *                 workie = False             # <<<<<<<<<<<<<<
- * 
- * 
- */
+      
       __pyx_v_workie = 0;
     }
     __pyx_L5:;
   }
 
-  /* "main.py":523
- *         self.setStyleSheet(style)
- * 
- *     def delete(self):             # <<<<<<<<<<<<<<
- *         dayOut = self.date_out.date().dayOfYear()
- *         monthCount = self.date_in.date()
- */
+  
 
-  /* function exit code */
+  
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
@@ -20667,22 +18141,16 @@ static PyObject *__pyx_pf_6ver1_3_4main_12DeleteDialog_4delete(CYTHON_UNUSED PyO
   return __pyx_r;
 }
 
-/* "main.py":559
- * 
- * class ReportDialog(QMainWindow, reportUI.Ui_MainWindow, QDate):
- *     def __init__(self):             # <<<<<<<<<<<<<<
- *         super(ReportDialog, self).__init__()
- *         self.setupUi(self)
- */
 
-/* Python wrapper */
+
+
 static PyObject *__pyx_pw_6ver1_3_4main_12ReportDialog_1__init__(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
-); /*proto*/
+); 
 static PyMethodDef __pyx_mdef_6ver1_3_4main_12ReportDialog_1__init__ = {"__init__", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6ver1_3_4main_12ReportDialog_1__init__, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
 static PyObject *__pyx_pw_6ver1_3_4main_12ReportDialog_1__init__(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
@@ -20760,7 +18228,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __pyx_L4_argument_unpacking_done:;
   __pyx_r = __pyx_pf_6ver1_3_4main_12ReportDialog___init__(__pyx_self, __pyx_v_self);
 
-  /* function exit code */
+  
   {
     Py_ssize_t __pyx_temp;
     for (__pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
@@ -20771,16 +18239,10 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-/* "main.py":579
- *         self.saveDialog = SaveDialog()
- * 
- *         self.btn_close.clicked.connect(lambda: self.close())             # <<<<<<<<<<<<<<
- *         self.btn_save.clicked.connect(self.save)
- * 
- */
 
-/* Python wrapper */
-static PyObject *__pyx_pw_6ver1_3_4main_12ReportDialog_8__init___lambda1(PyObject *__pyx_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+
+
+static PyObject *__pyx_pw_6ver1_3_4main_12ReportDialog_8__init___lambda1(PyObject *__pyx_self, CYTHON_UNUSED PyObject *unused); 
 static PyMethodDef __pyx_mdef_6ver1_3_4main_12ReportDialog_8__init___lambda1 = {"lambda1", (PyCFunction)__pyx_pw_6ver1_3_4main_12ReportDialog_8__init___lambda1, METH_NOARGS, 0};
 static PyObject *__pyx_pw_6ver1_3_4main_12ReportDialog_8__init___lambda1(PyObject *__pyx_self, CYTHON_UNUSED PyObject *unused) {
   CYTHON_UNUSED PyObject *const *__pyx_kwvalues;
@@ -20790,7 +18252,7 @@ static PyObject *__pyx_pw_6ver1_3_4main_12ReportDialog_8__init___lambda1(PyObjec
   __pyx_kwvalues = __Pyx_KwValues_VARARGS(__pyx_args, __pyx_nargs);
   __pyx_r = __pyx_lambda_funcdef_lambda1(__pyx_self);
 
-  /* function exit code */
+  
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
@@ -20840,7 +18302,7 @@ static PyObject *__pyx_lambda_funcdef_lambda1(PyObject *__pyx_self) {
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* function exit code */
+  
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
@@ -20853,13 +18315,7 @@ static PyObject *__pyx_lambda_funcdef_lambda1(PyObject *__pyx_self) {
   return __pyx_r;
 }
 
-/* "main.py":559
- * 
- * class ReportDialog(QMainWindow, reportUI.Ui_MainWindow, QDate):
- *     def __init__(self):             # <<<<<<<<<<<<<<
- *         super(ReportDialog, self).__init__()
- *         self.setupUi(self)
- */
+
 
 static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
   struct __pyx_obj_6ver1_3_4main___pyx_scope_struct_3___init__ *__pyx_cur_scope;
@@ -20888,13 +18344,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog___init__(CYTHON_UNUSED Py
   __Pyx_INCREF(__pyx_cur_scope->__pyx_v_self);
   __Pyx_GIVEREF(__pyx_cur_scope->__pyx_v_self);
 
-  /* "main.py":560
- * class ReportDialog(QMainWindow, reportUI.Ui_MainWindow, QDate):
- *     def __init__(self):
- *         super(ReportDialog, self).__init__()             # <<<<<<<<<<<<<<
- *         self.setupUi(self)
- * 
- */
+  
   __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_ReportDialog); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 560, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 560, __pyx_L1_error)
@@ -20935,13 +18385,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog___init__(CYTHON_UNUSED Py
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":561
- *     def __init__(self):
- *         super(ReportDialog, self).__init__()
- *         self.setupUi(self)             # <<<<<<<<<<<<<<
- * 
- *         self.setWindowIcon(QtGui.QIcon(f'{VERSIONPATH}/icon96px.ico'))
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_setupUi); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 561, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = NULL;
@@ -20968,13 +18412,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog___init__(CYTHON_UNUSED Py
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":563
- *         self.setupUi(self)
- * 
- *         self.setWindowIcon(QtGui.QIcon(f'{VERSIONPATH}/icon96px.ico'))             # <<<<<<<<<<<<<<
- *         self.setWindowTitle("")
- *         self.resizeable()
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_setWindowIcon); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 563, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_QtGui); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 563, __pyx_L1_error)
@@ -21038,13 +18476,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog___init__(CYTHON_UNUSED Py
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":564
- * 
- *         self.setWindowIcon(QtGui.QIcon(f'{VERSIONPATH}/icon96px.ico'))
- *         self.setWindowTitle("")             # <<<<<<<<<<<<<<
- *         self.resizeable()
- * 
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_setWindowTitle); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 564, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = NULL;
@@ -21071,13 +18503,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog___init__(CYTHON_UNUSED Py
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":565
- *         self.setWindowIcon(QtGui.QIcon(f'{VERSIONPATH}/icon96px.ico'))
- *         self.setWindowTitle("")
- *         self.resizeable()             # <<<<<<<<<<<<<<
- * 
- *         self.calTable = None
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_resizeable); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 565, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = NULL;
@@ -21104,43 +18530,19 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog___init__(CYTHON_UNUSED Py
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":567
- *         self.resizeable()
- * 
- *         self.calTable = None             # <<<<<<<<<<<<<<
- *         self.tableName = None
- *         self.totalList = []
- */
+  
   if (__Pyx_PyObject_SetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_calTable, Py_None) < 0) __PYX_ERR(0, 567, __pyx_L1_error)
 
-  /* "main.py":568
- * 
- *         self.calTable = None
- *         self.tableName = None             # <<<<<<<<<<<<<<
- *         self.totalList = []
- * 
- */
+  
   if (__Pyx_PyObject_SetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_tableName, Py_None) < 0) __PYX_ERR(0, 568, __pyx_L1_error)
 
-  /* "main.py":569
- *         self.calTable = None
- *         self.tableName = None
- *         self.totalList = []             # <<<<<<<<<<<<<<
- * 
- *         self.reportSave = SaveReportThread()
- */
+  
   __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 569, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   if (__Pyx_PyObject_SetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_totalList, __pyx_t_1) < 0) __PYX_ERR(0, 569, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":571
- *         self.totalList = []
- * 
- *         self.reportSave = SaveReportThread()             # <<<<<<<<<<<<<<
- *         self.reportSave.s_updPB.connect(self.saveDialog)
- * 
- */
+  
   __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_SaveReportThread); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 571, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = NULL;
@@ -21168,13 +18570,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog___init__(CYTHON_UNUSED Py
   if (__Pyx_PyObject_SetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_reportSave, __pyx_t_1) < 0) __PYX_ERR(0, 571, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":572
- * 
- *         self.reportSave = SaveReportThread()
- *         self.reportSave.s_updPB.connect(self.saveDialog)             # <<<<<<<<<<<<<<
- * 
- *         self.reportSum = SumReportThread()
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_reportSave); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 572, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_s_updPB); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 572, __pyx_L1_error)
@@ -21210,13 +18606,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog___init__(CYTHON_UNUSED Py
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":574
- *         self.reportSave.s_updPB.connect(self.saveDialog)
- * 
- *         self.reportSum = SumReportThread()             # <<<<<<<<<<<<<<
- *         self.reportSum.s_sumData.connect(self.changeSumRow)
- * 
- */
+  
   __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_SumReportThread); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 574, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = NULL;
@@ -21244,13 +18634,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog___init__(CYTHON_UNUSED Py
   if (__Pyx_PyObject_SetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_reportSum, __pyx_t_1) < 0) __PYX_ERR(0, 574, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":575
- * 
- *         self.reportSum = SumReportThread()
- *         self.reportSum.s_sumData.connect(self.changeSumRow)             # <<<<<<<<<<<<<<
- * 
- *         self.saveDialog = SaveDialog()
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_reportSum); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 575, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_s_sumData); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 575, __pyx_L1_error)
@@ -21286,13 +18670,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog___init__(CYTHON_UNUSED Py
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":577
- *         self.reportSum.s_sumData.connect(self.changeSumRow)
- * 
- *         self.saveDialog = SaveDialog()             # <<<<<<<<<<<<<<
- * 
- *         self.btn_close.clicked.connect(lambda: self.close())
- */
+  
   __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_SaveDialog); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 577, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = NULL;
@@ -21320,13 +18698,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog___init__(CYTHON_UNUSED Py
   if (__Pyx_PyObject_SetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_saveDialog, __pyx_t_1) < 0) __PYX_ERR(0, 577, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":579
- *         self.saveDialog = SaveDialog()
- * 
- *         self.btn_close.clicked.connect(lambda: self.close())             # <<<<<<<<<<<<<<
- *         self.btn_save.clicked.connect(self.save)
- * 
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_btn_close); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 579, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_clicked); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 579, __pyx_L1_error)
@@ -21362,13 +18734,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog___init__(CYTHON_UNUSED Py
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":580
- * 
- *         self.btn_close.clicked.connect(lambda: self.close())
- *         self.btn_save.clicked.connect(self.save)             # <<<<<<<<<<<<<<
- * 
- *     def setTheme(self, theme, style):
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_btn_save); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 580, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_clicked); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 580, __pyx_L1_error)
@@ -21404,15 +18770,9 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog___init__(CYTHON_UNUSED Py
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":559
- * 
- * class ReportDialog(QMainWindow, reportUI.Ui_MainWindow, QDate):
- *     def __init__(self):             # <<<<<<<<<<<<<<
- *         super(ReportDialog, self).__init__()
- *         self.setupUi(self)
- */
+  
 
-  /* function exit code */
+  
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
@@ -21431,22 +18791,16 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog___init__(CYTHON_UNUSED Py
   return __pyx_r;
 }
 
-/* "main.py":582
- *         self.btn_save.clicked.connect(self.save)
- * 
- *     def setTheme(self, theme, style):             # <<<<<<<<<<<<<<
- *         if theme == "Dark":
- *             self.setStyleSheet(style)
- */
 
-/* Python wrapper */
+
+
 static PyObject *__pyx_pw_6ver1_3_4main_12ReportDialog_3setTheme(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
-); /*proto*/
+); 
 static PyMethodDef __pyx_mdef_6ver1_3_4main_12ReportDialog_3setTheme = {"setTheme", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6ver1_3_4main_12ReportDialog_3setTheme, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
 static PyObject *__pyx_pw_6ver1_3_4main_12ReportDialog_3setTheme(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
@@ -21554,7 +18908,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __pyx_L4_argument_unpacking_done:;
   __pyx_r = __pyx_pf_6ver1_3_4main_12ReportDialog_2setTheme(__pyx_self, __pyx_v_self, __pyx_v_theme, __pyx_v_style);
 
-  /* function exit code */
+  
   {
     Py_ssize_t __pyx_temp;
     for (__pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
@@ -21578,23 +18932,11 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_2setTheme(CYTHON_UNUSED P
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("setTheme", 0);
 
-  /* "main.py":583
- * 
- *     def setTheme(self, theme, style):
- *         if theme == "Dark":             # <<<<<<<<<<<<<<
- *             self.setStyleSheet(style)
- *             self.setStyleSheet("""
- */
+  
   __pyx_t_1 = (__Pyx_PyString_Equals(__pyx_v_theme, __pyx_n_s_Dark, Py_EQ)); if (unlikely((__pyx_t_1 < 0))) __PYX_ERR(0, 583, __pyx_L1_error)
   if (__pyx_t_1) {
 
-    /* "main.py":584
- *     def setTheme(self, theme, style):
- *         if theme == "Dark":
- *             self.setStyleSheet(style)             # <<<<<<<<<<<<<<
- *             self.setStyleSheet("""
- * 
- */
+    
     __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_setStyleSheet); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 584, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_4 = NULL;
@@ -21621,13 +18963,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_2setTheme(CYTHON_UNUSED P
     }
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-    /* "main.py":585
- *         if theme == "Dark":
- *             self.setStyleSheet(style)
- *             self.setStyleSheet("""             # <<<<<<<<<<<<<<
- * 
- *                 QWidget{
- */
+    
     __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_setStyleSheet); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 585, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_4 = NULL;
@@ -21654,24 +18990,12 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_2setTheme(CYTHON_UNUSED P
     }
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-    /* "main.py":583
- * 
- *     def setTheme(self, theme, style):
- *         if theme == "Dark":             # <<<<<<<<<<<<<<
- *             self.setStyleSheet(style)
- *             self.setStyleSheet("""
- */
+    
     goto __pyx_L3;
   }
 
-  /* "main.py":669
- * 
- *         else:
- *             self.setStyleSheet(style)             # <<<<<<<<<<<<<<
- * 
- *     def start(self):
- */
-  /*else*/ {
+  
+   {
     __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_setStyleSheet); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 669, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_4 = NULL;
@@ -21700,15 +19024,9 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_2setTheme(CYTHON_UNUSED P
   }
   __pyx_L3:;
 
-  /* "main.py":582
- *         self.btn_save.clicked.connect(self.save)
- * 
- *     def setTheme(self, theme, style):             # <<<<<<<<<<<<<<
- *         if theme == "Dark":
- *             self.setStyleSheet(style)
- */
+  
 
-  /* function exit code */
+  
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
@@ -21723,22 +19041,16 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_2setTheme(CYTHON_UNUSED P
   return __pyx_r;
 }
 
-/* "main.py":671
- *             self.setStyleSheet(style)
- * 
- *     def start(self):             # <<<<<<<<<<<<<<
- * 
- *         self.setTable()
- */
 
-/* Python wrapper */
+
+
 static PyObject *__pyx_pw_6ver1_3_4main_12ReportDialog_5start(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
-); /*proto*/
+); 
 static PyMethodDef __pyx_mdef_6ver1_3_4main_12ReportDialog_5start = {"start", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6ver1_3_4main_12ReportDialog_5start, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
 static PyObject *__pyx_pw_6ver1_3_4main_12ReportDialog_5start(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
@@ -21816,7 +19128,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __pyx_L4_argument_unpacking_done:;
   __pyx_r = __pyx_pf_6ver1_3_4main_12ReportDialog_4start(__pyx_self, __pyx_v_self);
 
-  /* function exit code */
+  
   {
     Py_ssize_t __pyx_temp;
     for (__pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
@@ -21827,16 +19139,10 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-/* "main.py":679
- *         self.reportRead = ReadReportThread()
- *         self.reportRead.set('_' + self.tableName, self.tw_reportTable)
- *         self.reportRead.finished.connect(lambda: self.reportSum.start())             # <<<<<<<<<<<<<<
- *         self.reportRead.s_readedData.connect(self.write)
- *         self.reportRead.start()
- */
 
-/* Python wrapper */
-static PyObject *__pyx_pw_6ver1_3_4main_12ReportDialog_5start_lambda2(PyObject *__pyx_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+
+
+static PyObject *__pyx_pw_6ver1_3_4main_12ReportDialog_5start_lambda2(PyObject *__pyx_self, CYTHON_UNUSED PyObject *unused); 
 static PyMethodDef __pyx_mdef_6ver1_3_4main_12ReportDialog_5start_lambda2 = {"lambda2", (PyCFunction)__pyx_pw_6ver1_3_4main_12ReportDialog_5start_lambda2, METH_NOARGS, 0};
 static PyObject *__pyx_pw_6ver1_3_4main_12ReportDialog_5start_lambda2(PyObject *__pyx_self, CYTHON_UNUSED PyObject *unused) {
   CYTHON_UNUSED PyObject *const *__pyx_kwvalues;
@@ -21846,7 +19152,7 @@ static PyObject *__pyx_pw_6ver1_3_4main_12ReportDialog_5start_lambda2(PyObject *
   __pyx_kwvalues = __Pyx_KwValues_VARARGS(__pyx_args, __pyx_nargs);
   __pyx_r = __pyx_lambda_funcdef_lambda2(__pyx_self);
 
-  /* function exit code */
+  
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
@@ -21899,7 +19205,7 @@ static PyObject *__pyx_lambda_funcdef_lambda2(PyObject *__pyx_self) {
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* function exit code */
+  
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
@@ -21912,13 +19218,7 @@ static PyObject *__pyx_lambda_funcdef_lambda2(PyObject *__pyx_self) {
   return __pyx_r;
 }
 
-/* "main.py":671
- *             self.setStyleSheet(style)
- * 
- *     def start(self):             # <<<<<<<<<<<<<<
- * 
- *         self.setTable()
- */
+
 
 static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_4start(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
   struct __pyx_obj_6ver1_3_4main___pyx_scope_struct_4_start *__pyx_cur_scope;
@@ -21946,13 +19246,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_4start(CYTHON_UNUSED PyOb
   __Pyx_INCREF(__pyx_cur_scope->__pyx_v_self);
   __Pyx_GIVEREF(__pyx_cur_scope->__pyx_v_self);
 
-  /* "main.py":673
- *     def start(self):
- * 
- *         self.setTable()             # <<<<<<<<<<<<<<
- *         self.insertDates()
- *         self.setSumRow()
- */
+  
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_setTable); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 673, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
@@ -21979,13 +19273,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_4start(CYTHON_UNUSED PyOb
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":674
- * 
- *         self.setTable()
- *         self.insertDates()             # <<<<<<<<<<<<<<
- *         self.setSumRow()
- * 
- */
+  
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_insertDates); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 674, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
@@ -22012,13 +19300,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_4start(CYTHON_UNUSED PyOb
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":675
- *         self.setTable()
- *         self.insertDates()
- *         self.setSumRow()             # <<<<<<<<<<<<<<
- * 
- *         self.reportRead = ReadReportThread()
- */
+  
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_setSumRow); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 675, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
@@ -22045,13 +19327,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_4start(CYTHON_UNUSED PyOb
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":677
- *         self.setSumRow()
- * 
- *         self.reportRead = ReadReportThread()             # <<<<<<<<<<<<<<
- *         self.reportRead.set('_' + self.tableName, self.tw_reportTable)
- *         self.reportRead.finished.connect(lambda: self.reportSum.start())
- */
+  
   __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_ReadReportThread); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 677, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
@@ -22079,13 +19355,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_4start(CYTHON_UNUSED PyOb
   if (__Pyx_PyObject_SetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_reportRead, __pyx_t_1) < 0) __PYX_ERR(0, 677, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":678
- * 
- *         self.reportRead = ReadReportThread()
- *         self.reportRead.set('_' + self.tableName, self.tw_reportTable)             # <<<<<<<<<<<<<<
- *         self.reportRead.finished.connect(lambda: self.reportSum.start())
- *         self.reportRead.s_readedData.connect(self.write)
- */
+  
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_reportRead); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 678, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_set); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 678, __pyx_L1_error)
@@ -22124,13 +19394,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_4start(CYTHON_UNUSED PyOb
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":679
- *         self.reportRead = ReadReportThread()
- *         self.reportRead.set('_' + self.tableName, self.tw_reportTable)
- *         self.reportRead.finished.connect(lambda: self.reportSum.start())             # <<<<<<<<<<<<<<
- *         self.reportRead.s_readedData.connect(self.write)
- *         self.reportRead.start()
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_reportRead); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 679, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_finished); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 679, __pyx_L1_error)
@@ -22166,13 +19430,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_4start(CYTHON_UNUSED PyOb
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":680
- *         self.reportRead.set('_' + self.tableName, self.tw_reportTable)
- *         self.reportRead.finished.connect(lambda: self.reportSum.start())
- *         self.reportRead.s_readedData.connect(self.write)             # <<<<<<<<<<<<<<
- *         self.reportRead.start()
- * 
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_reportRead); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 680, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_s_readedData); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 680, __pyx_L1_error)
@@ -22208,13 +19466,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_4start(CYTHON_UNUSED PyOb
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":681
- *         self.reportRead.finished.connect(lambda: self.reportSum.start())
- *         self.reportRead.s_readedData.connect(self.write)
- *         self.reportRead.start()             # <<<<<<<<<<<<<<
- * 
- *         self.reportSum.set(self.tw_reportTable)
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_reportRead); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 681, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_start); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 681, __pyx_L1_error)
@@ -22244,13 +19496,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_4start(CYTHON_UNUSED PyOb
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":683
- *         self.reportRead.start()
- * 
- *         self.reportSum.set(self.tw_reportTable)             # <<<<<<<<<<<<<<
- *         self.tw_reportTable.cellChanged.connect(self.calculate)
- * 
- */
+  
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_reportSum); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 683, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_set); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 683, __pyx_L1_error)
@@ -22283,13 +19529,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_4start(CYTHON_UNUSED PyOb
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":684
- * 
- *         self.reportSum.set(self.tw_reportTable)
- *         self.tw_reportTable.cellChanged.connect(self.calculate)             # <<<<<<<<<<<<<<
- * 
- *     def resizeable(self):
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_tw_reportTable); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 684, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_cellChanged); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 684, __pyx_L1_error)
@@ -22325,15 +19565,9 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_4start(CYTHON_UNUSED PyOb
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":671
- *             self.setStyleSheet(style)
- * 
- *     def start(self):             # <<<<<<<<<<<<<<
- * 
- *         self.setTable()
- */
+  
 
-  /* function exit code */
+  
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
@@ -22351,22 +19585,16 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_4start(CYTHON_UNUSED PyOb
   return __pyx_r;
 }
 
-/* "main.py":686
- *         self.tw_reportTable.cellChanged.connect(self.calculate)
- * 
- *     def resizeable(self):             # <<<<<<<<<<<<<<
- * 
- *         verLayout = QVBoxLayout()
- */
 
-/* Python wrapper */
+
+
 static PyObject *__pyx_pw_6ver1_3_4main_12ReportDialog_7resizeable(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
-); /*proto*/
+); 
 static PyMethodDef __pyx_mdef_6ver1_3_4main_12ReportDialog_7resizeable = {"resizeable", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6ver1_3_4main_12ReportDialog_7resizeable, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
 static PyObject *__pyx_pw_6ver1_3_4main_12ReportDialog_7resizeable(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
@@ -22444,7 +19672,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __pyx_L4_argument_unpacking_done:;
   __pyx_r = __pyx_pf_6ver1_3_4main_12ReportDialog_6resizeable(__pyx_self, __pyx_v_self);
 
-  /* function exit code */
+  
   {
     Py_ssize_t __pyx_temp;
     for (__pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
@@ -22475,13 +19703,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_6resizeable(CYTHON_UNUSED
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("resizeable", 0);
 
-  /* "main.py":688
- *     def resizeable(self):
- * 
- *         verLayout = QVBoxLayout()             # <<<<<<<<<<<<<<
- *         horLayout = QHBoxLayout()
- * 
- */
+  
   __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_QVBoxLayout); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 688, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
@@ -22509,13 +19731,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_6resizeable(CYTHON_UNUSED
   __pyx_v_verLayout = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "main.py":689
- * 
- *         verLayout = QVBoxLayout()
- *         horLayout = QHBoxLayout()             # <<<<<<<<<<<<<<
- * 
- *         btnList = [self.btn_close, self.btn_save]
- */
+  
   __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_QHBoxLayout); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 689, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
@@ -22543,13 +19759,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_6resizeable(CYTHON_UNUSED
   __pyx_v_horLayout = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "main.py":691
- *         horLayout = QHBoxLayout()
- * 
- *         btnList = [self.btn_close, self.btn_save]             # <<<<<<<<<<<<<<
- * 
- *         for button in btnList:
- */
+  
   __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_btn_close); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 691, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_btn_save); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 691, __pyx_L1_error)
@@ -22565,13 +19775,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_6resizeable(CYTHON_UNUSED
   __pyx_v_btnList = ((PyObject*)__pyx_t_3);
   __pyx_t_3 = 0;
 
-  /* "main.py":693
- *         btnList = [self.btn_close, self.btn_save]
- * 
- *         for button in btnList:             # <<<<<<<<<<<<<<
- *             horLayout.addWidget(button)
- *             button.setMinimumSize(QSize(130, 30))
- */
+  
   __pyx_t_3 = __pyx_v_btnList; __Pyx_INCREF(__pyx_t_3); __pyx_t_5 = 0;
   for (;;) {
     if (__pyx_t_5 >= PyList_GET_SIZE(__pyx_t_3)) break;
@@ -22584,13 +19788,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_6resizeable(CYTHON_UNUSED
     __Pyx_XDECREF_SET(__pyx_v_button, __pyx_t_2);
     __pyx_t_2 = 0;
 
-    /* "main.py":694
- * 
- *         for button in btnList:
- *             horLayout.addWidget(button)             # <<<<<<<<<<<<<<
- *             button.setMinimumSize(QSize(130, 30))
- * 
- */
+    
     __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_horLayout, __pyx_n_s_addWidget); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 694, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_t_6 = NULL;
@@ -22617,13 +19815,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_6resizeable(CYTHON_UNUSED
     }
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-    /* "main.py":695
- *         for button in btnList:
- *             horLayout.addWidget(button)
- *             button.setMinimumSize(QSize(130, 30))             # <<<<<<<<<<<<<<
- * 
- *         horLayout.insertStretch(1, 500)
- */
+    
     __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_button, __pyx_n_s_setMinimumSize); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 695, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_QSize); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 695, __pyx_L1_error)
@@ -22656,23 +19848,11 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_6resizeable(CYTHON_UNUSED
     }
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-    /* "main.py":693
- *         btnList = [self.btn_close, self.btn_save]
- * 
- *         for button in btnList:             # <<<<<<<<<<<<<<
- *             horLayout.addWidget(button)
- *             button.setMinimumSize(QSize(130, 30))
- */
+    
   }
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "main.py":697
- *             button.setMinimumSize(QSize(130, 30))
- * 
- *         horLayout.insertStretch(1, 500)             # <<<<<<<<<<<<<<
- * 
- *         verLayout.addWidget(self.tw_reportTable)
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_horLayout, __pyx_n_s_insertStretch); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 697, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_tuple__25, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 697, __pyx_L1_error)
@@ -22680,13 +19860,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_6resizeable(CYTHON_UNUSED
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "main.py":699
- *         horLayout.insertStretch(1, 500)
- * 
- *         verLayout.addWidget(self.tw_reportTable)             # <<<<<<<<<<<<<<
- * 
- *         sizePolicy = QtWidgets.QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_verLayout, __pyx_n_s_addWidget); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 699, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_tw_reportTable); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 699, __pyx_L1_error)
@@ -22716,13 +19890,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_6resizeable(CYTHON_UNUSED
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "main.py":701
- *         verLayout.addWidget(self.tw_reportTable)
- * 
- *         sizePolicy = QtWidgets.QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)             # <<<<<<<<<<<<<<
- *         self.tw_reportTable.setSizePolicy(sizePolicy)
- * 
- */
+  
   __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_QtWidgets); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 701, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_QSizePolicy); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 701, __pyx_L1_error)
@@ -22771,13 +19939,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_6resizeable(CYTHON_UNUSED
   __pyx_v_sizePolicy = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "main.py":702
- * 
- *         sizePolicy = QtWidgets.QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
- *         self.tw_reportTable.setSizePolicy(sizePolicy)             # <<<<<<<<<<<<<<
- * 
- *         verLayout.addLayout(horLayout)
- */
+  
   __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_tw_reportTable); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 702, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_setSizePolicy); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 702, __pyx_L1_error)
@@ -22807,13 +19969,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_6resizeable(CYTHON_UNUSED
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "main.py":704
- *         self.tw_reportTable.setSizePolicy(sizePolicy)
- * 
- *         verLayout.addLayout(horLayout)             # <<<<<<<<<<<<<<
- * 
- *         self.centralwidget.setLayout(verLayout)
- */
+  
   __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_verLayout, __pyx_n_s_addLayout); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 704, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __pyx_t_1 = NULL;
@@ -22840,13 +19996,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_6resizeable(CYTHON_UNUSED
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "main.py":706
- *         verLayout.addLayout(horLayout)
- * 
- *         self.centralwidget.setLayout(verLayout)             # <<<<<<<<<<<<<<
- * 
- *     def setSumRow(self):
- */
+  
   __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_centralwidget); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 706, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_setLayout); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 706, __pyx_L1_error)
@@ -22876,15 +20026,9 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_6resizeable(CYTHON_UNUSED
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "main.py":686
- *         self.tw_reportTable.cellChanged.connect(self.calculate)
- * 
- *     def resizeable(self):             # <<<<<<<<<<<<<<
- * 
- *         verLayout = QVBoxLayout()
- */
+  
 
-  /* function exit code */
+  
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
@@ -22906,22 +20050,16 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_6resizeable(CYTHON_UNUSED
   return __pyx_r;
 }
 
-/* "main.py":708
- *         self.centralwidget.setLayout(verLayout)
- * 
- *     def setSumRow(self):             # <<<<<<<<<<<<<<
- *         if self.tw_reportTable.item(self.tw_reportTable.rowCount()-1, 0) != None:
- * 
- */
 
-/* Python wrapper */
+
+
 static PyObject *__pyx_pw_6ver1_3_4main_12ReportDialog_9setSumRow(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
-); /*proto*/
+); 
 static PyMethodDef __pyx_mdef_6ver1_3_4main_12ReportDialog_9setSumRow = {"setSumRow", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6ver1_3_4main_12ReportDialog_9setSumRow, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
 static PyObject *__pyx_pw_6ver1_3_4main_12ReportDialog_9setSumRow(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
@@ -22999,7 +20137,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __pyx_L4_argument_unpacking_done:;
   __pyx_r = __pyx_pf_6ver1_3_4main_12ReportDialog_8setSumRow(__pyx_self, __pyx_v_self);
 
-  /* function exit code */
+  
   {
     Py_ssize_t __pyx_temp;
     for (__pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
@@ -23029,13 +20167,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_8setSumRow(CYTHON_UNUSED 
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("setSumRow", 0);
 
-  /* "main.py":709
- * 
- *     def setSumRow(self):
- *         if self.tw_reportTable.item(self.tw_reportTable.rowCount()-1, 0) != None:             # <<<<<<<<<<<<<<
- * 
- *             lastRow = self.tw_reportTable.rowCount() + 1
- */
+  
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_tw_reportTable); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 709, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_item); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 709, __pyx_L1_error)
@@ -23100,13 +20232,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_8setSumRow(CYTHON_UNUSED 
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   if (__pyx_t_7) {
 
-    /* "main.py":711
- *         if self.tw_reportTable.item(self.tw_reportTable.rowCount()-1, 0) != None:
- * 
- *             lastRow = self.tw_reportTable.rowCount() + 1             # <<<<<<<<<<<<<<
- *             self.tw_reportTable.setRowCount(self.tw_reportTable.rowCount() + 2)
- * 
- */
+    
     __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_tw_reportTable); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 711, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_rowCount); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 711, __pyx_L1_error)
@@ -23140,13 +20266,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_8setSumRow(CYTHON_UNUSED 
     __pyx_v_lastRow = __pyx_t_5;
     __pyx_t_5 = 0;
 
-    /* "main.py":712
- * 
- *             lastRow = self.tw_reportTable.rowCount() + 1
- *             self.tw_reportTable.setRowCount(self.tw_reportTable.rowCount() + 2)             # <<<<<<<<<<<<<<
- * 
- *             self.write(lastRow, 0, ":")
- */
+    
     __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_tw_reportTable); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 712, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_setRowCount); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 712, __pyx_L1_error)
@@ -23207,13 +20327,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_8setSumRow(CYTHON_UNUSED 
     }
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-    /* "main.py":714
- *             self.tw_reportTable.setRowCount(self.tw_reportTable.rowCount() + 2)
- * 
- *             self.write(lastRow, 0, ":")             # <<<<<<<<<<<<<<
- *             self.tw_reportTable.item(lastRow, 0).setBackground(QtGui.QColor(187,255,169))
- * 
- */
+    
     __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_write); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 714, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_t_4 = NULL;
@@ -23240,13 +20354,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_8setSumRow(CYTHON_UNUSED 
     }
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-    /* "main.py":715
- * 
- *             self.write(lastRow, 0, ":")
- *             self.tw_reportTable.item(lastRow, 0).setBackground(QtGui.QColor(187,255,169))             # <<<<<<<<<<<<<<
- * 
- *             for i in range(10):
- */
+    
     __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_tw_reportTable); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 715, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_item); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 715, __pyx_L1_error)
@@ -23310,33 +20418,15 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_8setSumRow(CYTHON_UNUSED 
     }
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-    /* "main.py":717
- *             self.tw_reportTable.item(lastRow, 0).setBackground(QtGui.QColor(187,255,169))
- * 
- *             for i in range(10):             # <<<<<<<<<<<<<<
- *                 if i != 0:
- *                     self.tw_reportTable.setItem(lastRow, i, QTableWidgetItem())
- */
+    
     for (__pyx_t_8 = 0; __pyx_t_8 < 10; __pyx_t_8+=1) {
       __pyx_v_i = __pyx_t_8;
 
-      /* "main.py":718
- * 
- *             for i in range(10):
- *                 if i != 0:             # <<<<<<<<<<<<<<
- *                     self.tw_reportTable.setItem(lastRow, i, QTableWidgetItem())
- *                     self.tw_reportTable.item(lastRow, i).setBackground(QtGui.QColor(187,255,169))
- */
+      
       __pyx_t_7 = (__pyx_v_i != 0);
       if (__pyx_t_7) {
 
-        /* "main.py":719
- *             for i in range(10):
- *                 if i != 0:
- *                     self.tw_reportTable.setItem(lastRow, i, QTableWidgetItem())             # <<<<<<<<<<<<<<
- *                     self.tw_reportTable.item(lastRow, i).setBackground(QtGui.QColor(187,255,169))
- * 
- */
+        
         __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_tw_reportTable); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 719, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
         __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_setItem); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 719, __pyx_L1_error)
@@ -23394,13 +20484,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_8setSumRow(CYTHON_UNUSED 
         }
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-        /* "main.py":720
- *                 if i != 0:
- *                     self.tw_reportTable.setItem(lastRow, i, QTableWidgetItem())
- *                     self.tw_reportTable.item(lastRow, i).setBackground(QtGui.QColor(187,255,169))             # <<<<<<<<<<<<<<
- * 
- *     def changeSumRow(self, total):
- */
+        
         __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_tw_reportTable); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 720, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_item); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 720, __pyx_L1_error)
@@ -23467,34 +20551,16 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_8setSumRow(CYTHON_UNUSED 
         }
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-        /* "main.py":718
- * 
- *             for i in range(10):
- *                 if i != 0:             # <<<<<<<<<<<<<<
- *                     self.tw_reportTable.setItem(lastRow, i, QTableWidgetItem())
- *                     self.tw_reportTable.item(lastRow, i).setBackground(QtGui.QColor(187,255,169))
- */
+        
       }
     }
 
-    /* "main.py":709
- * 
- *     def setSumRow(self):
- *         if self.tw_reportTable.item(self.tw_reportTable.rowCount()-1, 0) != None:             # <<<<<<<<<<<<<<
- * 
- *             lastRow = self.tw_reportTable.rowCount() + 1
- */
+    
   }
 
-  /* "main.py":708
- *         self.centralwidget.setLayout(verLayout)
- * 
- *     def setSumRow(self):             # <<<<<<<<<<<<<<
- *         if self.tw_reportTable.item(self.tw_reportTable.rowCount()-1, 0) != None:
- * 
- */
+  
 
-  /* function exit code */
+  
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
@@ -23513,22 +20579,16 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_8setSumRow(CYTHON_UNUSED 
   return __pyx_r;
 }
 
-/* "main.py":722
- *                     self.tw_reportTable.item(lastRow, i).setBackground(QtGui.QColor(187,255,169))
- * 
- *     def changeSumRow(self, total):             # <<<<<<<<<<<<<<
- * 
- *         lastRow = self.tw_reportTable.rowCount() - 1
- */
 
-/* Python wrapper */
+
+
 static PyObject *__pyx_pw_6ver1_3_4main_12ReportDialog_11changeSumRow(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
-); /*proto*/
+); 
 static PyMethodDef __pyx_mdef_6ver1_3_4main_12ReportDialog_11changeSumRow = {"changeSumRow", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6ver1_3_4main_12ReportDialog_11changeSumRow, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
 static PyObject *__pyx_pw_6ver1_3_4main_12ReportDialog_11changeSumRow(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
@@ -23621,7 +20681,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __pyx_L4_argument_unpacking_done:;
   __pyx_r = __pyx_pf_6ver1_3_4main_12ReportDialog_10changeSumRow(__pyx_self, __pyx_v_self, __pyx_v_total);
 
-  /* function exit code */
+  
   {
     Py_ssize_t __pyx_temp;
     for (__pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
@@ -23655,13 +20715,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_10changeSumRow(CYTHON_UNU
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("changeSumRow", 0);
 
-  /* "main.py":724
- *     def changeSumRow(self, total):
- * 
- *         lastRow = self.tw_reportTable.rowCount() - 1             # <<<<<<<<<<<<<<
- *         aligment = QtCore.Qt.AlignmentFlag.AlignCenter
- * 
- */
+  
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_tw_reportTable); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 724, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_rowCount); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 724, __pyx_L1_error)
@@ -23695,13 +20749,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_10changeSumRow(CYTHON_UNU
   __pyx_v_lastRow = __pyx_t_3;
   __pyx_t_3 = 0;
 
-  /* "main.py":725
- * 
- *         lastRow = self.tw_reportTable.rowCount() - 1
- *         aligment = QtCore.Qt.AlignmentFlag.AlignCenter             # <<<<<<<<<<<<<<
- * 
- *         self.totalList.append(total)
- */
+  
   __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_QtCore); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 725, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_Qt); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 725, __pyx_L1_error)
@@ -23716,25 +20764,13 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_10changeSumRow(CYTHON_UNU
   __pyx_v_aligment = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "main.py":727
- *         aligment = QtCore.Qt.AlignmentFlag.AlignCenter
- * 
- *         self.totalList.append(total)             # <<<<<<<<<<<<<<
- * 
- *         if len(self.totalList) == 4 :
- */
+  
   __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_totalList); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 727, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_5 = __Pyx_PyObject_Append(__pyx_t_1, __pyx_v_total); if (unlikely(__pyx_t_5 == ((int)-1))) __PYX_ERR(0, 727, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":729
- *         self.totalList.append(total)
- * 
- *         if len(self.totalList) == 4 :             # <<<<<<<<<<<<<<
- *             column = 4
- *             for item in self.totalList:
- */
+  
   __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_totalList); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 729, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_6 = PyObject_Length(__pyx_t_1); if (unlikely(__pyx_t_6 == ((Py_ssize_t)-1))) __PYX_ERR(0, 729, __pyx_L1_error)
@@ -23742,23 +20778,11 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_10changeSumRow(CYTHON_UNU
   __pyx_t_7 = (__pyx_t_6 == 4);
   if (__pyx_t_7) {
 
-    /* "main.py":730
- * 
- *         if len(self.totalList) == 4 :
- *             column = 4             # <<<<<<<<<<<<<<
- *             for item in self.totalList:
- *                 cell = self.tw_reportTable.item(lastRow, column)
- */
+    
     __Pyx_INCREF(__pyx_int_4);
     __pyx_v_column = __pyx_int_4;
 
-    /* "main.py":731
- *         if len(self.totalList) == 4 :
- *             column = 4
- *             for item in self.totalList:             # <<<<<<<<<<<<<<
- *                 cell = self.tw_reportTable.item(lastRow, column)
- *                 cell.setText(str(item))
- */
+    
     __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_totalList); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 731, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     if (likely(PyList_CheckExact(__pyx_t_1)) || PyTuple_CheckExact(__pyx_t_1)) {
@@ -23804,13 +20828,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_10changeSumRow(CYTHON_UNU
       __Pyx_XDECREF_SET(__pyx_v_item, __pyx_t_1);
       __pyx_t_1 = 0;
 
-      /* "main.py":732
- *             column = 4
- *             for item in self.totalList:
- *                 cell = self.tw_reportTable.item(lastRow, column)             # <<<<<<<<<<<<<<
- *                 cell.setText(str(item))
- *                 cell.setTextAlignment(aligment)
- */
+      
       __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_tw_reportTable); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 732, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_item); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 732, __pyx_L1_error)
@@ -23841,13 +20859,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_10changeSumRow(CYTHON_UNU
       __Pyx_XDECREF_SET(__pyx_v_cell, __pyx_t_1);
       __pyx_t_1 = 0;
 
-      /* "main.py":733
- *             for item in self.totalList:
- *                 cell = self.tw_reportTable.item(lastRow, column)
- *                 cell.setText(str(item))             # <<<<<<<<<<<<<<
- *                 cell.setTextAlignment(aligment)
- * 
- */
+      
       __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_cell, __pyx_n_s_setText); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 733, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_9);
       __pyx_t_2 = __Pyx_PyObject_Str(__pyx_v_item); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 733, __pyx_L1_error)
@@ -23877,13 +20889,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_10changeSumRow(CYTHON_UNU
       }
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-      /* "main.py":734
- *                 cell = self.tw_reportTable.item(lastRow, column)
- *                 cell.setText(str(item))
- *                 cell.setTextAlignment(aligment)             # <<<<<<<<<<<<<<
- * 
- *                 if column < 6:
- */
+      
       __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_cell, __pyx_n_s_setTextAlignment); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 734, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_9);
       __pyx_t_2 = NULL;
@@ -23910,70 +20916,34 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_10changeSumRow(CYTHON_UNU
       }
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-      /* "main.py":736
- *                 cell.setTextAlignment(aligment)
- * 
- *                 if column < 6:             # <<<<<<<<<<<<<<
- *                     column += 1
- *                 else:
- */
+      
       __pyx_t_1 = PyObject_RichCompare(__pyx_v_column, __pyx_int_6, Py_LT); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 736, __pyx_L1_error)
       __pyx_t_7 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely((__pyx_t_7 < 0))) __PYX_ERR(0, 736, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       if (__pyx_t_7) {
 
-        /* "main.py":737
- * 
- *                 if column < 6:
- *                     column += 1             # <<<<<<<<<<<<<<
- *                 else:
- *                     column = 9
- */
+        
         __pyx_t_1 = __Pyx_PyInt_AddObjC(__pyx_v_column, __pyx_int_1, 1, 1, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 737, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF_SET(__pyx_v_column, __pyx_t_1);
         __pyx_t_1 = 0;
 
-        /* "main.py":736
- *                 cell.setTextAlignment(aligment)
- * 
- *                 if column < 6:             # <<<<<<<<<<<<<<
- *                     column += 1
- *                 else:
- */
+        
         goto __pyx_L6;
       }
 
-      /* "main.py":739
- *                     column += 1
- *                 else:
- *                     column = 9             # <<<<<<<<<<<<<<
- * 
- *             self.totalList.clear()
- */
-      /*else*/ {
+      
+       {
         __Pyx_INCREF(__pyx_int_9);
         __Pyx_DECREF_SET(__pyx_v_column, __pyx_int_9);
       }
       __pyx_L6:;
 
-      /* "main.py":731
- *         if len(self.totalList) == 4 :
- *             column = 4
- *             for item in self.totalList:             # <<<<<<<<<<<<<<
- *                 cell = self.tw_reportTable.item(lastRow, column)
- *                 cell.setText(str(item))
- */
+      
     }
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "main.py":741
- *                     column = 9
- * 
- *             self.totalList.clear()             # <<<<<<<<<<<<<<
- * 
- *     def set(self, calTable, tableName):
- */
+    
     __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_totalList); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 741, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_clear); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 741, __pyx_L1_error)
@@ -24003,24 +20973,12 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_10changeSumRow(CYTHON_UNU
     }
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "main.py":729
- *         self.totalList.append(total)
- * 
- *         if len(self.totalList) == 4 :             # <<<<<<<<<<<<<<
- *             column = 4
- *             for item in self.totalList:
- */
+    
   }
 
-  /* "main.py":722
- *                     self.tw_reportTable.item(lastRow, i).setBackground(QtGui.QColor(187,255,169))
- * 
- *     def changeSumRow(self, total):             # <<<<<<<<<<<<<<
- * 
- *         lastRow = self.tw_reportTable.rowCount() - 1
- */
+  
 
-  /* function exit code */
+  
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
@@ -24042,22 +21000,16 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_10changeSumRow(CYTHON_UNU
   return __pyx_r;
 }
 
-/* "main.py":743
- *             self.totalList.clear()
- * 
- *     def set(self, calTable, tableName):             # <<<<<<<<<<<<<<
- *         self.calTable = calTable
- *         self.tableName = tableName
- */
 
-/* Python wrapper */
+
+
 static PyObject *__pyx_pw_6ver1_3_4main_12ReportDialog_13set(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
-); /*proto*/
+); 
 static PyMethodDef __pyx_mdef_6ver1_3_4main_12ReportDialog_13set = {"set", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6ver1_3_4main_12ReportDialog_13set, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
 static PyObject *__pyx_pw_6ver1_3_4main_12ReportDialog_13set(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
@@ -24165,7 +21117,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __pyx_L4_argument_unpacking_done:;
   __pyx_r = __pyx_pf_6ver1_3_4main_12ReportDialog_12set(__pyx_self, __pyx_v_self, __pyx_v_calTable, __pyx_v_tableName);
 
-  /* function exit code */
+  
   {
     Py_ssize_t __pyx_temp;
     for (__pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
@@ -24184,33 +21136,15 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_12set(CYTHON_UNUSED PyObj
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("set", 0);
 
-  /* "main.py":744
- * 
- *     def set(self, calTable, tableName):
- *         self.calTable = calTable             # <<<<<<<<<<<<<<
- *         self.tableName = tableName
- * 
- */
+  
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_calTable, __pyx_v_calTable) < 0) __PYX_ERR(0, 744, __pyx_L1_error)
 
-  /* "main.py":745
- *     def set(self, calTable, tableName):
- *         self.calTable = calTable
- *         self.tableName = tableName             # <<<<<<<<<<<<<<
- * 
- *     def setTable(self):
- */
+  
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_tableName, __pyx_v_tableName) < 0) __PYX_ERR(0, 745, __pyx_L1_error)
 
-  /* "main.py":743
- *             self.totalList.clear()
- * 
- *     def set(self, calTable, tableName):             # <<<<<<<<<<<<<<
- *         self.calTable = calTable
- *         self.tableName = tableName
- */
+  
 
-  /* function exit code */
+  
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
@@ -24222,22 +21156,16 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_12set(CYTHON_UNUSED PyObj
   return __pyx_r;
 }
 
-/* "main.py":747
- *         self.tableName = tableName
- * 
- *     def setTable(self):             # <<<<<<<<<<<<<<
- * 
- *         def color(row, column, red, green, blue):
- */
 
-/* Python wrapper */
+
+
 static PyObject *__pyx_pw_6ver1_3_4main_12ReportDialog_15setTable(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
-); /*proto*/
+); 
 static PyMethodDef __pyx_mdef_6ver1_3_4main_12ReportDialog_15setTable = {"setTable", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6ver1_3_4main_12ReportDialog_15setTable, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
 static PyObject *__pyx_pw_6ver1_3_4main_12ReportDialog_15setTable(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
@@ -24315,7 +21243,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __pyx_L4_argument_unpacking_done:;
   __pyx_r = __pyx_pf_6ver1_3_4main_12ReportDialog_14setTable(__pyx_self, __pyx_v_self);
 
-  /* function exit code */
+  
   {
     Py_ssize_t __pyx_temp;
     for (__pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
@@ -24326,22 +21254,16 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-/* "main.py":749
- *     def setTable(self):
- * 
- *         def color(row, column, red, green, blue):             # <<<<<<<<<<<<<<
- *             cell = self.tw_reportTable.item(row, column)
- *             cell.setBackground(QtGui.QColor(red, green, blue))
- */
 
-/* Python wrapper */
+
+
 static PyObject *__pyx_pw_6ver1_3_4main_12ReportDialog_8setTable_1color(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
-); /*proto*/
+); 
 static PyMethodDef __pyx_mdef_6ver1_3_4main_12ReportDialog_8setTable_1color = {"color", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6ver1_3_4main_12ReportDialog_8setTable_1color, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
 static PyObject *__pyx_pw_6ver1_3_4main_12ReportDialog_8setTable_1color(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
@@ -24479,7 +21401,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __pyx_L4_argument_unpacking_done:;
   __pyx_r = __pyx_pf_6ver1_3_4main_12ReportDialog_8setTable_color(__pyx_self, __pyx_v_row, __pyx_v_column, __pyx_v_red, __pyx_v_green, __pyx_v_blue);
 
-  /* function exit code */
+  
   {
     Py_ssize_t __pyx_temp;
     for (__pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
@@ -24509,13 +21431,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_8setTable_color(PyObject 
   __pyx_outer_scope = (struct __pyx_obj_6ver1_3_4main___pyx_scope_struct_5_setTable *) __Pyx_CyFunction_GetClosure(__pyx_self);
   __pyx_cur_scope = __pyx_outer_scope;
 
-  /* "main.py":750
- * 
- *         def color(row, column, red, green, blue):
- *             cell = self.tw_reportTable.item(row, column)             # <<<<<<<<<<<<<<
- *             cell.setBackground(QtGui.QColor(red, green, blue))
- * 
- */
+  
   if (unlikely(!__pyx_cur_scope->__pyx_v_self)) { __Pyx_RaiseClosureNameError("self"); __PYX_ERR(0, 750, __pyx_L1_error) }
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_tw_reportTable); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 750, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
@@ -24547,13 +21463,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_8setTable_color(PyObject 
   __pyx_v_cell = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "main.py":751
- *         def color(row, column, red, green, blue):
- *             cell = self.tw_reportTable.item(row, column)
- *             cell.setBackground(QtGui.QColor(red, green, blue))             # <<<<<<<<<<<<<<
- * 
- *         self.tw_reportTable.verticalHeader().setVisible(False)
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_cell, __pyx_n_s_setBackground); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 751, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_QtGui); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 751, __pyx_L1_error)
@@ -24608,15 +21518,9 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_8setTable_color(PyObject 
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":749
- *     def setTable(self):
- * 
- *         def color(row, column, red, green, blue):             # <<<<<<<<<<<<<<
- *             cell = self.tw_reportTable.item(row, column)
- *             cell.setBackground(QtGui.QColor(red, green, blue))
- */
+  
 
-  /* function exit code */
+  
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
@@ -24634,13 +21538,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_8setTable_color(PyObject 
   return __pyx_r;
 }
 
-/* "main.py":747
- *         self.tableName = tableName
- * 
- *     def setTable(self):             # <<<<<<<<<<<<<<
- * 
- *         def color(row, column, red, green, blue):
- */
+
 
 static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_14setTable(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
   struct __pyx_obj_6ver1_3_4main___pyx_scope_struct_5_setTable *__pyx_cur_scope;
@@ -24678,25 +21576,13 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_14setTable(CYTHON_UNUSED 
   __Pyx_INCREF(__pyx_cur_scope->__pyx_v_self);
   __Pyx_GIVEREF(__pyx_cur_scope->__pyx_v_self);
 
-  /* "main.py":749
- *     def setTable(self):
- * 
- *         def color(row, column, red, green, blue):             # <<<<<<<<<<<<<<
- *             cell = self.tw_reportTable.item(row, column)
- *             cell.setBackground(QtGui.QColor(red, green, blue))
- */
+  
   __pyx_t_1 = __Pyx_CyFunction_New(&__pyx_mdef_6ver1_3_4main_12ReportDialog_8setTable_1color, 0, __pyx_n_s_ReportDialog_setTable_locals_col, ((PyObject*)__pyx_cur_scope), __pyx_n_s_ver1_3_main, __pyx_d, ((PyObject *)__pyx_codeobj__29)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 749, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_color = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "main.py":753
- *             cell.setBackground(QtGui.QColor(red, green, blue))
- * 
- *         self.tw_reportTable.verticalHeader().setVisible(False)             # <<<<<<<<<<<<<<
- *         self.tw_reportTable.horizontalHeader().setVisible(False)
- *         self.tw_reportTable.setColumnCount(10)
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_tw_reportTable); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 753, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_verticalHeader); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 753, __pyx_L1_error)
@@ -24751,13 +21637,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_14setTable(CYTHON_UNUSED 
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":754
- * 
- *         self.tw_reportTable.verticalHeader().setVisible(False)
- *         self.tw_reportTable.horizontalHeader().setVisible(False)             # <<<<<<<<<<<<<<
- *         self.tw_reportTable.setColumnCount(10)
- *         self.tw_reportTable.setRowCount(2)
- */
+  
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_tw_reportTable); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 754, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_horizontalHeader); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 754, __pyx_L1_error)
@@ -24812,13 +21692,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_14setTable(CYTHON_UNUSED 
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":755
- *         self.tw_reportTable.verticalHeader().setVisible(False)
- *         self.tw_reportTable.horizontalHeader().setVisible(False)
- *         self.tw_reportTable.setColumnCount(10)             # <<<<<<<<<<<<<<
- *         self.tw_reportTable.setRowCount(2)
- * 
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_tw_reportTable); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 755, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_setColumnCount); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 755, __pyx_L1_error)
@@ -24848,13 +21722,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_14setTable(CYTHON_UNUSED 
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":756
- *         self.tw_reportTable.horizontalHeader().setVisible(False)
- *         self.tw_reportTable.setColumnCount(10)
- *         self.tw_reportTable.setRowCount(2)             # <<<<<<<<<<<<<<
- * 
- *         for i in range(4):
- */
+  
   __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_tw_reportTable); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 756, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_setRowCount); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 756, __pyx_L1_error)
@@ -24884,26 +21752,14 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_14setTable(CYTHON_UNUSED 
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":758
- *         self.tw_reportTable.setRowCount(2)
- * 
- *         for i in range(4):             # <<<<<<<<<<<<<<
- *             self.tw_reportTable.setSpan(0, i, 2, 1)
- * 
- */
+  
   for (__pyx_t_6 = 0; __pyx_t_6 < 4; __pyx_t_6+=1) {
     __pyx_t_1 = __Pyx_PyInt_From_long(__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 758, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_XDECREF_SET(__pyx_v_i, __pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "main.py":759
- * 
- *         for i in range(4):
- *             self.tw_reportTable.setSpan(0, i, 2, 1)             # <<<<<<<<<<<<<<
- * 
- *         self.tw_reportTable.setSpan(0, 4, 1, 6)
- */
+    
     __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_tw_reportTable); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 759, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_setSpan); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 759, __pyx_L1_error)
@@ -24934,13 +21790,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_14setTable(CYTHON_UNUSED 
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   }
 
-  /* "main.py":761
- *             self.tw_reportTable.setSpan(0, i, 2, 1)
- * 
- *         self.tw_reportTable.setSpan(0, 4, 1, 6)             # <<<<<<<<<<<<<<
- * 
- *         names = (' ','- ','',
- */
+  
   __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_tw_reportTable); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 761, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_setSpan); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 761, __pyx_L1_error)
@@ -24951,76 +21801,34 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_14setTable(CYTHON_UNUSED 
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":763
- *         self.tw_reportTable.setSpan(0, 4, 1, 6)
- * 
- *         names = (' ','- ','',             # <<<<<<<<<<<<<<
- *             '','','','','','',
- *             '','')
- */
+  
   __Pyx_INCREF(__pyx_tuple__42);
   __pyx_v_names = __pyx_tuple__42;
 
-  /* "main.py":767
- *             '','')
- * 
- *         row = 0             # <<<<<<<<<<<<<<
- *         column = 0
- *         i = 0
- */
+  
   __Pyx_INCREF(__pyx_int_0);
   __pyx_v_row = __pyx_int_0;
 
-  /* "main.py":768
- * 
- *         row = 0
- *         column = 0             # <<<<<<<<<<<<<<
- *         i = 0
- * 
- */
+  
   __Pyx_INCREF(__pyx_int_0);
   __pyx_v_column = __pyx_int_0;
 
-  /* "main.py":769
- *         row = 0
- *         column = 0
- *         i = 0             # <<<<<<<<<<<<<<
- * 
- *         while column < 10:
- */
+  
   __Pyx_INCREF(__pyx_int_0);
   __Pyx_XDECREF_SET(__pyx_v_i, __pyx_int_0);
 
-  /* "main.py":771
- *         i = 0
- * 
- *         while column < 10:             # <<<<<<<<<<<<<<
- * 
- *             if column == 4:
- */
+  
   while (1) {
     __pyx_t_1 = PyObject_RichCompare(__pyx_v_column, __pyx_int_10, Py_LT); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 771, __pyx_L1_error)
     __pyx_t_7 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely((__pyx_t_7 < 0))) __PYX_ERR(0, 771, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     if (!__pyx_t_7) break;
 
-    /* "main.py":773
- *         while column < 10:
- * 
- *             if column == 4:             # <<<<<<<<<<<<<<
- *                 self.write(row, column, names[i])
- *                 self.write(row + 1, column, names[i + 1])
- */
+    
     __pyx_t_7 = (__Pyx_PyInt_BoolEqObjC(__pyx_v_column, __pyx_int_4, 4, 0)); if (unlikely((__pyx_t_7 < 0))) __PYX_ERR(0, 773, __pyx_L1_error)
     if (__pyx_t_7) {
 
-      /* "main.py":774
- * 
- *             if column == 4:
- *                 self.write(row, column, names[i])             # <<<<<<<<<<<<<<
- *                 self.write(row + 1, column, names[i + 1])
- *                 self.color(row, column)
- */
+      
       __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_write); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 774, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __pyx_t_3 = __Pyx_PyObject_GetItem(__pyx_v_names, __pyx_v_i); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 774, __pyx_L1_error)
@@ -25050,13 +21858,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_14setTable(CYTHON_UNUSED 
       }
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-      /* "main.py":775
- *             if column == 4:
- *                 self.write(row, column, names[i])
- *                 self.write(row + 1, column, names[i + 1])             # <<<<<<<<<<<<<<
- *                 self.color(row, column)
- *                 self.color(row + 1, column)
- */
+      
       __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_write); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 775, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __pyx_t_3 = __Pyx_PyInt_AddObjC(__pyx_v_row, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 775, __pyx_L1_error)
@@ -25092,13 +21894,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_14setTable(CYTHON_UNUSED 
       }
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-      /* "main.py":776
- *                 self.write(row, column, names[i])
- *                 self.write(row + 1, column, names[i + 1])
- *                 self.color(row, column)             # <<<<<<<<<<<<<<
- *                 self.color(row + 1, column)
- *                 row = 1
- */
+      
       __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_color); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 776, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __pyx_t_8 = NULL;
@@ -25125,13 +21921,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_14setTable(CYTHON_UNUSED 
       }
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-      /* "main.py":777
- *                 self.write(row + 1, column, names[i + 1])
- *                 self.color(row, column)
- *                 self.color(row + 1, column)             # <<<<<<<<<<<<<<
- *                 row = 1
- *                 i += 1
- */
+      
       __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_color); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 777, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __pyx_t_8 = __Pyx_PyInt_AddObjC(__pyx_v_row, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 777, __pyx_L1_error)
@@ -25161,46 +21951,22 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_14setTable(CYTHON_UNUSED 
       }
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-      /* "main.py":778
- *                 self.color(row, column)
- *                 self.color(row + 1, column)
- *                 row = 1             # <<<<<<<<<<<<<<
- *                 i += 1
- * 
- */
+      
       __Pyx_INCREF(__pyx_int_1);
       __Pyx_DECREF_SET(__pyx_v_row, __pyx_int_1);
 
-      /* "main.py":779
- *                 self.color(row + 1, column)
- *                 row = 1
- *                 i += 1             # <<<<<<<<<<<<<<
- * 
- *             else:
- */
+      
       __pyx_t_1 = __Pyx_PyInt_AddObjC(__pyx_v_i, __pyx_int_1, 1, 1, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 779, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF_SET(__pyx_v_i, __pyx_t_1);
       __pyx_t_1 = 0;
 
-      /* "main.py":773
- *         while column < 10:
- * 
- *             if column == 4:             # <<<<<<<<<<<<<<
- *                 self.write(row, column, names[i])
- *                 self.write(row + 1, column, names[i + 1])
- */
+      
       goto __pyx_L7;
     }
 
-    /* "main.py":782
- * 
- *             else:
- *                 self.write(row, column, names[i])             # <<<<<<<<<<<<<<
- *                 self.color(row, column)
- * 
- */
-    /*else*/ {
+    
+     {
       __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_write); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 782, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __pyx_t_8 = __Pyx_PyObject_GetItem(__pyx_v_names, __pyx_v_i); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 782, __pyx_L1_error)
@@ -25230,13 +21996,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_14setTable(CYTHON_UNUSED 
       }
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-      /* "main.py":783
- *             else:
- *                 self.write(row, column, names[i])
- *                 self.color(row, column)             # <<<<<<<<<<<<<<
- * 
- *             column += 1
- */
+      
       __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_color); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 783, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __pyx_t_8 = NULL;
@@ -25265,38 +22025,20 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_14setTable(CYTHON_UNUSED 
     }
     __pyx_L7:;
 
-    /* "main.py":785
- *                 self.color(row, column)
- * 
- *             column += 1             # <<<<<<<<<<<<<<
- *             i += 1
- * 
- */
+    
     __pyx_t_1 = __Pyx_PyInt_AddObjC(__pyx_v_column, __pyx_int_1, 1, 1, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 785, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF_SET(__pyx_v_column, __pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "main.py":786
- * 
- *             column += 1
- *             i += 1             # <<<<<<<<<<<<<<
- * 
- *         horHeader = self.tw_reportTable.horizontalHeader()
- */
+    
     __pyx_t_1 = __Pyx_PyInt_AddObjC(__pyx_v_i, __pyx_int_1, 1, 1, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 786, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF_SET(__pyx_v_i, __pyx_t_1);
     __pyx_t_1 = 0;
   }
 
-  /* "main.py":788
- *             i += 1
- * 
- *         horHeader = self.tw_reportTable.horizontalHeader()             # <<<<<<<<<<<<<<
- * 
- *         for i in range(self.tw_reportTable.columnCount()):
- */
+  
   __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_tw_reportTable); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 788, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_horizontalHeader); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 788, __pyx_L1_error)
@@ -25327,13 +22069,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_14setTable(CYTHON_UNUSED 
   __pyx_v_horHeader = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "main.py":790
- *         horHeader = self.tw_reportTable.horizontalHeader()
- * 
- *         for i in range(self.tw_reportTable.columnCount()):             # <<<<<<<<<<<<<<
- *             horHeader.setSectionResizeMode(i, QHeaderView.ResizeMode.Stretch)
- * 
- */
+  
   __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_tw_reportTable); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 790, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
   __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_columnCount); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 790, __pyx_L1_error)
@@ -25407,13 +22143,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_14setTable(CYTHON_UNUSED 
     __Pyx_DECREF_SET(__pyx_v_i, __pyx_t_4);
     __pyx_t_4 = 0;
 
-    /* "main.py":791
- * 
- *         for i in range(self.tw_reportTable.columnCount()):
- *             horHeader.setSectionResizeMode(i, QHeaderView.ResizeMode.Stretch)             # <<<<<<<<<<<<<<
- * 
- *     def color(self, row, column):
- */
+    
     __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_horHeader, __pyx_n_s_setSectionResizeMode); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 791, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_QHeaderView); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 791, __pyx_L1_error)
@@ -25449,25 +22179,13 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_14setTable(CYTHON_UNUSED 
     }
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-    /* "main.py":790
- *         horHeader = self.tw_reportTable.horizontalHeader()
- * 
- *         for i in range(self.tw_reportTable.columnCount()):             # <<<<<<<<<<<<<<
- *             horHeader.setSectionResizeMode(i, QHeaderView.ResizeMode.Stretch)
- * 
- */
+    
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":747
- *         self.tableName = tableName
- * 
- *     def setTable(self):             # <<<<<<<<<<<<<<
- * 
- *         def color(row, column, red, green, blue):
- */
+  
 
-  /* function exit code */
+  
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
@@ -25491,22 +22209,16 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_14setTable(CYTHON_UNUSED 
   return __pyx_r;
 }
 
-/* "main.py":793
- *             horHeader.setSectionResizeMode(i, QHeaderView.ResizeMode.Stretch)
- * 
- *     def color(self, row, column):             # <<<<<<<<<<<<<<
- * 
- *         colors = ((191,255,172), (255,219,224), (249,211,249),
- */
 
-/* Python wrapper */
+
+
 static PyObject *__pyx_pw_6ver1_3_4main_12ReportDialog_17color(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
-); /*proto*/
+); 
 static PyMethodDef __pyx_mdef_6ver1_3_4main_12ReportDialog_17color = {"color", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6ver1_3_4main_12ReportDialog_17color, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
 static PyObject *__pyx_pw_6ver1_3_4main_12ReportDialog_17color(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
@@ -25614,7 +22326,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __pyx_L4_argument_unpacking_done:;
   __pyx_r = __pyx_pf_6ver1_3_4main_12ReportDialog_16color(__pyx_self, __pyx_v_self, __pyx_v_row, __pyx_v_column);
 
-  /* function exit code */
+  
   {
     Py_ssize_t __pyx_temp;
     for (__pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
@@ -25646,43 +22358,19 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_16color(CYTHON_UNUSED PyO
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("color", 0);
 
-  /* "main.py":795
- *     def color(self, row, column):
- * 
- *         colors = ((191,255,172), (255,219,224), (249,211,249),             # <<<<<<<<<<<<<<
- *             (249,211,249), (243,243,155), (255,237,178),
- *             (202,199,248))
- */
+  
   __Pyx_INCREF(__pyx_tuple__49);
   __pyx_v_colors = __pyx_tuple__49;
 
-  /* "main.py":800
- * 
- * 
- *         if column == 0:             # <<<<<<<<<<<<<<
- *             if row == 0:
- *                 red, green, blue = colors[0]
- */
+  
   __pyx_t_1 = (__Pyx_PyInt_BoolEqObjC(__pyx_v_column, __pyx_int_0, 0, 0)); if (unlikely((__pyx_t_1 < 0))) __PYX_ERR(0, 800, __pyx_L1_error)
   if (__pyx_t_1) {
 
-    /* "main.py":801
- * 
- *         if column == 0:
- *             if row == 0:             # <<<<<<<<<<<<<<
- *                 red, green, blue = colors[0]
- *                 cell = self.tw_reportTable.item(row, column)
- */
+    
     __pyx_t_1 = (__Pyx_PyInt_BoolEqObjC(__pyx_v_row, __pyx_int_0, 0, 0)); if (unlikely((__pyx_t_1 < 0))) __PYX_ERR(0, 801, __pyx_L1_error)
     if (__pyx_t_1) {
 
-      /* "main.py":802
- *         if column == 0:
- *             if row == 0:
- *                 red, green, blue = colors[0]             # <<<<<<<<<<<<<<
- *                 cell = self.tw_reportTable.item(row, column)
- *                 cell.setBackground(QtGui.QColor(red, green, blue))
- */
+      
       __pyx_t_2 = __Pyx_GetItemInt(__pyx_v_colors, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 802, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       if ((likely(PyTuple_CheckExact(__pyx_t_2))) || (PyList_CheckExact(__pyx_t_2))) {
@@ -25745,13 +22433,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_16color(CYTHON_UNUSED PyO
       __pyx_v_blue = __pyx_t_5;
       __pyx_t_5 = 0;
 
-      /* "main.py":803
- *             if row == 0:
- *                 red, green, blue = colors[0]
- *                 cell = self.tw_reportTable.item(row, column)             # <<<<<<<<<<<<<<
- *                 cell.setBackground(QtGui.QColor(red, green, blue))
- * 
- */
+      
       __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_tw_reportTable); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 803, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
       __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_item); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 803, __pyx_L1_error)
@@ -25782,13 +22464,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_16color(CYTHON_UNUSED PyO
       __pyx_v_cell = __pyx_t_2;
       __pyx_t_2 = 0;
 
-      /* "main.py":804
- *                 red, green, blue = colors[0]
- *                 cell = self.tw_reportTable.item(row, column)
- *                 cell.setBackground(QtGui.QColor(red, green, blue))             # <<<<<<<<<<<<<<
- * 
- *             else:
- */
+      
       __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_cell, __pyx_n_s_setBackground); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 804, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_QtGui); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 804, __pyx_L1_error)
@@ -25843,24 +22519,12 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_16color(CYTHON_UNUSED PyO
       }
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-      /* "main.py":801
- * 
- *         if column == 0:
- *             if row == 0:             # <<<<<<<<<<<<<<
- *                 red, green, blue = colors[0]
- *                 cell = self.tw_reportTable.item(row, column)
- */
+      
       goto __pyx_L4;
     }
 
-    /* "main.py":807
- * 
- *             else:
- *                 red, green, blue = colors[1]             # <<<<<<<<<<<<<<
- *                 cell = self.tw_reportTable.item(row, column)
- *                 cell.setBackground(QtGui.QColor(red, green, blue))
- */
-    /*else*/ {
+    
+     {
       __pyx_t_2 = __Pyx_GetItemInt(__pyx_v_colors, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 807, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       if ((likely(PyTuple_CheckExact(__pyx_t_2))) || (PyList_CheckExact(__pyx_t_2))) {
@@ -25923,13 +22587,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_16color(CYTHON_UNUSED PyO
       __pyx_v_blue = __pyx_t_6;
       __pyx_t_6 = 0;
 
-      /* "main.py":808
- *             else:
- *                 red, green, blue = colors[1]
- *                 cell = self.tw_reportTable.item(row, column)             # <<<<<<<<<<<<<<
- *                 cell.setBackground(QtGui.QColor(red, green, blue))
- * 
- */
+      
       __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_tw_reportTable); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 808, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
       __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_item); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 808, __pyx_L1_error)
@@ -25960,13 +22618,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_16color(CYTHON_UNUSED PyO
       __pyx_v_cell = __pyx_t_2;
       __pyx_t_2 = 0;
 
-      /* "main.py":809
- *                 red, green, blue = colors[1]
- *                 cell = self.tw_reportTable.item(row, column)
- *                 cell.setBackground(QtGui.QColor(red, green, blue))             # <<<<<<<<<<<<<<
- * 
- *         elif column == 2:
- */
+      
       __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_cell, __pyx_n_s_setBackground); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 809, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
       __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_QtGui); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 809, __pyx_L1_error)
@@ -26023,33 +22675,15 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_16color(CYTHON_UNUSED PyO
     }
     __pyx_L4:;
 
-    /* "main.py":800
- * 
- * 
- *         if column == 0:             # <<<<<<<<<<<<<<
- *             if row == 0:
- *                 red, green, blue = colors[0]
- */
+    
     goto __pyx_L3;
   }
 
-  /* "main.py":811
- *                 cell.setBackground(QtGui.QColor(red, green, blue))
- * 
- *         elif column == 2:             # <<<<<<<<<<<<<<
- *                 red, green, blue = colors[2]
- *                 cell = self.tw_reportTable.item(row, column)
- */
+  
   __pyx_t_1 = (__Pyx_PyInt_BoolEqObjC(__pyx_v_column, __pyx_int_2, 2, 0)); if (unlikely((__pyx_t_1 < 0))) __PYX_ERR(0, 811, __pyx_L1_error)
   if (__pyx_t_1) {
 
-    /* "main.py":812
- * 
- *         elif column == 2:
- *                 red, green, blue = colors[2]             # <<<<<<<<<<<<<<
- *                 cell = self.tw_reportTable.item(row, column)
- *                 cell.setBackground(QtGui.QColor(red, green, blue))
- */
+    
     __pyx_t_2 = __Pyx_GetItemInt(__pyx_v_colors, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 812, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     if ((likely(PyTuple_CheckExact(__pyx_t_2))) || (PyList_CheckExact(__pyx_t_2))) {
@@ -26112,13 +22746,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_16color(CYTHON_UNUSED PyO
     __pyx_v_blue = __pyx_t_3;
     __pyx_t_3 = 0;
 
-    /* "main.py":813
- *         elif column == 2:
- *                 red, green, blue = colors[2]
- *                 cell = self.tw_reportTable.item(row, column)             # <<<<<<<<<<<<<<
- *                 cell.setBackground(QtGui.QColor(red, green, blue))
- * 
- */
+    
     __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_tw_reportTable); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 813, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_item); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 813, __pyx_L1_error)
@@ -26149,13 +22777,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_16color(CYTHON_UNUSED PyO
     __pyx_v_cell = __pyx_t_2;
     __pyx_t_2 = 0;
 
-    /* "main.py":814
- *                 red, green, blue = colors[2]
- *                 cell = self.tw_reportTable.item(row, column)
- *                 cell.setBackground(QtGui.QColor(red, green, blue))             # <<<<<<<<<<<<<<
- * 
- *         elif column == 3:
- */
+    
     __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_cell, __pyx_n_s_setBackground); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 814, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_QtGui); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 814, __pyx_L1_error)
@@ -26210,33 +22832,15 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_16color(CYTHON_UNUSED PyO
     }
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-    /* "main.py":811
- *                 cell.setBackground(QtGui.QColor(red, green, blue))
- * 
- *         elif column == 2:             # <<<<<<<<<<<<<<
- *                 red, green, blue = colors[2]
- *                 cell = self.tw_reportTable.item(row, column)
- */
+    
     goto __pyx_L3;
   }
 
-  /* "main.py":816
- *                 cell.setBackground(QtGui.QColor(red, green, blue))
- * 
- *         elif column == 3:             # <<<<<<<<<<<<<<
- *                 red, green, blue = colors[3]
- *                 cell = self.tw_reportTable.item(row, column)
- */
+  
   __pyx_t_1 = (__Pyx_PyInt_BoolEqObjC(__pyx_v_column, __pyx_int_3, 3, 0)); if (unlikely((__pyx_t_1 < 0))) __PYX_ERR(0, 816, __pyx_L1_error)
   if (__pyx_t_1) {
 
-    /* "main.py":817
- * 
- *         elif column == 3:
- *                 red, green, blue = colors[3]             # <<<<<<<<<<<<<<
- *                 cell = self.tw_reportTable.item(row, column)
- * 
- */
+    
     __pyx_t_2 = __Pyx_GetItemInt(__pyx_v_colors, 3, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 817, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     if ((likely(PyTuple_CheckExact(__pyx_t_2))) || (PyList_CheckExact(__pyx_t_2))) {
@@ -26299,13 +22903,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_16color(CYTHON_UNUSED PyO
     __pyx_v_blue = __pyx_t_4;
     __pyx_t_4 = 0;
 
-    /* "main.py":818
- *         elif column == 3:
- *                 red, green, blue = colors[3]
- *                 cell = self.tw_reportTable.item(row, column)             # <<<<<<<<<<<<<<
- * 
- *                 cell.setBackground(QtGui.QColor(red, green, blue))
- */
+    
     __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_tw_reportTable); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 818, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_item); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 818, __pyx_L1_error)
@@ -26336,13 +22934,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_16color(CYTHON_UNUSED PyO
     __pyx_v_cell = __pyx_t_2;
     __pyx_t_2 = 0;
 
-    /* "main.py":820
- *                 cell = self.tw_reportTable.item(row, column)
- * 
- *                 cell.setBackground(QtGui.QColor(red, green, blue))             # <<<<<<<<<<<<<<
- * 
- *         elif column == 4:
- */
+    
     __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_cell, __pyx_n_s_setBackground); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 820, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_QtGui); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 820, __pyx_L1_error)
@@ -26397,33 +22989,15 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_16color(CYTHON_UNUSED PyO
     }
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-    /* "main.py":816
- *                 cell.setBackground(QtGui.QColor(red, green, blue))
- * 
- *         elif column == 3:             # <<<<<<<<<<<<<<
- *                 red, green, blue = colors[3]
- *                 cell = self.tw_reportTable.item(row, column)
- */
+    
     goto __pyx_L3;
   }
 
-  /* "main.py":822
- *                 cell.setBackground(QtGui.QColor(red, green, blue))
- * 
- *         elif column == 4:             # <<<<<<<<<<<<<<
- *                 red, green, blue = colors[4]
- *                 cell = self.tw_reportTable.item(row, column)
- */
+  
   __pyx_t_1 = (__Pyx_PyInt_BoolEqObjC(__pyx_v_column, __pyx_int_4, 4, 0)); if (unlikely((__pyx_t_1 < 0))) __PYX_ERR(0, 822, __pyx_L1_error)
   if (__pyx_t_1) {
 
-    /* "main.py":823
- * 
- *         elif column == 4:
- *                 red, green, blue = colors[4]             # <<<<<<<<<<<<<<
- *                 cell = self.tw_reportTable.item(row, column)
- *                 cell.setBackground(QtGui.QColor(red, green, blue))
- */
+    
     __pyx_t_2 = __Pyx_GetItemInt(__pyx_v_colors, 4, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 823, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     if ((likely(PyTuple_CheckExact(__pyx_t_2))) || (PyList_CheckExact(__pyx_t_2))) {
@@ -26486,13 +23060,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_16color(CYTHON_UNUSED PyO
     __pyx_v_blue = __pyx_t_5;
     __pyx_t_5 = 0;
 
-    /* "main.py":824
- *         elif column == 4:
- *                 red, green, blue = colors[4]
- *                 cell = self.tw_reportTable.item(row, column)             # <<<<<<<<<<<<<<
- *                 cell.setBackground(QtGui.QColor(red, green, blue))
- * 
- */
+    
     __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_tw_reportTable); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 824, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_item); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 824, __pyx_L1_error)
@@ -26523,13 +23091,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_16color(CYTHON_UNUSED PyO
     __pyx_v_cell = __pyx_t_2;
     __pyx_t_2 = 0;
 
-    /* "main.py":825
- *                 red, green, blue = colors[4]
- *                 cell = self.tw_reportTable.item(row, column)
- *                 cell.setBackground(QtGui.QColor(red, green, blue))             # <<<<<<<<<<<<<<
- * 
- *         elif column == 5:
- */
+    
     __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_cell, __pyx_n_s_setBackground); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 825, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_QtGui); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 825, __pyx_L1_error)
@@ -26584,33 +23146,15 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_16color(CYTHON_UNUSED PyO
     }
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-    /* "main.py":822
- *                 cell.setBackground(QtGui.QColor(red, green, blue))
- * 
- *         elif column == 4:             # <<<<<<<<<<<<<<
- *                 red, green, blue = colors[4]
- *                 cell = self.tw_reportTable.item(row, column)
- */
+    
     goto __pyx_L3;
   }
 
-  /* "main.py":827
- *                 cell.setBackground(QtGui.QColor(red, green, blue))
- * 
- *         elif column == 5:             # <<<<<<<<<<<<<<
- *                 red, green, blue = colors[5]
- *                 cell = self.tw_reportTable.item(row, column)
- */
+  
   __pyx_t_1 = (__Pyx_PyInt_BoolEqObjC(__pyx_v_column, __pyx_int_5, 5, 0)); if (unlikely((__pyx_t_1 < 0))) __PYX_ERR(0, 827, __pyx_L1_error)
   if (__pyx_t_1) {
 
-    /* "main.py":828
- * 
- *         elif column == 5:
- *                 red, green, blue = colors[5]             # <<<<<<<<<<<<<<
- *                 cell = self.tw_reportTable.item(row, column)
- *                 cell.setBackground(QtGui.QColor(red, green, blue))
- */
+    
     __pyx_t_2 = __Pyx_GetItemInt(__pyx_v_colors, 5, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 828, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     if ((likely(PyTuple_CheckExact(__pyx_t_2))) || (PyList_CheckExact(__pyx_t_2))) {
@@ -26673,13 +23217,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_16color(CYTHON_UNUSED PyO
     __pyx_v_blue = __pyx_t_6;
     __pyx_t_6 = 0;
 
-    /* "main.py":829
- *         elif column == 5:
- *                 red, green, blue = colors[5]
- *                 cell = self.tw_reportTable.item(row, column)             # <<<<<<<<<<<<<<
- *                 cell.setBackground(QtGui.QColor(red, green, blue))
- * 
- */
+    
     __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_tw_reportTable); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 829, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_item); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 829, __pyx_L1_error)
@@ -26710,13 +23248,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_16color(CYTHON_UNUSED PyO
     __pyx_v_cell = __pyx_t_2;
     __pyx_t_2 = 0;
 
-    /* "main.py":830
- *                 red, green, blue = colors[5]
- *                 cell = self.tw_reportTable.item(row, column)
- *                 cell.setBackground(QtGui.QColor(red, green, blue))             # <<<<<<<<<<<<<<
- * 
- *         elif column == 6:
- */
+    
     __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_cell, __pyx_n_s_setBackground); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 830, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_QtGui); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 830, __pyx_L1_error)
@@ -26771,33 +23303,15 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_16color(CYTHON_UNUSED PyO
     }
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-    /* "main.py":827
- *                 cell.setBackground(QtGui.QColor(red, green, blue))
- * 
- *         elif column == 5:             # <<<<<<<<<<<<<<
- *                 red, green, blue = colors[5]
- *                 cell = self.tw_reportTable.item(row, column)
- */
+    
     goto __pyx_L3;
   }
 
-  /* "main.py":832
- *                 cell.setBackground(QtGui.QColor(red, green, blue))
- * 
- *         elif column == 6:             # <<<<<<<<<<<<<<
- *                 red, green, blue = colors[6]
- *                 cell = self.tw_reportTable.item(row, column)
- */
+  
   __pyx_t_1 = (__Pyx_PyInt_BoolEqObjC(__pyx_v_column, __pyx_int_6, 6, 0)); if (unlikely((__pyx_t_1 < 0))) __PYX_ERR(0, 832, __pyx_L1_error)
   if (__pyx_t_1) {
 
-    /* "main.py":833
- * 
- *         elif column == 6:
- *                 red, green, blue = colors[6]             # <<<<<<<<<<<<<<
- *                 cell = self.tw_reportTable.item(row, column)
- *                 cell.setBackground(QtGui.QColor(red, green, blue))
- */
+    
     __pyx_t_2 = __Pyx_GetItemInt(__pyx_v_colors, 6, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 833, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     if ((likely(PyTuple_CheckExact(__pyx_t_2))) || (PyList_CheckExact(__pyx_t_2))) {
@@ -26860,13 +23374,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_16color(CYTHON_UNUSED PyO
     __pyx_v_blue = __pyx_t_3;
     __pyx_t_3 = 0;
 
-    /* "main.py":834
- *         elif column == 6:
- *                 red, green, blue = colors[6]
- *                 cell = self.tw_reportTable.item(row, column)             # <<<<<<<<<<<<<<
- *                 cell.setBackground(QtGui.QColor(red, green, blue))
- * 
- */
+    
     __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_tw_reportTable); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 834, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_item); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 834, __pyx_L1_error)
@@ -26897,13 +23405,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_16color(CYTHON_UNUSED PyO
     __pyx_v_cell = __pyx_t_2;
     __pyx_t_2 = 0;
 
-    /* "main.py":835
- *                 red, green, blue = colors[6]
- *                 cell = self.tw_reportTable.item(row, column)
- *                 cell.setBackground(QtGui.QColor(red, green, blue))             # <<<<<<<<<<<<<<
- * 
- *     def write(self, row, column, text):
- */
+    
     __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_cell, __pyx_n_s_setBackground); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 835, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_QtGui); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 835, __pyx_L1_error)
@@ -26958,25 +23460,13 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_16color(CYTHON_UNUSED PyO
     }
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-    /* "main.py":832
- *                 cell.setBackground(QtGui.QColor(red, green, blue))
- * 
- *         elif column == 6:             # <<<<<<<<<<<<<<
- *                 red, green, blue = colors[6]
- *                 cell = self.tw_reportTable.item(row, column)
- */
+    
   }
   __pyx_L3:;
 
-  /* "main.py":793
- *             horHeader.setSectionResizeMode(i, QHeaderView.ResizeMode.Stretch)
- * 
- *     def color(self, row, column):             # <<<<<<<<<<<<<<
- * 
- *         colors = ((191,255,172), (255,219,224), (249,211,249),
- */
+  
 
-  /* function exit code */
+  
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
@@ -26998,22 +23488,16 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_16color(CYTHON_UNUSED PyO
   return __pyx_r;
 }
 
-/* "main.py":837
- *                 cell.setBackground(QtGui.QColor(red, green, blue))
- * 
- *     def write(self, row, column, text):             # <<<<<<<<<<<<<<
- *         aligment = QtCore.Qt.AlignmentFlag.AlignCenter
- *         self.tw_reportTable.setItem(row, column, QTableWidgetItem())
- */
 
-/* Python wrapper */
+
+
 static PyObject *__pyx_pw_6ver1_3_4main_12ReportDialog_19write(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
-); /*proto*/
+); 
 static PyMethodDef __pyx_mdef_6ver1_3_4main_12ReportDialog_19write = {"write", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6ver1_3_4main_12ReportDialog_19write, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
 static PyObject *__pyx_pw_6ver1_3_4main_12ReportDialog_19write(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
@@ -27136,7 +23620,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __pyx_L4_argument_unpacking_done:;
   __pyx_r = __pyx_pf_6ver1_3_4main_12ReportDialog_18write(__pyx_self, __pyx_v_self, __pyx_v_row, __pyx_v_column, __pyx_v_text);
 
-  /* function exit code */
+  
   {
     Py_ssize_t __pyx_temp;
     for (__pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
@@ -27162,13 +23646,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_18write(CYTHON_UNUSED PyO
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("write", 0);
 
-  /* "main.py":838
- * 
- *     def write(self, row, column, text):
- *         aligment = QtCore.Qt.AlignmentFlag.AlignCenter             # <<<<<<<<<<<<<<
- *         self.tw_reportTable.setItem(row, column, QTableWidgetItem())
- *         self.tw_reportTable.item(row, column).setText(text)
- */
+  
   __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_QtCore); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 838, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_Qt); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 838, __pyx_L1_error)
@@ -27183,13 +23661,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_18write(CYTHON_UNUSED PyO
   __pyx_v_aligment = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "main.py":839
- *     def write(self, row, column, text):
- *         aligment = QtCore.Qt.AlignmentFlag.AlignCenter
- *         self.tw_reportTable.setItem(row, column, QTableWidgetItem())             # <<<<<<<<<<<<<<
- *         self.tw_reportTable.item(row, column).setText(text)
- *         self.tw_reportTable.item(row, column).setTextAlignment(aligment)
- */
+  
   __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_tw_reportTable); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 839, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_setItem); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 839, __pyx_L1_error)
@@ -27244,13 +23716,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_18write(CYTHON_UNUSED PyO
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "main.py":840
- *         aligment = QtCore.Qt.AlignmentFlag.AlignCenter
- *         self.tw_reportTable.setItem(row, column, QTableWidgetItem())
- *         self.tw_reportTable.item(row, column).setText(text)             # <<<<<<<<<<<<<<
- *         self.tw_reportTable.item(row, column).setTextAlignment(aligment)
- * 
- */
+  
   __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_tw_reportTable); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 840, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_item); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 840, __pyx_L1_error)
@@ -27305,13 +23771,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_18write(CYTHON_UNUSED PyO
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "main.py":841
- *         self.tw_reportTable.setItem(row, column, QTableWidgetItem())
- *         self.tw_reportTable.item(row, column).setText(text)
- *         self.tw_reportTable.item(row, column).setTextAlignment(aligment)             # <<<<<<<<<<<<<<
- * 
- *         self.color(row, column)
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_tw_reportTable); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 841, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_item); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 841, __pyx_L1_error)
@@ -27366,13 +23826,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_18write(CYTHON_UNUSED PyO
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "main.py":843
- *         self.tw_reportTable.item(row, column).setTextAlignment(aligment)
- * 
- *         self.color(row, column)             # <<<<<<<<<<<<<<
- * 
- *     def insertDates(self):
- */
+  
   __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_color); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 843, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_4 = NULL;
@@ -27399,15 +23853,9 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_18write(CYTHON_UNUSED PyO
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "main.py":837
- *                 cell.setBackground(QtGui.QColor(red, green, blue))
- * 
- *     def write(self, row, column, text):             # <<<<<<<<<<<<<<
- *         aligment = QtCore.Qt.AlignmentFlag.AlignCenter
- *         self.tw_reportTable.setItem(row, column, QTableWidgetItem())
- */
+  
 
-  /* function exit code */
+  
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
@@ -27425,22 +23873,16 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_18write(CYTHON_UNUSED PyO
   return __pyx_r;
 }
 
-/* "main.py":845
- *         self.color(row, column)
- * 
- *     def insertDates(self):             # <<<<<<<<<<<<<<
- * 
- *         # fetching dates
- */
 
-/* Python wrapper */
+
+
 static PyObject *__pyx_pw_6ver1_3_4main_12ReportDialog_21insertDates(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
-); /*proto*/
+); 
 static PyMethodDef __pyx_mdef_6ver1_3_4main_12ReportDialog_21insertDates = {"insertDates", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6ver1_3_4main_12ReportDialog_21insertDates, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
 static PyObject *__pyx_pw_6ver1_3_4main_12ReportDialog_21insertDates(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
@@ -27518,7 +23960,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __pyx_L4_argument_unpacking_done:;
   __pyx_r = __pyx_pf_6ver1_3_4main_12ReportDialog_20insertDates(__pyx_self, __pyx_v_self);
 
-  /* function exit code */
+  
   {
     Py_ssize_t __pyx_temp;
     for (__pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
@@ -27586,25 +24028,13 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_20insertDates(CYTHON_UNUS
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("insertDates", 0);
 
-  /* "main.py":848
- * 
- *         # fetching dates
- *         self.colorVariations = []             # <<<<<<<<<<<<<<
- * 
- *         for column in range(self.calTable.columnCount()):
- */
+  
   __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 848, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_colorVariations, __pyx_t_1) < 0) __PYX_ERR(0, 848, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":850
- *         self.colorVariations = []
- * 
- *         for column in range(self.calTable.columnCount()):             # <<<<<<<<<<<<<<
- * 
- *             for row in range(self.calTable.rowCount()):
- */
+  
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_calTable); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 850, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_columnCount); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 850, __pyx_L1_error)
@@ -27678,13 +24108,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_20insertDates(CYTHON_UNUS
     __Pyx_XDECREF_SET(__pyx_v_column, __pyx_t_3);
     __pyx_t_3 = 0;
 
-    /* "main.py":852
- *         for column in range(self.calTable.columnCount()):
- * 
- *             for row in range(self.calTable.rowCount()):             # <<<<<<<<<<<<<<
- *                 cell = self.calTable.item(row, column)
- * 
- */
+    
     __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_calTable); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 852, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_rowCount); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 852, __pyx_L1_error)
@@ -27758,13 +24182,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_20insertDates(CYTHON_UNUS
       __Pyx_XDECREF_SET(__pyx_v_row, __pyx_t_7);
       __pyx_t_7 = 0;
 
-      /* "main.py":853
- * 
- *             for row in range(self.calTable.rowCount()):
- *                 cell = self.calTable.item(row, column)             # <<<<<<<<<<<<<<
- * 
- *                 if cell:
- */
+      
       __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_calTable); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 853, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_item); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 853, __pyx_L1_error)
@@ -27795,23 +24213,11 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_20insertDates(CYTHON_UNUS
       __Pyx_XDECREF_SET(__pyx_v_cell, __pyx_t_7);
       __pyx_t_7 = 0;
 
-      /* "main.py":855
- *                 cell = self.calTable.item(row, column)
- * 
- *                 if cell:             # <<<<<<<<<<<<<<
- * 
- *                     red, green, blue, _ = cell.background().color().getRgb()
- */
+      
       __pyx_t_11 = __Pyx_PyObject_IsTrue(__pyx_v_cell); if (unlikely((__pyx_t_11 < 0))) __PYX_ERR(0, 855, __pyx_L1_error)
       if (__pyx_t_11) {
 
-        /* "main.py":857
- *                 if cell:
- * 
- *                     red, green, blue, _ = cell.background().color().getRgb()             # <<<<<<<<<<<<<<
- *                     color = f"{red}:{green}:{blue}"
- * 
- */
+        
         __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_v_cell, __pyx_n_s_background); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 857, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_12);
         __pyx_t_13 = NULL;
@@ -27954,13 +24360,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_20insertDates(CYTHON_UNUS
         __Pyx_XDECREF_SET(__pyx_v__, __pyx_t_13);
         __pyx_t_13 = 0;
 
-        /* "main.py":858
- * 
- *                     red, green, blue, _ = cell.background().color().getRgb()
- *                     color = f"{red}:{green}:{blue}"             # <<<<<<<<<<<<<<
- * 
- *                     if color != None:
- */
+        
         __pyx_t_7 = PyTuple_New(5); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 858, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_7);
         __pyx_t_16 = 0;
@@ -28000,37 +24400,19 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_20insertDates(CYTHON_UNUS
         __Pyx_XDECREF_SET(__pyx_v_color, __pyx_t_13);
         __pyx_t_13 = 0;
 
-        /* "main.py":860
- *                     color = f"{red}:{green}:{blue}"
- * 
- *                     if color != None:             # <<<<<<<<<<<<<<
- *                         self.colorVariations.append(color)
- *                         self.colorVariations.sort()
- */
+        
         __pyx_t_13 = PyObject_RichCompare(__pyx_v_color, Py_None, Py_NE); __Pyx_XGOTREF(__pyx_t_13); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 860, __pyx_L1_error)
         __pyx_t_11 = __Pyx_PyObject_IsTrue(__pyx_t_13); if (unlikely((__pyx_t_11 < 0))) __PYX_ERR(0, 860, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
         if (__pyx_t_11) {
 
-          /* "main.py":861
- * 
- *                     if color != None:
- *                         self.colorVariations.append(color)             # <<<<<<<<<<<<<<
- *                         self.colorVariations.sort()
- * 
- */
+          
           __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_colorVariations); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 861, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_13);
           __pyx_t_18 = __Pyx_PyObject_Append(__pyx_t_13, __pyx_v_color); if (unlikely(__pyx_t_18 == ((int)-1))) __PYX_ERR(0, 861, __pyx_L1_error)
           __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
 
-          /* "main.py":862
- *                     if color != None:
- *                         self.colorVariations.append(color)
- *                         self.colorVariations.sort()             # <<<<<<<<<<<<<<
- * 
- *                         self.colorVariations = list(dict.fromkeys(self.colorVariations))
- */
+          
           __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_colorVariations); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 862, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_7);
           __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_sort); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 862, __pyx_L1_error)
@@ -28060,13 +24442,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_20insertDates(CYTHON_UNUS
           }
           __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
 
-          /* "main.py":864
- *                         self.colorVariations.sort()
- * 
- *                         self.colorVariations = list(dict.fromkeys(self.colorVariations))             # <<<<<<<<<<<<<<
- * 
- *         for color in self.colorVariations:
- */
+          
           __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)(&PyDict_Type)), __pyx_n_s_fromkeys); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 864, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_2);
           __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_colorVariations); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 864, __pyx_L1_error)
@@ -28100,51 +24476,21 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_20insertDates(CYTHON_UNUS
           if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_colorVariations, __pyx_t_2) < 0) __PYX_ERR(0, 864, __pyx_L1_error)
           __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-          /* "main.py":860
- *                     color = f"{red}:{green}:{blue}"
- * 
- *                     if color != None:             # <<<<<<<<<<<<<<
- *                         self.colorVariations.append(color)
- *                         self.colorVariations.sort()
- */
+          
         }
 
-        /* "main.py":855
- *                 cell = self.calTable.item(row, column)
- * 
- *                 if cell:             # <<<<<<<<<<<<<<
- * 
- *                     red, green, blue, _ = cell.background().color().getRgb()
- */
+        
       }
 
-      /* "main.py":852
- *         for column in range(self.calTable.columnCount()):
- * 
- *             for row in range(self.calTable.rowCount()):             # <<<<<<<<<<<<<<
- *                 cell = self.calTable.item(row, column)
- * 
- */
+      
     }
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "main.py":850
- *         self.colorVariations = []
- * 
- *         for column in range(self.calTable.columnCount()):             # <<<<<<<<<<<<<<
- * 
- *             for row in range(self.calTable.rowCount()):
- */
+    
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":866
- *                         self.colorVariations = list(dict.fromkeys(self.colorVariations))
- * 
- *         for color in self.colorVariations:             # <<<<<<<<<<<<<<
- *             connect = sqlite3.connect(f"{VERSIONPATH}/database/d.db")
- *             cursor = connect.cursor()
- */
+  
   __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_colorVariations); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 866, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   if (likely(PyList_CheckExact(__pyx_t_1)) || PyTuple_CheckExact(__pyx_t_1)) {
@@ -28190,13 +24536,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_20insertDates(CYTHON_UNUS
     __Pyx_XDECREF_SET(__pyx_v_color, __pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "main.py":867
- * 
- *         for color in self.colorVariations:
- *             connect = sqlite3.connect(f"{VERSIONPATH}/database/d.db")             # <<<<<<<<<<<<<<
- *             cursor = connect.cursor()
- * 
- */
+    
     __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_sqlite3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 867, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_connect); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 867, __pyx_L1_error)
@@ -28236,13 +24576,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_20insertDates(CYTHON_UNUS
     __Pyx_XDECREF_SET(__pyx_v_connect, __pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "main.py":868
- *         for color in self.colorVariations:
- *             connect = sqlite3.connect(f"{VERSIONPATH}/database/d.db")
- *             cursor = connect.cursor()             # <<<<<<<<<<<<<<
- * 
- *             cursor.execute(f"""SELECT month FROM {self.tableName} WHERE color = '{color}'""")
- */
+    
     __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_v_connect, __pyx_n_s_cursor); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 868, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_13);
     __pyx_t_2 = NULL;
@@ -28270,13 +24604,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_20insertDates(CYTHON_UNUS
     __Pyx_XDECREF_SET(__pyx_v_cursor, __pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "main.py":870
- *             cursor = connect.cursor()
- * 
- *             cursor.execute(f"""SELECT month FROM {self.tableName} WHERE color = '{color}'""")             # <<<<<<<<<<<<<<
- *             DBmonth = cursor.fetchall()
- *             DBmonth.sort()
- */
+    
     __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_v_cursor, __pyx_n_s_execute); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 870, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_13);
     __pyx_t_2 = PyTuple_New(5); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 870, __pyx_L1_error)
@@ -28340,13 +24668,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_20insertDates(CYTHON_UNUS
     }
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "main.py":871
- * 
- *             cursor.execute(f"""SELECT month FROM {self.tableName} WHERE color = '{color}'""")
- *             DBmonth = cursor.fetchall()             # <<<<<<<<<<<<<<
- *             DBmonth.sort()
- * 
- */
+    
     __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_v_cursor, __pyx_n_s_fetchall); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 871, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_13);
     __pyx_t_10 = NULL;
@@ -28374,13 +24696,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_20insertDates(CYTHON_UNUS
     __Pyx_XDECREF_SET(__pyx_v_DBmonth, __pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "main.py":872
- *             cursor.execute(f"""SELECT month FROM {self.tableName} WHERE color = '{color}'""")
- *             DBmonth = cursor.fetchall()
- *             DBmonth.sort()             # <<<<<<<<<<<<<<
- * 
- *             index = 0
- */
+    
     __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_v_DBmonth, __pyx_n_s_sort); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 872, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_13);
     __pyx_t_10 = NULL;
@@ -28407,23 +24723,11 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_20insertDates(CYTHON_UNUS
     }
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "main.py":874
- *             DBmonth.sort()
- * 
- *             index = 0             # <<<<<<<<<<<<<<
- *             for item in DBmonth:
- * 
- */
+    
     __Pyx_INCREF(__pyx_int_0);
     __Pyx_XDECREF_SET(__pyx_v_index, __pyx_int_0);
 
-    /* "main.py":875
- * 
- *             index = 0
- *             for item in DBmonth:             # <<<<<<<<<<<<<<
- * 
- *                 monthTemp = ""
- */
+    
     if (likely(PyList_CheckExact(__pyx_v_DBmonth)) || PyTuple_CheckExact(__pyx_v_DBmonth)) {
       __pyx_t_1 = __pyx_v_DBmonth; __Pyx_INCREF(__pyx_t_1); __pyx_t_8 = 0;
       __pyx_t_9 = NULL;
@@ -28466,23 +24770,11 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_20insertDates(CYTHON_UNUS
       __Pyx_XDECREF_SET(__pyx_v_item, __pyx_t_13);
       __pyx_t_13 = 0;
 
-      /* "main.py":877
- *             for item in DBmonth:
- * 
- *                 monthTemp = ""             # <<<<<<<<<<<<<<
- *                 for i in item:
- *                     monthTemp += str(i)
- */
+      
       __Pyx_INCREF(__pyx_kp_s_);
       __Pyx_XDECREF_SET(__pyx_v_monthTemp, __pyx_kp_s_);
 
-      /* "main.py":878
- * 
- *                 monthTemp = ""
- *                 for i in item:             # <<<<<<<<<<<<<<
- *                     monthTemp += str(i)
- *                 month = int(monthTemp)
- */
+      
       if (likely(PyList_CheckExact(__pyx_v_item)) || PyTuple_CheckExact(__pyx_v_item)) {
         __pyx_t_13 = __pyx_v_item; __Pyx_INCREF(__pyx_t_13); __pyx_t_16 = 0;
         __pyx_t_19 = NULL;
@@ -28525,13 +24817,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_20insertDates(CYTHON_UNUS
         __Pyx_XDECREF_SET(__pyx_v_i, __pyx_t_10);
         __pyx_t_10 = 0;
 
-        /* "main.py":879
- *                 monthTemp = ""
- *                 for i in item:
- *                     monthTemp += str(i)             # <<<<<<<<<<<<<<
- *                 month = int(monthTemp)
- * 
- */
+        
         __pyx_t_10 = __Pyx_PyObject_Str(__pyx_v_i); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 879, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_10);
         __pyx_t_2 = PyNumber_InPlaceAdd(__pyx_v_monthTemp, __pyx_t_10); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 879, __pyx_L1_error)
@@ -28540,66 +24826,30 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_20insertDates(CYTHON_UNUS
         __Pyx_DECREF_SET(__pyx_v_monthTemp, __pyx_t_2);
         __pyx_t_2 = 0;
 
-        /* "main.py":878
- * 
- *                 monthTemp = ""
- *                 for i in item:             # <<<<<<<<<<<<<<
- *                     monthTemp += str(i)
- *                 month = int(monthTemp)
- */
+        
       }
       __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
 
-      /* "main.py":880
- *                 for i in item:
- *                     monthTemp += str(i)
- *                 month = int(monthTemp)             # <<<<<<<<<<<<<<
- * 
- *                 DBmonth[index] = month
- */
+      
       __pyx_t_13 = __Pyx_PyNumber_Int(__pyx_v_monthTemp); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 880, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_13);
       __Pyx_XDECREF_SET(__pyx_v_month, __pyx_t_13);
       __pyx_t_13 = 0;
 
-      /* "main.py":882
- *                 month = int(monthTemp)
- * 
- *                 DBmonth[index] = month             # <<<<<<<<<<<<<<
- *                 index += 1
- * 
- */
+      
       if (unlikely((PyObject_SetItem(__pyx_v_DBmonth, __pyx_v_index, __pyx_v_month) < 0))) __PYX_ERR(0, 882, __pyx_L1_error)
 
-      /* "main.py":883
- * 
- *                 DBmonth[index] = month
- *                 index += 1             # <<<<<<<<<<<<<<
- * 
- *             DBmonth = list(dict.fromkeys(DBmonth))
- */
+      
       __pyx_t_13 = __Pyx_PyInt_AddObjC(__pyx_v_index, __pyx_int_1, 1, 1, 0); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 883, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_13);
       __Pyx_DECREF_SET(__pyx_v_index, __pyx_t_13);
       __pyx_t_13 = 0;
 
-      /* "main.py":875
- * 
- *             index = 0
- *             for item in DBmonth:             # <<<<<<<<<<<<<<
- * 
- *                 monthTemp = ""
- */
+      
     }
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "main.py":885
- *                 index += 1
- * 
- *             DBmonth = list(dict.fromkeys(DBmonth))             # <<<<<<<<<<<<<<
- * 
- *             dayList = []
- */
+    
     __pyx_t_13 = __Pyx_PyObject_GetAttrStr(((PyObject *)(&PyDict_Type)), __pyx_n_s_fromkeys); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 885, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_13);
     __pyx_t_2 = NULL;
@@ -28630,25 +24880,13 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_20insertDates(CYTHON_UNUS
     __Pyx_DECREF_SET(__pyx_v_DBmonth, __pyx_t_13);
     __pyx_t_13 = 0;
 
-    /* "main.py":887
- *             DBmonth = list(dict.fromkeys(DBmonth))
- * 
- *             dayList = []             # <<<<<<<<<<<<<<
- * 
- *             for month in DBmonth:
- */
+    
     __pyx_t_13 = PyList_New(0); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 887, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_13);
     __Pyx_XDECREF_SET(__pyx_v_dayList, ((PyObject*)__pyx_t_13));
     __pyx_t_13 = 0;
 
-    /* "main.py":889
- *             dayList = []
- * 
- *             for month in DBmonth:             # <<<<<<<<<<<<<<
- *                 cursor.execute(f"""SELECT day FROM {self.tableName} WHERE month = {month} AND color = '{color}'""")
- *                 DBday = cursor.fetchall()
- */
+    
     __pyx_t_13 = __pyx_v_DBmonth; __Pyx_INCREF(__pyx_t_13); __pyx_t_8 = 0;
     for (;;) {
       if (__pyx_t_8 >= PyList_GET_SIZE(__pyx_t_13)) break;
@@ -28661,13 +24899,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_20insertDates(CYTHON_UNUS
       __Pyx_XDECREF_SET(__pyx_v_month, __pyx_t_1);
       __pyx_t_1 = 0;
 
-      /* "main.py":890
- * 
- *             for month in DBmonth:
- *                 cursor.execute(f"""SELECT day FROM {self.tableName} WHERE month = {month} AND color = '{color}'""")             # <<<<<<<<<<<<<<
- *                 DBday = cursor.fetchall()
- * 
- */
+      
       __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_cursor, __pyx_n_s_execute); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 890, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __pyx_t_10 = PyTuple_New(7); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 890, __pyx_L1_error)
@@ -28742,13 +24974,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_20insertDates(CYTHON_UNUS
       }
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-      /* "main.py":891
- *             for month in DBmonth:
- *                 cursor.execute(f"""SELECT day FROM {self.tableName} WHERE month = {month} AND color = '{color}'""")
- *                 DBday = cursor.fetchall()             # <<<<<<<<<<<<<<
- * 
- *                 index = 0
- */
+      
       __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_cursor, __pyx_n_s_fetchall); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 891, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __pyx_t_12 = NULL;
@@ -28776,23 +25002,11 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_20insertDates(CYTHON_UNUS
       __Pyx_XDECREF_SET(__pyx_v_DBday, __pyx_t_1);
       __pyx_t_1 = 0;
 
-      /* "main.py":893
- *                 DBday = cursor.fetchall()
- * 
- *                 index = 0             # <<<<<<<<<<<<<<
- *                 for item in DBday:
- * 
- */
+      
       __Pyx_INCREF(__pyx_int_0);
       __Pyx_DECREF_SET(__pyx_v_index, __pyx_int_0);
 
-      /* "main.py":894
- * 
- *                 index = 0
- *                 for item in DBday:             # <<<<<<<<<<<<<<
- * 
- *                     dayTemp = ""
- */
+      
       if (likely(PyList_CheckExact(__pyx_v_DBday)) || PyTuple_CheckExact(__pyx_v_DBday)) {
         __pyx_t_1 = __pyx_v_DBday; __Pyx_INCREF(__pyx_t_1); __pyx_t_16 = 0;
         __pyx_t_9 = NULL;
@@ -28835,23 +25049,11 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_20insertDates(CYTHON_UNUS
         __Pyx_XDECREF_SET(__pyx_v_item, __pyx_t_2);
         __pyx_t_2 = 0;
 
-        /* "main.py":896
- *                 for item in DBday:
- * 
- *                     dayTemp = ""             # <<<<<<<<<<<<<<
- *                     for i in item:
- *                         dayTemp += str(i)
- */
+        
         __Pyx_INCREF(__pyx_kp_s_);
         __Pyx_XDECREF_SET(__pyx_v_dayTemp, __pyx_kp_s_);
 
-        /* "main.py":897
- * 
- *                     dayTemp = ""
- *                     for i in item:             # <<<<<<<<<<<<<<
- *                         dayTemp += str(i)
- *                     day = int(dayTemp) + 1
- */
+        
         if (likely(PyList_CheckExact(__pyx_v_item)) || PyTuple_CheckExact(__pyx_v_item)) {
           __pyx_t_2 = __pyx_v_item; __Pyx_INCREF(__pyx_t_2); __pyx_t_20 = 0;
           __pyx_t_19 = NULL;
@@ -28894,13 +25096,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_20insertDates(CYTHON_UNUS
           __Pyx_XDECREF_SET(__pyx_v_i, __pyx_t_12);
           __pyx_t_12 = 0;
 
-          /* "main.py":898
- *                     dayTemp = ""
- *                     for i in item:
- *                         dayTemp += str(i)             # <<<<<<<<<<<<<<
- *                     day = int(dayTemp) + 1
- * 
- */
+          
           __pyx_t_12 = __Pyx_PyObject_Str(__pyx_v_i); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 898, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_12);
           __pyx_t_10 = PyNumber_InPlaceAdd(__pyx_v_dayTemp, __pyx_t_12); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 898, __pyx_L1_error)
@@ -28909,23 +25105,11 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_20insertDates(CYTHON_UNUS
           __Pyx_DECREF_SET(__pyx_v_dayTemp, __pyx_t_10);
           __pyx_t_10 = 0;
 
-          /* "main.py":897
- * 
- *                     dayTemp = ""
- *                     for i in item:             # <<<<<<<<<<<<<<
- *                         dayTemp += str(i)
- *                     day = int(dayTemp) + 1
- */
+          
         }
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-        /* "main.py":899
- *                     for i in item:
- *                         dayTemp += str(i)
- *                     day = int(dayTemp) + 1             # <<<<<<<<<<<<<<
- * 
- *                     DBday[index] = day
- */
+        
         __pyx_t_2 = __Pyx_PyNumber_Int(__pyx_v_dayTemp); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 899, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         __pyx_t_10 = __Pyx_PyInt_AddObjC(__pyx_t_2, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 899, __pyx_L1_error)
@@ -28934,63 +25118,27 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_20insertDates(CYTHON_UNUS
         __Pyx_XDECREF_SET(__pyx_v_day, __pyx_t_10);
         __pyx_t_10 = 0;
 
-        /* "main.py":901
- *                     day = int(dayTemp) + 1
- * 
- *                     DBday[index] = day             # <<<<<<<<<<<<<<
- *                     index += 1
- * 
- */
+        
         if (unlikely((PyObject_SetItem(__pyx_v_DBday, __pyx_v_index, __pyx_v_day) < 0))) __PYX_ERR(0, 901, __pyx_L1_error)
 
-        /* "main.py":902
- * 
- *                     DBday[index] = day
- *                     index += 1             # <<<<<<<<<<<<<<
- * 
- *                 dayList.append(DBday)
- */
+        
         __pyx_t_10 = __Pyx_PyInt_AddObjC(__pyx_v_index, __pyx_int_1, 1, 1, 0); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 902, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_10);
         __Pyx_DECREF_SET(__pyx_v_index, __pyx_t_10);
         __pyx_t_10 = 0;
 
-        /* "main.py":894
- * 
- *                 index = 0
- *                 for item in DBday:             # <<<<<<<<<<<<<<
- * 
- *                     dayTemp = ""
- */
+        
       }
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-      /* "main.py":904
- *                     index += 1
- * 
- *                 dayList.append(DBday)             # <<<<<<<<<<<<<<
- * 
- *             minDay = dayList[0][0]   #FIX: IndexError: list index out of range
- */
+      
       __pyx_t_18 = __Pyx_PyList_Append(__pyx_v_dayList, __pyx_v_DBday); if (unlikely(__pyx_t_18 == ((int)-1))) __PYX_ERR(0, 904, __pyx_L1_error)
 
-      /* "main.py":889
- *             dayList = []
- * 
- *             for month in DBmonth:             # <<<<<<<<<<<<<<
- *                 cursor.execute(f"""SELECT day FROM {self.tableName} WHERE month = {month} AND color = '{color}'""")
- *                 DBday = cursor.fetchall()
- */
+      
     }
     __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
 
-    /* "main.py":906
- *                 dayList.append(DBday)
- * 
- *             minDay = dayList[0][0]   #FIX: IndexError: list index out of range             # <<<<<<<<<<<<<<
- *             maxDay = dayList[-1][-1]
- * 
- */
+    
     __pyx_t_13 = __Pyx_GetItemInt_List(__pyx_v_dayList, 0, long, 1, __Pyx_PyInt_From_long, 1, 0, 1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 906, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_13);
     __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_13, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 906, __pyx_L1_error)
@@ -28999,13 +25147,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_20insertDates(CYTHON_UNUS
     __Pyx_XDECREF_SET(__pyx_v_minDay, __pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "main.py":907
- * 
- *             minDay = dayList[0][0]   #FIX: IndexError: list index out of range
- *             maxDay = dayList[-1][-1]             # <<<<<<<<<<<<<<
- * 
- *             minMonth = DBmonth[0] + 1
- */
+    
     __pyx_t_1 = __Pyx_GetItemInt_List(__pyx_v_dayList, -1L, long, 1, __Pyx_PyInt_From_long, 1, 1, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 907, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_t_13 = __Pyx_GetItemInt(__pyx_t_1, -1L, long, 1, __Pyx_PyInt_From_long, 0, 1, 1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 907, __pyx_L1_error)
@@ -29014,13 +25156,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_20insertDates(CYTHON_UNUS
     __Pyx_XDECREF_SET(__pyx_v_maxDay, __pyx_t_13);
     __pyx_t_13 = 0;
 
-    /* "main.py":909
- *             maxDay = dayList[-1][-1]
- * 
- *             minMonth = DBmonth[0] + 1             # <<<<<<<<<<<<<<
- *             maxMonth = DBmonth[-1] + 1
- * 
- */
+    
     __pyx_t_13 = __Pyx_GetItemInt_List(__pyx_v_DBmonth, 0, long, 1, __Pyx_PyInt_From_long, 1, 0, 1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 909, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_13);
     __pyx_t_1 = __Pyx_PyInt_AddObjC(__pyx_t_13, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 909, __pyx_L1_error)
@@ -29029,13 +25165,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_20insertDates(CYTHON_UNUS
     __Pyx_XDECREF_SET(__pyx_v_minMonth, __pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "main.py":910
- * 
- *             minMonth = DBmonth[0] + 1
- *             maxMonth = DBmonth[-1] + 1             # <<<<<<<<<<<<<<
- * 
- *             # insert dates in table
- */
+    
     __pyx_t_1 = __Pyx_GetItemInt_List(__pyx_v_DBmonth, -1L, long, 1, __Pyx_PyInt_From_long, 1, 1, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 910, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_t_13 = __Pyx_PyInt_AddObjC(__pyx_t_1, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 910, __pyx_L1_error)
@@ -29044,13 +25174,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_20insertDates(CYTHON_UNUS
     __Pyx_XDECREF_SET(__pyx_v_maxMonth, __pyx_t_13);
     __pyx_t_13 = 0;
 
-    /* "main.py":914
- *             # insert dates in table
- * 
- *             if self.tw_reportTable.rowCount() - 1 == 1:             # <<<<<<<<<<<<<<
- *                 self.tw_reportTable.setRowCount(3)
- * 
- */
+    
     __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_tw_reportTable); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 914, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_rowCount); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 914, __pyx_L1_error)
@@ -29085,13 +25209,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_20insertDates(CYTHON_UNUS
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
     if (__pyx_t_11) {
 
-      /* "main.py":915
- * 
- *             if self.tw_reportTable.rowCount() - 1 == 1:
- *                 self.tw_reportTable.setRowCount(3)             # <<<<<<<<<<<<<<
- * 
- *             else:
- */
+      
       __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_tw_reportTable); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 915, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_13);
       __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_13, __pyx_n_s_setRowCount); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 915, __pyx_L1_error)
@@ -29121,24 +25239,12 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_20insertDates(CYTHON_UNUS
       }
       __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
 
-      /* "main.py":914
- *             # insert dates in table
- * 
- *             if self.tw_reportTable.rowCount() - 1 == 1:             # <<<<<<<<<<<<<<
- *                 self.tw_reportTable.setRowCount(3)
- * 
- */
+      
       goto __pyx_L30;
     }
 
-    /* "main.py":918
- * 
- *             else:
- *                 self.tw_reportTable.setRowCount(self.tw_reportTable.rowCount() + 1)             # <<<<<<<<<<<<<<
- * 
- *             row = self.tw_reportTable.rowCount() - 1
- */
-    /*else*/ {
+    
+     {
       __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_tw_reportTable); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 918, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_setRowCount); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 918, __pyx_L1_error)
@@ -29201,13 +25307,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_20insertDates(CYTHON_UNUS
     }
     __pyx_L30:;
 
-    /* "main.py":920
- *                 self.tw_reportTable.setRowCount(self.tw_reportTable.rowCount() + 1)
- * 
- *             row = self.tw_reportTable.rowCount() - 1             # <<<<<<<<<<<<<<
- *             text = f"{minDay}.{minMonth} - {maxDay}.{maxMonth}"
- * 
- */
+    
     __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_tw_reportTable); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 920, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_13);
     __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_13, __pyx_n_s_rowCount); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 920, __pyx_L1_error)
@@ -29241,13 +25341,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_20insertDates(CYTHON_UNUS
     __Pyx_XDECREF_SET(__pyx_v_row, __pyx_t_12);
     __pyx_t_12 = 0;
 
-    /* "main.py":921
- * 
- *             row = self.tw_reportTable.rowCount() - 1
- *             text = f"{minDay}.{minMonth} - {maxDay}.{maxMonth}"             # <<<<<<<<<<<<<<
- * 
- *             self.write(row, 0, text)
- */
+    
     __pyx_t_12 = PyTuple_New(7); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 921, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_12);
     __pyx_t_8 = 0;
@@ -29298,13 +25392,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_20insertDates(CYTHON_UNUS
     __Pyx_XDECREF_SET(__pyx_v_text, ((PyObject*)__pyx_t_10));
     __pyx_t_10 = 0;
 
-    /* "main.py":923
- *             text = f"{minDay}.{minMonth} - {maxDay}.{maxMonth}"
- * 
- *             self.write(row, 0, text)             # <<<<<<<<<<<<<<
- * 
- *             # insert days in table
- */
+    
     __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_write); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 923, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_12);
     __pyx_t_13 = NULL;
@@ -29331,13 +25419,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_20insertDates(CYTHON_UNUS
     }
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
 
-    /* "main.py":927
- *             # insert days in table
- * 
- *             curYear = QDate().currentDate().year()             # <<<<<<<<<<<<<<
- *             minDate = QDate(curYear, minMonth, minDay)
- *             maxDate = QDate(curYear, maxMonth, maxDay)
- */
+    
     __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_QDate); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 927, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_t_2 = NULL;
@@ -29415,13 +25497,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_20insertDates(CYTHON_UNUS
     __Pyx_XDECREF_SET(__pyx_v_curYear, __pyx_t_10);
     __pyx_t_10 = 0;
 
-    /* "main.py":928
- * 
- *             curYear = QDate().currentDate().year()
- *             minDate = QDate(curYear, minMonth, minDay)             # <<<<<<<<<<<<<<
- *             maxDate = QDate(curYear, maxMonth, maxDay)
- *             days = str(maxDate.dayOfYear() - minDate.dayOfYear())
- */
+    
     __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_QDate); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 928, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_t_12 = NULL;
@@ -29449,13 +25525,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_20insertDates(CYTHON_UNUS
     __Pyx_XDECREF_SET(__pyx_v_minDate, __pyx_t_10);
     __pyx_t_10 = 0;
 
-    /* "main.py":929
- *             curYear = QDate().currentDate().year()
- *             minDate = QDate(curYear, minMonth, minDay)
- *             maxDate = QDate(curYear, maxMonth, maxDay)             # <<<<<<<<<<<<<<
- *             days = str(maxDate.dayOfYear() - minDate.dayOfYear())
- * 
- */
+    
     __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_QDate); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 929, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_t_12 = NULL;
@@ -29483,13 +25553,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_20insertDates(CYTHON_UNUS
     __Pyx_XDECREF_SET(__pyx_v_maxDate, __pyx_t_10);
     __pyx_t_10 = 0;
 
-    /* "main.py":930
- *             minDate = QDate(curYear, minMonth, minDay)
- *             maxDate = QDate(curYear, maxMonth, maxDay)
- *             days = str(maxDate.dayOfYear() - minDate.dayOfYear())             # <<<<<<<<<<<<<<
- * 
- *             if days == '0':
- */
+    
     __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_maxDate, __pyx_n_s_dayOfYear); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 930, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_t_12 = NULL;
@@ -29548,23 +25612,11 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_20insertDates(CYTHON_UNUS
     __Pyx_XDECREF_SET(__pyx_v_days, __pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "main.py":932
- *             days = str(maxDate.dayOfYear() - minDate.dayOfYear())
- * 
- *             if days == '0':             # <<<<<<<<<<<<<<
- *                 self.write(row, 1, '1')
- *             else:
- */
+    
     __pyx_t_11 = (__Pyx_PyString_Equals(__pyx_v_days, __pyx_kp_s_0, Py_EQ)); if (unlikely((__pyx_t_11 < 0))) __PYX_ERR(0, 932, __pyx_L1_error)
     if (__pyx_t_11) {
 
-      /* "main.py":933
- * 
- *             if days == '0':
- *                 self.write(row, 1, '1')             # <<<<<<<<<<<<<<
- *             else:
- *                 self.write(row, 1, days)
- */
+      
       __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_write); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 933, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_12);
       __pyx_t_10 = NULL;
@@ -29591,24 +25643,12 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_20insertDates(CYTHON_UNUS
       }
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-      /* "main.py":932
- *             days = str(maxDate.dayOfYear() - minDate.dayOfYear())
- * 
- *             if days == '0':             # <<<<<<<<<<<<<<
- *                 self.write(row, 1, '1')
- *             else:
- */
+      
       goto __pyx_L31;
     }
 
-    /* "main.py":935
- *                 self.write(row, 1, '1')
- *             else:
- *                 self.write(row, 1, days)             # <<<<<<<<<<<<<<
- * 
- *     def calculate(self, row, column):
- */
-    /*else*/ {
+    
+     {
       __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_write); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 935, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_12);
       __pyx_t_10 = NULL;
@@ -29637,25 +25677,13 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_20insertDates(CYTHON_UNUS
     }
     __pyx_L31:;
 
-    /* "main.py":866
- *                         self.colorVariations = list(dict.fromkeys(self.colorVariations))
- * 
- *         for color in self.colorVariations:             # <<<<<<<<<<<<<<
- *             connect = sqlite3.connect(f"{VERSIONPATH}/database/d.db")
- *             cursor = connect.cursor()
- */
+    
   }
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "main.py":845
- *         self.color(row, column)
- * 
- *     def insertDates(self):             # <<<<<<<<<<<<<<
- * 
- *         # fetching dates
- */
+  
 
-  /* function exit code */
+  
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
@@ -29704,22 +25732,16 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_20insertDates(CYTHON_UNUS
   return __pyx_r;
 }
 
-/* "main.py":937
- *                 self.write(row, 1, days)
- * 
- *     def calculate(self, row, column):             # <<<<<<<<<<<<<<
- *         if column == 2:
- *             entered = self.tw_reportTable.currentItem()
- */
 
-/* Python wrapper */
+
+
 static PyObject *__pyx_pw_6ver1_3_4main_12ReportDialog_23calculate(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
-); /*proto*/
+); 
 static PyMethodDef __pyx_mdef_6ver1_3_4main_12ReportDialog_23calculate = {"calculate", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6ver1_3_4main_12ReportDialog_23calculate, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
 static PyObject *__pyx_pw_6ver1_3_4main_12ReportDialog_23calculate(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
@@ -29827,7 +25849,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __pyx_L4_argument_unpacking_done:;
   __pyx_r = __pyx_pf_6ver1_3_4main_12ReportDialog_22calculate(__pyx_self, __pyx_v_self, __pyx_v_row, __pyx_v_column);
 
-  /* function exit code */
+  
   {
     Py_ssize_t __pyx_temp;
     for (__pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
@@ -29856,23 +25878,11 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_22calculate(CYTHON_UNUSED
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("calculate", 0);
 
-  /* "main.py":938
- * 
- *     def calculate(self, row, column):
- *         if column == 2:             # <<<<<<<<<<<<<<
- *             entered = self.tw_reportTable.currentItem()
- * 
- */
+  
   __pyx_t_1 = (__Pyx_PyInt_BoolEqObjC(__pyx_v_column, __pyx_int_2, 2, 0)); if (unlikely((__pyx_t_1 < 0))) __PYX_ERR(0, 938, __pyx_L1_error)
   if (__pyx_t_1) {
 
-    /* "main.py":939
- *     def calculate(self, row, column):
- *         if column == 2:
- *             entered = self.tw_reportTable.currentItem()             # <<<<<<<<<<<<<<
- * 
- *             if entered and entered.text().isdigit():
- */
+    
     __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_tw_reportTable); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 939, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_currentItem); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 939, __pyx_L1_error)
@@ -29903,13 +25913,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_22calculate(CYTHON_UNUSED
     __pyx_v_entered = __pyx_t_2;
     __pyx_t_2 = 0;
 
-    /* "main.py":941
- *             entered = self.tw_reportTable.currentItem()
- * 
- *             if entered and entered.text().isdigit():             # <<<<<<<<<<<<<<
- *                 days = self.tw_reportTable.item(row, 1).text()
- *                 self.write(row, 3, str(int(entered.text()) * int(days)))
- */
+    
     __pyx_t_6 = __Pyx_PyObject_IsTrue(__pyx_v_entered); if (unlikely((__pyx_t_6 < 0))) __PYX_ERR(0, 941, __pyx_L1_error)
     if (__pyx_t_6) {
     } else {
@@ -29971,13 +25975,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_22calculate(CYTHON_UNUSED
     __pyx_L5_bool_binop_done:;
     if (__pyx_t_1) {
 
-      /* "main.py":942
- * 
- *             if entered and entered.text().isdigit():
- *                 days = self.tw_reportTable.item(row, 1).text()             # <<<<<<<<<<<<<<
- *                 self.write(row, 3, str(int(entered.text()) * int(days)))
- * 
- */
+      
       __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_tw_reportTable); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 942, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_item); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 942, __pyx_L1_error)
@@ -30033,13 +26031,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_22calculate(CYTHON_UNUSED
       __pyx_v_days = __pyx_t_2;
       __pyx_t_2 = 0;
 
-      /* "main.py":943
- *             if entered and entered.text().isdigit():
- *                 days = self.tw_reportTable.item(row, 1).text()
- *                 self.write(row, 3, str(int(entered.text()) * int(days)))             # <<<<<<<<<<<<<<
- * 
- *         elif column == 4 or 5 or 6 or 9:
- */
+      
       __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_write); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 943, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
       __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_entered, __pyx_n_s_text); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 943, __pyx_L1_error)
@@ -30103,32 +26095,14 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_22calculate(CYTHON_UNUSED
       }
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-      /* "main.py":941
- *             entered = self.tw_reportTable.currentItem()
- * 
- *             if entered and entered.text().isdigit():             # <<<<<<<<<<<<<<
- *                 days = self.tw_reportTable.item(row, 1).text()
- *                 self.write(row, 3, str(int(entered.text()) * int(days)))
- */
+      
     }
 
-    /* "main.py":938
- * 
- *     def calculate(self, row, column):
- *         if column == 2:             # <<<<<<<<<<<<<<
- *             entered = self.tw_reportTable.currentItem()
- * 
- */
+    
     goto __pyx_L3;
   }
 
-  /* "main.py":945
- *                 self.write(row, 3, str(int(entered.text()) * int(days)))
- * 
- *         elif column == 4 or 5 or 6 or 9:             # <<<<<<<<<<<<<<
- *             self.reportSum.start()
- * 
- */
+  
   __pyx_t_6 = (__Pyx_PyInt_BoolEqObjC(__pyx_v_column, __pyx_int_4, 4, 0)); if (unlikely((__pyx_t_6 < 0))) __PYX_ERR(0, 945, __pyx_L1_error)
   if (!__pyx_t_6) {
   } else {
@@ -30139,13 +26113,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_22calculate(CYTHON_UNUSED
   __pyx_L7_bool_binop_done:;
   if (__pyx_t_1) {
 
-    /* "main.py":946
- * 
- *         elif column == 4 or 5 or 6 or 9:
- *             self.reportSum.start()             # <<<<<<<<<<<<<<
- * 
- *     def save(self):
- */
+    
     __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_reportSum); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 946, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_start); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 946, __pyx_L1_error)
@@ -30175,25 +26143,13 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_22calculate(CYTHON_UNUSED
     }
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-    /* "main.py":945
- *                 self.write(row, 3, str(int(entered.text()) * int(days)))
- * 
- *         elif column == 4 or 5 or 6 or 9:             # <<<<<<<<<<<<<<
- *             self.reportSum.start()
- * 
- */
+    
   }
   __pyx_L3:;
 
-  /* "main.py":937
- *                 self.write(row, 1, days)
- * 
- *     def calculate(self, row, column):             # <<<<<<<<<<<<<<
- *         if column == 2:
- *             entered = self.tw_reportTable.currentItem()
- */
+  
 
-  /* function exit code */
+  
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
@@ -30212,22 +26168,16 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_22calculate(CYTHON_UNUSED
   return __pyx_r;
 }
 
-/* "main.py":948
- *             self.reportSum.start()
- * 
- *     def save(self):             # <<<<<<<<<<<<<<
- *         self.saveDialog.setRange(self.tw_reportTable.rowCount() * self.tw_reportTable.columnCount())
- *         self.saveDialog.show()
- */
 
-/* Python wrapper */
+
+
 static PyObject *__pyx_pw_6ver1_3_4main_12ReportDialog_25save(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
-); /*proto*/
+); 
 static PyMethodDef __pyx_mdef_6ver1_3_4main_12ReportDialog_25save = {"save", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6ver1_3_4main_12ReportDialog_25save, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
 static PyObject *__pyx_pw_6ver1_3_4main_12ReportDialog_25save(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
@@ -30305,7 +26255,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __pyx_L4_argument_unpacking_done:;
   __pyx_r = __pyx_pf_6ver1_3_4main_12ReportDialog_24save(__pyx_self, __pyx_v_self);
 
-  /* function exit code */
+  
   {
     Py_ssize_t __pyx_temp;
     for (__pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
@@ -30331,13 +26281,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_24save(CYTHON_UNUSED PyOb
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("save", 0);
 
-  /* "main.py":949
- * 
- *     def save(self):
- *         self.saveDialog.setRange(self.tw_reportTable.rowCount() * self.tw_reportTable.columnCount())             # <<<<<<<<<<<<<<
- *         self.saveDialog.show()
- * 
- */
+  
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_saveDialog); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 949, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_setRange); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 949, __pyx_L1_error)
@@ -30426,13 +26370,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_24save(CYTHON_UNUSED PyOb
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":950
- *     def save(self):
- *         self.saveDialog.setRange(self.tw_reportTable.rowCount() * self.tw_reportTable.columnCount())
- *         self.saveDialog.show()             # <<<<<<<<<<<<<<
- * 
- *         self.reportSave.set('_' + self.tableName, self.tw_reportTable)
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_saveDialog); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 950, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_show); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 950, __pyx_L1_error)
@@ -30462,13 +26400,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_24save(CYTHON_UNUSED PyOb
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":952
- *         self.saveDialog.show()
- * 
- *         self.reportSave.set('_' + self.tableName, self.tw_reportTable)             # <<<<<<<<<<<<<<
- *         self.reportSave.start()
- * 
- */
+  
   __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_reportSave); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 952, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_set); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 952, __pyx_L1_error)
@@ -30507,13 +26439,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_24save(CYTHON_UNUSED PyOb
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":953
- * 
- *         self.reportSave.set('_' + self.tableName, self.tw_reportTable)
- *         self.reportSave.start()             # <<<<<<<<<<<<<<
- * 
- *     def saveDialog(self, msg):
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_reportSave); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 953, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_start); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 953, __pyx_L1_error)
@@ -30543,15 +26469,9 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_24save(CYTHON_UNUSED PyOb
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":948
- *             self.reportSum.start()
- * 
- *     def save(self):             # <<<<<<<<<<<<<<
- *         self.saveDialog.setRange(self.tw_reportTable.rowCount() * self.tw_reportTable.columnCount())
- *         self.saveDialog.show()
- */
+  
 
-  /* function exit code */
+  
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
@@ -30569,22 +26489,16 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_24save(CYTHON_UNUSED PyOb
   return __pyx_r;
 }
 
-/* "main.py":955
- *         self.reportSave.start()
- * 
- *     def saveDialog(self, msg):             # <<<<<<<<<<<<<<
- *         if msg == 'upd':
- *             self.saveDialog.add()
- */
 
-/* Python wrapper */
+
+
 static PyObject *__pyx_pw_6ver1_3_4main_12ReportDialog_27saveDialog(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
-); /*proto*/
+); 
 static PyMethodDef __pyx_mdef_6ver1_3_4main_12ReportDialog_27saveDialog = {"saveDialog", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6ver1_3_4main_12ReportDialog_27saveDialog, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
 static PyObject *__pyx_pw_6ver1_3_4main_12ReportDialog_27saveDialog(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
@@ -30677,7 +26591,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __pyx_L4_argument_unpacking_done:;
   __pyx_r = __pyx_pf_6ver1_3_4main_12ReportDialog_26saveDialog(__pyx_self, __pyx_v_self, __pyx_v_msg);
 
-  /* function exit code */
+  
   {
     Py_ssize_t __pyx_temp;
     for (__pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
@@ -30701,23 +26615,11 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_26saveDialog(CYTHON_UNUSE
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("saveDialog", 0);
 
-  /* "main.py":956
- * 
- *     def saveDialog(self, msg):
- *         if msg == 'upd':             # <<<<<<<<<<<<<<
- *             self.saveDialog.add()
- *         else:
- */
+  
   __pyx_t_1 = (__Pyx_PyString_Equals(__pyx_v_msg, __pyx_n_s_upd, Py_EQ)); if (unlikely((__pyx_t_1 < 0))) __PYX_ERR(0, 956, __pyx_L1_error)
   if (__pyx_t_1) {
 
-    /* "main.py":957
- *     def saveDialog(self, msg):
- *         if msg == 'upd':
- *             self.saveDialog.add()             # <<<<<<<<<<<<<<
- *         else:
- *             self.saveDialog.close()
- */
+    
     __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_saveDialog); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 957, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_add); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 957, __pyx_L1_error)
@@ -30747,24 +26649,12 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_26saveDialog(CYTHON_UNUSE
     }
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-    /* "main.py":956
- * 
- *     def saveDialog(self, msg):
- *         if msg == 'upd':             # <<<<<<<<<<<<<<
- *             self.saveDialog.add()
- *         else:
- */
+    
     goto __pyx_L3;
   }
 
-  /* "main.py":959
- *             self.saveDialog.add()
- *         else:
- *             self.saveDialog.close()             # <<<<<<<<<<<<<<
- * 
- * 
- */
-  /*else*/ {
+  
+   {
     __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_saveDialog); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 959, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_close); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 959, __pyx_L1_error)
@@ -30796,15 +26686,9 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_26saveDialog(CYTHON_UNUSE
   }
   __pyx_L3:;
 
-  /* "main.py":955
- *         self.reportSave.start()
- * 
- *     def saveDialog(self, msg):             # <<<<<<<<<<<<<<
- *         if msg == 'upd':
- *             self.saveDialog.add()
- */
+  
 
-  /* function exit code */
+  
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
@@ -30819,22 +26703,16 @@ static PyObject *__pyx_pf_6ver1_3_4main_12ReportDialog_26saveDialog(CYTHON_UNUSE
   return __pyx_r;
 }
 
-/* "main.py":963
- * 
- * class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor, QSize, QSizePolicy, QHeaderView, QGridLayout):
- *     def __init__(self):             # <<<<<<<<<<<<<<
- *         super(MainWindow, self).__init__()
- *         self.setupUi(self)
- */
 
-/* Python wrapper */
+
+
 static PyObject *__pyx_pw_6ver1_3_4main_10MainWindow_1__init__(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
-); /*proto*/
+); 
 static PyMethodDef __pyx_mdef_6ver1_3_4main_10MainWindow_1__init__ = {"__init__", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6ver1_3_4main_10MainWindow_1__init__, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
 static PyObject *__pyx_pw_6ver1_3_4main_10MainWindow_1__init__(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
@@ -30912,7 +26790,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __pyx_L4_argument_unpacking_done:;
   __pyx_r = __pyx_pf_6ver1_3_4main_10MainWindow___init__(__pyx_self, __pyx_v_self);
 
-  /* function exit code */
+  
   {
     Py_ssize_t __pyx_temp;
     for (__pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
@@ -30923,16 +26801,10 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-/* "main.py":992
- *         self.saveAct.triggered.connect(self.save)
- *         self.loadAct.triggered.connect(self.read)
- *         self.createAct.triggered.connect(lambda: self.createDialog.show())             # <<<<<<<<<<<<<<
- *         self.fetchTables()
- * 
- */
 
-/* Python wrapper */
-static PyObject *__pyx_pw_6ver1_3_4main_10MainWindow_8__init___lambda3(PyObject *__pyx_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+
+
+static PyObject *__pyx_pw_6ver1_3_4main_10MainWindow_8__init___lambda3(PyObject *__pyx_self, CYTHON_UNUSED PyObject *unused); 
 static PyMethodDef __pyx_mdef_6ver1_3_4main_10MainWindow_8__init___lambda3 = {"lambda3", (PyCFunction)__pyx_pw_6ver1_3_4main_10MainWindow_8__init___lambda3, METH_NOARGS, 0};
 static PyObject *__pyx_pw_6ver1_3_4main_10MainWindow_8__init___lambda3(PyObject *__pyx_self, CYTHON_UNUSED PyObject *unused) {
   CYTHON_UNUSED PyObject *const *__pyx_kwvalues;
@@ -30942,7 +26814,7 @@ static PyObject *__pyx_pw_6ver1_3_4main_10MainWindow_8__init___lambda3(PyObject 
   __pyx_kwvalues = __Pyx_KwValues_VARARGS(__pyx_args, __pyx_nargs);
   __pyx_r = __pyx_lambda_funcdef_lambda3(__pyx_self);
 
-  /* function exit code */
+  
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
@@ -30995,7 +26867,7 @@ static PyObject *__pyx_lambda_funcdef_lambda3(PyObject *__pyx_self) {
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* function exit code */
+  
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
@@ -31008,16 +26880,10 @@ static PyObject *__pyx_lambda_funcdef_lambda3(PyObject *__pyx_self) {
   return __pyx_r;
 }
 
-/* "main.py":995
- *         self.fetchTables()
- * 
- *         self.tw_table.cellDoubleClicked.connect(lambda: self.deleteDialog.show())             # <<<<<<<<<<<<<<
- *         self.tw_table.cellClicked.connect(lambda: self.editDialog.show())
- * 
- */
 
-/* Python wrapper */
-static PyObject *__pyx_pw_6ver1_3_4main_10MainWindow_8__init___1lambda4(PyObject *__pyx_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+
+
+static PyObject *__pyx_pw_6ver1_3_4main_10MainWindow_8__init___1lambda4(PyObject *__pyx_self, CYTHON_UNUSED PyObject *unused); 
 static PyMethodDef __pyx_mdef_6ver1_3_4main_10MainWindow_8__init___1lambda4 = {"lambda4", (PyCFunction)__pyx_pw_6ver1_3_4main_10MainWindow_8__init___1lambda4, METH_NOARGS, 0};
 static PyObject *__pyx_pw_6ver1_3_4main_10MainWindow_8__init___1lambda4(PyObject *__pyx_self, CYTHON_UNUSED PyObject *unused) {
   CYTHON_UNUSED PyObject *const *__pyx_kwvalues;
@@ -31027,7 +26893,7 @@ static PyObject *__pyx_pw_6ver1_3_4main_10MainWindow_8__init___1lambda4(PyObject
   __pyx_kwvalues = __Pyx_KwValues_VARARGS(__pyx_args, __pyx_nargs);
   __pyx_r = __pyx_lambda_funcdef_lambda4(__pyx_self);
 
-  /* function exit code */
+  
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
@@ -31080,7 +26946,7 @@ static PyObject *__pyx_lambda_funcdef_lambda4(PyObject *__pyx_self) {
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* function exit code */
+  
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
@@ -31093,16 +26959,10 @@ static PyObject *__pyx_lambda_funcdef_lambda4(PyObject *__pyx_self) {
   return __pyx_r;
 }
 
-/* "main.py":996
- * 
- *         self.tw_table.cellDoubleClicked.connect(lambda: self.deleteDialog.show())
- *         self.tw_table.cellClicked.connect(lambda: self.editDialog.show())             # <<<<<<<<<<<<<<
- * 
- *         self.btn_report.clicked.connect(self.report)
- */
 
-/* Python wrapper */
-static PyObject *__pyx_pw_6ver1_3_4main_10MainWindow_8__init___2lambda5(PyObject *__pyx_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+
+
+static PyObject *__pyx_pw_6ver1_3_4main_10MainWindow_8__init___2lambda5(PyObject *__pyx_self, CYTHON_UNUSED PyObject *unused); 
 static PyMethodDef __pyx_mdef_6ver1_3_4main_10MainWindow_8__init___2lambda5 = {"lambda5", (PyCFunction)__pyx_pw_6ver1_3_4main_10MainWindow_8__init___2lambda5, METH_NOARGS, 0};
 static PyObject *__pyx_pw_6ver1_3_4main_10MainWindow_8__init___2lambda5(PyObject *__pyx_self, CYTHON_UNUSED PyObject *unused) {
   CYTHON_UNUSED PyObject *const *__pyx_kwvalues;
@@ -31112,7 +26972,7 @@ static PyObject *__pyx_pw_6ver1_3_4main_10MainWindow_8__init___2lambda5(PyObject
   __pyx_kwvalues = __Pyx_KwValues_VARARGS(__pyx_args, __pyx_nargs);
   __pyx_r = __pyx_lambda_funcdef_lambda5(__pyx_self);
 
-  /* function exit code */
+  
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
@@ -31165,7 +27025,7 @@ static PyObject *__pyx_lambda_funcdef_lambda5(PyObject *__pyx_self) {
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* function exit code */
+  
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
@@ -31178,16 +27038,10 @@ static PyObject *__pyx_lambda_funcdef_lambda5(PyObject *__pyx_self) {
   return __pyx_r;
 }
 
-/* "main.py":999
- * 
- *         self.btn_report.clicked.connect(self.report)
- *         self.btn_notes.clicked.connect(lambda: self.editDialog.show())             # <<<<<<<<<<<<<<
- *         self.btn_del.clicked.connect(lambda: self.deleteDialog.show())
- *         self.btn_save.clicked.connect(self.save)
- */
 
-/* Python wrapper */
-static PyObject *__pyx_pw_6ver1_3_4main_10MainWindow_8__init___3lambda6(PyObject *__pyx_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+
+
+static PyObject *__pyx_pw_6ver1_3_4main_10MainWindow_8__init___3lambda6(PyObject *__pyx_self, CYTHON_UNUSED PyObject *unused); 
 static PyMethodDef __pyx_mdef_6ver1_3_4main_10MainWindow_8__init___3lambda6 = {"lambda6", (PyCFunction)__pyx_pw_6ver1_3_4main_10MainWindow_8__init___3lambda6, METH_NOARGS, 0};
 static PyObject *__pyx_pw_6ver1_3_4main_10MainWindow_8__init___3lambda6(PyObject *__pyx_self, CYTHON_UNUSED PyObject *unused) {
   CYTHON_UNUSED PyObject *const *__pyx_kwvalues;
@@ -31197,7 +27051,7 @@ static PyObject *__pyx_pw_6ver1_3_4main_10MainWindow_8__init___3lambda6(PyObject
   __pyx_kwvalues = __Pyx_KwValues_VARARGS(__pyx_args, __pyx_nargs);
   __pyx_r = __pyx_lambda_funcdef_lambda6(__pyx_self);
 
-  /* function exit code */
+  
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
@@ -31250,7 +27104,7 @@ static PyObject *__pyx_lambda_funcdef_lambda6(PyObject *__pyx_self) {
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* function exit code */
+  
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
@@ -31263,16 +27117,10 @@ static PyObject *__pyx_lambda_funcdef_lambda6(PyObject *__pyx_self) {
   return __pyx_r;
 }
 
-/* "main.py":1000
- *         self.btn_report.clicked.connect(self.report)
- *         self.btn_notes.clicked.connect(lambda: self.editDialog.show())
- *         self.btn_del.clicked.connect(lambda: self.deleteDialog.show())             # <<<<<<<<<<<<<<
- *         self.btn_save.clicked.connect(self.save)
- * 
- */
 
-/* Python wrapper */
-static PyObject *__pyx_pw_6ver1_3_4main_10MainWindow_8__init___4lambda7(PyObject *__pyx_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+
+
+static PyObject *__pyx_pw_6ver1_3_4main_10MainWindow_8__init___4lambda7(PyObject *__pyx_self, CYTHON_UNUSED PyObject *unused); 
 static PyMethodDef __pyx_mdef_6ver1_3_4main_10MainWindow_8__init___4lambda7 = {"lambda7", (PyCFunction)__pyx_pw_6ver1_3_4main_10MainWindow_8__init___4lambda7, METH_NOARGS, 0};
 static PyObject *__pyx_pw_6ver1_3_4main_10MainWindow_8__init___4lambda7(PyObject *__pyx_self, CYTHON_UNUSED PyObject *unused) {
   CYTHON_UNUSED PyObject *const *__pyx_kwvalues;
@@ -31282,7 +27130,7 @@ static PyObject *__pyx_pw_6ver1_3_4main_10MainWindow_8__init___4lambda7(PyObject
   __pyx_kwvalues = __Pyx_KwValues_VARARGS(__pyx_args, __pyx_nargs);
   __pyx_r = __pyx_lambda_funcdef_lambda7(__pyx_self);
 
-  /* function exit code */
+  
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
@@ -31335,7 +27183,7 @@ static PyObject *__pyx_lambda_funcdef_lambda7(PyObject *__pyx_self) {
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* function exit code */
+  
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
@@ -31348,13 +27196,7 @@ static PyObject *__pyx_lambda_funcdef_lambda7(PyObject *__pyx_self) {
   return __pyx_r;
 }
 
-/* "main.py":963
- * 
- * class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor, QSize, QSizePolicy, QHeaderView, QGridLayout):
- *     def __init__(self):             # <<<<<<<<<<<<<<
- *         super(MainWindow, self).__init__()
- *         self.setupUi(self)
- */
+
 
 static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
   struct __pyx_obj_6ver1_3_4main___pyx_scope_struct_6___init__ *__pyx_cur_scope;
@@ -31383,13 +27225,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow___init__(CYTHON_UNUSED PyOb
   __Pyx_INCREF(__pyx_cur_scope->__pyx_v_self);
   __Pyx_GIVEREF(__pyx_cur_scope->__pyx_v_self);
 
-  /* "main.py":964
- * class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor, QSize, QSizePolicy, QHeaderView, QGridLayout):
- *     def __init__(self):
- *         super(MainWindow, self).__init__()             # <<<<<<<<<<<<<<
- *         self.setupUi(self)
- * 
- */
+  
   __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_MainWindow); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 964, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 964, __pyx_L1_error)
@@ -31430,13 +27266,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow___init__(CYTHON_UNUSED PyOb
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":965
- *     def __init__(self):
- *         super(MainWindow, self).__init__()
- *         self.setupUi(self)             # <<<<<<<<<<<<<<
- * 
- *         self.tableName = "DefaultTable"
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_setupUi); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 965, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = NULL;
@@ -31463,40 +27293,16 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow___init__(CYTHON_UNUSED PyOb
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":967
- *         self.setupUi(self)
- * 
- *         self.tableName = "DefaultTable"             # <<<<<<<<<<<<<<
- *         self.theme = "Light"
- *         self.reportOpenAllow = False
- */
+  
   if (__Pyx_PyObject_SetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_tableName, __pyx_n_s_DefaultTable) < 0) __PYX_ERR(0, 967, __pyx_L1_error)
 
-  /* "main.py":968
- * 
- *         self.tableName = "DefaultTable"
- *         self.theme = "Light"             # <<<<<<<<<<<<<<
- *         self.reportOpenAllow = False
- * 
- */
+  
   if (__Pyx_PyObject_SetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_theme, __pyx_n_s_Light) < 0) __PYX_ERR(0, 968, __pyx_L1_error)
 
-  /* "main.py":969
- *         self.tableName = "DefaultTable"
- *         self.theme = "Light"
- *         self.reportOpenAllow = False             # <<<<<<<<<<<<<<
- * 
- *         self.resizeable()
- */
+  
   if (__Pyx_PyObject_SetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_reportOpenAllow, Py_False) < 0) __PYX_ERR(0, 969, __pyx_L1_error)
 
-  /* "main.py":971
- *         self.reportOpenAllow = False
- * 
- *         self.resizeable()             # <<<<<<<<<<<<<<
- * 
- *         self.setWindowIcon(QtGui.QIcon(f'{VERSIONPATH}/assets/icon96px.ico'))
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_resizeable); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 971, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = NULL;
@@ -31523,13 +27329,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow___init__(CYTHON_UNUSED PyOb
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":973
- *         self.resizeable()
- * 
- *         self.setWindowIcon(QtGui.QIcon(f'{VERSIONPATH}/assets/icon96px.ico'))             # <<<<<<<<<<<<<<
- *         self.setWindowTitle("BusinessThing")
- *         self.setTable()
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_setWindowIcon); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 973, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_QtGui); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 973, __pyx_L1_error)
@@ -31593,13 +27393,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow___init__(CYTHON_UNUSED PyOb
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":974
- * 
- *         self.setWindowIcon(QtGui.QIcon(f'{VERSIONPATH}/assets/icon96px.ico'))
- *         self.setWindowTitle("BusinessThing")             # <<<<<<<<<<<<<<
- *         self.setTable()
- * 
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_setWindowTitle); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 974, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = NULL;
@@ -31626,13 +27420,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow___init__(CYTHON_UNUSED PyOb
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":975
- *         self.setWindowIcon(QtGui.QIcon(f'{VERSIONPATH}/assets/icon96px.ico'))
- *         self.setWindowTitle("BusinessThing")
- *         self.setTable()             # <<<<<<<<<<<<<<
- * 
- *         self.changeMenu = QMenu(' ', self)
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_setTable); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 975, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = NULL;
@@ -31659,13 +27447,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow___init__(CYTHON_UNUSED PyOb
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":977
- *         self.setTable()
- * 
- *         self.changeMenu = QMenu(' ', self)             # <<<<<<<<<<<<<<
- * 
- *         self.loadAct = QAction('', self)
- */
+  
   __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_QMenu); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 977, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = NULL;
@@ -31693,13 +27475,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow___init__(CYTHON_UNUSED PyOb
   if (__Pyx_PyObject_SetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_changeMenu, __pyx_t_1) < 0) __PYX_ERR(0, 977, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":979
- *         self.changeMenu = QMenu(' ', self)
- * 
- *         self.loadAct = QAction('', self)             # <<<<<<<<<<<<<<
- *         self.saveAct = QAction('', self)
- *         self.createAct = QAction('', self)
- */
+  
   __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_QAction); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 979, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = NULL;
@@ -31727,13 +27503,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow___init__(CYTHON_UNUSED PyOb
   if (__Pyx_PyObject_SetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_loadAct, __pyx_t_1) < 0) __PYX_ERR(0, 979, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":980
- * 
- *         self.loadAct = QAction('', self)
- *         self.saveAct = QAction('', self)             # <<<<<<<<<<<<<<
- *         self.createAct = QAction('', self)
- *         self.m_file.addAction(self.createAct)
- */
+  
   __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_QAction); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 980, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = NULL;
@@ -31761,13 +27531,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow___init__(CYTHON_UNUSED PyOb
   if (__Pyx_PyObject_SetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_saveAct, __pyx_t_1) < 0) __PYX_ERR(0, 980, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":981
- *         self.loadAct = QAction('', self)
- *         self.saveAct = QAction('', self)
- *         self.createAct = QAction('', self)             # <<<<<<<<<<<<<<
- *         self.m_file.addAction(self.createAct)
- *         self.m_file.addAction(self.saveAct)
- */
+  
   __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_QAction); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 981, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = NULL;
@@ -31795,13 +27559,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow___init__(CYTHON_UNUSED PyOb
   if (__Pyx_PyObject_SetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_createAct, __pyx_t_1) < 0) __PYX_ERR(0, 981, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":982
- *         self.saveAct = QAction('', self)
- *         self.createAct = QAction('', self)
- *         self.m_file.addAction(self.createAct)             # <<<<<<<<<<<<<<
- *         self.m_file.addAction(self.saveAct)
- *         self.m_file.addAction(self.loadAct)
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_m_file); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 982, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_addAction); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 982, __pyx_L1_error)
@@ -31834,13 +27592,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow___init__(CYTHON_UNUSED PyOb
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":983
- *         self.createAct = QAction('', self)
- *         self.m_file.addAction(self.createAct)
- *         self.m_file.addAction(self.saveAct)             # <<<<<<<<<<<<<<
- *         self.m_file.addAction(self.loadAct)
- * 
- */
+  
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_m_file); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 983, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_addAction); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 983, __pyx_L1_error)
@@ -31873,13 +27625,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow___init__(CYTHON_UNUSED PyOb
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":984
- *         self.m_file.addAction(self.createAct)
- *         self.m_file.addAction(self.saveAct)
- *         self.m_file.addAction(self.loadAct)             # <<<<<<<<<<<<<<
- * 
- *         self.themeAct = QAction(' ', self)
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_m_file); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 984, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_addAction); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 984, __pyx_L1_error)
@@ -31912,13 +27658,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow___init__(CYTHON_UNUSED PyOb
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":986
- *         self.m_file.addAction(self.loadAct)
- * 
- *         self.themeAct = QAction(' ', self)             # <<<<<<<<<<<<<<
- *         self.m_settings.addAction(self.themeAct)
- * 
- */
+  
   __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_QAction); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 986, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
@@ -31946,13 +27686,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow___init__(CYTHON_UNUSED PyOb
   if (__Pyx_PyObject_SetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_themeAct, __pyx_t_1) < 0) __PYX_ERR(0, 986, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":987
- * 
- *         self.themeAct = QAction(' ', self)
- *         self.m_settings.addAction(self.themeAct)             # <<<<<<<<<<<<<<
- * 
- *         self.themeAct.triggered.connect(self.setTheme)
- */
+  
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_m_settings); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 987, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_addAction); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 987, __pyx_L1_error)
@@ -31985,13 +27719,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow___init__(CYTHON_UNUSED PyOb
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":989
- *         self.m_settings.addAction(self.themeAct)
- * 
- *         self.themeAct.triggered.connect(self.setTheme)             # <<<<<<<<<<<<<<
- *         self.saveAct.triggered.connect(self.save)
- *         self.loadAct.triggered.connect(self.read)
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_themeAct); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 989, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_triggered); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 989, __pyx_L1_error)
@@ -32027,13 +27755,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow___init__(CYTHON_UNUSED PyOb
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":990
- * 
- *         self.themeAct.triggered.connect(self.setTheme)
- *         self.saveAct.triggered.connect(self.save)             # <<<<<<<<<<<<<<
- *         self.loadAct.triggered.connect(self.read)
- *         self.createAct.triggered.connect(lambda: self.createDialog.show())
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_saveAct); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 990, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_triggered); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 990, __pyx_L1_error)
@@ -32069,13 +27791,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow___init__(CYTHON_UNUSED PyOb
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":991
- *         self.themeAct.triggered.connect(self.setTheme)
- *         self.saveAct.triggered.connect(self.save)
- *         self.loadAct.triggered.connect(self.read)             # <<<<<<<<<<<<<<
- *         self.createAct.triggered.connect(lambda: self.createDialog.show())
- *         self.fetchTables()
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_loadAct); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 991, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_triggered); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 991, __pyx_L1_error)
@@ -32111,13 +27827,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow___init__(CYTHON_UNUSED PyOb
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":992
- *         self.saveAct.triggered.connect(self.save)
- *         self.loadAct.triggered.connect(self.read)
- *         self.createAct.triggered.connect(lambda: self.createDialog.show())             # <<<<<<<<<<<<<<
- *         self.fetchTables()
- * 
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_createAct); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 992, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_triggered); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 992, __pyx_L1_error)
@@ -32153,13 +27863,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow___init__(CYTHON_UNUSED PyOb
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":993
- *         self.loadAct.triggered.connect(self.read)
- *         self.createAct.triggered.connect(lambda: self.createDialog.show())
- *         self.fetchTables()             # <<<<<<<<<<<<<<
- * 
- *         self.tw_table.cellDoubleClicked.connect(lambda: self.deleteDialog.show())
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_fetchTables); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 993, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = NULL;
@@ -32186,13 +27890,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow___init__(CYTHON_UNUSED PyOb
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":995
- *         self.fetchTables()
- * 
- *         self.tw_table.cellDoubleClicked.connect(lambda: self.deleteDialog.show())             # <<<<<<<<<<<<<<
- *         self.tw_table.cellClicked.connect(lambda: self.editDialog.show())
- * 
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_tw_table); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 995, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_cellDoubleClicked); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 995, __pyx_L1_error)
@@ -32228,13 +27926,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow___init__(CYTHON_UNUSED PyOb
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":996
- * 
- *         self.tw_table.cellDoubleClicked.connect(lambda: self.deleteDialog.show())
- *         self.tw_table.cellClicked.connect(lambda: self.editDialog.show())             # <<<<<<<<<<<<<<
- * 
- *         self.btn_report.clicked.connect(self.report)
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_tw_table); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 996, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_cellClicked); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 996, __pyx_L1_error)
@@ -32270,13 +27962,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow___init__(CYTHON_UNUSED PyOb
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":998
- *         self.tw_table.cellClicked.connect(lambda: self.editDialog.show())
- * 
- *         self.btn_report.clicked.connect(self.report)             # <<<<<<<<<<<<<<
- *         self.btn_notes.clicked.connect(lambda: self.editDialog.show())
- *         self.btn_del.clicked.connect(lambda: self.deleteDialog.show())
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_btn_report); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 998, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_clicked); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 998, __pyx_L1_error)
@@ -32312,13 +27998,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow___init__(CYTHON_UNUSED PyOb
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":999
- * 
- *         self.btn_report.clicked.connect(self.report)
- *         self.btn_notes.clicked.connect(lambda: self.editDialog.show())             # <<<<<<<<<<<<<<
- *         self.btn_del.clicked.connect(lambda: self.deleteDialog.show())
- *         self.btn_save.clicked.connect(self.save)
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_btn_notes); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 999, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_clicked); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 999, __pyx_L1_error)
@@ -32354,13 +28034,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow___init__(CYTHON_UNUSED PyOb
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":1000
- *         self.btn_report.clicked.connect(self.report)
- *         self.btn_notes.clicked.connect(lambda: self.editDialog.show())
- *         self.btn_del.clicked.connect(lambda: self.deleteDialog.show())             # <<<<<<<<<<<<<<
- *         self.btn_save.clicked.connect(self.save)
- * 
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_btn_del); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1000, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_clicked); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1000, __pyx_L1_error)
@@ -32396,13 +28070,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow___init__(CYTHON_UNUSED PyOb
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":1001
- *         self.btn_notes.clicked.connect(lambda: self.editDialog.show())
- *         self.btn_del.clicked.connect(lambda: self.deleteDialog.show())
- *         self.btn_save.clicked.connect(self.save)             # <<<<<<<<<<<<<<
- * 
- *         self.readThread = ReadThread()
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_btn_save); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1001, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_clicked); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1001, __pyx_L1_error)
@@ -32438,13 +28106,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow___init__(CYTHON_UNUSED PyOb
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":1003
- *         self.btn_save.clicked.connect(self.save)
- * 
- *         self.readThread = ReadThread()             # <<<<<<<<<<<<<<
- *         self.readThread.s_data.connect(self.write)
- * 
- */
+  
   __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_ReadThread); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1003, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = NULL;
@@ -32472,13 +28134,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow___init__(CYTHON_UNUSED PyOb
   if (__Pyx_PyObject_SetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_readThread, __pyx_t_1) < 0) __PYX_ERR(0, 1003, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":1004
- * 
- *         self.readThread = ReadThread()
- *         self.readThread.s_data.connect(self.write)             # <<<<<<<<<<<<<<
- * 
- *         self.saveThread = SaveThread()
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_readThread); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1004, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_s_data); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1004, __pyx_L1_error)
@@ -32514,13 +28170,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow___init__(CYTHON_UNUSED PyOb
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":1006
- *         self.readThread.s_data.connect(self.write)
- * 
- *         self.saveThread = SaveThread()             # <<<<<<<<<<<<<<
- *         self.saveThread.s_update.connect(self.savingDialog)
- *         self.saveThread.finished.connect(self.reportOpen)
- */
+  
   __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_SaveThread); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1006, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = NULL;
@@ -32548,13 +28198,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow___init__(CYTHON_UNUSED PyOb
   if (__Pyx_PyObject_SetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_saveThread, __pyx_t_1) < 0) __PYX_ERR(0, 1006, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":1007
- * 
- *         self.saveThread = SaveThread()
- *         self.saveThread.s_update.connect(self.savingDialog)             # <<<<<<<<<<<<<<
- *         self.saveThread.finished.connect(self.reportOpen)
- * 
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_saveThread); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1007, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_s_update); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1007, __pyx_L1_error)
@@ -32590,13 +28234,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow___init__(CYTHON_UNUSED PyOb
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":1008
- *         self.saveThread = SaveThread()
- *         self.saveThread.s_update.connect(self.savingDialog)
- *         self.saveThread.finished.connect(self.reportOpen)             # <<<<<<<<<<<<<<
- * 
- *         self.editDialog = EditDialog()
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_saveThread); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1008, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_finished); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1008, __pyx_L1_error)
@@ -32632,13 +28270,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow___init__(CYTHON_UNUSED PyOb
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":1010
- *         self.saveThread.finished.connect(self.reportOpen)
- * 
- *         self.editDialog = EditDialog()             # <<<<<<<<<<<<<<
- *         self.editDialog.s_info.connect(self.write)
- * 
- */
+  
   __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_EditDialog); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1010, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = NULL;
@@ -32666,13 +28298,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow___init__(CYTHON_UNUSED PyOb
   if (__Pyx_PyObject_SetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_editDialog, __pyx_t_1) < 0) __PYX_ERR(0, 1010, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":1011
- * 
- *         self.editDialog = EditDialog()
- *         self.editDialog.s_info.connect(self.write)             # <<<<<<<<<<<<<<
- * 
- *         self.deleteDialog = DeleteDialog()
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_editDialog); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1011, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_s_info); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1011, __pyx_L1_error)
@@ -32708,13 +28334,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow___init__(CYTHON_UNUSED PyOb
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":1013
- *         self.editDialog.s_info.connect(self.write)
- * 
- *         self.deleteDialog = DeleteDialog()             # <<<<<<<<<<<<<<
- *         self.deleteDialog.s_cords.connect(self.clear)
- * 
- */
+  
   __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_DeleteDialog); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1013, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = NULL;
@@ -32742,13 +28362,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow___init__(CYTHON_UNUSED PyOb
   if (__Pyx_PyObject_SetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_deleteDialog, __pyx_t_1) < 0) __PYX_ERR(0, 1013, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":1014
- * 
- *         self.deleteDialog = DeleteDialog()
- *         self.deleteDialog.s_cords.connect(self.clear)             # <<<<<<<<<<<<<<
- * 
- *         self.createDialog = CreateDialog()
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_deleteDialog); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1014, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_s_cords); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1014, __pyx_L1_error)
@@ -32784,13 +28398,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow___init__(CYTHON_UNUSED PyOb
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":1016
- *         self.deleteDialog.s_cords.connect(self.clear)
- * 
- *         self.createDialog = CreateDialog()             # <<<<<<<<<<<<<<
- *         self.createDialog.s_upd.connect(self.updateTableList)
- * 
- */
+  
   __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_CreateDialog); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1016, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = NULL;
@@ -32818,13 +28426,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow___init__(CYTHON_UNUSED PyOb
   if (__Pyx_PyObject_SetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_createDialog, __pyx_t_1) < 0) __PYX_ERR(0, 1016, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":1017
- * 
- *         self.createDialog = CreateDialog()
- *         self.createDialog.s_upd.connect(self.updateTableList)             # <<<<<<<<<<<<<<
- * 
- *         self.saveDialog = SaveDialog()
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_createDialog); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1017, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_s_upd); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1017, __pyx_L1_error)
@@ -32860,13 +28462,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow___init__(CYTHON_UNUSED PyOb
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":1019
- *         self.createDialog.s_upd.connect(self.updateTableList)
- * 
- *         self.saveDialog = SaveDialog()             # <<<<<<<<<<<<<<
- *         self.reportDialog = ReportDialog()
- * 
- */
+  
   __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_SaveDialog); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1019, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = NULL;
@@ -32894,13 +28490,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow___init__(CYTHON_UNUSED PyOb
   if (__Pyx_PyObject_SetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_saveDialog, __pyx_t_1) < 0) __PYX_ERR(0, 1019, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":1020
- * 
- *         self.saveDialog = SaveDialog()
- *         self.reportDialog = ReportDialog()             # <<<<<<<<<<<<<<
- * 
- *         self.read()
- */
+  
   __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_ReportDialog); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1020, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = NULL;
@@ -32928,13 +28518,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow___init__(CYTHON_UNUSED PyOb
   if (__Pyx_PyObject_SetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_reportDialog, __pyx_t_1) < 0) __PYX_ERR(0, 1020, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":1022
- *         self.reportDialog = ReportDialog()
- * 
- *         self.read()             # <<<<<<<<<<<<<<
- *         self.setTheme()
- * 
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_read); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1022, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = NULL;
@@ -32961,13 +28545,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow___init__(CYTHON_UNUSED PyOb
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":1023
- * 
- *         self.read()
- *         self.setTheme()             # <<<<<<<<<<<<<<
- * 
- *     def resizeable(self):
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_setTheme); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1023, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = NULL;
@@ -32994,15 +28572,9 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow___init__(CYTHON_UNUSED PyOb
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":963
- * 
- * class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor, QSize, QSizePolicy, QHeaderView, QGridLayout):
- *     def __init__(self):             # <<<<<<<<<<<<<<
- *         super(MainWindow, self).__init__()
- *         self.setupUi(self)
- */
+  
 
-  /* function exit code */
+  
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
@@ -33021,22 +28593,16 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow___init__(CYTHON_UNUSED PyOb
   return __pyx_r;
 }
 
-/* "main.py":1025
- *         self.setTheme()
- * 
- *     def resizeable(self):             # <<<<<<<<<<<<<<
- * 
- *         verLayout = QVBoxLayout()
- */
 
-/* Python wrapper */
+
+
 static PyObject *__pyx_pw_6ver1_3_4main_10MainWindow_3resizeable(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
-); /*proto*/
+); 
 static PyMethodDef __pyx_mdef_6ver1_3_4main_10MainWindow_3resizeable = {"resizeable", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6ver1_3_4main_10MainWindow_3resizeable, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
 static PyObject *__pyx_pw_6ver1_3_4main_10MainWindow_3resizeable(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
@@ -33114,7 +28680,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __pyx_L4_argument_unpacking_done:;
   __pyx_r = __pyx_pf_6ver1_3_4main_10MainWindow_2resizeable(__pyx_self, __pyx_v_self);
 
-  /* function exit code */
+  
   {
     Py_ssize_t __pyx_temp;
     for (__pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
@@ -33145,13 +28711,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_2resizeable(CYTHON_UNUSED P
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("resizeable", 0);
 
-  /* "main.py":1027
- *     def resizeable(self):
- * 
- *         verLayout = QVBoxLayout()             # <<<<<<<<<<<<<<
- *         horLayout = QHBoxLayout()
- * 
- */
+  
   __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_QVBoxLayout); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1027, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
@@ -33179,13 +28739,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_2resizeable(CYTHON_UNUSED P
   __pyx_v_verLayout = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "main.py":1028
- * 
- *         verLayout = QVBoxLayout()
- *         horLayout = QHBoxLayout()             # <<<<<<<<<<<<<<
- * 
- *         btnList = [self.btn_report, self.btn_del, self.btn_notes, self.btn_save]
- */
+  
   __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_QHBoxLayout); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1028, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
@@ -33213,13 +28767,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_2resizeable(CYTHON_UNUSED P
   __pyx_v_horLayout = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "main.py":1030
- *         horLayout = QHBoxLayout()
- * 
- *         btnList = [self.btn_report, self.btn_del, self.btn_notes, self.btn_save]             # <<<<<<<<<<<<<<
- * 
- *         for button in btnList:
- */
+  
   __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_btn_report); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1030, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_btn_del); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1030, __pyx_L1_error)
@@ -33245,13 +28793,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_2resizeable(CYTHON_UNUSED P
   __pyx_v_btnList = ((PyObject*)__pyx_t_6);
   __pyx_t_6 = 0;
 
-  /* "main.py":1032
- *         btnList = [self.btn_report, self.btn_del, self.btn_notes, self.btn_save]
- * 
- *         for button in btnList:             # <<<<<<<<<<<<<<
- *             horLayout.addWidget(button)
- *             button.setMinimumSize(QSize(130, 30))
- */
+  
   __pyx_t_6 = __pyx_v_btnList; __Pyx_INCREF(__pyx_t_6); __pyx_t_7 = 0;
   for (;;) {
     if (__pyx_t_7 >= PyList_GET_SIZE(__pyx_t_6)) break;
@@ -33264,13 +28806,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_2resizeable(CYTHON_UNUSED P
     __Pyx_XDECREF_SET(__pyx_v_button, __pyx_t_5);
     __pyx_t_5 = 0;
 
-    /* "main.py":1033
- * 
- *         for button in btnList:
- *             horLayout.addWidget(button)             # <<<<<<<<<<<<<<
- *             button.setMinimumSize(QSize(130, 30))
- * 
- */
+    
     __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_horLayout, __pyx_n_s_addWidget); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1033, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_2 = NULL;
@@ -33297,13 +28833,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_2resizeable(CYTHON_UNUSED P
     }
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-    /* "main.py":1034
- *         for button in btnList:
- *             horLayout.addWidget(button)
- *             button.setMinimumSize(QSize(130, 30))             # <<<<<<<<<<<<<<
- * 
- *         horLayout.insertStretch(1, 500)
- */
+    
     __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_button, __pyx_n_s_setMinimumSize); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1034, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_QSize); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1034, __pyx_L1_error)
@@ -33336,23 +28866,11 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_2resizeable(CYTHON_UNUSED P
     }
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-    /* "main.py":1032
- *         btnList = [self.btn_report, self.btn_del, self.btn_notes, self.btn_save]
- * 
- *         for button in btnList:             # <<<<<<<<<<<<<<
- *             horLayout.addWidget(button)
- *             button.setMinimumSize(QSize(130, 30))
- */
+    
   }
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "main.py":1036
- *             button.setMinimumSize(QSize(130, 30))
- * 
- *         horLayout.insertStretch(1, 500)             # <<<<<<<<<<<<<<
- * 
- *         verLayout.addWidget(self.tw_table)
- */
+  
   __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_horLayout, __pyx_n_s_insertStretch); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1036, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_tuple__25, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1036, __pyx_L1_error)
@@ -33360,13 +28878,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_2resizeable(CYTHON_UNUSED P
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "main.py":1038
- *         horLayout.insertStretch(1, 500)
- * 
- *         verLayout.addWidget(self.tw_table)             # <<<<<<<<<<<<<<
- * 
- *         sizePolicy = QtWidgets.QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
- */
+  
   __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_verLayout, __pyx_n_s_addWidget); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1038, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_tw_table); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1038, __pyx_L1_error)
@@ -33396,13 +28908,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_2resizeable(CYTHON_UNUSED P
   }
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "main.py":1040
- *         verLayout.addWidget(self.tw_table)
- * 
- *         sizePolicy = QtWidgets.QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)             # <<<<<<<<<<<<<<
- *         self.tw_table.setSizePolicy(sizePolicy)
- * 
- */
+  
   __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_QtWidgets); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1040, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_QSizePolicy); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1040, __pyx_L1_error)
@@ -33451,13 +28957,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_2resizeable(CYTHON_UNUSED P
   __pyx_v_sizePolicy = __pyx_t_5;
   __pyx_t_5 = 0;
 
-  /* "main.py":1041
- * 
- *         sizePolicy = QtWidgets.QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
- *         self.tw_table.setSizePolicy(sizePolicy)             # <<<<<<<<<<<<<<
- * 
- *         verLayout.addLayout(horLayout)
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_tw_table); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1041, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_setSizePolicy); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1041, __pyx_L1_error)
@@ -33487,13 +28987,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_2resizeable(CYTHON_UNUSED P
   }
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "main.py":1043
- *         self.tw_table.setSizePolicy(sizePolicy)
- * 
- *         verLayout.addLayout(horLayout)             # <<<<<<<<<<<<<<
- * 
- *         self.centralwidget.setLayout(verLayout)
- */
+  
   __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_verLayout, __pyx_n_s_addLayout); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1043, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_3 = NULL;
@@ -33520,13 +29014,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_2resizeable(CYTHON_UNUSED P
   }
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "main.py":1045
- *         verLayout.addLayout(horLayout)
- * 
- *         self.centralwidget.setLayout(verLayout)             # <<<<<<<<<<<<<<
- * 
- *     def setTheme(self):
- */
+  
   __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_centralwidget); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1045, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_setLayout); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1045, __pyx_L1_error)
@@ -33556,15 +29044,9 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_2resizeable(CYTHON_UNUSED P
   }
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "main.py":1025
- *         self.setTheme()
- * 
- *     def resizeable(self):             # <<<<<<<<<<<<<<
- * 
- *         verLayout = QVBoxLayout()
- */
+  
 
-  /* function exit code */
+  
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
@@ -33586,22 +29068,16 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_2resizeable(CYTHON_UNUSED P
   return __pyx_r;
 }
 
-/* "main.py":1047
- *         self.centralwidget.setLayout(verLayout)
- * 
- *     def setTheme(self):             # <<<<<<<<<<<<<<
- *         if self.theme == "Light":
- *             style = """
- */
 
-/* Python wrapper */
+
+
 static PyObject *__pyx_pw_6ver1_3_4main_10MainWindow_5setTheme(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
-); /*proto*/
+); 
 static PyMethodDef __pyx_mdef_6ver1_3_4main_10MainWindow_5setTheme = {"setTheme", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6ver1_3_4main_10MainWindow_5setTheme, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
 static PyObject *__pyx_pw_6ver1_3_4main_10MainWindow_5setTheme(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
@@ -33679,7 +29155,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __pyx_L4_argument_unpacking_done:;
   __pyx_r = __pyx_pf_6ver1_3_4main_10MainWindow_4setTheme(__pyx_self, __pyx_v_self);
 
-  /* function exit code */
+  
   {
     Py_ssize_t __pyx_temp;
     for (__pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
@@ -33705,36 +29181,18 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_4setTheme(CYTHON_UNUSED PyO
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("setTheme", 0);
 
-  /* "main.py":1048
- * 
- *     def setTheme(self):
- *         if self.theme == "Light":             # <<<<<<<<<<<<<<
- *             style = """
- * 
- */
+  
   __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_theme); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1048, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_2 = (__Pyx_PyString_Equals(__pyx_t_1, __pyx_n_s_Light, Py_EQ)); if (unlikely((__pyx_t_2 < 0))) __PYX_ERR(0, 1048, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if (__pyx_t_2) {
 
-    /* "main.py":1049
- *     def setTheme(self):
- *         if self.theme == "Light":
- *             style = """             # <<<<<<<<<<<<<<
- * 
- *                 QWidget{
- */
+    
     __Pyx_INCREF(__pyx_kp_s_QWidget_background_color_E0E0E0);
     __pyx_v_style = __pyx_kp_s_QWidget_background_color_E0E0E0;
 
-    /* "main.py":1130
- *                 """
- * 
- *             self.setStyleSheet(style)             # <<<<<<<<<<<<<<
- * 
- *             self.reportDialog.setTheme(self.theme, style)
- */
+    
     __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_setStyleSheet); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1130, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_4 = NULL;
@@ -33761,13 +29219,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_4setTheme(CYTHON_UNUSED PyO
     }
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "main.py":1132
- *             self.setStyleSheet(style)
- * 
- *             self.reportDialog.setTheme(self.theme, style)             # <<<<<<<<<<<<<<
- *             self.createDialog.setTheme(style)
- *             self.deleteDialog.setTheme(style)
- */
+    
     __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_reportDialog); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1132, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_setTheme); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1132, __pyx_L1_error)
@@ -33800,13 +29252,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_4setTheme(CYTHON_UNUSED PyO
     }
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "main.py":1133
- * 
- *             self.reportDialog.setTheme(self.theme, style)
- *             self.createDialog.setTheme(style)             # <<<<<<<<<<<<<<
- *             self.deleteDialog.setTheme(style)
- *             self.editDialog.setTheme(style)
- */
+    
     __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_createDialog); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1133, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_setTheme); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1133, __pyx_L1_error)
@@ -33836,13 +29282,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_4setTheme(CYTHON_UNUSED PyO
     }
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "main.py":1134
- *             self.reportDialog.setTheme(self.theme, style)
- *             self.createDialog.setTheme(style)
- *             self.deleteDialog.setTheme(style)             # <<<<<<<<<<<<<<
- *             self.editDialog.setTheme(style)
- *             self.saveDialog.setTheme(style)
- */
+    
     __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_deleteDialog); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1134, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_setTheme); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1134, __pyx_L1_error)
@@ -33872,13 +29312,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_4setTheme(CYTHON_UNUSED PyO
     }
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "main.py":1135
- *             self.createDialog.setTheme(style)
- *             self.deleteDialog.setTheme(style)
- *             self.editDialog.setTheme(style)             # <<<<<<<<<<<<<<
- *             self.saveDialog.setTheme(style)
- * 
- */
+    
     __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_editDialog); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1135, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_setTheme); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1135, __pyx_L1_error)
@@ -33908,13 +29342,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_4setTheme(CYTHON_UNUSED PyO
     }
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "main.py":1136
- *             self.deleteDialog.setTheme(style)
- *             self.editDialog.setTheme(style)
- *             self.saveDialog.setTheme(style)             # <<<<<<<<<<<<<<
- * 
- *             self.theme = "Dark"
- */
+    
     __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_saveDialog); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1136, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_setTheme); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1136, __pyx_L1_error)
@@ -33944,43 +29372,19 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_4setTheme(CYTHON_UNUSED PyO
     }
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "main.py":1138
- *             self.saveDialog.setTheme(style)
- * 
- *             self.theme = "Dark"             # <<<<<<<<<<<<<<
- * 
- *         else:
- */
+    
     if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_theme, __pyx_n_s_Dark) < 0) __PYX_ERR(0, 1138, __pyx_L1_error)
 
-    /* "main.py":1048
- * 
- *     def setTheme(self):
- *         if self.theme == "Light":             # <<<<<<<<<<<<<<
- *             style = """
- * 
- */
+    
     goto __pyx_L3;
   }
 
-  /* "main.py":1141
- * 
- *         else:
- *             style = """             # <<<<<<<<<<<<<<
- * 
- *                 QWidget{
- */
-  /*else*/ {
+  
+   {
     __Pyx_INCREF(__pyx_kp_s_QWidget_background_color_2E2E2E_2);
     __pyx_v_style = __pyx_kp_s_QWidget_background_color_2E2E2E_2;
 
-    /* "main.py":1223
- *                 """
- * 
- *             self.setStyleSheet(style)             # <<<<<<<<<<<<<<
- * 
- *             self.reportDialog.setTheme(self.theme, style)
- */
+    
     __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_setStyleSheet); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1223, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __pyx_t_3 = NULL;
@@ -34007,13 +29411,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_4setTheme(CYTHON_UNUSED PyO
     }
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "main.py":1225
- *             self.setStyleSheet(style)
- * 
- *             self.reportDialog.setTheme(self.theme, style)             # <<<<<<<<<<<<<<
- *             self.createDialog.setTheme(style)
- *             self.deleteDialog.setTheme(style)
- */
+    
     __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_reportDialog); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1225, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_setTheme); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1225, __pyx_L1_error)
@@ -34046,13 +29444,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_4setTheme(CYTHON_UNUSED PyO
     }
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "main.py":1226
- * 
- *             self.reportDialog.setTheme(self.theme, style)
- *             self.createDialog.setTheme(style)             # <<<<<<<<<<<<<<
- *             self.deleteDialog.setTheme(style)
- *             self.editDialog.setTheme(style)
- */
+    
     __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_createDialog); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1226, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_setTheme); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1226, __pyx_L1_error)
@@ -34082,13 +29474,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_4setTheme(CYTHON_UNUSED PyO
     }
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "main.py":1227
- *             self.reportDialog.setTheme(self.theme, style)
- *             self.createDialog.setTheme(style)
- *             self.deleteDialog.setTheme(style)             # <<<<<<<<<<<<<<
- *             self.editDialog.setTheme(style)
- *             self.saveDialog.setTheme(style)
- */
+    
     __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_deleteDialog); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1227, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_setTheme); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1227, __pyx_L1_error)
@@ -34118,13 +29504,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_4setTheme(CYTHON_UNUSED PyO
     }
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "main.py":1228
- *             self.createDialog.setTheme(style)
- *             self.deleteDialog.setTheme(style)
- *             self.editDialog.setTheme(style)             # <<<<<<<<<<<<<<
- *             self.saveDialog.setTheme(style)
- * 
- */
+    
     __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_editDialog); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1228, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_setTheme); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1228, __pyx_L1_error)
@@ -34154,13 +29534,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_4setTheme(CYTHON_UNUSED PyO
     }
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "main.py":1229
- *             self.deleteDialog.setTheme(style)
- *             self.editDialog.setTheme(style)
- *             self.saveDialog.setTheme(style)             # <<<<<<<<<<<<<<
- * 
- *             self.theme = "Light"
- */
+    
     __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_saveDialog); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1229, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_setTheme); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1229, __pyx_L1_error)
@@ -34190,26 +29564,14 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_4setTheme(CYTHON_UNUSED PyO
     }
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "main.py":1231
- *             self.saveDialog.setTheme(style)
- * 
- *             self.theme = "Light"             # <<<<<<<<<<<<<<
- * 
- *     def setTable(self):
- */
+    
     if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_theme, __pyx_n_s_Light) < 0) __PYX_ERR(0, 1231, __pyx_L1_error)
   }
   __pyx_L3:;
 
-  /* "main.py":1047
- *         self.centralwidget.setLayout(verLayout)
- * 
- *     def setTheme(self):             # <<<<<<<<<<<<<<
- *         if self.theme == "Light":
- *             style = """
- */
+  
 
-  /* function exit code */
+  
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
@@ -34226,22 +29588,16 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_4setTheme(CYTHON_UNUSED PyO
   return __pyx_r;
 }
 
-/* "main.py":1233
- *             self.theme = "Light"
- * 
- *     def setTable(self):             # <<<<<<<<<<<<<<
- * 
- *         self.tw_table.setRowCount(12)
- */
 
-/* Python wrapper */
+
+
 static PyObject *__pyx_pw_6ver1_3_4main_10MainWindow_7setTable(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
-); /*proto*/
+); 
 static PyMethodDef __pyx_mdef_6ver1_3_4main_10MainWindow_7setTable = {"setTable", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6ver1_3_4main_10MainWindow_7setTable, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
 static PyObject *__pyx_pw_6ver1_3_4main_10MainWindow_7setTable(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
@@ -34319,7 +29675,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __pyx_L4_argument_unpacking_done:;
   __pyx_r = __pyx_pf_6ver1_3_4main_10MainWindow_6setTable(__pyx_self, __pyx_v_self);
 
-  /* function exit code */
+  
   {
     Py_ssize_t __pyx_temp;
     for (__pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
@@ -34351,13 +29707,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_6setTable(CYTHON_UNUSED PyO
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("setTable", 0);
 
-  /* "main.py":1235
- *     def setTable(self):
- * 
- *         self.tw_table.setRowCount(12)             # <<<<<<<<<<<<<<
- *         self.tw_table.setColumnCount(31)
- * 
- */
+  
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_tw_table); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1235, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_setRowCount); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1235, __pyx_L1_error)
@@ -34387,13 +29737,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_6setTable(CYTHON_UNUSED PyO
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":1236
- * 
- *         self.tw_table.setRowCount(12)
- *         self.tw_table.setColumnCount(31)             # <<<<<<<<<<<<<<
- * 
- *         for i in range(31):
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_tw_table); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1236, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_setColumnCount); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1236, __pyx_L1_error)
@@ -34423,26 +29767,14 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_6setTable(CYTHON_UNUSED PyO
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":1238
- *         self.tw_table.setColumnCount(31)
- * 
- *         for i in range(31):             # <<<<<<<<<<<<<<
- *             self.tw_table.setColumnWidth(i, 20)
- * 
- */
+  
   for (__pyx_t_5 = 0; __pyx_t_5 < 31; __pyx_t_5+=1) {
     __pyx_t_1 = __Pyx_PyInt_From_long(__pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1238, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_XDECREF_SET(__pyx_v_i, __pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "main.py":1239
- * 
- *         for i in range(31):
- *             self.tw_table.setColumnWidth(i, 20)             # <<<<<<<<<<<<<<
- * 
- *         self.tw_table.setLineWidth(10)
- */
+    
     __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_tw_table); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1239, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_setColumnWidth); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1239, __pyx_L1_error)
@@ -34473,13 +29805,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_6setTable(CYTHON_UNUSED PyO
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   }
 
-  /* "main.py":1241
- *             self.tw_table.setColumnWidth(i, 20)
- * 
- *         self.tw_table.setLineWidth(10)             # <<<<<<<<<<<<<<
- * 
- *         monthTyple = (
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_tw_table); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1241, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_setLineWidth); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1241, __pyx_L1_error)
@@ -34509,23 +29835,11 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_6setTable(CYTHON_UNUSED PyO
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":1244
- * 
- *         monthTyple = (
- *             '', '','',             # <<<<<<<<<<<<<<
- *             '','','',
- *             '','','',
- */
+  
   __Pyx_INCREF(__pyx_tuple__70);
   __pyx_v_monthTyple = __pyx_tuple__70;
 
-  /* "main.py":1250
- *             )
- * 
- *         self.tw_table.setVerticalHeaderLabels(monthTyple)             # <<<<<<<<<<<<<<
- * 
- *         verHeader = self.tw_table.verticalHeader()
- */
+  
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_tw_table); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1250, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_setVerticalHeaderLabels); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1250, __pyx_L1_error)
@@ -34555,13 +29869,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_6setTable(CYTHON_UNUSED PyO
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":1252
- *         self.tw_table.setVerticalHeaderLabels(monthTyple)
- * 
- *         verHeader = self.tw_table.verticalHeader()             # <<<<<<<<<<<<<<
- *         horHeader = self.tw_table.horizontalHeader()
- * 
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_tw_table); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1252, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_verticalHeader); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1252, __pyx_L1_error)
@@ -34592,13 +29900,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_6setTable(CYTHON_UNUSED PyO
   __pyx_v_verHeader = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "main.py":1253
- * 
- *         verHeader = self.tw_table.verticalHeader()
- *         horHeader = self.tw_table.horizontalHeader()             # <<<<<<<<<<<<<<
- * 
- *         for i in range(self.tw_table.rowCount()):
- */
+  
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_tw_table); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1253, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_horizontalHeader); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1253, __pyx_L1_error)
@@ -34629,13 +29931,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_6setTable(CYTHON_UNUSED PyO
   __pyx_v_horHeader = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "main.py":1255
- *         horHeader = self.tw_table.horizontalHeader()
- * 
- *         for i in range(self.tw_table.rowCount()):             # <<<<<<<<<<<<<<
- *             verHeader.setSectionResizeMode(i, QHeaderView.ResizeMode.Stretch)
- * 
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_tw_table); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1255, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_rowCount); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1255, __pyx_L1_error)
@@ -34709,13 +30005,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_6setTable(CYTHON_UNUSED PyO
     __Pyx_XDECREF_SET(__pyx_v_i, __pyx_t_2);
     __pyx_t_2 = 0;
 
-    /* "main.py":1256
- * 
- *         for i in range(self.tw_table.rowCount()):
- *             verHeader.setSectionResizeMode(i, QHeaderView.ResizeMode.Stretch)             # <<<<<<<<<<<<<<
- * 
- *         for i in range(self.tw_table.columnCount()):
- */
+    
     __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_verHeader, __pyx_n_s_setSectionResizeMode); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1256, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_GetModuleGlobalName(__pyx_t_8, __pyx_n_s_QHeaderView); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 1256, __pyx_L1_error)
@@ -34751,23 +30041,11 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_6setTable(CYTHON_UNUSED PyO
     }
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-    /* "main.py":1255
- *         horHeader = self.tw_table.horizontalHeader()
- * 
- *         for i in range(self.tw_table.rowCount()):             # <<<<<<<<<<<<<<
- *             verHeader.setSectionResizeMode(i, QHeaderView.ResizeMode.Stretch)
- * 
- */
+    
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":1258
- *             verHeader.setSectionResizeMode(i, QHeaderView.ResizeMode.Stretch)
- * 
- *         for i in range(self.tw_table.columnCount()):             # <<<<<<<<<<<<<<
- *             horHeader.setSectionResizeMode(i, QHeaderView.ResizeMode.Stretch)
- * 
- */
+  
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_tw_table); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1258, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_columnCount); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1258, __pyx_L1_error)
@@ -34841,13 +30119,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_6setTable(CYTHON_UNUSED PyO
     __Pyx_XDECREF_SET(__pyx_v_i, __pyx_t_3);
     __pyx_t_3 = 0;
 
-    /* "main.py":1259
- * 
- *         for i in range(self.tw_table.columnCount()):
- *             horHeader.setSectionResizeMode(i, QHeaderView.ResizeMode.Stretch)             # <<<<<<<<<<<<<<
- * 
- *     def fetchTables(self):
- */
+    
     __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_horHeader, __pyx_n_s_setSectionResizeMode); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1259, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_GetModuleGlobalName(__pyx_t_8, __pyx_n_s_QHeaderView); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 1259, __pyx_L1_error)
@@ -34883,25 +30155,13 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_6setTable(CYTHON_UNUSED PyO
     }
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "main.py":1258
- *             verHeader.setSectionResizeMode(i, QHeaderView.ResizeMode.Stretch)
- * 
- *         for i in range(self.tw_table.columnCount()):             # <<<<<<<<<<<<<<
- *             horHeader.setSectionResizeMode(i, QHeaderView.ResizeMode.Stretch)
- * 
- */
+    
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":1233
- *             self.theme = "Light"
- * 
- *     def setTable(self):             # <<<<<<<<<<<<<<
- * 
- *         self.tw_table.setRowCount(12)
- */
+  
 
-  /* function exit code */
+  
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
@@ -34922,22 +30182,16 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_6setTable(CYTHON_UNUSED PyO
   return __pyx_r;
 }
 
-/* "main.py":1261
- *             horHeader.setSectionResizeMode(i, QHeaderView.ResizeMode.Stretch)
- * 
- *     def fetchTables(self):             # <<<<<<<<<<<<<<
- * 
- *         def makeAct(name, item):
- */
 
-/* Python wrapper */
+
+
 static PyObject *__pyx_pw_6ver1_3_4main_10MainWindow_9fetchTables(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
-); /*proto*/
+); 
 static PyMethodDef __pyx_mdef_6ver1_3_4main_10MainWindow_9fetchTables = {"fetchTables", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6ver1_3_4main_10MainWindow_9fetchTables, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
 static PyObject *__pyx_pw_6ver1_3_4main_10MainWindow_9fetchTables(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
@@ -35015,7 +30269,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __pyx_L4_argument_unpacking_done:;
   __pyx_r = __pyx_pf_6ver1_3_4main_10MainWindow_8fetchTables(__pyx_self, __pyx_v_self);
 
-  /* function exit code */
+  
   {
     Py_ssize_t __pyx_temp;
     for (__pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
@@ -35026,22 +30280,16 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-/* "main.py":1263
- *     def fetchTables(self):
- * 
- *         def makeAct(name, item):             # <<<<<<<<<<<<<<
- *             self.name = QAction(str(item), self)
- *             self.changeMenu.addAction(self.name)
- */
 
-/* Python wrapper */
+
+
 static PyObject *__pyx_pw_6ver1_3_4main_10MainWindow_11fetchTables_1makeAct(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
-); /*proto*/
+); 
 static PyMethodDef __pyx_mdef_6ver1_3_4main_10MainWindow_11fetchTables_1makeAct = {"makeAct", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6ver1_3_4main_10MainWindow_11fetchTables_1makeAct, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
 static PyObject *__pyx_pw_6ver1_3_4main_10MainWindow_11fetchTables_1makeAct(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
@@ -35134,7 +30382,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __pyx_L4_argument_unpacking_done:;
   __pyx_r = __pyx_pf_6ver1_3_4main_10MainWindow_11fetchTables_makeAct(__pyx_self, __pyx_v_name, __pyx_v_item);
 
-  /* function exit code */
+  
   {
     Py_ssize_t __pyx_temp;
     for (__pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
@@ -35145,16 +30393,10 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-/* "main.py":1266
- *             self.name = QAction(str(item), self)
- *             self.changeMenu.addAction(self.name)
- *             self.name.triggered.connect(lambda: tableChange(item))             # <<<<<<<<<<<<<<
- * 
- *         def tableChange(name):
- */
 
-/* Python wrapper */
-static PyObject *__pyx_pw_6ver1_3_4main_10MainWindow_11fetchTables_7makeAct_lambda8(PyObject *__pyx_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+
+
+static PyObject *__pyx_pw_6ver1_3_4main_10MainWindow_11fetchTables_7makeAct_lambda8(PyObject *__pyx_self, CYTHON_UNUSED PyObject *unused); 
 static PyMethodDef __pyx_mdef_6ver1_3_4main_10MainWindow_11fetchTables_7makeAct_lambda8 = {"lambda8", (PyCFunction)__pyx_pw_6ver1_3_4main_10MainWindow_11fetchTables_7makeAct_lambda8, METH_NOARGS, 0};
 static PyObject *__pyx_pw_6ver1_3_4main_10MainWindow_11fetchTables_7makeAct_lambda8(PyObject *__pyx_self, CYTHON_UNUSED PyObject *unused) {
   CYTHON_UNUSED PyObject *const *__pyx_kwvalues;
@@ -35164,7 +30406,7 @@ static PyObject *__pyx_pw_6ver1_3_4main_10MainWindow_11fetchTables_7makeAct_lamb
   __pyx_kwvalues = __Pyx_KwValues_VARARGS(__pyx_args, __pyx_nargs);
   __pyx_r = __pyx_lambda_funcdef_lambda8(__pyx_self);
 
-  /* function exit code */
+  
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
@@ -35194,7 +30436,7 @@ static PyObject *__pyx_lambda_funcdef_lambda8(PyObject *__pyx_self) {
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* function exit code */
+  
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
@@ -35206,13 +30448,7 @@ static PyObject *__pyx_lambda_funcdef_lambda8(PyObject *__pyx_self) {
   return __pyx_r;
 }
 
-/* "main.py":1263
- *     def fetchTables(self):
- * 
- *         def makeAct(name, item):             # <<<<<<<<<<<<<<
- *             self.name = QAction(str(item), self)
- *             self.changeMenu.addAction(self.name)
- */
+
 
 static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_11fetchTables_makeAct(PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_name, PyObject *__pyx_v_item) {
   struct __pyx_obj_6ver1_3_4main___pyx_scope_struct_8_makeAct *__pyx_cur_scope;
@@ -35242,13 +30478,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_11fetchTables_makeAct(PyObj
   __Pyx_INCREF(__pyx_cur_scope->__pyx_v_item);
   __Pyx_GIVEREF(__pyx_cur_scope->__pyx_v_item);
 
-  /* "main.py":1264
- * 
- *         def makeAct(name, item):
- *             self.name = QAction(str(item), self)             # <<<<<<<<<<<<<<
- *             self.changeMenu.addAction(self.name)
- *             self.name.triggered.connect(lambda: tableChange(item))
- */
+  
   __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_QAction); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1264, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = __Pyx_PyObject_Str(__pyx_cur_scope->__pyx_v_item); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1264, __pyx_L1_error)
@@ -35281,13 +30511,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_11fetchTables_makeAct(PyObj
   if (__Pyx_PyObject_SetAttrStr(__pyx_cur_scope->__pyx_outer_scope->__pyx_v_self, __pyx_n_s_name, __pyx_t_1) < 0) __PYX_ERR(0, 1264, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":1265
- *         def makeAct(name, item):
- *             self.name = QAction(str(item), self)
- *             self.changeMenu.addAction(self.name)             # <<<<<<<<<<<<<<
- *             self.name.triggered.connect(lambda: tableChange(item))
- * 
- */
+  
   if (unlikely(!__pyx_cur_scope->__pyx_outer_scope->__pyx_v_self)) { __Pyx_RaiseClosureNameError("self"); __PYX_ERR(0, 1265, __pyx_L1_error) }
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_outer_scope->__pyx_v_self, __pyx_n_s_changeMenu); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1265, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
@@ -35322,13 +30546,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_11fetchTables_makeAct(PyObj
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":1266
- *             self.name = QAction(str(item), self)
- *             self.changeMenu.addAction(self.name)
- *             self.name.triggered.connect(lambda: tableChange(item))             # <<<<<<<<<<<<<<
- * 
- *         def tableChange(name):
- */
+  
   if (unlikely(!__pyx_cur_scope->__pyx_outer_scope->__pyx_v_self)) { __Pyx_RaiseClosureNameError("self"); __PYX_ERR(0, 1266, __pyx_L1_error) }
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_outer_scope->__pyx_v_self, __pyx_n_s_name); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1266, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
@@ -35365,15 +30583,9 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_11fetchTables_makeAct(PyObj
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":1263
- *     def fetchTables(self):
- * 
- *         def makeAct(name, item):             # <<<<<<<<<<<<<<
- *             self.name = QAction(str(item), self)
- *             self.changeMenu.addAction(self.name)
- */
+  
 
-  /* function exit code */
+  
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
@@ -35390,22 +30602,16 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_11fetchTables_makeAct(PyObj
   return __pyx_r;
 }
 
-/* "main.py":1268
- *             self.name.triggered.connect(lambda: tableChange(item))
- * 
- *         def tableChange(name):             # <<<<<<<<<<<<<<
- *             self.tableName = str(name)
- * 
- */
 
-/* Python wrapper */
+
+
 static PyObject *__pyx_pw_6ver1_3_4main_10MainWindow_11fetchTables_3tableChange(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
-); /*proto*/
+); 
 static PyMethodDef __pyx_mdef_6ver1_3_4main_10MainWindow_11fetchTables_3tableChange = {"tableChange", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6ver1_3_4main_10MainWindow_11fetchTables_3tableChange, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
 static PyObject *__pyx_pw_6ver1_3_4main_10MainWindow_11fetchTables_3tableChange(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
@@ -35483,7 +30689,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __pyx_L4_argument_unpacking_done:;
   __pyx_r = __pyx_pf_6ver1_3_4main_10MainWindow_11fetchTables_2tableChange(__pyx_self, __pyx_v_name);
 
-  /* function exit code */
+  
   {
     Py_ssize_t __pyx_temp;
     for (__pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
@@ -35510,26 +30716,14 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_11fetchTables_2tableChange(
   __pyx_outer_scope = (struct __pyx_obj_6ver1_3_4main___pyx_scope_struct_7_fetchTables *) __Pyx_CyFunction_GetClosure(__pyx_self);
   __pyx_cur_scope = __pyx_outer_scope;
 
-  /* "main.py":1269
- * 
- *         def tableChange(name):
- *             self.tableName = str(name)             # <<<<<<<<<<<<<<
- * 
- *             #
- */
+  
   __pyx_t_1 = __Pyx_PyObject_Str(__pyx_v_name); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1269, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   if (unlikely(!__pyx_cur_scope->__pyx_v_self)) { __Pyx_RaiseClosureNameError("self"); __PYX_ERR(0, 1269, __pyx_L1_error) }
   if (__Pyx_PyObject_SetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_tableName, __pyx_t_1) < 0) __PYX_ERR(0, 1269, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":1272
- * 
- *             #
- *             self.tw_table.setRowCount(0)             # <<<<<<<<<<<<<<
- *             self.tw_table.setColumnCount(0)
- *             self.setTable()
- */
+  
   if (unlikely(!__pyx_cur_scope->__pyx_v_self)) { __Pyx_RaiseClosureNameError("self"); __PYX_ERR(0, 1272, __pyx_L1_error) }
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_tw_table); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1272, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
@@ -35560,13 +30754,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_11fetchTables_2tableChange(
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":1273
- *             #
- *             self.tw_table.setRowCount(0)
- *             self.tw_table.setColumnCount(0)             # <<<<<<<<<<<<<<
- *             self.setTable()
- * 
- */
+  
   if (unlikely(!__pyx_cur_scope->__pyx_v_self)) { __Pyx_RaiseClosureNameError("self"); __PYX_ERR(0, 1273, __pyx_L1_error) }
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_tw_table); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1273, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
@@ -35597,13 +30785,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_11fetchTables_2tableChange(
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":1274
- *             self.tw_table.setRowCount(0)
- *             self.tw_table.setColumnCount(0)
- *             self.setTable()             # <<<<<<<<<<<<<<
- * 
- *             self.read()
- */
+  
   if (unlikely(!__pyx_cur_scope->__pyx_v_self)) { __Pyx_RaiseClosureNameError("self"); __PYX_ERR(0, 1274, __pyx_L1_error) }
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_setTable); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1274, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
@@ -35631,13 +30813,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_11fetchTables_2tableChange(
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":1276
- *             self.setTable()
- * 
- *             self.read()             # <<<<<<<<<<<<<<
- * 
- *         connect = sqlite3.connect(f"{VERSIONPATH}/database/d.db")
- */
+  
   if (unlikely(!__pyx_cur_scope->__pyx_v_self)) { __Pyx_RaiseClosureNameError("self"); __PYX_ERR(0, 1276, __pyx_L1_error) }
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_read); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1276, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
@@ -35665,15 +30841,9 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_11fetchTables_2tableChange(
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":1268
- *             self.name.triggered.connect(lambda: tableChange(item))
- * 
- *         def tableChange(name):             # <<<<<<<<<<<<<<
- *             self.tableName = str(name)
- * 
- */
+  
 
-  /* function exit code */
+  
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
@@ -35688,13 +30858,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_11fetchTables_2tableChange(
   return __pyx_r;
 }
 
-/* "main.py":1261
- *             horHeader.setSectionResizeMode(i, QHeaderView.ResizeMode.Stretch)
- * 
- *     def fetchTables(self):             # <<<<<<<<<<<<<<
- * 
- *         def makeAct(name, item):
- */
+
 
 static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_8fetchTables(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
   struct __pyx_obj_6ver1_3_4main___pyx_scope_struct_7_fetchTables *__pyx_cur_scope;
@@ -35735,38 +30899,20 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_8fetchTables(CYTHON_UNUSED 
   __Pyx_INCREF(__pyx_cur_scope->__pyx_v_self);
   __Pyx_GIVEREF(__pyx_cur_scope->__pyx_v_self);
 
-  /* "main.py":1263
- *     def fetchTables(self):
- * 
- *         def makeAct(name, item):             # <<<<<<<<<<<<<<
- *             self.name = QAction(str(item), self)
- *             self.changeMenu.addAction(self.name)
- */
+  
   __pyx_t_1 = __Pyx_CyFunction_New(&__pyx_mdef_6ver1_3_4main_10MainWindow_11fetchTables_1makeAct, 0, __pyx_n_s_MainWindow_fetchTables_locals_ma_2, ((PyObject*)__pyx_cur_scope), __pyx_n_s_ver1_3_main, __pyx_d, ((PyObject *)__pyx_codeobj__72)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1263, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_makeAct = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "main.py":1268
- *             self.name.triggered.connect(lambda: tableChange(item))
- * 
- *         def tableChange(name):             # <<<<<<<<<<<<<<
- *             self.tableName = str(name)
- * 
- */
+  
   __pyx_t_1 = __Pyx_CyFunction_New(&__pyx_mdef_6ver1_3_4main_10MainWindow_11fetchTables_3tableChange, 0, __pyx_n_s_MainWindow_fetchTables_locals_ta, ((PyObject*)__pyx_cur_scope), __pyx_n_s_ver1_3_main, __pyx_d, ((PyObject *)__pyx_codeobj__74)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1268, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_1);
   __pyx_cur_scope->__pyx_v_tableChange = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "main.py":1278
- *             self.read()
- * 
- *         connect = sqlite3.connect(f"{VERSIONPATH}/database/d.db")             # <<<<<<<<<<<<<<
- *         cursor = connect.cursor()
- * 
- */
+  
   __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_sqlite3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1278, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_connect); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1278, __pyx_L1_error)
@@ -35806,13 +30952,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_8fetchTables(CYTHON_UNUSED 
   __pyx_v_connect = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "main.py":1279
- * 
- *         connect = sqlite3.connect(f"{VERSIONPATH}/database/d.db")
- *         cursor = connect.cursor()             # <<<<<<<<<<<<<<
- * 
- *         cursor.execute("""SELECT name FROM sqlite_master WHERE type='table';""")
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_connect, __pyx_n_s_cursor); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1279, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = NULL;
@@ -35840,13 +30980,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_8fetchTables(CYTHON_UNUSED 
   __pyx_v_cursor = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "main.py":1281
- *         cursor = connect.cursor()
- * 
- *         cursor.execute("""SELECT name FROM sqlite_master WHERE type='table';""")             # <<<<<<<<<<<<<<
- *         tableList = cursor.fetchall()
- * 
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_cursor, __pyx_n_s_execute); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1281, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = NULL;
@@ -35873,13 +31007,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_8fetchTables(CYTHON_UNUSED 
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":1282
- * 
- *         cursor.execute("""SELECT name FROM sqlite_master WHERE type='table';""")
- *         tableList = cursor.fetchall()             # <<<<<<<<<<<<<<
- * 
- *         indexCount = 0
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_cursor, __pyx_n_s_fetchall); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1282, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = NULL;
@@ -35907,23 +31035,11 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_8fetchTables(CYTHON_UNUSED 
   __pyx_v_tableList = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "main.py":1284
- *         tableList = cursor.fetchall()
- * 
- *         indexCount = 0             # <<<<<<<<<<<<<<
- * 
- *         for item in tableList:
- */
+  
   __Pyx_INCREF(__pyx_int_0);
   __pyx_v_indexCount = __pyx_int_0;
 
-  /* "main.py":1286
- *         indexCount = 0
- * 
- *         for item in tableList:             # <<<<<<<<<<<<<<
- * 
- *             clearItem = ""
- */
+  
   if (likely(PyList_CheckExact(__pyx_v_tableList)) || PyTuple_CheckExact(__pyx_v_tableList)) {
     __pyx_t_1 = __pyx_v_tableList; __Pyx_INCREF(__pyx_t_1); __pyx_t_6 = 0;
     __pyx_t_7 = NULL;
@@ -35966,23 +31082,11 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_8fetchTables(CYTHON_UNUSED 
     __Pyx_XDECREF_SET(__pyx_v_item, __pyx_t_3);
     __pyx_t_3 = 0;
 
-    /* "main.py":1288
- *         for item in tableList:
- * 
- *             clearItem = ""             # <<<<<<<<<<<<<<
- *             for i in item:
- *                 clearItem += str(i)
- */
+    
     __Pyx_INCREF(__pyx_kp_s_);
     __Pyx_XDECREF_SET(__pyx_v_clearItem, __pyx_kp_s_);
 
-    /* "main.py":1289
- * 
- *             clearItem = ""
- *             for i in item:             # <<<<<<<<<<<<<<
- *                 clearItem += str(i)
- * 
- */
+    
     if (likely(PyList_CheckExact(__pyx_v_item)) || PyTuple_CheckExact(__pyx_v_item)) {
       __pyx_t_3 = __pyx_v_item; __Pyx_INCREF(__pyx_t_3); __pyx_t_8 = 0;
       __pyx_t_9 = NULL;
@@ -36025,13 +31129,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_8fetchTables(CYTHON_UNUSED 
       __Pyx_XDECREF_SET(__pyx_v_i, __pyx_t_2);
       __pyx_t_2 = 0;
 
-      /* "main.py":1290
- *             clearItem = ""
- *             for i in item:
- *                 clearItem += str(i)             # <<<<<<<<<<<<<<
- * 
- *             tableList[indexCount] = clearItem
- */
+      
       __pyx_t_2 = __Pyx_PyObject_Str(__pyx_v_i); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1290, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __pyx_t_4 = PyNumber_InPlaceAdd(__pyx_v_clearItem, __pyx_t_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1290, __pyx_L1_error)
@@ -36040,65 +31138,29 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_8fetchTables(CYTHON_UNUSED 
       __Pyx_DECREF_SET(__pyx_v_clearItem, __pyx_t_4);
       __pyx_t_4 = 0;
 
-      /* "main.py":1289
- * 
- *             clearItem = ""
- *             for i in item:             # <<<<<<<<<<<<<<
- *                 clearItem += str(i)
- * 
- */
+      
     }
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "main.py":1292
- *                 clearItem += str(i)
- * 
- *             tableList[indexCount] = clearItem             # <<<<<<<<<<<<<<
- * 
- *             if '_' in clearItem:
- */
+    
     if (unlikely((PyObject_SetItem(__pyx_v_tableList, __pyx_v_indexCount, __pyx_v_clearItem) < 0))) __PYX_ERR(0, 1292, __pyx_L1_error)
 
-    /* "main.py":1294
- *             tableList[indexCount] = clearItem
- * 
- *             if '_' in clearItem:             # <<<<<<<<<<<<<<
- *                 indexCount += 1
- * 
- */
+    
     __pyx_t_10 = (__Pyx_PySequence_ContainsTF(__pyx_n_s__12, __pyx_v_clearItem, Py_EQ)); if (unlikely((__pyx_t_10 < 0))) __PYX_ERR(0, 1294, __pyx_L1_error)
     if (__pyx_t_10) {
 
-      /* "main.py":1295
- * 
- *             if '_' in clearItem:
- *                 indexCount += 1             # <<<<<<<<<<<<<<
- * 
- *             else:
- */
+      
       __pyx_t_3 = __Pyx_PyInt_AddObjC(__pyx_v_indexCount, __pyx_int_1, 1, 1, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1295, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF_SET(__pyx_v_indexCount, __pyx_t_3);
       __pyx_t_3 = 0;
 
-      /* "main.py":1294
- *             tableList[indexCount] = clearItem
- * 
- *             if '_' in clearItem:             # <<<<<<<<<<<<<<
- *                 indexCount += 1
- * 
- */
+      
       goto __pyx_L8;
     }
 
-    /* "main.py":1298
- * 
- *             else:
- *                 makeAct(f"{tableList[indexCount]}Act", tableList[indexCount])             # <<<<<<<<<<<<<<
- *                 self.m_file.addMenu(self.changeMenu)
- *                 indexCount += 1
- */
-    /*else*/ {
+    
+     {
       __pyx_t_3 = __Pyx_PyObject_GetItem(__pyx_v_tableList, __pyx_v_indexCount); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1298, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __pyx_t_4 = __Pyx_PyObject_FormatSimple(__pyx_t_3, __pyx_empty_unicode); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1298, __pyx_L1_error)
@@ -36115,13 +31177,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_8fetchTables(CYTHON_UNUSED 
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-      /* "main.py":1299
- *             else:
- *                 makeAct(f"{tableList[indexCount]}Act", tableList[indexCount])
- *                 self.m_file.addMenu(self.changeMenu)             # <<<<<<<<<<<<<<
- *                 indexCount += 1
- * 
- */
+      
       __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_m_file); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1299, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_addMenu); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1299, __pyx_L1_error)
@@ -36154,13 +31210,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_8fetchTables(CYTHON_UNUSED 
       }
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-      /* "main.py":1300
- *                 makeAct(f"{tableList[indexCount]}Act", tableList[indexCount])
- *                 self.m_file.addMenu(self.changeMenu)
- *                 indexCount += 1             # <<<<<<<<<<<<<<
- * 
- *         indexCount = 0
- */
+      
       __pyx_t_2 = __Pyx_PyInt_AddObjC(__pyx_v_indexCount, __pyx_int_1, 1, 1, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1300, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF_SET(__pyx_v_indexCount, __pyx_t_2);
@@ -36168,35 +31218,17 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_8fetchTables(CYTHON_UNUSED 
     }
     __pyx_L8:;
 
-    /* "main.py":1286
- *         indexCount = 0
- * 
- *         for item in tableList:             # <<<<<<<<<<<<<<
- * 
- *             clearItem = ""
- */
+    
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":1302
- *                 indexCount += 1
- * 
- *         indexCount = 0             # <<<<<<<<<<<<<<
- * 
- *     def updateTableList(self):
- */
+  
   __Pyx_INCREF(__pyx_int_0);
   __Pyx_DECREF_SET(__pyx_v_indexCount, __pyx_int_0);
 
-  /* "main.py":1261
- *             horHeader.setSectionResizeMode(i, QHeaderView.ResizeMode.Stretch)
- * 
- *     def fetchTables(self):             # <<<<<<<<<<<<<<
- * 
- *         def makeAct(name, item):
- */
+  
 
-  /* function exit code */
+  
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
@@ -36222,22 +31254,16 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_8fetchTables(CYTHON_UNUSED 
   return __pyx_r;
 }
 
-/* "main.py":1304
- *         indexCount = 0
- * 
- *     def updateTableList(self):             # <<<<<<<<<<<<<<
- *         self.changeMenu.clear()
- *         self.fetchTables()
- */
 
-/* Python wrapper */
+
+
 static PyObject *__pyx_pw_6ver1_3_4main_10MainWindow_11updateTableList(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
-); /*proto*/
+); 
 static PyMethodDef __pyx_mdef_6ver1_3_4main_10MainWindow_11updateTableList = {"updateTableList", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6ver1_3_4main_10MainWindow_11updateTableList, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
 static PyObject *__pyx_pw_6ver1_3_4main_10MainWindow_11updateTableList(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
@@ -36315,7 +31341,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __pyx_L4_argument_unpacking_done:;
   __pyx_r = __pyx_pf_6ver1_3_4main_10MainWindow_10updateTableList(__pyx_self, __pyx_v_self);
 
-  /* function exit code */
+  
   {
     Py_ssize_t __pyx_temp;
     for (__pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
@@ -36338,13 +31364,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_10updateTableList(CYTHON_UN
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("updateTableList", 0);
 
-  /* "main.py":1305
- * 
- *     def updateTableList(self):
- *         self.changeMenu.clear()             # <<<<<<<<<<<<<<
- *         self.fetchTables()
- * 
- */
+  
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_changeMenu); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1305, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_clear); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1305, __pyx_L1_error)
@@ -36374,13 +31394,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_10updateTableList(CYTHON_UN
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":1306
- *     def updateTableList(self):
- *         self.changeMenu.clear()
- *         self.fetchTables()             # <<<<<<<<<<<<<<
- * 
- *     def savingDialog(self, msg):
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_fetchTables); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1306, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = NULL;
@@ -36407,15 +31421,9 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_10updateTableList(CYTHON_UN
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":1304
- *         indexCount = 0
- * 
- *     def updateTableList(self):             # <<<<<<<<<<<<<<
- *         self.changeMenu.clear()
- *         self.fetchTables()
- */
+  
 
-  /* function exit code */
+  
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
@@ -36430,22 +31438,16 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_10updateTableList(CYTHON_UN
   return __pyx_r;
 }
 
-/* "main.py":1308
- *         self.fetchTables()
- * 
- *     def savingDialog(self, msg):             # <<<<<<<<<<<<<<
- *         if msg == 'upd':
- *             self.saveDialog.add()
- */
 
-/* Python wrapper */
+
+
 static PyObject *__pyx_pw_6ver1_3_4main_10MainWindow_13savingDialog(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
-); /*proto*/
+); 
 static PyMethodDef __pyx_mdef_6ver1_3_4main_10MainWindow_13savingDialog = {"savingDialog", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6ver1_3_4main_10MainWindow_13savingDialog, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
 static PyObject *__pyx_pw_6ver1_3_4main_10MainWindow_13savingDialog(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
@@ -36538,7 +31540,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __pyx_L4_argument_unpacking_done:;
   __pyx_r = __pyx_pf_6ver1_3_4main_10MainWindow_12savingDialog(__pyx_self, __pyx_v_self, __pyx_v_msg);
 
-  /* function exit code */
+  
   {
     Py_ssize_t __pyx_temp;
     for (__pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
@@ -36562,23 +31564,11 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_12savingDialog(CYTHON_UNUSE
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("savingDialog", 0);
 
-  /* "main.py":1309
- * 
- *     def savingDialog(self, msg):
- *         if msg == 'upd':             # <<<<<<<<<<<<<<
- *             self.saveDialog.add()
- *         else:
- */
+  
   __pyx_t_1 = (__Pyx_PyString_Equals(__pyx_v_msg, __pyx_n_s_upd, Py_EQ)); if (unlikely((__pyx_t_1 < 0))) __PYX_ERR(0, 1309, __pyx_L1_error)
   if (__pyx_t_1) {
 
-    /* "main.py":1310
- *     def savingDialog(self, msg):
- *         if msg == 'upd':
- *             self.saveDialog.add()             # <<<<<<<<<<<<<<
- *         else:
- *             self.saveDialog.close()
- */
+    
     __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_saveDialog); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1310, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_add); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1310, __pyx_L1_error)
@@ -36608,24 +31598,12 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_12savingDialog(CYTHON_UNUSE
     }
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-    /* "main.py":1309
- * 
- *     def savingDialog(self, msg):
- *         if msg == 'upd':             # <<<<<<<<<<<<<<
- *             self.saveDialog.add()
- *         else:
- */
+    
     goto __pyx_L3;
   }
 
-  /* "main.py":1312
- *             self.saveDialog.add()
- *         else:
- *             self.saveDialog.close()             # <<<<<<<<<<<<<<
- * 
- *     def save(self, uselessArg):
- */
-  /*else*/ {
+  
+   {
     __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_saveDialog); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1312, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_close); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1312, __pyx_L1_error)
@@ -36657,15 +31635,9 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_12savingDialog(CYTHON_UNUSE
   }
   __pyx_L3:;
 
-  /* "main.py":1308
- *         self.fetchTables()
- * 
- *     def savingDialog(self, msg):             # <<<<<<<<<<<<<<
- *         if msg == 'upd':
- *             self.saveDialog.add()
- */
+  
 
-  /* function exit code */
+  
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
@@ -36680,22 +31652,16 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_12savingDialog(CYTHON_UNUSE
   return __pyx_r;
 }
 
-/* "main.py":1314
- *             self.saveDialog.close()
- * 
- *     def save(self, uselessArg):             # <<<<<<<<<<<<<<
- *         self.saveDialog.show()
- *         self.saveDialog.setRange(self.tw_table.columnCount() * self.tw_table.rowCount())
- */
 
-/* Python wrapper */
+
+
 static PyObject *__pyx_pw_6ver1_3_4main_10MainWindow_15save(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
-); /*proto*/
+); 
 static PyMethodDef __pyx_mdef_6ver1_3_4main_10MainWindow_15save = {"save", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6ver1_3_4main_10MainWindow_15save, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
 static PyObject *__pyx_pw_6ver1_3_4main_10MainWindow_15save(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
@@ -36788,7 +31754,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __pyx_L4_argument_unpacking_done:;
   __pyx_r = __pyx_pf_6ver1_3_4main_10MainWindow_14save(__pyx_self, __pyx_v_self, __pyx_v_uselessArg);
 
-  /* function exit code */
+  
   {
     Py_ssize_t __pyx_temp;
     for (__pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
@@ -36814,13 +31780,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_14save(CYTHON_UNUSED PyObje
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("save", 0);
 
-  /* "main.py":1315
- * 
- *     def save(self, uselessArg):
- *         self.saveDialog.show()             # <<<<<<<<<<<<<<
- *         self.saveDialog.setRange(self.tw_table.columnCount() * self.tw_table.rowCount())
- * 
- */
+  
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_saveDialog); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1315, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_show); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1315, __pyx_L1_error)
@@ -36850,13 +31810,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_14save(CYTHON_UNUSED PyObje
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":1316
- *     def save(self, uselessArg):
- *         self.saveDialog.show()
- *         self.saveDialog.setRange(self.tw_table.columnCount() * self.tw_table.rowCount())             # <<<<<<<<<<<<<<
- * 
- *         self.saveThread.set(self.tableName, self.tw_table)
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_saveDialog); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1316, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_setRange); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1316, __pyx_L1_error)
@@ -36945,13 +31899,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_14save(CYTHON_UNUSED PyObje
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":1318
- *         self.saveDialog.setRange(self.tw_table.columnCount() * self.tw_table.rowCount())
- * 
- *         self.saveThread.set(self.tableName, self.tw_table)             # <<<<<<<<<<<<<<
- *         self.saveThread.start()
- * 
- */
+  
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_saveThread); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1318, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_set); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1318, __pyx_L1_error)
@@ -36987,13 +31935,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_14save(CYTHON_UNUSED PyObje
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":1319
- * 
- *         self.saveThread.set(self.tableName, self.tw_table)
- *         self.saveThread.start()             # <<<<<<<<<<<<<<
- * 
- *     def read(self):
- */
+  
   __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_saveThread); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1319, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_start); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1319, __pyx_L1_error)
@@ -37023,15 +31965,9 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_14save(CYTHON_UNUSED PyObje
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":1314
- *             self.saveDialog.close()
- * 
- *     def save(self, uselessArg):             # <<<<<<<<<<<<<<
- *         self.saveDialog.show()
- *         self.saveDialog.setRange(self.tw_table.columnCount() * self.tw_table.rowCount())
- */
+  
 
-  /* function exit code */
+  
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
@@ -37049,22 +31985,16 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_14save(CYTHON_UNUSED PyObje
   return __pyx_r;
 }
 
-/* "main.py":1321
- *         self.saveThread.start()
- * 
- *     def read(self):             # <<<<<<<<<<<<<<
- *         self.readThread.setTableName(self.tableName)
- *         self.readThread.start()
- */
 
-/* Python wrapper */
+
+
 static PyObject *__pyx_pw_6ver1_3_4main_10MainWindow_17read(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
-); /*proto*/
+); 
 static PyMethodDef __pyx_mdef_6ver1_3_4main_10MainWindow_17read = {"read", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6ver1_3_4main_10MainWindow_17read, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
 static PyObject *__pyx_pw_6ver1_3_4main_10MainWindow_17read(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
@@ -37142,7 +32072,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __pyx_L4_argument_unpacking_done:;
   __pyx_r = __pyx_pf_6ver1_3_4main_10MainWindow_16read(__pyx_self, __pyx_v_self);
 
-  /* function exit code */
+  
   {
     Py_ssize_t __pyx_temp;
     for (__pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
@@ -37166,13 +32096,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_16read(CYTHON_UNUSED PyObje
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("read", 0);
 
-  /* "main.py":1322
- * 
- *     def read(self):
- *         self.readThread.setTableName(self.tableName)             # <<<<<<<<<<<<<<
- *         self.readThread.start()
- * 
- */
+  
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_readThread); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1322, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_setTableName); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1322, __pyx_L1_error)
@@ -37205,13 +32129,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_16read(CYTHON_UNUSED PyObje
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":1323
- *     def read(self):
- *         self.readThread.setTableName(self.tableName)
- *         self.readThread.start()             # <<<<<<<<<<<<<<
- * 
- *     def write(self, row, column, red, green, blue, notes):
- */
+  
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_readThread); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1323, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_start); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1323, __pyx_L1_error)
@@ -37241,15 +32159,9 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_16read(CYTHON_UNUSED PyObje
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":1321
- *         self.saveThread.start()
- * 
- *     def read(self):             # <<<<<<<<<<<<<<
- *         self.readThread.setTableName(self.tableName)
- *         self.readThread.start()
- */
+  
 
-  /* function exit code */
+  
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
@@ -37265,22 +32177,16 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_16read(CYTHON_UNUSED PyObje
   return __pyx_r;
 }
 
-/* "main.py":1325
- *         self.readThread.start()
- * 
- *     def write(self, row, column, red, green, blue, notes):             # <<<<<<<<<<<<<<
- *         self.tw_table.setItem(row, column, QTableWidgetItem())
- * 
- */
 
-/* Python wrapper */
+
+
 static PyObject *__pyx_pw_6ver1_3_4main_10MainWindow_19write(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
-); /*proto*/
+); 
 static PyMethodDef __pyx_mdef_6ver1_3_4main_10MainWindow_19write = {"write", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6ver1_3_4main_10MainWindow_19write, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
 static PyObject *__pyx_pw_6ver1_3_4main_10MainWindow_19write(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
@@ -37448,7 +32354,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __pyx_L4_argument_unpacking_done:;
   __pyx_r = __pyx_pf_6ver1_3_4main_10MainWindow_18write(__pyx_self, __pyx_v_self, __pyx_v_row, __pyx_v_column, __pyx_v_red, __pyx_v_green, __pyx_v_blue, __pyx_v_notes);
 
-  /* function exit code */
+  
   {
     Py_ssize_t __pyx_temp;
     for (__pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
@@ -37474,13 +32380,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_18write(CYTHON_UNUSED PyObj
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("write", 0);
 
-  /* "main.py":1326
- * 
- *     def write(self, row, column, red, green, blue, notes):
- *         self.tw_table.setItem(row, column, QTableWidgetItem())             # <<<<<<<<<<<<<<
- * 
- *         if red != None:
- */
+  
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_tw_table); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1326, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_setItem); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1326, __pyx_L1_error)
@@ -37535,25 +32435,13 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_18write(CYTHON_UNUSED PyObj
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":1328
- *         self.tw_table.setItem(row, column, QTableWidgetItem())
- * 
- *         if red != None:             # <<<<<<<<<<<<<<
- *             self.tw_table.item(row, column).setBackground(QtGui.QColor(red,green,blue))
- * 
- */
+  
   __pyx_t_1 = PyObject_RichCompare(__pyx_v_red, Py_None, Py_NE); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1328, __pyx_L1_error)
   __pyx_t_7 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely((__pyx_t_7 < 0))) __PYX_ERR(0, 1328, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if (__pyx_t_7) {
 
-    /* "main.py":1329
- * 
- *         if red != None:
- *             self.tw_table.item(row, column).setBackground(QtGui.QColor(red,green,blue))             # <<<<<<<<<<<<<<
- * 
- *         if notes != None:
- */
+    
     __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_tw_table); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1329, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_item); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1329, __pyx_L1_error)
@@ -37636,34 +32524,16 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_18write(CYTHON_UNUSED PyObj
     }
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "main.py":1328
- *         self.tw_table.setItem(row, column, QTableWidgetItem())
- * 
- *         if red != None:             # <<<<<<<<<<<<<<
- *             self.tw_table.item(row, column).setBackground(QtGui.QColor(red,green,blue))
- * 
- */
+    
   }
 
-  /* "main.py":1331
- *             self.tw_table.item(row, column).setBackground(QtGui.QColor(red,green,blue))
- * 
- *         if notes != None:             # <<<<<<<<<<<<<<
- *             self.tw_table.item(row, column).setToolTip(notes)
- * 
- */
+  
   __pyx_t_1 = PyObject_RichCompare(__pyx_v_notes, Py_None, Py_NE); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1331, __pyx_L1_error)
   __pyx_t_7 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely((__pyx_t_7 < 0))) __PYX_ERR(0, 1331, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if (__pyx_t_7) {
 
-    /* "main.py":1332
- * 
- *         if notes != None:
- *             self.tw_table.item(row, column).setToolTip(notes)             # <<<<<<<<<<<<<<
- * 
- *     def clear(self, row, column):
- */
+    
     __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_tw_table); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1332, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_item); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1332, __pyx_L1_error)
@@ -37718,24 +32588,12 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_18write(CYTHON_UNUSED PyObj
     }
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "main.py":1331
- *             self.tw_table.item(row, column).setBackground(QtGui.QColor(red,green,blue))
- * 
- *         if notes != None:             # <<<<<<<<<<<<<<
- *             self.tw_table.item(row, column).setToolTip(notes)
- * 
- */
+    
   }
 
-  /* "main.py":1325
- *         self.readThread.start()
- * 
- *     def write(self, row, column, red, green, blue, notes):             # <<<<<<<<<<<<<<
- *         self.tw_table.setItem(row, column, QTableWidgetItem())
- * 
- */
+  
 
-  /* function exit code */
+  
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
@@ -37752,22 +32610,16 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_18write(CYTHON_UNUSED PyObj
   return __pyx_r;
 }
 
-/* "main.py":1334
- *             self.tw_table.item(row, column).setToolTip(notes)
- * 
- *     def clear(self, row, column):             # <<<<<<<<<<<<<<
- *         self.tw_table.setItem(row, column, None)
- * 
- */
 
-/* Python wrapper */
+
+
 static PyObject *__pyx_pw_6ver1_3_4main_10MainWindow_21clear(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
-); /*proto*/
+); 
 static PyMethodDef __pyx_mdef_6ver1_3_4main_10MainWindow_21clear = {"clear", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6ver1_3_4main_10MainWindow_21clear, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
 static PyObject *__pyx_pw_6ver1_3_4main_10MainWindow_21clear(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
@@ -37875,7 +32727,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __pyx_L4_argument_unpacking_done:;
   __pyx_r = __pyx_pf_6ver1_3_4main_10MainWindow_20clear(__pyx_self, __pyx_v_self, __pyx_v_row, __pyx_v_column);
 
-  /* function exit code */
+  
   {
     Py_ssize_t __pyx_temp;
     for (__pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
@@ -37898,13 +32750,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_20clear(CYTHON_UNUSED PyObj
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("clear", 0);
 
-  /* "main.py":1335
- * 
- *     def clear(self, row, column):
- *         self.tw_table.setItem(row, column, None)             # <<<<<<<<<<<<<<
- * 
- *     def report(self, uselessArg):
- */
+  
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_tw_table); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1335, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_setItem); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1335, __pyx_L1_error)
@@ -37934,15 +32780,9 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_20clear(CYTHON_UNUSED PyObj
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":1334
- *             self.tw_table.item(row, column).setToolTip(notes)
- * 
- *     def clear(self, row, column):             # <<<<<<<<<<<<<<
- *         self.tw_table.setItem(row, column, None)
- * 
- */
+  
 
-  /* function exit code */
+  
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
@@ -37957,22 +32797,16 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_20clear(CYTHON_UNUSED PyObj
   return __pyx_r;
 }
 
-/* "main.py":1337
- *         self.tw_table.setItem(row, column, None)
- * 
- *     def report(self, uselessArg):             # <<<<<<<<<<<<<<
- *         self.save(uselessArg)
- *         self.reportOpenAllow = True
- */
 
-/* Python wrapper */
+
+
 static PyObject *__pyx_pw_6ver1_3_4main_10MainWindow_23report(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
-); /*proto*/
+); 
 static PyMethodDef __pyx_mdef_6ver1_3_4main_10MainWindow_23report = {"report", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6ver1_3_4main_10MainWindow_23report, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
 static PyObject *__pyx_pw_6ver1_3_4main_10MainWindow_23report(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
@@ -38065,7 +32899,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __pyx_L4_argument_unpacking_done:;
   __pyx_r = __pyx_pf_6ver1_3_4main_10MainWindow_22report(__pyx_self, __pyx_v_self, __pyx_v_uselessArg);
 
-  /* function exit code */
+  
   {
     Py_ssize_t __pyx_temp;
     for (__pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
@@ -38088,13 +32922,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_22report(CYTHON_UNUSED PyOb
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("report", 0);
 
-  /* "main.py":1338
- * 
- *     def report(self, uselessArg):
- *         self.save(uselessArg)             # <<<<<<<<<<<<<<
- *         self.reportOpenAllow = True
- * 
- */
+  
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_save); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1338, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
@@ -38121,24 +32949,12 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_22report(CYTHON_UNUSED PyOb
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "main.py":1339
- *     def report(self, uselessArg):
- *         self.save(uselessArg)
- *         self.reportOpenAllow = True             # <<<<<<<<<<<<<<
- * 
- *     def reportOpen(self):
- */
+  
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_reportOpenAllow, Py_True) < 0) __PYX_ERR(0, 1339, __pyx_L1_error)
 
-  /* "main.py":1337
- *         self.tw_table.setItem(row, column, None)
- * 
- *     def report(self, uselessArg):             # <<<<<<<<<<<<<<
- *         self.save(uselessArg)
- *         self.reportOpenAllow = True
- */
+  
 
-  /* function exit code */
+  
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
@@ -38153,22 +32969,16 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_22report(CYTHON_UNUSED PyOb
   return __pyx_r;
 }
 
-/* "main.py":1341
- *         self.reportOpenAllow = True
- * 
- *     def reportOpen(self):             # <<<<<<<<<<<<<<
- *         if self.reportOpenAllow and self.saveThread.finished:
- *             self.reportDialog.set(self.tw_table, self.tableName)
- */
 
-/* Python wrapper */
+
+
 static PyObject *__pyx_pw_6ver1_3_4main_10MainWindow_25reportOpen(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
-); /*proto*/
+); 
 static PyMethodDef __pyx_mdef_6ver1_3_4main_10MainWindow_25reportOpen = {"reportOpen", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6ver1_3_4main_10MainWindow_25reportOpen, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
 static PyObject *__pyx_pw_6ver1_3_4main_10MainWindow_25reportOpen(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
@@ -38246,7 +33056,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __pyx_L4_argument_unpacking_done:;
   __pyx_r = __pyx_pf_6ver1_3_4main_10MainWindow_24reportOpen(__pyx_self, __pyx_v_self);
 
-  /* function exit code */
+  
   {
     Py_ssize_t __pyx_temp;
     for (__pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
@@ -38273,13 +33083,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_24reportOpen(CYTHON_UNUSED 
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("reportOpen", 0);
 
-  /* "main.py":1342
- * 
- *     def reportOpen(self):
- *         if self.reportOpenAllow and self.saveThread.finished:             # <<<<<<<<<<<<<<
- *             self.reportDialog.set(self.tw_table, self.tableName)
- *             self.reportDialog.start()
- */
+  
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_reportOpenAllow); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1342, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(0, 1342, __pyx_L1_error)
@@ -38300,13 +33104,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_24reportOpen(CYTHON_UNUSED 
   __pyx_L4_bool_binop_done:;
   if (__pyx_t_1) {
 
-    /* "main.py":1343
- *     def reportOpen(self):
- *         if self.reportOpenAllow and self.saveThread.finished:
- *             self.reportDialog.set(self.tw_table, self.tableName)             # <<<<<<<<<<<<<<
- *             self.reportDialog.start()
- *             self.reportDialog.show()
- */
+    
     __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_reportDialog); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1343, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_set); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1343, __pyx_L1_error)
@@ -38342,13 +33140,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_24reportOpen(CYTHON_UNUSED 
     }
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-    /* "main.py":1344
- *         if self.reportOpenAllow and self.saveThread.finished:
- *             self.reportDialog.set(self.tw_table, self.tableName)
- *             self.reportDialog.start()             # <<<<<<<<<<<<<<
- *             self.reportDialog.show()
- * 
- */
+    
     __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_reportDialog); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1344, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_start); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1344, __pyx_L1_error)
@@ -38378,13 +33170,7 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_24reportOpen(CYTHON_UNUSED 
     }
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-    /* "main.py":1345
- *             self.reportDialog.set(self.tw_table, self.tableName)
- *             self.reportDialog.start()
- *             self.reportDialog.show()             # <<<<<<<<<<<<<<
- * 
- *             self.reportOpenAllow = False
- */
+    
     __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_reportDialog); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1345, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_show); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 1345, __pyx_L1_error)
@@ -38414,31 +33200,15 @@ static PyObject *__pyx_pf_6ver1_3_4main_10MainWindow_24reportOpen(CYTHON_UNUSED 
     }
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-    /* "main.py":1347
- *             self.reportDialog.show()
- * 
- *             self.reportOpenAllow = False             # <<<<<<<<<<<<<<
- */
+    
     if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_reportOpenAllow, Py_False) < 0) __PYX_ERR(0, 1347, __pyx_L1_error)
 
-    /* "main.py":1342
- * 
- *     def reportOpen(self):
- *         if self.reportOpenAllow and self.saveThread.finished:             # <<<<<<<<<<<<<<
- *             self.reportDialog.set(self.tw_table, self.tableName)
- *             self.reportDialog.start()
- */
+    
   }
 
-  /* "main.py":1341
- *         self.reportOpenAllow = True
- * 
- *     def reportOpen(self):             # <<<<<<<<<<<<<<
- *         if self.reportOpenAllow and self.saveThread.finished:
- *             self.reportDialog.set(self.tw_table, self.tableName)
- */
+  
 
-  /* function exit code */
+  
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
@@ -38565,82 +33335,82 @@ static PyType_Spec __pyx_type_6ver1_3_4main___pyx_scope_struct__run_spec = {
 
 static PyTypeObject __pyx_type_6ver1_3_4main___pyx_scope_struct__run = {
   PyVarObject_HEAD_INIT(0, 0)
-  "ver1_3.main.""__pyx_scope_struct__run", /*tp_name*/
-  sizeof(struct __pyx_obj_6ver1_3_4main___pyx_scope_struct__run), /*tp_basicsize*/
-  0, /*tp_itemsize*/
-  __pyx_tp_dealloc_6ver1_3_4main___pyx_scope_struct__run, /*tp_dealloc*/
+  "ver1_3.main.""__pyx_scope_struct__run", 
+  sizeof(struct __pyx_obj_6ver1_3_4main___pyx_scope_struct__run), 
+  0, 
+  __pyx_tp_dealloc_6ver1_3_4main___pyx_scope_struct__run, 
   #if PY_VERSION_HEX < 0x030800b4
-  0, /*tp_print*/
+  0, 
   #endif
   #if PY_VERSION_HEX >= 0x030800b4
-  0, /*tp_vectorcall_offset*/
+  0, 
   #endif
-  0, /*tp_getattr*/
-  0, /*tp_setattr*/
+  0, 
+  0, 
   #if PY_MAJOR_VERSION < 3
-  0, /*tp_compare*/
+  0, 
   #endif
   #if PY_MAJOR_VERSION >= 3
-  0, /*tp_as_async*/
+  0, 
   #endif
-  0, /*tp_repr*/
-  0, /*tp_as_number*/
-  0, /*tp_as_sequence*/
-  0, /*tp_as_mapping*/
-  0, /*tp_hash*/
-  0, /*tp_call*/
-  0, /*tp_str*/
-  0, /*tp_getattro*/
-  0, /*tp_setattro*/
-  0, /*tp_as_buffer*/
-  Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_HAVE_GC|Py_TPFLAGS_HAVE_FINALIZE, /*tp_flags*/
-  0, /*tp_doc*/
-  __pyx_tp_traverse_6ver1_3_4main___pyx_scope_struct__run, /*tp_traverse*/
-  __pyx_tp_clear_6ver1_3_4main___pyx_scope_struct__run, /*tp_clear*/
-  0, /*tp_richcompare*/
-  0, /*tp_weaklistoffset*/
-  0, /*tp_iter*/
-  0, /*tp_iternext*/
-  0, /*tp_methods*/
-  0, /*tp_members*/
-  0, /*tp_getset*/
-  0, /*tp_base*/
-  0, /*tp_dict*/
-  0, /*tp_descr_get*/
-  0, /*tp_descr_set*/
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_HAVE_GC|Py_TPFLAGS_HAVE_FINALIZE, 
+  0, 
+  __pyx_tp_traverse_6ver1_3_4main___pyx_scope_struct__run, 
+  __pyx_tp_clear_6ver1_3_4main___pyx_scope_struct__run, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
   #if !CYTHON_USE_TYPE_SPECS
-  0, /*tp_dictoffset*/
+  0, 
   #endif
-  0, /*tp_init*/
-  0, /*tp_alloc*/
-  __pyx_tp_new_6ver1_3_4main___pyx_scope_struct__run, /*tp_new*/
-  0, /*tp_free*/
-  0, /*tp_is_gc*/
-  0, /*tp_bases*/
-  0, /*tp_mro*/
-  0, /*tp_cache*/
-  0, /*tp_subclasses*/
-  0, /*tp_weaklist*/
-  0, /*tp_del*/
-  0, /*tp_version_tag*/
+  0, 
+  0, 
+  __pyx_tp_new_6ver1_3_4main___pyx_scope_struct__run, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
   #if PY_VERSION_HEX >= 0x030400a1
   #if CYTHON_USE_TP_FINALIZE
-  0, /*tp_finalize*/
+  0, 
   #else
-  NULL, /*tp_finalize*/
+  NULL, 
   #endif
   #endif
   #if PY_VERSION_HEX >= 0x030800b1 && (!CYTHON_COMPILING_IN_PYPY || PYPY_VERSION_NUM >= 0x07030800)
-  0, /*tp_vectorcall*/
+  0, 
   #endif
   #if __PYX_NEED_TP_PRINT_SLOT == 1
-  0, /*tp_print*/
+  0, 
   #endif
   #if PY_VERSION_HEX >= 0x030C0000
-  0, /*tp_watched*/
+  0, 
   #endif
   #if CYTHON_COMPILING_IN_PYPY && PY_VERSION_HEX >= 0x03090000 && PY_VERSION_HEX < 0x030a0000
-  0, /*tp_pypy_flags*/
+  0, 
   #endif
 };
 #endif
@@ -38741,82 +33511,82 @@ static PyType_Spec __pyx_type_6ver1_3_4main___pyx_scope_struct_1_run_spec = {
 
 static PyTypeObject __pyx_type_6ver1_3_4main___pyx_scope_struct_1_run = {
   PyVarObject_HEAD_INIT(0, 0)
-  "ver1_3.main.""__pyx_scope_struct_1_run", /*tp_name*/
-  sizeof(struct __pyx_obj_6ver1_3_4main___pyx_scope_struct_1_run), /*tp_basicsize*/
-  0, /*tp_itemsize*/
-  __pyx_tp_dealloc_6ver1_3_4main___pyx_scope_struct_1_run, /*tp_dealloc*/
+  "ver1_3.main.""__pyx_scope_struct_1_run", 
+  sizeof(struct __pyx_obj_6ver1_3_4main___pyx_scope_struct_1_run), 
+  0, 
+  __pyx_tp_dealloc_6ver1_3_4main___pyx_scope_struct_1_run, 
   #if PY_VERSION_HEX < 0x030800b4
-  0, /*tp_print*/
+  0, 
   #endif
   #if PY_VERSION_HEX >= 0x030800b4
-  0, /*tp_vectorcall_offset*/
+  0, 
   #endif
-  0, /*tp_getattr*/
-  0, /*tp_setattr*/
+  0, 
+  0, 
   #if PY_MAJOR_VERSION < 3
-  0, /*tp_compare*/
+  0, 
   #endif
   #if PY_MAJOR_VERSION >= 3
-  0, /*tp_as_async*/
+  0, 
   #endif
-  0, /*tp_repr*/
-  0, /*tp_as_number*/
-  0, /*tp_as_sequence*/
-  0, /*tp_as_mapping*/
-  0, /*tp_hash*/
-  0, /*tp_call*/
-  0, /*tp_str*/
-  0, /*tp_getattro*/
-  0, /*tp_setattro*/
-  0, /*tp_as_buffer*/
-  Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_HAVE_GC|Py_TPFLAGS_HAVE_FINALIZE, /*tp_flags*/
-  0, /*tp_doc*/
-  __pyx_tp_traverse_6ver1_3_4main___pyx_scope_struct_1_run, /*tp_traverse*/
-  __pyx_tp_clear_6ver1_3_4main___pyx_scope_struct_1_run, /*tp_clear*/
-  0, /*tp_richcompare*/
-  0, /*tp_weaklistoffset*/
-  0, /*tp_iter*/
-  0, /*tp_iternext*/
-  0, /*tp_methods*/
-  0, /*tp_members*/
-  0, /*tp_getset*/
-  0, /*tp_base*/
-  0, /*tp_dict*/
-  0, /*tp_descr_get*/
-  0, /*tp_descr_set*/
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_HAVE_GC|Py_TPFLAGS_HAVE_FINALIZE, 
+  0, 
+  __pyx_tp_traverse_6ver1_3_4main___pyx_scope_struct_1_run, 
+  __pyx_tp_clear_6ver1_3_4main___pyx_scope_struct_1_run, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
   #if !CYTHON_USE_TYPE_SPECS
-  0, /*tp_dictoffset*/
+  0, 
   #endif
-  0, /*tp_init*/
-  0, /*tp_alloc*/
-  __pyx_tp_new_6ver1_3_4main___pyx_scope_struct_1_run, /*tp_new*/
-  0, /*tp_free*/
-  0, /*tp_is_gc*/
-  0, /*tp_bases*/
-  0, /*tp_mro*/
-  0, /*tp_cache*/
-  0, /*tp_subclasses*/
-  0, /*tp_weaklist*/
-  0, /*tp_del*/
-  0, /*tp_version_tag*/
+  0, 
+  0, 
+  __pyx_tp_new_6ver1_3_4main___pyx_scope_struct_1_run, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
   #if PY_VERSION_HEX >= 0x030400a1
   #if CYTHON_USE_TP_FINALIZE
-  0, /*tp_finalize*/
+  0, 
   #else
-  NULL, /*tp_finalize*/
+  NULL, 
   #endif
   #endif
   #if PY_VERSION_HEX >= 0x030800b1 && (!CYTHON_COMPILING_IN_PYPY || PYPY_VERSION_NUM >= 0x07030800)
-  0, /*tp_vectorcall*/
+  0, 
   #endif
   #if __PYX_NEED_TP_PRINT_SLOT == 1
-  0, /*tp_print*/
+  0, 
   #endif
   #if PY_VERSION_HEX >= 0x030C0000
-  0, /*tp_watched*/
+  0, 
   #endif
   #if CYTHON_COMPILING_IN_PYPY && PY_VERSION_HEX >= 0x03090000 && PY_VERSION_HEX < 0x030a0000
-  0, /*tp_pypy_flags*/
+  0, 
   #endif
 };
 #endif
@@ -38910,82 +33680,82 @@ static PyType_Spec __pyx_type_6ver1_3_4main___pyx_scope_struct_2___init___spec =
 
 static PyTypeObject __pyx_type_6ver1_3_4main___pyx_scope_struct_2___init__ = {
   PyVarObject_HEAD_INIT(0, 0)
-  "ver1_3.main.""__pyx_scope_struct_2___init__", /*tp_name*/
-  sizeof(struct __pyx_obj_6ver1_3_4main___pyx_scope_struct_2___init__), /*tp_basicsize*/
-  0, /*tp_itemsize*/
-  __pyx_tp_dealloc_6ver1_3_4main___pyx_scope_struct_2___init__, /*tp_dealloc*/
+  "ver1_3.main.""__pyx_scope_struct_2___init__", 
+  sizeof(struct __pyx_obj_6ver1_3_4main___pyx_scope_struct_2___init__), 
+  0, 
+  __pyx_tp_dealloc_6ver1_3_4main___pyx_scope_struct_2___init__, 
   #if PY_VERSION_HEX < 0x030800b4
-  0, /*tp_print*/
+  0, 
   #endif
   #if PY_VERSION_HEX >= 0x030800b4
-  0, /*tp_vectorcall_offset*/
+  0, 
   #endif
-  0, /*tp_getattr*/
-  0, /*tp_setattr*/
+  0, 
+  0, 
   #if PY_MAJOR_VERSION < 3
-  0, /*tp_compare*/
+  0, 
   #endif
   #if PY_MAJOR_VERSION >= 3
-  0, /*tp_as_async*/
+  0, 
   #endif
-  0, /*tp_repr*/
-  0, /*tp_as_number*/
-  0, /*tp_as_sequence*/
-  0, /*tp_as_mapping*/
-  0, /*tp_hash*/
-  0, /*tp_call*/
-  0, /*tp_str*/
-  0, /*tp_getattro*/
-  0, /*tp_setattro*/
-  0, /*tp_as_buffer*/
-  Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_HAVE_GC|Py_TPFLAGS_HAVE_FINALIZE, /*tp_flags*/
-  0, /*tp_doc*/
-  __pyx_tp_traverse_6ver1_3_4main___pyx_scope_struct_2___init__, /*tp_traverse*/
-  __pyx_tp_clear_6ver1_3_4main___pyx_scope_struct_2___init__, /*tp_clear*/
-  0, /*tp_richcompare*/
-  0, /*tp_weaklistoffset*/
-  0, /*tp_iter*/
-  0, /*tp_iternext*/
-  0, /*tp_methods*/
-  0, /*tp_members*/
-  0, /*tp_getset*/
-  0, /*tp_base*/
-  0, /*tp_dict*/
-  0, /*tp_descr_get*/
-  0, /*tp_descr_set*/
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_HAVE_GC|Py_TPFLAGS_HAVE_FINALIZE, 
+  0, 
+  __pyx_tp_traverse_6ver1_3_4main___pyx_scope_struct_2___init__, 
+  __pyx_tp_clear_6ver1_3_4main___pyx_scope_struct_2___init__, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
   #if !CYTHON_USE_TYPE_SPECS
-  0, /*tp_dictoffset*/
+  0, 
   #endif
-  0, /*tp_init*/
-  0, /*tp_alloc*/
-  __pyx_tp_new_6ver1_3_4main___pyx_scope_struct_2___init__, /*tp_new*/
-  0, /*tp_free*/
-  0, /*tp_is_gc*/
-  0, /*tp_bases*/
-  0, /*tp_mro*/
-  0, /*tp_cache*/
-  0, /*tp_subclasses*/
-  0, /*tp_weaklist*/
-  0, /*tp_del*/
-  0, /*tp_version_tag*/
+  0, 
+  0, 
+  __pyx_tp_new_6ver1_3_4main___pyx_scope_struct_2___init__, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
   #if PY_VERSION_HEX >= 0x030400a1
   #if CYTHON_USE_TP_FINALIZE
-  0, /*tp_finalize*/
+  0, 
   #else
-  NULL, /*tp_finalize*/
+  NULL, 
   #endif
   #endif
   #if PY_VERSION_HEX >= 0x030800b1 && (!CYTHON_COMPILING_IN_PYPY || PYPY_VERSION_NUM >= 0x07030800)
-  0, /*tp_vectorcall*/
+  0, 
   #endif
   #if __PYX_NEED_TP_PRINT_SLOT == 1
-  0, /*tp_print*/
+  0, 
   #endif
   #if PY_VERSION_HEX >= 0x030C0000
-  0, /*tp_watched*/
+  0, 
   #endif
   #if CYTHON_COMPILING_IN_PYPY && PY_VERSION_HEX >= 0x03090000 && PY_VERSION_HEX < 0x030a0000
-  0, /*tp_pypy_flags*/
+  0, 
   #endif
 };
 #endif
@@ -39079,82 +33849,82 @@ static PyType_Spec __pyx_type_6ver1_3_4main___pyx_scope_struct_3___init___spec =
 
 static PyTypeObject __pyx_type_6ver1_3_4main___pyx_scope_struct_3___init__ = {
   PyVarObject_HEAD_INIT(0, 0)
-  "ver1_3.main.""__pyx_scope_struct_3___init__", /*tp_name*/
-  sizeof(struct __pyx_obj_6ver1_3_4main___pyx_scope_struct_3___init__), /*tp_basicsize*/
-  0, /*tp_itemsize*/
-  __pyx_tp_dealloc_6ver1_3_4main___pyx_scope_struct_3___init__, /*tp_dealloc*/
+  "ver1_3.main.""__pyx_scope_struct_3___init__", 
+  sizeof(struct __pyx_obj_6ver1_3_4main___pyx_scope_struct_3___init__), 
+  0, 
+  __pyx_tp_dealloc_6ver1_3_4main___pyx_scope_struct_3___init__, 
   #if PY_VERSION_HEX < 0x030800b4
-  0, /*tp_print*/
+  0, 
   #endif
   #if PY_VERSION_HEX >= 0x030800b4
-  0, /*tp_vectorcall_offset*/
+  0, 
   #endif
-  0, /*tp_getattr*/
-  0, /*tp_setattr*/
+  0, 
+  0, 
   #if PY_MAJOR_VERSION < 3
-  0, /*tp_compare*/
+  0, 
   #endif
   #if PY_MAJOR_VERSION >= 3
-  0, /*tp_as_async*/
+  0, 
   #endif
-  0, /*tp_repr*/
-  0, /*tp_as_number*/
-  0, /*tp_as_sequence*/
-  0, /*tp_as_mapping*/
-  0, /*tp_hash*/
-  0, /*tp_call*/
-  0, /*tp_str*/
-  0, /*tp_getattro*/
-  0, /*tp_setattro*/
-  0, /*tp_as_buffer*/
-  Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_HAVE_GC|Py_TPFLAGS_HAVE_FINALIZE, /*tp_flags*/
-  0, /*tp_doc*/
-  __pyx_tp_traverse_6ver1_3_4main___pyx_scope_struct_3___init__, /*tp_traverse*/
-  __pyx_tp_clear_6ver1_3_4main___pyx_scope_struct_3___init__, /*tp_clear*/
-  0, /*tp_richcompare*/
-  0, /*tp_weaklistoffset*/
-  0, /*tp_iter*/
-  0, /*tp_iternext*/
-  0, /*tp_methods*/
-  0, /*tp_members*/
-  0, /*tp_getset*/
-  0, /*tp_base*/
-  0, /*tp_dict*/
-  0, /*tp_descr_get*/
-  0, /*tp_descr_set*/
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_HAVE_GC|Py_TPFLAGS_HAVE_FINALIZE, 
+  0, 
+  __pyx_tp_traverse_6ver1_3_4main___pyx_scope_struct_3___init__, 
+  __pyx_tp_clear_6ver1_3_4main___pyx_scope_struct_3___init__, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
   #if !CYTHON_USE_TYPE_SPECS
-  0, /*tp_dictoffset*/
+  0, 
   #endif
-  0, /*tp_init*/
-  0, /*tp_alloc*/
-  __pyx_tp_new_6ver1_3_4main___pyx_scope_struct_3___init__, /*tp_new*/
-  0, /*tp_free*/
-  0, /*tp_is_gc*/
-  0, /*tp_bases*/
-  0, /*tp_mro*/
-  0, /*tp_cache*/
-  0, /*tp_subclasses*/
-  0, /*tp_weaklist*/
-  0, /*tp_del*/
-  0, /*tp_version_tag*/
+  0, 
+  0, 
+  __pyx_tp_new_6ver1_3_4main___pyx_scope_struct_3___init__, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
   #if PY_VERSION_HEX >= 0x030400a1
   #if CYTHON_USE_TP_FINALIZE
-  0, /*tp_finalize*/
+  0, 
   #else
-  NULL, /*tp_finalize*/
+  NULL, 
   #endif
   #endif
   #if PY_VERSION_HEX >= 0x030800b1 && (!CYTHON_COMPILING_IN_PYPY || PYPY_VERSION_NUM >= 0x07030800)
-  0, /*tp_vectorcall*/
+  0, 
   #endif
   #if __PYX_NEED_TP_PRINT_SLOT == 1
-  0, /*tp_print*/
+  0, 
   #endif
   #if PY_VERSION_HEX >= 0x030C0000
-  0, /*tp_watched*/
+  0, 
   #endif
   #if CYTHON_COMPILING_IN_PYPY && PY_VERSION_HEX >= 0x03090000 && PY_VERSION_HEX < 0x030a0000
-  0, /*tp_pypy_flags*/
+  0, 
   #endif
 };
 #endif
@@ -39248,82 +34018,82 @@ static PyType_Spec __pyx_type_6ver1_3_4main___pyx_scope_struct_4_start_spec = {
 
 static PyTypeObject __pyx_type_6ver1_3_4main___pyx_scope_struct_4_start = {
   PyVarObject_HEAD_INIT(0, 0)
-  "ver1_3.main.""__pyx_scope_struct_4_start", /*tp_name*/
-  sizeof(struct __pyx_obj_6ver1_3_4main___pyx_scope_struct_4_start), /*tp_basicsize*/
-  0, /*tp_itemsize*/
-  __pyx_tp_dealloc_6ver1_3_4main___pyx_scope_struct_4_start, /*tp_dealloc*/
+  "ver1_3.main.""__pyx_scope_struct_4_start", 
+  sizeof(struct __pyx_obj_6ver1_3_4main___pyx_scope_struct_4_start), 
+  0, 
+  __pyx_tp_dealloc_6ver1_3_4main___pyx_scope_struct_4_start, 
   #if PY_VERSION_HEX < 0x030800b4
-  0, /*tp_print*/
+  0, 
   #endif
   #if PY_VERSION_HEX >= 0x030800b4
-  0, /*tp_vectorcall_offset*/
+  0, 
   #endif
-  0, /*tp_getattr*/
-  0, /*tp_setattr*/
+  0, 
+  0, 
   #if PY_MAJOR_VERSION < 3
-  0, /*tp_compare*/
+  0, 
   #endif
   #if PY_MAJOR_VERSION >= 3
-  0, /*tp_as_async*/
+  0, 
   #endif
-  0, /*tp_repr*/
-  0, /*tp_as_number*/
-  0, /*tp_as_sequence*/
-  0, /*tp_as_mapping*/
-  0, /*tp_hash*/
-  0, /*tp_call*/
-  0, /*tp_str*/
-  0, /*tp_getattro*/
-  0, /*tp_setattro*/
-  0, /*tp_as_buffer*/
-  Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_HAVE_GC|Py_TPFLAGS_HAVE_FINALIZE, /*tp_flags*/
-  0, /*tp_doc*/
-  __pyx_tp_traverse_6ver1_3_4main___pyx_scope_struct_4_start, /*tp_traverse*/
-  __pyx_tp_clear_6ver1_3_4main___pyx_scope_struct_4_start, /*tp_clear*/
-  0, /*tp_richcompare*/
-  0, /*tp_weaklistoffset*/
-  0, /*tp_iter*/
-  0, /*tp_iternext*/
-  0, /*tp_methods*/
-  0, /*tp_members*/
-  0, /*tp_getset*/
-  0, /*tp_base*/
-  0, /*tp_dict*/
-  0, /*tp_descr_get*/
-  0, /*tp_descr_set*/
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_HAVE_GC|Py_TPFLAGS_HAVE_FINALIZE, 
+  0, 
+  __pyx_tp_traverse_6ver1_3_4main___pyx_scope_struct_4_start, 
+  __pyx_tp_clear_6ver1_3_4main___pyx_scope_struct_4_start, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
   #if !CYTHON_USE_TYPE_SPECS
-  0, /*tp_dictoffset*/
+  0, 
   #endif
-  0, /*tp_init*/
-  0, /*tp_alloc*/
-  __pyx_tp_new_6ver1_3_4main___pyx_scope_struct_4_start, /*tp_new*/
-  0, /*tp_free*/
-  0, /*tp_is_gc*/
-  0, /*tp_bases*/
-  0, /*tp_mro*/
-  0, /*tp_cache*/
-  0, /*tp_subclasses*/
-  0, /*tp_weaklist*/
-  0, /*tp_del*/
-  0, /*tp_version_tag*/
+  0, 
+  0, 
+  __pyx_tp_new_6ver1_3_4main___pyx_scope_struct_4_start, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
   #if PY_VERSION_HEX >= 0x030400a1
   #if CYTHON_USE_TP_FINALIZE
-  0, /*tp_finalize*/
+  0, 
   #else
-  NULL, /*tp_finalize*/
+  NULL, 
   #endif
   #endif
   #if PY_VERSION_HEX >= 0x030800b1 && (!CYTHON_COMPILING_IN_PYPY || PYPY_VERSION_NUM >= 0x07030800)
-  0, /*tp_vectorcall*/
+  0, 
   #endif
   #if __PYX_NEED_TP_PRINT_SLOT == 1
-  0, /*tp_print*/
+  0, 
   #endif
   #if PY_VERSION_HEX >= 0x030C0000
-  0, /*tp_watched*/
+  0, 
   #endif
   #if CYTHON_COMPILING_IN_PYPY && PY_VERSION_HEX >= 0x03090000 && PY_VERSION_HEX < 0x030a0000
-  0, /*tp_pypy_flags*/
+  0, 
   #endif
 };
 #endif
@@ -39417,82 +34187,82 @@ static PyType_Spec __pyx_type_6ver1_3_4main___pyx_scope_struct_5_setTable_spec =
 
 static PyTypeObject __pyx_type_6ver1_3_4main___pyx_scope_struct_5_setTable = {
   PyVarObject_HEAD_INIT(0, 0)
-  "ver1_3.main.""__pyx_scope_struct_5_setTable", /*tp_name*/
-  sizeof(struct __pyx_obj_6ver1_3_4main___pyx_scope_struct_5_setTable), /*tp_basicsize*/
-  0, /*tp_itemsize*/
-  __pyx_tp_dealloc_6ver1_3_4main___pyx_scope_struct_5_setTable, /*tp_dealloc*/
+  "ver1_3.main.""__pyx_scope_struct_5_setTable", 
+  sizeof(struct __pyx_obj_6ver1_3_4main___pyx_scope_struct_5_setTable), 
+  0, 
+  __pyx_tp_dealloc_6ver1_3_4main___pyx_scope_struct_5_setTable, 
   #if PY_VERSION_HEX < 0x030800b4
-  0, /*tp_print*/
+  0, 
   #endif
   #if PY_VERSION_HEX >= 0x030800b4
-  0, /*tp_vectorcall_offset*/
+  0, 
   #endif
-  0, /*tp_getattr*/
-  0, /*tp_setattr*/
+  0, 
+  0, 
   #if PY_MAJOR_VERSION < 3
-  0, /*tp_compare*/
+  0, 
   #endif
   #if PY_MAJOR_VERSION >= 3
-  0, /*tp_as_async*/
+  0, 
   #endif
-  0, /*tp_repr*/
-  0, /*tp_as_number*/
-  0, /*tp_as_sequence*/
-  0, /*tp_as_mapping*/
-  0, /*tp_hash*/
-  0, /*tp_call*/
-  0, /*tp_str*/
-  0, /*tp_getattro*/
-  0, /*tp_setattro*/
-  0, /*tp_as_buffer*/
-  Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_HAVE_GC|Py_TPFLAGS_HAVE_FINALIZE, /*tp_flags*/
-  0, /*tp_doc*/
-  __pyx_tp_traverse_6ver1_3_4main___pyx_scope_struct_5_setTable, /*tp_traverse*/
-  __pyx_tp_clear_6ver1_3_4main___pyx_scope_struct_5_setTable, /*tp_clear*/
-  0, /*tp_richcompare*/
-  0, /*tp_weaklistoffset*/
-  0, /*tp_iter*/
-  0, /*tp_iternext*/
-  0, /*tp_methods*/
-  0, /*tp_members*/
-  0, /*tp_getset*/
-  0, /*tp_base*/
-  0, /*tp_dict*/
-  0, /*tp_descr_get*/
-  0, /*tp_descr_set*/
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_HAVE_GC|Py_TPFLAGS_HAVE_FINALIZE, 
+  0, 
+  __pyx_tp_traverse_6ver1_3_4main___pyx_scope_struct_5_setTable, 
+  __pyx_tp_clear_6ver1_3_4main___pyx_scope_struct_5_setTable, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
   #if !CYTHON_USE_TYPE_SPECS
-  0, /*tp_dictoffset*/
+  0, 
   #endif
-  0, /*tp_init*/
-  0, /*tp_alloc*/
-  __pyx_tp_new_6ver1_3_4main___pyx_scope_struct_5_setTable, /*tp_new*/
-  0, /*tp_free*/
-  0, /*tp_is_gc*/
-  0, /*tp_bases*/
-  0, /*tp_mro*/
-  0, /*tp_cache*/
-  0, /*tp_subclasses*/
-  0, /*tp_weaklist*/
-  0, /*tp_del*/
-  0, /*tp_version_tag*/
+  0, 
+  0, 
+  __pyx_tp_new_6ver1_3_4main___pyx_scope_struct_5_setTable, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
   #if PY_VERSION_HEX >= 0x030400a1
   #if CYTHON_USE_TP_FINALIZE
-  0, /*tp_finalize*/
+  0, 
   #else
-  NULL, /*tp_finalize*/
+  NULL, 
   #endif
   #endif
   #if PY_VERSION_HEX >= 0x030800b1 && (!CYTHON_COMPILING_IN_PYPY || PYPY_VERSION_NUM >= 0x07030800)
-  0, /*tp_vectorcall*/
+  0, 
   #endif
   #if __PYX_NEED_TP_PRINT_SLOT == 1
-  0, /*tp_print*/
+  0, 
   #endif
   #if PY_VERSION_HEX >= 0x030C0000
-  0, /*tp_watched*/
+  0, 
   #endif
   #if CYTHON_COMPILING_IN_PYPY && PY_VERSION_HEX >= 0x03090000 && PY_VERSION_HEX < 0x030a0000
-  0, /*tp_pypy_flags*/
+  0, 
   #endif
 };
 #endif
@@ -39586,82 +34356,82 @@ static PyType_Spec __pyx_type_6ver1_3_4main___pyx_scope_struct_6___init___spec =
 
 static PyTypeObject __pyx_type_6ver1_3_4main___pyx_scope_struct_6___init__ = {
   PyVarObject_HEAD_INIT(0, 0)
-  "ver1_3.main.""__pyx_scope_struct_6___init__", /*tp_name*/
-  sizeof(struct __pyx_obj_6ver1_3_4main___pyx_scope_struct_6___init__), /*tp_basicsize*/
-  0, /*tp_itemsize*/
-  __pyx_tp_dealloc_6ver1_3_4main___pyx_scope_struct_6___init__, /*tp_dealloc*/
+  "ver1_3.main.""__pyx_scope_struct_6___init__", 
+  sizeof(struct __pyx_obj_6ver1_3_4main___pyx_scope_struct_6___init__), 
+  0, 
+  __pyx_tp_dealloc_6ver1_3_4main___pyx_scope_struct_6___init__, 
   #if PY_VERSION_HEX < 0x030800b4
-  0, /*tp_print*/
+  0, 
   #endif
   #if PY_VERSION_HEX >= 0x030800b4
-  0, /*tp_vectorcall_offset*/
+  0, 
   #endif
-  0, /*tp_getattr*/
-  0, /*tp_setattr*/
+  0, 
+  0, 
   #if PY_MAJOR_VERSION < 3
-  0, /*tp_compare*/
+  0, 
   #endif
   #if PY_MAJOR_VERSION >= 3
-  0, /*tp_as_async*/
+  0, 
   #endif
-  0, /*tp_repr*/
-  0, /*tp_as_number*/
-  0, /*tp_as_sequence*/
-  0, /*tp_as_mapping*/
-  0, /*tp_hash*/
-  0, /*tp_call*/
-  0, /*tp_str*/
-  0, /*tp_getattro*/
-  0, /*tp_setattro*/
-  0, /*tp_as_buffer*/
-  Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_HAVE_GC|Py_TPFLAGS_HAVE_FINALIZE, /*tp_flags*/
-  0, /*tp_doc*/
-  __pyx_tp_traverse_6ver1_3_4main___pyx_scope_struct_6___init__, /*tp_traverse*/
-  __pyx_tp_clear_6ver1_3_4main___pyx_scope_struct_6___init__, /*tp_clear*/
-  0, /*tp_richcompare*/
-  0, /*tp_weaklistoffset*/
-  0, /*tp_iter*/
-  0, /*tp_iternext*/
-  0, /*tp_methods*/
-  0, /*tp_members*/
-  0, /*tp_getset*/
-  0, /*tp_base*/
-  0, /*tp_dict*/
-  0, /*tp_descr_get*/
-  0, /*tp_descr_set*/
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_HAVE_GC|Py_TPFLAGS_HAVE_FINALIZE, 
+  0, 
+  __pyx_tp_traverse_6ver1_3_4main___pyx_scope_struct_6___init__, 
+  __pyx_tp_clear_6ver1_3_4main___pyx_scope_struct_6___init__, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
   #if !CYTHON_USE_TYPE_SPECS
-  0, /*tp_dictoffset*/
+  0, 
   #endif
-  0, /*tp_init*/
-  0, /*tp_alloc*/
-  __pyx_tp_new_6ver1_3_4main___pyx_scope_struct_6___init__, /*tp_new*/
-  0, /*tp_free*/
-  0, /*tp_is_gc*/
-  0, /*tp_bases*/
-  0, /*tp_mro*/
-  0, /*tp_cache*/
-  0, /*tp_subclasses*/
-  0, /*tp_weaklist*/
-  0, /*tp_del*/
-  0, /*tp_version_tag*/
+  0, 
+  0, 
+  __pyx_tp_new_6ver1_3_4main___pyx_scope_struct_6___init__, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
   #if PY_VERSION_HEX >= 0x030400a1
   #if CYTHON_USE_TP_FINALIZE
-  0, /*tp_finalize*/
+  0, 
   #else
-  NULL, /*tp_finalize*/
+  NULL, 
   #endif
   #endif
   #if PY_VERSION_HEX >= 0x030800b1 && (!CYTHON_COMPILING_IN_PYPY || PYPY_VERSION_NUM >= 0x07030800)
-  0, /*tp_vectorcall*/
+  0, 
   #endif
   #if __PYX_NEED_TP_PRINT_SLOT == 1
-  0, /*tp_print*/
+  0, 
   #endif
   #if PY_VERSION_HEX >= 0x030C0000
-  0, /*tp_watched*/
+  0, 
   #endif
   #if CYTHON_COMPILING_IN_PYPY && PY_VERSION_HEX >= 0x03090000 && PY_VERSION_HEX < 0x030a0000
-  0, /*tp_pypy_flags*/
+  0, 
   #endif
 };
 #endif
@@ -39762,82 +34532,82 @@ static PyType_Spec __pyx_type_6ver1_3_4main___pyx_scope_struct_7_fetchTables_spe
 
 static PyTypeObject __pyx_type_6ver1_3_4main___pyx_scope_struct_7_fetchTables = {
   PyVarObject_HEAD_INIT(0, 0)
-  "ver1_3.main.""__pyx_scope_struct_7_fetchTables", /*tp_name*/
-  sizeof(struct __pyx_obj_6ver1_3_4main___pyx_scope_struct_7_fetchTables), /*tp_basicsize*/
-  0, /*tp_itemsize*/
-  __pyx_tp_dealloc_6ver1_3_4main___pyx_scope_struct_7_fetchTables, /*tp_dealloc*/
+  "ver1_3.main.""__pyx_scope_struct_7_fetchTables", 
+  sizeof(struct __pyx_obj_6ver1_3_4main___pyx_scope_struct_7_fetchTables), 
+  0, 
+  __pyx_tp_dealloc_6ver1_3_4main___pyx_scope_struct_7_fetchTables, 
   #if PY_VERSION_HEX < 0x030800b4
-  0, /*tp_print*/
+  0, 
   #endif
   #if PY_VERSION_HEX >= 0x030800b4
-  0, /*tp_vectorcall_offset*/
+  0, 
   #endif
-  0, /*tp_getattr*/
-  0, /*tp_setattr*/
+  0, 
+  0, 
   #if PY_MAJOR_VERSION < 3
-  0, /*tp_compare*/
+  0, 
   #endif
   #if PY_MAJOR_VERSION >= 3
-  0, /*tp_as_async*/
+  0, 
   #endif
-  0, /*tp_repr*/
-  0, /*tp_as_number*/
-  0, /*tp_as_sequence*/
-  0, /*tp_as_mapping*/
-  0, /*tp_hash*/
-  0, /*tp_call*/
-  0, /*tp_str*/
-  0, /*tp_getattro*/
-  0, /*tp_setattro*/
-  0, /*tp_as_buffer*/
-  Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_HAVE_GC|Py_TPFLAGS_HAVE_FINALIZE, /*tp_flags*/
-  0, /*tp_doc*/
-  __pyx_tp_traverse_6ver1_3_4main___pyx_scope_struct_7_fetchTables, /*tp_traverse*/
-  __pyx_tp_clear_6ver1_3_4main___pyx_scope_struct_7_fetchTables, /*tp_clear*/
-  0, /*tp_richcompare*/
-  0, /*tp_weaklistoffset*/
-  0, /*tp_iter*/
-  0, /*tp_iternext*/
-  0, /*tp_methods*/
-  0, /*tp_members*/
-  0, /*tp_getset*/
-  0, /*tp_base*/
-  0, /*tp_dict*/
-  0, /*tp_descr_get*/
-  0, /*tp_descr_set*/
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_HAVE_GC|Py_TPFLAGS_HAVE_FINALIZE, 
+  0, 
+  __pyx_tp_traverse_6ver1_3_4main___pyx_scope_struct_7_fetchTables, 
+  __pyx_tp_clear_6ver1_3_4main___pyx_scope_struct_7_fetchTables, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
   #if !CYTHON_USE_TYPE_SPECS
-  0, /*tp_dictoffset*/
+  0, 
   #endif
-  0, /*tp_init*/
-  0, /*tp_alloc*/
-  __pyx_tp_new_6ver1_3_4main___pyx_scope_struct_7_fetchTables, /*tp_new*/
-  0, /*tp_free*/
-  0, /*tp_is_gc*/
-  0, /*tp_bases*/
-  0, /*tp_mro*/
-  0, /*tp_cache*/
-  0, /*tp_subclasses*/
-  0, /*tp_weaklist*/
-  0, /*tp_del*/
-  0, /*tp_version_tag*/
+  0, 
+  0, 
+  __pyx_tp_new_6ver1_3_4main___pyx_scope_struct_7_fetchTables, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
   #if PY_VERSION_HEX >= 0x030400a1
   #if CYTHON_USE_TP_FINALIZE
-  0, /*tp_finalize*/
+  0, 
   #else
-  NULL, /*tp_finalize*/
+  NULL, 
   #endif
   #endif
   #if PY_VERSION_HEX >= 0x030800b1 && (!CYTHON_COMPILING_IN_PYPY || PYPY_VERSION_NUM >= 0x07030800)
-  0, /*tp_vectorcall*/
+  0, 
   #endif
   #if __PYX_NEED_TP_PRINT_SLOT == 1
-  0, /*tp_print*/
+  0, 
   #endif
   #if PY_VERSION_HEX >= 0x030C0000
-  0, /*tp_watched*/
+  0, 
   #endif
   #if CYTHON_COMPILING_IN_PYPY && PY_VERSION_HEX >= 0x03090000 && PY_VERSION_HEX < 0x030a0000
-  0, /*tp_pypy_flags*/
+  0, 
   #endif
 };
 #endif
@@ -39938,82 +34708,82 @@ static PyType_Spec __pyx_type_6ver1_3_4main___pyx_scope_struct_8_makeAct_spec = 
 
 static PyTypeObject __pyx_type_6ver1_3_4main___pyx_scope_struct_8_makeAct = {
   PyVarObject_HEAD_INIT(0, 0)
-  "ver1_3.main.""__pyx_scope_struct_8_makeAct", /*tp_name*/
-  sizeof(struct __pyx_obj_6ver1_3_4main___pyx_scope_struct_8_makeAct), /*tp_basicsize*/
-  0, /*tp_itemsize*/
-  __pyx_tp_dealloc_6ver1_3_4main___pyx_scope_struct_8_makeAct, /*tp_dealloc*/
+  "ver1_3.main.""__pyx_scope_struct_8_makeAct", 
+  sizeof(struct __pyx_obj_6ver1_3_4main___pyx_scope_struct_8_makeAct), 
+  0, 
+  __pyx_tp_dealloc_6ver1_3_4main___pyx_scope_struct_8_makeAct, 
   #if PY_VERSION_HEX < 0x030800b4
-  0, /*tp_print*/
+  0, 
   #endif
   #if PY_VERSION_HEX >= 0x030800b4
-  0, /*tp_vectorcall_offset*/
+  0, 
   #endif
-  0, /*tp_getattr*/
-  0, /*tp_setattr*/
+  0, 
+  0, 
   #if PY_MAJOR_VERSION < 3
-  0, /*tp_compare*/
+  0, 
   #endif
   #if PY_MAJOR_VERSION >= 3
-  0, /*tp_as_async*/
+  0, 
   #endif
-  0, /*tp_repr*/
-  0, /*tp_as_number*/
-  0, /*tp_as_sequence*/
-  0, /*tp_as_mapping*/
-  0, /*tp_hash*/
-  0, /*tp_call*/
-  0, /*tp_str*/
-  0, /*tp_getattro*/
-  0, /*tp_setattro*/
-  0, /*tp_as_buffer*/
-  Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_HAVE_GC|Py_TPFLAGS_HAVE_FINALIZE, /*tp_flags*/
-  0, /*tp_doc*/
-  __pyx_tp_traverse_6ver1_3_4main___pyx_scope_struct_8_makeAct, /*tp_traverse*/
-  __pyx_tp_clear_6ver1_3_4main___pyx_scope_struct_8_makeAct, /*tp_clear*/
-  0, /*tp_richcompare*/
-  0, /*tp_weaklistoffset*/
-  0, /*tp_iter*/
-  0, /*tp_iternext*/
-  0, /*tp_methods*/
-  0, /*tp_members*/
-  0, /*tp_getset*/
-  0, /*tp_base*/
-  0, /*tp_dict*/
-  0, /*tp_descr_get*/
-  0, /*tp_descr_set*/
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_HAVE_GC|Py_TPFLAGS_HAVE_FINALIZE, 
+  0, 
+  __pyx_tp_traverse_6ver1_3_4main___pyx_scope_struct_8_makeAct, 
+  __pyx_tp_clear_6ver1_3_4main___pyx_scope_struct_8_makeAct, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
   #if !CYTHON_USE_TYPE_SPECS
-  0, /*tp_dictoffset*/
+  0, 
   #endif
-  0, /*tp_init*/
-  0, /*tp_alloc*/
-  __pyx_tp_new_6ver1_3_4main___pyx_scope_struct_8_makeAct, /*tp_new*/
-  0, /*tp_free*/
-  0, /*tp_is_gc*/
-  0, /*tp_bases*/
-  0, /*tp_mro*/
-  0, /*tp_cache*/
-  0, /*tp_subclasses*/
-  0, /*tp_weaklist*/
-  0, /*tp_del*/
-  0, /*tp_version_tag*/
+  0, 
+  0, 
+  __pyx_tp_new_6ver1_3_4main___pyx_scope_struct_8_makeAct, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
+  0, 
   #if PY_VERSION_HEX >= 0x030400a1
   #if CYTHON_USE_TP_FINALIZE
-  0, /*tp_finalize*/
+  0, 
   #else
-  NULL, /*tp_finalize*/
+  NULL, 
   #endif
   #endif
   #if PY_VERSION_HEX >= 0x030800b1 && (!CYTHON_COMPILING_IN_PYPY || PYPY_VERSION_NUM >= 0x07030800)
-  0, /*tp_vectorcall*/
+  0, 
   #endif
   #if __PYX_NEED_TP_PRINT_SLOT == 1
-  0, /*tp_print*/
+  0, 
   #endif
   #if PY_VERSION_HEX >= 0x030C0000
-  0, /*tp_watched*/
+  0, 
   #endif
   #if CYTHON_COMPILING_IN_PYPY && PY_VERSION_HEX >= 0x03090000 && PY_VERSION_HEX < 0x030a0000
-  0, /*tp_pypy_flags*/
+  0, 
   #endif
 };
 #endif
@@ -40179,7 +34949,7 @@ bad:
     #define CYTHON_SMALL_CODE
 #endif
 #endif
-/* #### Code section: pystring_table ### */
+
 
 static int __Pyx_CreateStringTabAndInitStrings(void) {
   __Pyx_StringTabEntry __pyx_string_tab[] = {
@@ -40675,7 +35445,7 @@ static int __Pyx_CreateStringTabAndInitStrings(void) {
   };
   return __Pyx_InitStrings(__pyx_string_tab);
 }
-/* #### Code section: cached_builtins ### */
+
 static CYTHON_SMALL_CODE int __Pyx_InitCachedBuiltins(void) {
   __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 46, __pyx_L1_error)
   __pyx_builtin_super = __Pyx_GetBuiltinName(__pyx_n_s_super); if (!__pyx_builtin_super) __PYX_ERR(0, 344, __pyx_L1_error)
@@ -40683,165 +35453,81 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedBuiltins(void) {
   __pyx_L1_error:;
   return -1;
 }
-/* #### Code section: cached_constants ### */
+
 
 static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_InitCachedConstants", 0);
 
-  /* "main.py":196
- * 
- *     def run(self):
- *         def standartSave(nameInDB):             # <<<<<<<<<<<<<<
- *             item = cell.text()
- *             cursor.execute(f"UPDATE {self.tableName} SET {nameInDB} = ? WHERE date = ?",
- */
+  
   __pyx_tuple__3 = PyTuple_Pack(2, __pyx_n_s_nameInDB, __pyx_n_s_item); if (unlikely(!__pyx_tuple__3)) __PYX_ERR(0, 196, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__3);
   __Pyx_GIVEREF(__pyx_tuple__3);
   __pyx_codeobj__4 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__3, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_main_py, __pyx_n_s_standartSave, 196, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__4)) __PYX_ERR(0, 196, __pyx_L1_error)
 
-  /* "main.py":271
- *             DBdataTemp = cursor.fetchone()
- * 
- *             if DBdataTemp != (None,) and DBdataTemp != None:             # <<<<<<<<<<<<<<
- *                 DBdata = ""
- *                 for i in DBdataTemp:
- */
+  
   __pyx_tuple__5 = PyTuple_Pack(1, Py_None); if (unlikely(!__pyx_tuple__5)) __PYX_ERR(0, 271, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__5);
   __Pyx_GIVEREF(__pyx_tuple__5);
 
-  /* "main.py":267
- * 
- *     def run(self):
- *         def standartRead(nameInDB, row, column):             # <<<<<<<<<<<<<<
- *             cursor.execute(f"SELECT {nameInDB} FROM {self.tableName} WHERE date = ?", (self.date,))
- *             DBdataTemp = cursor.fetchone()
- */
+  
   __pyx_tuple__6 = PyTuple_Pack(6, __pyx_n_s_nameInDB, __pyx_n_s_row, __pyx_n_s_column, __pyx_n_s_DBdataTemp, __pyx_n_s_DBdata, __pyx_n_s_i); if (unlikely(!__pyx_tuple__6)) __PYX_ERR(0, 267, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__6);
   __Pyx_GIVEREF(__pyx_tuple__6);
   __pyx_codeobj__7 = (PyObject*)__Pyx_PyCode_New(3, 0, 0, 6, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__6, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_main_py, __pyx_n_s_standartRead, 267, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__7)) __PYX_ERR(0, 267, __pyx_L1_error)
 
-  /* "main.py":349
- *         self.setWindowIcon(QtGui.QIcon(f'{VERSIONPATH}/assets/icon96px.ico'))
- *         self.setWindowTitle("")
- *         self.setFixedSize(QSize(400, 84))             # <<<<<<<<<<<<<<
- * 
- *     def setTheme(self, style):
- */
+  
   __pyx_tuple__9 = PyTuple_Pack(2, __pyx_int_400, __pyx_int_84); if (unlikely(!__pyx_tuple__9)) __PYX_ERR(0, 349, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__9);
   __Pyx_GIVEREF(__pyx_tuple__9);
 
-  /* "main.py":370
- *         self.setWindowIcon(QtGui.QIcon(f'{VERSIONPATH}/icon96px.ico'))
- *         self.setWindowTitle("  ")
- *         self.setFixedSize(QSize(350, 110))             # <<<<<<<<<<<<<<
- * 
- *         self.btn_create.clicked.connect(self.emitName)
- */
+  
   __pyx_tuple__11 = PyTuple_Pack(2, __pyx_int_350, __pyx_int_110); if (unlikely(!__pyx_tuple__11)) __PYX_ERR(0, 370, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__11);
   __Pyx_GIVEREF(__pyx_tuple__11);
 
-  /* "main.py":439
- *         self.setWindowIcon(QtGui.QIcon(f'{VERSIONPATH}/icon96px.ico'))
- *         self.setWindowTitle("")
- *         self.setFixedSize(QSize(370, 430))             # <<<<<<<<<<<<<<
- * 
- *         self.date_in.setDate(QDate.currentDate())
- */
+  
   __pyx_tuple__18 = PyTuple_Pack(2, __pyx_int_370, __pyx_int_430); if (unlikely(!__pyx_tuple__18)) __PYX_ERR(0, 439, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__18);
   __Pyx_GIVEREF(__pyx_tuple__18);
 
-  /* "main.py":512
- *         self.setWindowIcon(QtGui.QIcon(f'{VERSIONPATH}/icon96px.ico'))
- *         self.setWindowTitle("")
- *         self.setFixedSize(QSize(302, 170))             # <<<<<<<<<<<<<<
- * 
- *         self.date_in.setDate(QDate.currentDate())
- */
+  
   __pyx_tuple__22 = PyTuple_Pack(2, __pyx_int_302, __pyx_int_170); if (unlikely(!__pyx_tuple__22)) __PYX_ERR(0, 512, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__22);
   __Pyx_GIVEREF(__pyx_tuple__22);
 
-  /* "main.py":695
- *         for button in btnList:
- *             horLayout.addWidget(button)
- *             button.setMinimumSize(QSize(130, 30))             # <<<<<<<<<<<<<<
- * 
- *         horLayout.insertStretch(1, 500)
- */
+  
   __pyx_tuple__24 = PyTuple_Pack(2, __pyx_int_130, __pyx_int_30); if (unlikely(!__pyx_tuple__24)) __PYX_ERR(0, 695, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__24);
   __Pyx_GIVEREF(__pyx_tuple__24);
 
-  /* "main.py":697
- *             button.setMinimumSize(QSize(130, 30))
- * 
- *         horLayout.insertStretch(1, 500)             # <<<<<<<<<<<<<<
- * 
- *         verLayout.addWidget(self.tw_reportTable)
- */
+  
   __pyx_tuple__25 = PyTuple_Pack(2, __pyx_int_1, __pyx_int_500); if (unlikely(!__pyx_tuple__25)) __PYX_ERR(0, 697, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__25);
   __Pyx_GIVEREF(__pyx_tuple__25);
 
-  /* "main.py":715
- * 
- *             self.write(lastRow, 0, ":")
- *             self.tw_reportTable.item(lastRow, 0).setBackground(QtGui.QColor(187,255,169))             # <<<<<<<<<<<<<<
- * 
- *             for i in range(10):
- */
+  
   __pyx_tuple__27 = PyTuple_Pack(3, __pyx_int_187, __pyx_int_255, __pyx_int_169); if (unlikely(!__pyx_tuple__27)) __PYX_ERR(0, 715, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__27);
   __Pyx_GIVEREF(__pyx_tuple__27);
 
-  /* "main.py":749
- *     def setTable(self):
- * 
- *         def color(row, column, red, green, blue):             # <<<<<<<<<<<<<<
- *             cell = self.tw_reportTable.item(row, column)
- *             cell.setBackground(QtGui.QColor(red, green, blue))
- */
+  
   __pyx_tuple__28 = PyTuple_Pack(6, __pyx_n_s_row, __pyx_n_s_column, __pyx_n_s_red, __pyx_n_s_green, __pyx_n_s_blue, __pyx_n_s_cell); if (unlikely(!__pyx_tuple__28)) __PYX_ERR(0, 749, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__28);
   __Pyx_GIVEREF(__pyx_tuple__28);
   __pyx_codeobj__29 = (PyObject*)__Pyx_PyCode_New(5, 0, 0, 6, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__28, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_main_py, __pyx_n_s_color, 749, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__29)) __PYX_ERR(0, 749, __pyx_L1_error)
 
-  /* "main.py":761
- *             self.tw_reportTable.setSpan(0, i, 2, 1)
- * 
- *         self.tw_reportTable.setSpan(0, 4, 1, 6)             # <<<<<<<<<<<<<<
- * 
- *         names = (' ','- ','',
- */
+  
   __pyx_tuple__30 = PyTuple_Pack(4, __pyx_int_0, __pyx_int_4, __pyx_int_1, __pyx_int_6); if (unlikely(!__pyx_tuple__30)) __PYX_ERR(0, 761, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__30);
   __Pyx_GIVEREF(__pyx_tuple__30);
 
-  /* "main.py":763
- *         self.tw_reportTable.setSpan(0, 4, 1, 6)
- * 
- *         names = (' ','- ','',             # <<<<<<<<<<<<<<
- *             '','','','','','',
- *             '','')
- */
+  
   __pyx_tuple__42 = PyTuple_Pack(11, __pyx_kp_s__31, __pyx_kp_s__32, __pyx_kp_s__33, __pyx_kp_s__34, __pyx_kp_s__35, __pyx_kp_s__36, __pyx_kp_s__37, __pyx_kp_s__38, __pyx_kp_s__39, __pyx_kp_s__40, __pyx_kp_s__41); if (unlikely(!__pyx_tuple__42)) __PYX_ERR(0, 763, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__42);
   __Pyx_GIVEREF(__pyx_tuple__42);
 
-  /* "main.py":795
- *     def color(self, row, column):
- * 
- *         colors = ((191,255,172), (255,219,224), (249,211,249),             # <<<<<<<<<<<<<<
- *             (249,211,249), (243,243,155), (255,237,178),
- *             (202,199,248))
- */
+  
   __pyx_tuple__43 = PyTuple_Pack(3, __pyx_int_191, __pyx_int_255, __pyx_int_172); if (unlikely(!__pyx_tuple__43)) __PYX_ERR(0, 795, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__43);
   __Pyx_GIVEREF(__pyx_tuple__43);
@@ -40852,13 +35538,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__45);
   __Pyx_GIVEREF(__pyx_tuple__45);
 
-  /* "main.py":796
- * 
- *         colors = ((191,255,172), (255,219,224), (249,211,249),
- *             (249,211,249), (243,243,155), (255,237,178),             # <<<<<<<<<<<<<<
- *             (202,199,248))
- * 
- */
+  
   __pyx_tuple__46 = PyTuple_Pack(3, __pyx_int_243, __pyx_int_243, __pyx_int_155); if (unlikely(!__pyx_tuple__46)) __PYX_ERR(0, 796, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__46);
   __Pyx_GIVEREF(__pyx_tuple__46);
@@ -40866,667 +35546,295 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__47);
   __Pyx_GIVEREF(__pyx_tuple__47);
 
-  /* "main.py":797
- *         colors = ((191,255,172), (255,219,224), (249,211,249),
- *             (249,211,249), (243,243,155), (255,237,178),
- *             (202,199,248))             # <<<<<<<<<<<<<<
- * 
- * 
- */
+  
   __pyx_tuple__48 = PyTuple_Pack(3, __pyx_int_202, __pyx_int_199, __pyx_int_248); if (unlikely(!__pyx_tuple__48)) __PYX_ERR(0, 797, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__48);
   __Pyx_GIVEREF(__pyx_tuple__48);
 
-  /* "main.py":795
- *     def color(self, row, column):
- * 
- *         colors = ((191,255,172), (255,219,224), (249,211,249),             # <<<<<<<<<<<<<<
- *             (249,211,249), (243,243,155), (255,237,178),
- *             (202,199,248))
- */
+  
   __pyx_tuple__49 = PyTuple_Pack(7, __pyx_tuple__43, __pyx_tuple__44, __pyx_tuple__45, __pyx_tuple__45, __pyx_tuple__46, __pyx_tuple__47, __pyx_tuple__48); if (unlikely(!__pyx_tuple__49)) __PYX_ERR(0, 795, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__49);
   __Pyx_GIVEREF(__pyx_tuple__49);
 
-  /* "main.py":1244
- * 
- *         monthTyple = (
- *             '', '','',             # <<<<<<<<<<<<<<
- *             '','','',
- *             '','','',
- */
+  
   __pyx_tuple__70 = PyTuple_Pack(12, __pyx_kp_s__58, __pyx_kp_s__59, __pyx_kp_s__60, __pyx_kp_s__61, __pyx_kp_s__62, __pyx_kp_s__63, __pyx_kp_s__64, __pyx_kp_s__65, __pyx_kp_s__66, __pyx_kp_s__67, __pyx_kp_s__68, __pyx_kp_s__69); if (unlikely(!__pyx_tuple__70)) __PYX_ERR(0, 1244, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__70);
   __Pyx_GIVEREF(__pyx_tuple__70);
 
-  /* "main.py":1263
- *     def fetchTables(self):
- * 
- *         def makeAct(name, item):             # <<<<<<<<<<<<<<
- *             self.name = QAction(str(item), self)
- *             self.changeMenu.addAction(self.name)
- */
+  
   __pyx_tuple__71 = PyTuple_Pack(2, __pyx_n_s_name, __pyx_n_s_item); if (unlikely(!__pyx_tuple__71)) __PYX_ERR(0, 1263, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__71);
   __Pyx_GIVEREF(__pyx_tuple__71);
   __pyx_codeobj__72 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__71, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_main_py, __pyx_n_s_makeAct, 1263, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__72)) __PYX_ERR(0, 1263, __pyx_L1_error)
 
-  /* "main.py":1268
- *             self.name.triggered.connect(lambda: tableChange(item))
- * 
- *         def tableChange(name):             # <<<<<<<<<<<<<<
- *             self.tableName = str(name)
- * 
- */
+  
   __pyx_tuple__73 = PyTuple_Pack(1, __pyx_n_s_name); if (unlikely(!__pyx_tuple__73)) __PYX_ERR(0, 1268, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__73);
   __Pyx_GIVEREF(__pyx_tuple__73);
   __pyx_codeobj__74 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__73, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_main_py, __pyx_n_s_tableChange, 1268, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__74)) __PYX_ERR(0, 1268, __pyx_L1_error)
 
-  /* "main.py":25
- *     s_data = QtCore.pyqtSignal(int, int, int, int, int, str)
- * 
- *     def  __init__(self):             # <<<<<<<<<<<<<<
- *         QtCore.QThread.__init__(self)
- * 
- */
+  
   __pyx_tuple__76 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__76)) __PYX_ERR(0, 25, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__76);
   __Pyx_GIVEREF(__pyx_tuple__76);
   __pyx_codeobj__77 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__76, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_main_py, __pyx_n_s_init, 25, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__77)) __PYX_ERR(0, 25, __pyx_L1_error)
 
-  /* "main.py":30
- *         self.tableName = None
- * 
- *     def setTableName(self, tableName):             # <<<<<<<<<<<<<<
- *         self.tableName = tableName
- * 
- */
+  
   __pyx_tuple__78 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_tableName); if (unlikely(!__pyx_tuple__78)) __PYX_ERR(0, 30, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__78);
   __Pyx_GIVEREF(__pyx_tuple__78);
   __pyx_codeobj__79 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__78, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_main_py, __pyx_n_s_setTableName, 30, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__79)) __PYX_ERR(0, 30, __pyx_L1_error)
 
-  /* "main.py":33
- *         self.tableName = tableName
- * 
- *     def run(self):             # <<<<<<<<<<<<<<
- * 
- *         connect = sqlite3.connect(f"{VERSIONPATH}/database/d.db")
- */
+  
   __pyx_tuple__80 = PyTuple_Pack(18, __pyx_n_s_self, __pyx_n_s_connect, __pyx_n_s_cursor, __pyx_n_s_count, __pyx_n_s_countTemp, __pyx_n_s_i, __pyx_n_s_index, __pyx_n_s_column, __pyx_n_s_columnTemp, __pyx_n_s_row, __pyx_n_s_rowTemp, __pyx_n_s_notesTemp, __pyx_n_s_notes, __pyx_n_s_colorTemp, __pyx_n_s_color, __pyx_n_s_red, __pyx_n_s_green, __pyx_n_s_blue); if (unlikely(!__pyx_tuple__80)) __PYX_ERR(0, 33, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__80);
   __Pyx_GIVEREF(__pyx_tuple__80);
   __pyx_codeobj__81 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 18, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__80, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_main_py, __pyx_n_s_run, 33, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__81)) __PYX_ERR(0, 33, __pyx_L1_error)
 
-  /* "main.py":107
- *     s_update = QtCore.pyqtSignal(str)
- * 
- *     def  __init__(self):             # <<<<<<<<<<<<<<
- *         QtCore.QThread.__init__(self)
- * 
- */
+  
   __pyx_codeobj__82 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__76, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_main_py, __pyx_n_s_init, 107, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__82)) __PYX_ERR(0, 107, __pyx_L1_error)
 
-  /* "main.py":113
- *         self.table = None
- * 
- *     def set(self, tableName, table):             # <<<<<<<<<<<<<<
- *         self.tableName = tableName
- *         self.table = table
- */
+  
   __pyx_tuple__83 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_tableName, __pyx_n_s_table); if (unlikely(!__pyx_tuple__83)) __PYX_ERR(0, 113, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__83);
   __Pyx_GIVEREF(__pyx_tuple__83);
   __pyx_codeobj__84 = (PyObject*)__Pyx_PyCode_New(3, 0, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__83, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_main_py, __pyx_n_s_set, 113, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__84)) __PYX_ERR(0, 113, __pyx_L1_error)
 
-  /* "main.py":117
- *         self.table = table
- * 
- *     def run(self):             # <<<<<<<<<<<<<<
- * 
- *         connect = sqlite3.connect(f"{VERSIONPATH}/database/d.db")
- */
+  
   __pyx_tuple__85 = PyTuple_Pack(15, __pyx_n_s_self, __pyx_n_s_connect, __pyx_n_s_cursor, __pyx_n_s_column, __pyx_n_s_row, __pyx_n_s_cell, __pyx_n_s_bg, __pyx_n_s_note, __pyx_n_s_red, __pyx_n_s_green, __pyx_n_s_blue, __pyx_n_s__12, __pyx_n_s_color, __pyx_n_s_rowAndColumn, __pyx_n_s_dbRowAndColumn); if (unlikely(!__pyx_tuple__85)) __PYX_ERR(0, 117, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__85);
   __Pyx_GIVEREF(__pyx_tuple__85);
   __pyx_codeobj__86 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 15, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__85, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_main_py, __pyx_n_s_run, 117, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__86)) __PYX_ERR(0, 117, __pyx_L1_error)
 
-  /* "main.py":184
- *     s_updPB = QtCore.pyqtSignal(str)
- * 
- *     def  __init__(self):             # <<<<<<<<<<<<<<
- *         QtCore.QThread.__init__(self)
- * 
- */
+  
   __pyx_codeobj__87 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__76, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_main_py, __pyx_n_s_init, 184, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__87)) __PYX_ERR(0, 184, __pyx_L1_error)
 
-  /* "main.py":191
- *         self.date = None
- * 
- *     def set(self, tableName, table):             # <<<<<<<<<<<<<<
- *         self.tableName = tableName
- *         self.table = table
- */
+  
   __pyx_codeobj__88 = (PyObject*)__Pyx_PyCode_New(3, 0, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__83, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_main_py, __pyx_n_s_set, 191, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__88)) __PYX_ERR(0, 191, __pyx_L1_error)
 
-  /* "main.py":195
- *         self.table = table
- * 
- *     def run(self):             # <<<<<<<<<<<<<<
- *         def standartSave(nameInDB):
- *             item = cell.text()
- */
+  
   __pyx_tuple__89 = PyTuple_Pack(9, __pyx_n_s_self, __pyx_n_s_standartSave, __pyx_n_s_standartSave, __pyx_n_s_connect, __pyx_n_s_cursor, __pyx_n_s_row, __pyx_n_s_column, __pyx_n_s_cell, __pyx_n_s_DBdate); if (unlikely(!__pyx_tuple__89)) __PYX_ERR(0, 195, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__89);
   __Pyx_GIVEREF(__pyx_tuple__89);
   __pyx_codeobj__90 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 9, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__89, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_main_py, __pyx_n_s_run, 195, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__90)) __PYX_ERR(0, 195, __pyx_L1_error)
 
-  /* "main.py":255
- *     s_readedData = QtCore.pyqtSignal(int, int, str)
- * 
- *     def  __init__(self):             # <<<<<<<<<<<<<<
- *         QtCore.QThread.__init__(self)
- * 
- */
+  
   __pyx_codeobj__91 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__76, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_main_py, __pyx_n_s_init, 255, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__91)) __PYX_ERR(0, 255, __pyx_L1_error)
 
-  /* "main.py":262
- *         self.date = None
- * 
- *     def set(self, tableName, table):             # <<<<<<<<<<<<<<
- *         self.tableName = tableName
- *         self.table = table
- */
+  
   __pyx_codeobj__92 = (PyObject*)__Pyx_PyCode_New(3, 0, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__83, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_main_py, __pyx_n_s_set, 262, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__92)) __PYX_ERR(0, 262, __pyx_L1_error)
 
-  /* "main.py":266
- *         self.table = table
- * 
- *     def run(self):             # <<<<<<<<<<<<<<
- *         def standartRead(nameInDB, row, column):
- *             cursor.execute(f"SELECT {nameInDB} FROM {self.tableName} WHERE date = ?", (self.date,))
- */
+  
   __pyx_tuple__93 = PyTuple_Pack(8, __pyx_n_s_self, __pyx_n_s_standartRead, __pyx_n_s_standartRead, __pyx_n_s_connect, __pyx_n_s_cursor, __pyx_n_s_row, __pyx_n_s_column, __pyx_n_s_cell); if (unlikely(!__pyx_tuple__93)) __PYX_ERR(0, 266, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__93);
   __Pyx_GIVEREF(__pyx_tuple__93);
   __pyx_codeobj__94 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 8, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__93, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_main_py, __pyx_n_s_run, 266, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__94)) __PYX_ERR(0, 266, __pyx_L1_error)
 
-  /* "main.py":317
- *     s_sumData = QtCore.pyqtSignal(int)
- * 
- *     def  __init__(self):             # <<<<<<<<<<<<<<
- *         QtCore.QThread.__init__(self)
- * 
- */
+  
   __pyx_codeobj__95 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__76, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_main_py, __pyx_n_s_init, 317, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__95)) __PYX_ERR(0, 317, __pyx_L1_error)
 
-  /* "main.py":323
- *         self.columnList = [4, 5, 6, 9]
- * 
- *     def set(self, table):             # <<<<<<<<<<<<<<
- *         self.table = table
- * 
- */
+  
   __pyx_tuple__96 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_table); if (unlikely(!__pyx_tuple__96)) __PYX_ERR(0, 323, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__96);
   __Pyx_GIVEREF(__pyx_tuple__96);
   __pyx_codeobj__97 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__96, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_main_py, __pyx_n_s_set, 323, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__97)) __PYX_ERR(0, 323, __pyx_L1_error)
 
-  /* "main.py":326
- *         self.table = table
- * 
- *     def run(self):             # <<<<<<<<<<<<<<
- * 
- *         for column in self.columnList:
- */
+  
   __pyx_tuple__98 = PyTuple_Pack(5, __pyx_n_s_self, __pyx_n_s_column, __pyx_n_s_total, __pyx_n_s_row, __pyx_n_s_item); if (unlikely(!__pyx_tuple__98)) __PYX_ERR(0, 326, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__98);
   __Pyx_GIVEREF(__pyx_tuple__98);
   __pyx_codeobj__99 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__98, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_main_py, __pyx_n_s_run, 326, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__99)) __PYX_ERR(0, 326, __pyx_L1_error)
 
-  /* "main.py":343
- * 
- * class SaveDialog(QDialog, saveDialogUI.Ui_Dialog, QSize):
- *     def __init__(self):             # <<<<<<<<<<<<<<
- *         super(SaveDialog, self).__init__()
- *         self.setupUi(self)
- */
+  
   __pyx_codeobj__100 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__76, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_main_py, __pyx_n_s_init, 343, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__100)) __PYX_ERR(0, 343, __pyx_L1_error)
 
-  /* "main.py":351
- *         self.setFixedSize(QSize(400, 84))
- * 
- *     def setTheme(self, style):             # <<<<<<<<<<<<<<
- *         self.setStyleSheet(style)
- * 
- */
+  
   __pyx_tuple__101 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_style); if (unlikely(!__pyx_tuple__101)) __PYX_ERR(0, 351, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__101);
   __Pyx_GIVEREF(__pyx_tuple__101);
   __pyx_codeobj__102 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__101, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_main_py, __pyx_n_s_setTheme, 351, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__102)) __PYX_ERR(0, 351, __pyx_L1_error)
 
-  /* "main.py":354
- *         self.setStyleSheet(style)
- * 
- *     def setRange(self, range_):             # <<<<<<<<<<<<<<
- *         self.pb_save.setRange(0, range_)
- * 
- */
+  
   __pyx_tuple__103 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_range_2); if (unlikely(!__pyx_tuple__103)) __PYX_ERR(0, 354, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__103);
   __Pyx_GIVEREF(__pyx_tuple__103);
   __pyx_codeobj__104 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__103, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_main_py, __pyx_n_s_setRange, 354, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__104)) __PYX_ERR(0, 354, __pyx_L1_error)
 
-  /* "main.py":357
- *         self.pb_save.setRange(0, range_)
- * 
- *     def add(self):             # <<<<<<<<<<<<<<
- *         self.pb_save.setValue(self.pb_save.value() + 1)
- * 
- */
+  
   __pyx_codeobj__105 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__76, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_main_py, __pyx_n_s_add, 357, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__105)) __PYX_ERR(0, 357, __pyx_L1_error)
 
-  /* "main.py":364
- *     s_upd = QtCore.pyqtSignal()
- * 
- *     def __init__(self):             # <<<<<<<<<<<<<<
- *         super(CreateDialog, self).__init__()
- *         self.setupUi(self)
- */
+  
   __pyx_codeobj__106 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__76, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_main_py, __pyx_n_s_init, 364, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__106)) __PYX_ERR(0, 364, __pyx_L1_error)
 
-  /* "main.py":374
- *         self.btn_create.clicked.connect(self.emitName)
- * 
- *     def setTheme(self, style):             # <<<<<<<<<<<<<<
- *         self.setStyleSheet(style)
- * 
- */
+  
   __pyx_codeobj__107 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__101, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_main_py, __pyx_n_s_setTheme, 374, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__107)) __PYX_ERR(0, 374, __pyx_L1_error)
 
-  /* "main.py":377
- *         self.setStyleSheet(style)
- * 
- *     def emitName(self):             # <<<<<<<<<<<<<<
- *         connect = sqlite3.connect(f"{VERSIONPATH}/database/d.db")
- *         cursor = connect.cursor()
- */
+  
   __pyx_tuple__108 = PyTuple_Pack(5, __pyx_n_s_self, __pyx_n_s_connect, __pyx_n_s_cursor, __pyx_n_s_name, __pyx_n_s_reportName); if (unlikely(!__pyx_tuple__108)) __PYX_ERR(0, 377, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__108);
   __Pyx_GIVEREF(__pyx_tuple__108);
   __pyx_codeobj__109 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__108, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_main_py, __pyx_n_s_emitName, 377, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__109)) __PYX_ERR(0, 377, __pyx_L1_error)
 
-  /* "main.py":421
- *             self.alert("    !")
- * 
- *     def alert(self, text, infoText):             # <<<<<<<<<<<<<<
- *         msg = QMessageBox(text=text,parent=self)
- *         msg.setStandardButtons(QMessageBox.StandardButton.Ok)
- */
+  
   __pyx_tuple__110 = PyTuple_Pack(5, __pyx_n_s_self, __pyx_n_s_text, __pyx_n_s_infoText, __pyx_n_s_msg, __pyx_n_s_ret); if (unlikely(!__pyx_tuple__110)) __PYX_ERR(0, 421, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__110);
   __Pyx_GIVEREF(__pyx_tuple__110);
   __pyx_codeobj__111 = (PyObject*)__Pyx_PyCode_New(3, 0, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__110, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_main_py, __pyx_n_s_alert, 421, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__111)) __PYX_ERR(0, 421, __pyx_L1_error)
 
-  /* "main.py":433
- *     s_info = QtCore.pyqtSignal(int, int, int, int, int, str)
- * 
- *     def __init__(self):             # <<<<<<<<<<<<<<
- *         super(EditDialog, self).__init__()
- *         self.setupUi(self)
- */
+  
   __pyx_codeobj__112 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__76, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_main_py, __pyx_n_s_init, 433, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__112)) __PYX_ERR(0, 433, __pyx_L1_error)
 
-  /* "main.py":450
- *         self.notes = None
- * 
- *     def setTheme(self, style):             # <<<<<<<<<<<<<<
- *         self.setStyleSheet(style)
- * 
- */
+  
   __pyx_codeobj__113 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__101, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_main_py, __pyx_n_s_setTheme, 450, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__113)) __PYX_ERR(0, 450, __pyx_L1_error)
 
-  /* "main.py":453
- *         self.setStyleSheet(style)
- * 
- *     def colorDialog(self):             # <<<<<<<<<<<<<<
- *         self.color = QColorDialog.getColor()
- * 
- */
+  
   __pyx_codeobj__114 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__76, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_main_py, __pyx_n_s_colorDialog, 453, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__114)) __PYX_ERR(0, 453, __pyx_L1_error)
 
-  /* "main.py":456
- *         self.color = QColorDialog.getColor()
- * 
- *     def save(self):             # <<<<<<<<<<<<<<
- *         notes = self.te_notes.toPlainText()
- *         timeIn = self.time_in.time().toString(Qt.DateFormat.ISODate)
- */
+  
   __pyx_tuple__115 = PyTuple_Pack(16, __pyx_n_s_self, __pyx_n_s_notes, __pyx_n_s_timeIn, __pyx_n_s_timeOut, __pyx_n_s_dayOut, __pyx_n_s_monthCount, __pyx_n_s_day, __pyx_n_s_curDay, __pyx_n_s_addedMonths, __pyx_n_s_addedDays, __pyx_n_s_workie, __pyx_n_s_month, __pyx_n_s_red, __pyx_n_s_green, __pyx_n_s_blue, __pyx_n_s__12); if (unlikely(!__pyx_tuple__115)) __PYX_ERR(0, 456, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__115);
   __Pyx_GIVEREF(__pyx_tuple__115);
   __pyx_codeobj__116 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 16, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__115, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_main_py, __pyx_n_s_save, 456, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__116)) __PYX_ERR(0, 456, __pyx_L1_error)
 
-  /* "main.py":506
- *     s_cords = QtCore.pyqtSignal(int, int)
- * 
- *     def __init__(self):             # <<<<<<<<<<<<<<
- *         super(DeleteDialog, self).__init__()
- *         self.setupUi(self)
- */
+  
   __pyx_codeobj__117 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__76, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_main_py, __pyx_n_s_init, 506, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__117)) __PYX_ERR(0, 506, __pyx_L1_error)
 
-  /* "main.py":520
- *         self.btn_del.clicked.connect(self.delete)
- * 
- *     def setTheme(self, style):             # <<<<<<<<<<<<<<
- *         self.setStyleSheet(style)
- * 
- */
+  
   __pyx_codeobj__118 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__101, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_main_py, __pyx_n_s_setTheme, 520, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__118)) __PYX_ERR(0, 520, __pyx_L1_error)
 
-  /* "main.py":523
- *         self.setStyleSheet(style)
- * 
- *     def delete(self):             # <<<<<<<<<<<<<<
- *         dayOut = self.date_out.date().dayOfYear()
- *         monthCount = self.date_in.date()
- */
+  
   __pyx_tuple__119 = PyTuple_Pack(9, __pyx_n_s_self, __pyx_n_s_dayOut, __pyx_n_s_monthCount, __pyx_n_s_day, __pyx_n_s_curDay, __pyx_n_s_addedMonths, __pyx_n_s_addedDays, __pyx_n_s_workie, __pyx_n_s_month); if (unlikely(!__pyx_tuple__119)) __PYX_ERR(0, 523, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__119);
   __Pyx_GIVEREF(__pyx_tuple__119);
   __pyx_codeobj__120 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 9, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__119, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_main_py, __pyx_n_s_delete, 523, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__120)) __PYX_ERR(0, 523, __pyx_L1_error)
 
-  /* "main.py":559
- * 
- * class ReportDialog(QMainWindow, reportUI.Ui_MainWindow, QDate):
- *     def __init__(self):             # <<<<<<<<<<<<<<
- *         super(ReportDialog, self).__init__()
- *         self.setupUi(self)
- */
+  
   __pyx_codeobj__121 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__76, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_main_py, __pyx_n_s_init, 559, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__121)) __PYX_ERR(0, 559, __pyx_L1_error)
 
-  /* "main.py":582
- *         self.btn_save.clicked.connect(self.save)
- * 
- *     def setTheme(self, theme, style):             # <<<<<<<<<<<<<<
- *         if theme == "Dark":
- *             self.setStyleSheet(style)
- */
+  
   __pyx_tuple__122 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_theme, __pyx_n_s_style); if (unlikely(!__pyx_tuple__122)) __PYX_ERR(0, 582, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__122);
   __Pyx_GIVEREF(__pyx_tuple__122);
   __pyx_codeobj__123 = (PyObject*)__Pyx_PyCode_New(3, 0, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__122, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_main_py, __pyx_n_s_setTheme, 582, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__123)) __PYX_ERR(0, 582, __pyx_L1_error)
 
-  /* "main.py":671
- *             self.setStyleSheet(style)
- * 
- *     def start(self):             # <<<<<<<<<<<<<<
- * 
- *         self.setTable()
- */
+  
   __pyx_codeobj__124 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__76, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_main_py, __pyx_n_s_start, 671, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__124)) __PYX_ERR(0, 671, __pyx_L1_error)
 
-  /* "main.py":686
- *         self.tw_reportTable.cellChanged.connect(self.calculate)
- * 
- *     def resizeable(self):             # <<<<<<<<<<<<<<
- * 
- *         verLayout = QVBoxLayout()
- */
+  
   __pyx_tuple__125 = PyTuple_Pack(6, __pyx_n_s_self, __pyx_n_s_verLayout, __pyx_n_s_horLayout, __pyx_n_s_btnList, __pyx_n_s_button, __pyx_n_s_sizePolicy); if (unlikely(!__pyx_tuple__125)) __PYX_ERR(0, 686, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__125);
   __Pyx_GIVEREF(__pyx_tuple__125);
   __pyx_codeobj__126 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 6, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__125, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_main_py, __pyx_n_s_resizeable, 686, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__126)) __PYX_ERR(0, 686, __pyx_L1_error)
 
-  /* "main.py":708
- *         self.centralwidget.setLayout(verLayout)
- * 
- *     def setSumRow(self):             # <<<<<<<<<<<<<<
- *         if self.tw_reportTable.item(self.tw_reportTable.rowCount()-1, 0) != None:
- * 
- */
+  
   __pyx_tuple__127 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_lastRow, __pyx_n_s_i); if (unlikely(!__pyx_tuple__127)) __PYX_ERR(0, 708, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__127);
   __Pyx_GIVEREF(__pyx_tuple__127);
   __pyx_codeobj__128 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__127, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_main_py, __pyx_n_s_setSumRow, 708, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__128)) __PYX_ERR(0, 708, __pyx_L1_error)
 
-  /* "main.py":722
- *                     self.tw_reportTable.item(lastRow, i).setBackground(QtGui.QColor(187,255,169))
- * 
- *     def changeSumRow(self, total):             # <<<<<<<<<<<<<<
- * 
- *         lastRow = self.tw_reportTable.rowCount() - 1
- */
+  
   __pyx_tuple__129 = PyTuple_Pack(7, __pyx_n_s_self, __pyx_n_s_total, __pyx_n_s_lastRow, __pyx_n_s_aligment, __pyx_n_s_column, __pyx_n_s_item, __pyx_n_s_cell); if (unlikely(!__pyx_tuple__129)) __PYX_ERR(0, 722, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__129);
   __Pyx_GIVEREF(__pyx_tuple__129);
   __pyx_codeobj__130 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 7, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__129, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_main_py, __pyx_n_s_changeSumRow, 722, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__130)) __PYX_ERR(0, 722, __pyx_L1_error)
 
-  /* "main.py":743
- *             self.totalList.clear()
- * 
- *     def set(self, calTable, tableName):             # <<<<<<<<<<<<<<
- *         self.calTable = calTable
- *         self.tableName = tableName
- */
+  
   __pyx_tuple__131 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_calTable, __pyx_n_s_tableName); if (unlikely(!__pyx_tuple__131)) __PYX_ERR(0, 743, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__131);
   __Pyx_GIVEREF(__pyx_tuple__131);
   __pyx_codeobj__132 = (PyObject*)__Pyx_PyCode_New(3, 0, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__131, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_main_py, __pyx_n_s_set, 743, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__132)) __PYX_ERR(0, 743, __pyx_L1_error)
 
-  /* "main.py":747
- *         self.tableName = tableName
- * 
- *     def setTable(self):             # <<<<<<<<<<<<<<
- * 
- *         def color(row, column, red, green, blue):
- */
+  
   __pyx_tuple__133 = PyTuple_Pack(8, __pyx_n_s_self, __pyx_n_s_color, __pyx_n_s_color, __pyx_n_s_i, __pyx_n_s_names, __pyx_n_s_row, __pyx_n_s_column, __pyx_n_s_horHeader); if (unlikely(!__pyx_tuple__133)) __PYX_ERR(0, 747, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__133);
   __Pyx_GIVEREF(__pyx_tuple__133);
   __pyx_codeobj__134 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 8, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__133, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_main_py, __pyx_n_s_setTable, 747, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__134)) __PYX_ERR(0, 747, __pyx_L1_error)
 
-  /* "main.py":793
- *             horHeader.setSectionResizeMode(i, QHeaderView.ResizeMode.Stretch)
- * 
- *     def color(self, row, column):             # <<<<<<<<<<<<<<
- * 
- *         colors = ((191,255,172), (255,219,224), (249,211,249),
- */
+  
   __pyx_tuple__135 = PyTuple_Pack(8, __pyx_n_s_self, __pyx_n_s_row, __pyx_n_s_column, __pyx_n_s_colors, __pyx_n_s_red, __pyx_n_s_green, __pyx_n_s_blue, __pyx_n_s_cell); if (unlikely(!__pyx_tuple__135)) __PYX_ERR(0, 793, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__135);
   __Pyx_GIVEREF(__pyx_tuple__135);
   __pyx_codeobj__136 = (PyObject*)__Pyx_PyCode_New(3, 0, 0, 8, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__135, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_main_py, __pyx_n_s_color, 793, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__136)) __PYX_ERR(0, 793, __pyx_L1_error)
 
-  /* "main.py":837
- *                 cell.setBackground(QtGui.QColor(red, green, blue))
- * 
- *     def write(self, row, column, text):             # <<<<<<<<<<<<<<
- *         aligment = QtCore.Qt.AlignmentFlag.AlignCenter
- *         self.tw_reportTable.setItem(row, column, QTableWidgetItem())
- */
+  
   __pyx_tuple__137 = PyTuple_Pack(5, __pyx_n_s_self, __pyx_n_s_row, __pyx_n_s_column, __pyx_n_s_text, __pyx_n_s_aligment); if (unlikely(!__pyx_tuple__137)) __PYX_ERR(0, 837, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__137);
   __Pyx_GIVEREF(__pyx_tuple__137);
   __pyx_codeobj__138 = (PyObject*)__Pyx_PyCode_New(4, 0, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__137, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_main_py, __pyx_n_s_write, 837, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__138)) __PYX_ERR(0, 837, __pyx_L1_error)
 
-  /* "main.py":845
- *         self.color(row, column)
- * 
- *     def insertDates(self):             # <<<<<<<<<<<<<<
- * 
- *         # fetching dates
- */
+  
   __pyx_tuple__139 = PyTuple_Pack(30, __pyx_n_s_self, __pyx_n_s_column, __pyx_n_s_row, __pyx_n_s_cell, __pyx_n_s_red, __pyx_n_s_green, __pyx_n_s_blue, __pyx_n_s__12, __pyx_n_s_color, __pyx_n_s_connect, __pyx_n_s_cursor, __pyx_n_s_DBmonth, __pyx_n_s_index, __pyx_n_s_item, __pyx_n_s_monthTemp, __pyx_n_s_i, __pyx_n_s_month, __pyx_n_s_dayList, __pyx_n_s_DBday, __pyx_n_s_dayTemp, __pyx_n_s_day, __pyx_n_s_minDay, __pyx_n_s_maxDay, __pyx_n_s_minMonth, __pyx_n_s_maxMonth, __pyx_n_s_text, __pyx_n_s_curYear, __pyx_n_s_minDate, __pyx_n_s_maxDate, __pyx_n_s_days); if (unlikely(!__pyx_tuple__139)) __PYX_ERR(0, 845, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__139);
   __Pyx_GIVEREF(__pyx_tuple__139);
   __pyx_codeobj__140 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 30, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__139, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_main_py, __pyx_n_s_insertDates, 845, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__140)) __PYX_ERR(0, 845, __pyx_L1_error)
 
-  /* "main.py":937
- *                 self.write(row, 1, days)
- * 
- *     def calculate(self, row, column):             # <<<<<<<<<<<<<<
- *         if column == 2:
- *             entered = self.tw_reportTable.currentItem()
- */
+  
   __pyx_tuple__141 = PyTuple_Pack(5, __pyx_n_s_self, __pyx_n_s_row, __pyx_n_s_column, __pyx_n_s_entered, __pyx_n_s_days); if (unlikely(!__pyx_tuple__141)) __PYX_ERR(0, 937, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__141);
   __Pyx_GIVEREF(__pyx_tuple__141);
   __pyx_codeobj__142 = (PyObject*)__Pyx_PyCode_New(3, 0, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__141, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_main_py, __pyx_n_s_calculate, 937, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__142)) __PYX_ERR(0, 937, __pyx_L1_error)
 
-  /* "main.py":948
- *             self.reportSum.start()
- * 
- *     def save(self):             # <<<<<<<<<<<<<<
- *         self.saveDialog.setRange(self.tw_reportTable.rowCount() * self.tw_reportTable.columnCount())
- *         self.saveDialog.show()
- */
+  
   __pyx_codeobj__143 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__76, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_main_py, __pyx_n_s_save, 948, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__143)) __PYX_ERR(0, 948, __pyx_L1_error)
 
-  /* "main.py":955
- *         self.reportSave.start()
- * 
- *     def saveDialog(self, msg):             # <<<<<<<<<<<<<<
- *         if msg == 'upd':
- *             self.saveDialog.add()
- */
+  
   __pyx_tuple__144 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_msg); if (unlikely(!__pyx_tuple__144)) __PYX_ERR(0, 955, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__144);
   __Pyx_GIVEREF(__pyx_tuple__144);
   __pyx_codeobj__145 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__144, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_main_py, __pyx_n_s_saveDialog, 955, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__145)) __PYX_ERR(0, 955, __pyx_L1_error)
 
-  /* "main.py":963
- * 
- * class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor, QSize, QSizePolicy, QHeaderView, QGridLayout):
- *     def __init__(self):             # <<<<<<<<<<<<<<
- *         super(MainWindow, self).__init__()
- *         self.setupUi(self)
- */
+  
   __pyx_codeobj__146 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__76, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_main_py, __pyx_n_s_init, 963, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__146)) __PYX_ERR(0, 963, __pyx_L1_error)
 
-  /* "main.py":1025
- *         self.setTheme()
- * 
- *     def resizeable(self):             # <<<<<<<<<<<<<<
- * 
- *         verLayout = QVBoxLayout()
- */
+  
   __pyx_codeobj__147 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 6, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__125, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_main_py, __pyx_n_s_resizeable, 1025, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__147)) __PYX_ERR(0, 1025, __pyx_L1_error)
 
-  /* "main.py":1047
- *         self.centralwidget.setLayout(verLayout)
- * 
- *     def setTheme(self):             # <<<<<<<<<<<<<<
- *         if self.theme == "Light":
- *             style = """
- */
+  
   __pyx_codeobj__148 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__101, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_main_py, __pyx_n_s_setTheme, 1047, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__148)) __PYX_ERR(0, 1047, __pyx_L1_error)
 
-  /* "main.py":1233
- *             self.theme = "Light"
- * 
- *     def setTable(self):             # <<<<<<<<<<<<<<
- * 
- *         self.tw_table.setRowCount(12)
- */
+  
   __pyx_tuple__149 = PyTuple_Pack(5, __pyx_n_s_self, __pyx_n_s_i, __pyx_n_s_monthTyple, __pyx_n_s_verHeader, __pyx_n_s_horHeader); if (unlikely(!__pyx_tuple__149)) __PYX_ERR(0, 1233, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__149);
   __Pyx_GIVEREF(__pyx_tuple__149);
   __pyx_codeobj__150 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__149, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_main_py, __pyx_n_s_setTable, 1233, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__150)) __PYX_ERR(0, 1233, __pyx_L1_error)
 
-  /* "main.py":1261
- *             horHeader.setSectionResizeMode(i, QHeaderView.ResizeMode.Stretch)
- * 
- *     def fetchTables(self):             # <<<<<<<<<<<<<<
- * 
- *         def makeAct(name, item):
- */
+  
   __pyx_tuple__151 = PyTuple_Pack(12, __pyx_n_s_self, __pyx_n_s_makeAct, __pyx_n_s_makeAct, __pyx_n_s_tableChange, __pyx_n_s_tableChange, __pyx_n_s_connect, __pyx_n_s_cursor, __pyx_n_s_tableList, __pyx_n_s_indexCount, __pyx_n_s_item, __pyx_n_s_clearItem, __pyx_n_s_i); if (unlikely(!__pyx_tuple__151)) __PYX_ERR(0, 1261, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__151);
   __Pyx_GIVEREF(__pyx_tuple__151);
   __pyx_codeobj__152 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 12, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__151, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_main_py, __pyx_n_s_fetchTables, 1261, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__152)) __PYX_ERR(0, 1261, __pyx_L1_error)
 
-  /* "main.py":1304
- *         indexCount = 0
- * 
- *     def updateTableList(self):             # <<<<<<<<<<<<<<
- *         self.changeMenu.clear()
- *         self.fetchTables()
- */
+  
   __pyx_codeobj__153 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__76, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_main_py, __pyx_n_s_updateTableList, 1304, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__153)) __PYX_ERR(0, 1304, __pyx_L1_error)
 
-  /* "main.py":1308
- *         self.fetchTables()
- * 
- *     def savingDialog(self, msg):             # <<<<<<<<<<<<<<
- *         if msg == 'upd':
- *             self.saveDialog.add()
- */
+  
   __pyx_codeobj__154 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__144, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_main_py, __pyx_n_s_savingDialog, 1308, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__154)) __PYX_ERR(0, 1308, __pyx_L1_error)
 
-  /* "main.py":1314
- *             self.saveDialog.close()
- * 
- *     def save(self, uselessArg):             # <<<<<<<<<<<<<<
- *         self.saveDialog.show()
- *         self.saveDialog.setRange(self.tw_table.columnCount() * self.tw_table.rowCount())
- */
+  
   __pyx_tuple__155 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_uselessArg); if (unlikely(!__pyx_tuple__155)) __PYX_ERR(0, 1314, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__155);
   __Pyx_GIVEREF(__pyx_tuple__155);
   __pyx_codeobj__156 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__155, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_main_py, __pyx_n_s_save, 1314, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__156)) __PYX_ERR(0, 1314, __pyx_L1_error)
 
-  /* "main.py":1321
- *         self.saveThread.start()
- * 
- *     def read(self):             # <<<<<<<<<<<<<<
- *         self.readThread.setTableName(self.tableName)
- *         self.readThread.start()
- */
+  
   __pyx_codeobj__157 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__76, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_main_py, __pyx_n_s_read, 1321, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__157)) __PYX_ERR(0, 1321, __pyx_L1_error)
 
-  /* "main.py":1325
- *         self.readThread.start()
- * 
- *     def write(self, row, column, red, green, blue, notes):             # <<<<<<<<<<<<<<
- *         self.tw_table.setItem(row, column, QTableWidgetItem())
- * 
- */
+  
   __pyx_tuple__158 = PyTuple_Pack(7, __pyx_n_s_self, __pyx_n_s_row, __pyx_n_s_column, __pyx_n_s_red, __pyx_n_s_green, __pyx_n_s_blue, __pyx_n_s_notes); if (unlikely(!__pyx_tuple__158)) __PYX_ERR(0, 1325, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__158);
   __Pyx_GIVEREF(__pyx_tuple__158);
   __pyx_codeobj__159 = (PyObject*)__Pyx_PyCode_New(7, 0, 0, 7, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__158, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_main_py, __pyx_n_s_write, 1325, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__159)) __PYX_ERR(0, 1325, __pyx_L1_error)
 
-  /* "main.py":1334
- *             self.tw_table.item(row, column).setToolTip(notes)
- * 
- *     def clear(self, row, column):             # <<<<<<<<<<<<<<
- *         self.tw_table.setItem(row, column, None)
- * 
- */
+  
   __pyx_tuple__160 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_row, __pyx_n_s_column); if (unlikely(!__pyx_tuple__160)) __PYX_ERR(0, 1334, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__160);
   __Pyx_GIVEREF(__pyx_tuple__160);
   __pyx_codeobj__161 = (PyObject*)__Pyx_PyCode_New(3, 0, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__160, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_main_py, __pyx_n_s_clear, 1334, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__161)) __PYX_ERR(0, 1334, __pyx_L1_error)
 
-  /* "main.py":1337
- *         self.tw_table.setItem(row, column, None)
- * 
- *     def report(self, uselessArg):             # <<<<<<<<<<<<<<
- *         self.save(uselessArg)
- *         self.reportOpenAllow = True
- */
+  
   __pyx_codeobj__162 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__155, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_main_py, __pyx_n_s_report, 1337, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__162)) __PYX_ERR(0, 1337, __pyx_L1_error)
 
-  /* "main.py":1341
- *         self.reportOpenAllow = True
- * 
- *     def reportOpen(self):             # <<<<<<<<<<<<<<
- *         if self.reportOpenAllow and self.saveThread.finished:
- *             self.reportDialog.set(self.tw_table, self.tableName)
- */
+  
   __pyx_codeobj__163 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__76, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_main_py, __pyx_n_s_reportOpen, 1341, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__163)) __PYX_ERR(0, 1341, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
@@ -41534,7 +35842,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_RefNannyFinishContext();
   return -1;
 }
-/* #### Code section: init_constants ### */
+
 
 static CYTHON_SMALL_CODE int __Pyx_InitConstants(void) {
   if (__Pyx_CreateStringTabAndInitStrings() < 0) __PYX_ERR(0, 1, __pyx_L1_error);
@@ -41585,25 +35893,25 @@ static CYTHON_SMALL_CODE int __Pyx_InitConstants(void) {
   __pyx_L1_error:;
   return -1;
 }
-/* #### Code section: init_globals ### */
+
 
 static CYTHON_SMALL_CODE int __Pyx_InitGlobals(void) {
   return 0;
 }
-/* #### Code section: init_module ### */
 
-static CYTHON_SMALL_CODE int __Pyx_modinit_global_init_code(void); /*proto*/
-static CYTHON_SMALL_CODE int __Pyx_modinit_variable_export_code(void); /*proto*/
-static CYTHON_SMALL_CODE int __Pyx_modinit_function_export_code(void); /*proto*/
-static CYTHON_SMALL_CODE int __Pyx_modinit_type_init_code(void); /*proto*/
-static CYTHON_SMALL_CODE int __Pyx_modinit_type_import_code(void); /*proto*/
-static CYTHON_SMALL_CODE int __Pyx_modinit_variable_import_code(void); /*proto*/
-static CYTHON_SMALL_CODE int __Pyx_modinit_function_import_code(void); /*proto*/
+
+static CYTHON_SMALL_CODE int __Pyx_modinit_global_init_code(void); 
+static CYTHON_SMALL_CODE int __Pyx_modinit_variable_export_code(void); 
+static CYTHON_SMALL_CODE int __Pyx_modinit_function_export_code(void); 
+static CYTHON_SMALL_CODE int __Pyx_modinit_type_init_code(void); 
+static CYTHON_SMALL_CODE int __Pyx_modinit_type_import_code(void); 
+static CYTHON_SMALL_CODE int __Pyx_modinit_variable_import_code(void); 
+static CYTHON_SMALL_CODE int __Pyx_modinit_function_import_code(void); 
 
 static int __Pyx_modinit_global_init_code(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_modinit_global_init_code", 0);
-  /*--- Global init code ---*/
+  
   __Pyx_RefNannyFinishContext();
   return 0;
 }
@@ -41611,7 +35919,7 @@ static int __Pyx_modinit_global_init_code(void) {
 static int __Pyx_modinit_variable_export_code(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_modinit_variable_export_code", 0);
-  /*--- Variable export code ---*/
+  
   __Pyx_RefNannyFinishContext();
   return 0;
 }
@@ -41619,7 +35927,7 @@ static int __Pyx_modinit_variable_export_code(void) {
 static int __Pyx_modinit_function_export_code(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_modinit_function_export_code", 0);
-  /*--- Function export code ---*/
+  
   __Pyx_RefNannyFinishContext();
   return 0;
 }
@@ -41630,7 +35938,7 @@ static int __Pyx_modinit_type_init_code(void) {
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__Pyx_modinit_type_init_code", 0);
-  /*--- Type init code ---*/
+  
   #if CYTHON_USE_TYPE_SPECS
   __pyx_ptype_6ver1_3_4main___pyx_scope_struct__run = (PyTypeObject *) __Pyx_PyType_FromModuleAndSpec(__pyx_m, &__pyx_type_6ver1_3_4main___pyx_scope_struct__run_spec, NULL); if (unlikely(!__pyx_ptype_6ver1_3_4main___pyx_scope_struct__run)) __PYX_ERR(0, 195, __pyx_L1_error)
   if (__Pyx_fix_up_extension_type_from_spec(&__pyx_type_6ver1_3_4main___pyx_scope_struct__run_spec, __pyx_ptype_6ver1_3_4main___pyx_scope_struct__run) < 0) __PYX_ERR(0, 195, __pyx_L1_error)
@@ -41812,7 +36120,7 @@ static int __Pyx_modinit_type_init_code(void) {
 static int __Pyx_modinit_type_import_code(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_modinit_type_import_code", 0);
-  /*--- Type import code ---*/
+  
   __Pyx_RefNannyFinishContext();
   return 0;
 }
@@ -41820,7 +36128,7 @@ static int __Pyx_modinit_type_import_code(void) {
 static int __Pyx_modinit_variable_import_code(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_modinit_variable_import_code", 0);
-  /*--- Variable import code ---*/
+  
   __Pyx_RefNannyFinishContext();
   return 0;
 }
@@ -41828,7 +36136,7 @@ static int __Pyx_modinit_variable_import_code(void) {
 static int __Pyx_modinit_function_import_code(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_modinit_function_import_code", 0);
-  /*--- Function import code ---*/
+  
   __Pyx_RefNannyFinishContext();
   return 0;
 }
@@ -41836,8 +36144,8 @@ static int __Pyx_modinit_function_import_code(void) {
 
 #if PY_MAJOR_VERSION >= 3
 #if CYTHON_PEP489_MULTI_PHASE_INIT
-static PyObject* __pyx_pymod_create(PyObject *spec, PyModuleDef *def); /*proto*/
-static int __pyx_pymod_exec_main(PyObject* module); /*proto*/
+static PyObject* __pyx_pymod_create(PyObject *spec, PyModuleDef *def); 
+static int __pyx_pymod_exec_main(PyObject* module); 
 static PyModuleDef_Slot __pyx_moduledef_slots[] = {
   {Py_mod_create, (void*)__pyx_pymod_create},
   {Py_mod_exec, (void*)__pyx_pymod_exec_main},
@@ -41854,32 +36162,32 @@ namespace {
   {
       PyModuleDef_HEAD_INIT,
       "main",
-      0, /* m_doc */
+      0, 
     #if CYTHON_PEP489_MULTI_PHASE_INIT
-      0, /* m_size */
+      0, 
     #elif CYTHON_USE_MODULE_STATE
-      sizeof(__pyx_mstate), /* m_size */
+      sizeof(__pyx_mstate), 
     #else
-      -1, /* m_size */
+      -1, 
     #endif
-      __pyx_methods /* m_methods */,
+      __pyx_methods ,
     #if CYTHON_PEP489_MULTI_PHASE_INIT
-      __pyx_moduledef_slots, /* m_slots */
+      __pyx_moduledef_slots, 
     #else
-      NULL, /* m_reload */
+      NULL, 
     #endif
     #if CYTHON_USE_MODULE_STATE
-      __pyx_m_traverse, /* m_traverse */
-      __pyx_m_clear, /* m_clear */
-      NULL /* m_free */
+      __pyx_m_traverse, 
+      __pyx_m_clear, 
+      NULL 
     #else
-      NULL, /* m_traverse */
-      NULL, /* m_clear */
-      NULL /* m_free */
+      NULL, 
+      NULL, 
+      NULL 
     #endif
   };
   #ifdef __cplusplus
-} /* anonymous namespace */
+} 
 #endif
 #endif
 
@@ -41901,10 +36209,10 @@ namespace {
 
 
 #if PY_MAJOR_VERSION < 3
-__Pyx_PyMODINIT_FUNC initmain(void) CYTHON_SMALL_CODE; /*proto*/
+__Pyx_PyMODINIT_FUNC initmain(void) CYTHON_SMALL_CODE; 
 __Pyx_PyMODINIT_FUNC initmain(void)
 #else
-__Pyx_PyMODINIT_FUNC PyInit_main(void) CYTHON_SMALL_CODE; /*proto*/
+__Pyx_PyMODINIT_FUNC PyInit_main(void) CYTHON_SMALL_CODE; 
 __Pyx_PyMODINIT_FUNC PyInit_main(void)
 #if CYTHON_PEP489_MULTI_PHASE_INIT
 {
@@ -42018,7 +36326,7 @@ static CYTHON_SMALL_CODE int __pyx_pymod_exec_main(PyObject *__pyx_pyinit_module
   #elif PY_MAJOR_VERSION >= 3
   if (__pyx_m) return __Pyx_NewRef(__pyx_m);
   #endif
-  /*--- Module creation code ---*/
+  
   #if CYTHON_PEP489_MULTI_PHASE_INIT
   __pyx_m = __pyx_pyinit_module;
   Py_INCREF(__pyx_m);
@@ -42030,7 +36338,7 @@ static CYTHON_SMALL_CODE int __pyx_pymod_exec_main(PyObject *__pyx_pyinit_module
   __pyx_t_1 = PyModule_Create(&__pyx_moduledef); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1, __pyx_L1_error)
   {
     int add_module_result = PyState_AddModule(__pyx_t_1, &__pyx_moduledef);
-    __pyx_t_1 = 0; /* transfer ownership from __pyx_t_1 to main pseudovariable */
+    __pyx_t_1 = 0; 
     if (unlikely((add_module_result < 0))) __PYX_ERR(0, 1, __pyx_L1_error)
     pystate_addmodule_run = 1;
   }
@@ -42082,12 +36390,12 @@ if (!__Pyx_RefNanny) {
   #ifdef __Pyx_StopAsyncIteration_USED
   if (__pyx_StopAsyncIteration_init(__pyx_m) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   #endif
-  /*--- Library function declarations ---*/
-  /*--- Threads initialization code ---*/
+  
+  
   #if defined(WITH_THREAD) && PY_VERSION_HEX < 0x030700F0 && defined(__PYX_FORCE_INIT_THREADS) && __PYX_FORCE_INIT_THREADS
   PyEval_InitThreads();
   #endif
-  /*--- Initialize various global constants etc. ---*/
+  
   if (__Pyx_InitConstants() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   stringtab_initialized = 1;
   if (__Pyx_InitGlobals() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
@@ -42105,11 +36413,11 @@ if (!__Pyx_RefNanny) {
     }
   }
   #endif
-  /*--- Builtin init code ---*/
+  
   if (__Pyx_InitCachedBuiltins() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
-  /*--- Constants init code ---*/
+  
   if (__Pyx_InitCachedConstants() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
-  /*--- Global type/function init code ---*/
+  
   (void)__Pyx_modinit_global_init_code();
   (void)__Pyx_modinit_variable_export_code();
   (void)__Pyx_modinit_function_export_code();
@@ -42117,27 +36425,18 @@ if (!__Pyx_RefNanny) {
   (void)__Pyx_modinit_type_import_code();
   (void)__Pyx_modinit_variable_import_code();
   (void)__Pyx_modinit_function_import_code();
-  /*--- Execution code ---*/
+  
   #if defined(__Pyx_Generator_USED) || defined(__Pyx_Coroutine_USED)
   if (__Pyx_patch_abc() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   #endif
 
-  /* "main.py":1
- * import sys             # <<<<<<<<<<<<<<
- * from PyQt6 import QtWidgets, QtCore, QtGui
- * from PyQt6.QtWidgets import *
- */
+  
   __pyx_t_2 = __Pyx_ImportDottedModule(__pyx_n_s_sys, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_sys, __pyx_t_2) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "main.py":2
- * import sys
- * from PyQt6 import QtWidgets, QtCore, QtGui             # <<<<<<<<<<<<<<
- * from PyQt6.QtWidgets import *
- * from PyQt6.QtCore import *
- */
+  
   __pyx_t_2 = PyList_New(3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 2, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_INCREF(__pyx_n_s_QtWidgets);
@@ -42166,13 +36465,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "main.py":3
- * import sys
- * from PyQt6 import QtWidgets, QtCore, QtGui
- * from PyQt6.QtWidgets import *             # <<<<<<<<<<<<<<
- * from PyQt6.QtCore import *
- * from PyQt6.QtGui import *
- */
+  
   __pyx_t_3 = PyList_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 3, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_INCREF(__pyx_n_s__75);
@@ -42184,13 +36477,7 @@ if (!__Pyx_RefNanny) {
   if (__pyx_import_star(__pyx_t_2) < 0) __PYX_ERR(0, 3, __pyx_L1_error);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "main.py":4
- * from PyQt6 import QtWidgets, QtCore, QtGui
- * from PyQt6.QtWidgets import *
- * from PyQt6.QtCore import *             # <<<<<<<<<<<<<<
- * from PyQt6.QtGui import *
- * 
- */
+  
   __pyx_t_2 = PyList_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_INCREF(__pyx_n_s__75);
@@ -42202,13 +36489,7 @@ if (!__Pyx_RefNanny) {
   if (__pyx_import_star(__pyx_t_3) < 0) __PYX_ERR(0, 4, __pyx_L1_error);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "main.py":5
- * from PyQt6.QtWidgets import *
- * from PyQt6.QtCore import *
- * from PyQt6.QtGui import *             # <<<<<<<<<<<<<<
- * 
- * #
- */
+  
   __pyx_t_3 = PyList_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_INCREF(__pyx_n_s__75);
@@ -42220,106 +36501,52 @@ if (!__Pyx_RefNanny) {
   if (__pyx_import_star(__pyx_t_2) < 0) __PYX_ERR(0, 5, __pyx_L1_error);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "main.py":8
- * 
- * #
- * import mainUI             # <<<<<<<<<<<<<<
- * import reportUI
- * import editDialogUI
- */
+  
   __pyx_t_2 = __Pyx_ImportDottedModule(__pyx_n_s_mainUI, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 8, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_mainUI, __pyx_t_2) < 0) __PYX_ERR(0, 8, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "main.py":9
- * #
- * import mainUI
- * import reportUI             # <<<<<<<<<<<<<<
- * import editDialogUI
- * import saveDialogUI
- */
+  
   __pyx_t_2 = __Pyx_ImportDottedModule(__pyx_n_s_reportUI, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 9, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_reportUI, __pyx_t_2) < 0) __PYX_ERR(0, 9, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "main.py":10
- * import mainUI
- * import reportUI
- * import editDialogUI             # <<<<<<<<<<<<<<
- * import saveDialogUI
- * import createDialogUI
- */
+  
   __pyx_t_2 = __Pyx_ImportDottedModule(__pyx_n_s_editDialogUI, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 10, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_editDialogUI, __pyx_t_2) < 0) __PYX_ERR(0, 10, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "main.py":11
- * import reportUI
- * import editDialogUI
- * import saveDialogUI             # <<<<<<<<<<<<<<
- * import createDialogUI
- * import deleteDialogUI
- */
+  
   __pyx_t_2 = __Pyx_ImportDottedModule(__pyx_n_s_saveDialogUI, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 11, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_saveDialogUI, __pyx_t_2) < 0) __PYX_ERR(0, 11, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "main.py":12
- * import editDialogUI
- * import saveDialogUI
- * import createDialogUI             # <<<<<<<<<<<<<<
- * import deleteDialogUI
- * 
- */
+  
   __pyx_t_2 = __Pyx_ImportDottedModule(__pyx_n_s_createDialogUI, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 12, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_createDialogUI, __pyx_t_2) < 0) __PYX_ERR(0, 12, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "main.py":13
- * import saveDialogUI
- * import createDialogUI
- * import deleteDialogUI             # <<<<<<<<<<<<<<
- * 
- * #
- */
+  
   __pyx_t_2 = __Pyx_ImportDottedModule(__pyx_n_s_deleteDialogUI, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 13, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_deleteDialogUI, __pyx_t_2) < 0) __PYX_ERR(0, 13, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "main.py":16
- * 
- * #
- * import sqlite3             # <<<<<<<<<<<<<<
- * 
- * VERSIONPATH = 'ver1_3'
- */
+  
   __pyx_t_2 = __Pyx_ImportDottedModule(__pyx_n_s_sqlite3, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 16, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_sqlite3, __pyx_t_2) < 0) __PYX_ERR(0, 16, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "main.py":18
- * import sqlite3
- * 
- * VERSIONPATH = 'ver1_3'             # <<<<<<<<<<<<<<
- * 
- * 
- */
+  
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_VERSIONPATH, __pyx_n_s_ver1_3) < 0) __PYX_ERR(0, 18, __pyx_L1_error)
 
-  /* "main.py":21
- * 
- * 
- * class ReadThread(QThread):             # <<<<<<<<<<<<<<
- *     # row, column, color(r, g, b), note
- *     s_data = QtCore.pyqtSignal(int, int, int, int, int, str)
- */
+  
   __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_QThread); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 21, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 21, __pyx_L1_error)
@@ -42338,13 +36565,7 @@ if (!__Pyx_RefNanny) {
   }
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "main.py":23
- * class ReadThread(QThread):
- *     # row, column, color(r, g, b), note
- *     s_data = QtCore.pyqtSignal(int, int, int, int, int, str)             # <<<<<<<<<<<<<<
- * 
- *     def  __init__(self):
- */
+  
   __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_QtCore); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 23, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_pyqtSignal); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 23, __pyx_L1_error)
@@ -42375,49 +36596,25 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_5, __pyx_n_s_s_data, __pyx_t_3) < 0) __PYX_ERR(0, 23, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "main.py":25
- *     s_data = QtCore.pyqtSignal(int, int, int, int, int, str)
- * 
- *     def  __init__(self):             # <<<<<<<<<<<<<<
- *         QtCore.QThread.__init__(self)
- * 
- */
+  
   __pyx_t_3 = __Pyx_CyFunction_New(&__pyx_mdef_6ver1_3_4main_10ReadThread_1__init__, 0, __pyx_n_s_ReadThread___init, NULL, __pyx_n_s_ver1_3_main, __pyx_d, ((PyObject *)__pyx_codeobj__77)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 25, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   if (__Pyx_SetNameInClass(__pyx_t_5, __pyx_n_s_init, __pyx_t_3) < 0) __PYX_ERR(0, 25, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "main.py":30
- *         self.tableName = None
- * 
- *     def setTableName(self, tableName):             # <<<<<<<<<<<<<<
- *         self.tableName = tableName
- * 
- */
+  
   __pyx_t_3 = __Pyx_CyFunction_New(&__pyx_mdef_6ver1_3_4main_10ReadThread_3setTableName, 0, __pyx_n_s_ReadThread_setTableName, NULL, __pyx_n_s_ver1_3_main, __pyx_d, ((PyObject *)__pyx_codeobj__79)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 30, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   if (__Pyx_SetNameInClass(__pyx_t_5, __pyx_n_s_setTableName, __pyx_t_3) < 0) __PYX_ERR(0, 30, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "main.py":33
- *         self.tableName = tableName
- * 
- *     def run(self):             # <<<<<<<<<<<<<<
- * 
- *         connect = sqlite3.connect(f"{VERSIONPATH}/database/d.db")
- */
+  
   __pyx_t_3 = __Pyx_CyFunction_New(&__pyx_mdef_6ver1_3_4main_10ReadThread_5run, 0, __pyx_n_s_ReadThread_run, NULL, __pyx_n_s_ver1_3_main, __pyx_d, ((PyObject *)__pyx_codeobj__81)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 33, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   if (__Pyx_SetNameInClass(__pyx_t_5, __pyx_n_s_run, __pyx_t_3) < 0) __PYX_ERR(0, 33, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "main.py":21
- * 
- * 
- * class ReadThread(QThread):             # <<<<<<<<<<<<<<
- *     # row, column, color(r, g, b), note
- *     s_data = QtCore.pyqtSignal(int, int, int, int, int, str)
- */
+  
   __pyx_t_3 = __Pyx_Py3ClassCreate(__pyx_t_4, __pyx_n_s_ReadThread, __pyx_t_2, __pyx_t_5, NULL, 0, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 21, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_ReadThread, __pyx_t_3) < 0) __PYX_ERR(0, 21, __pyx_L1_error)
@@ -42426,13 +36623,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "main.py":104
- * 
- * 
- * class SaveThread(QThread):             # <<<<<<<<<<<<<<
- *     s_update = QtCore.pyqtSignal(str)
- * 
- */
+  
   __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_QThread); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 104, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 104, __pyx_L1_error)
@@ -42451,13 +36642,7 @@ if (!__Pyx_RefNanny) {
   }
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "main.py":105
- * 
- * class SaveThread(QThread):
- *     s_update = QtCore.pyqtSignal(str)             # <<<<<<<<<<<<<<
- * 
- *     def  __init__(self):
- */
+  
   __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_QtCore); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 105, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_pyqtSignal); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 105, __pyx_L1_error)
@@ -42488,49 +36673,25 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_s_update, __pyx_t_4) < 0) __PYX_ERR(0, 105, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "main.py":107
- *     s_update = QtCore.pyqtSignal(str)
- * 
- *     def  __init__(self):             # <<<<<<<<<<<<<<
- *         QtCore.QThread.__init__(self)
- * 
- */
+  
   __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_6ver1_3_4main_10SaveThread_1__init__, 0, __pyx_n_s_SaveThread___init, NULL, __pyx_n_s_ver1_3_main, __pyx_d, ((PyObject *)__pyx_codeobj__82)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 107, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_init, __pyx_t_4) < 0) __PYX_ERR(0, 107, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "main.py":113
- *         self.table = None
- * 
- *     def set(self, tableName, table):             # <<<<<<<<<<<<<<
- *         self.tableName = tableName
- *         self.table = table
- */
+  
   __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_6ver1_3_4main_10SaveThread_3set, 0, __pyx_n_s_SaveThread_set, NULL, __pyx_n_s_ver1_3_main, __pyx_d, ((PyObject *)__pyx_codeobj__84)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 113, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_set, __pyx_t_4) < 0) __PYX_ERR(0, 113, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "main.py":117
- *         self.table = table
- * 
- *     def run(self):             # <<<<<<<<<<<<<<
- * 
- *         connect = sqlite3.connect(f"{VERSIONPATH}/database/d.db")
- */
+  
   __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_6ver1_3_4main_10SaveThread_5run, 0, __pyx_n_s_SaveThread_run, NULL, __pyx_n_s_ver1_3_main, __pyx_d, ((PyObject *)__pyx_codeobj__86)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 117, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_run, __pyx_t_4) < 0) __PYX_ERR(0, 117, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "main.py":104
- * 
- * 
- * class SaveThread(QThread):             # <<<<<<<<<<<<<<
- *     s_update = QtCore.pyqtSignal(str)
- * 
- */
+  
   __pyx_t_4 = __Pyx_Py3ClassCreate(__pyx_t_5, __pyx_n_s_SaveThread, __pyx_t_2, __pyx_t_3, NULL, 0, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 104, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_SaveThread, __pyx_t_4) < 0) __PYX_ERR(0, 104, __pyx_L1_error)
@@ -42539,13 +36700,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "main.py":181
- * 
- * 
- * class SaveReportThread(QThread):             # <<<<<<<<<<<<<<
- *     s_updPB = QtCore.pyqtSignal(str)
- * 
- */
+  
   __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_QThread); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 181, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_5 = PyTuple_New(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 181, __pyx_L1_error)
@@ -42564,13 +36719,7 @@ if (!__Pyx_RefNanny) {
   }
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "main.py":182
- * 
- * class SaveReportThread(QThread):
- *     s_updPB = QtCore.pyqtSignal(str)             # <<<<<<<<<<<<<<
- * 
- *     def  __init__(self):
- */
+  
   __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_QtCore); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 182, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_pyqtSignal); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 182, __pyx_L1_error)
@@ -42601,49 +36750,25 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_4, __pyx_n_s_s_updPB, __pyx_t_5) < 0) __PYX_ERR(0, 182, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "main.py":184
- *     s_updPB = QtCore.pyqtSignal(str)
- * 
- *     def  __init__(self):             # <<<<<<<<<<<<<<
- *         QtCore.QThread.__init__(self)
- * 
- */
+  
   __pyx_t_5 = __Pyx_CyFunction_New(&__pyx_mdef_6ver1_3_4main_16SaveReportThread_1__init__, 0, __pyx_n_s_SaveReportThread___init, NULL, __pyx_n_s_ver1_3_main, __pyx_d, ((PyObject *)__pyx_codeobj__87)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 184, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   if (__Pyx_SetNameInClass(__pyx_t_4, __pyx_n_s_init, __pyx_t_5) < 0) __PYX_ERR(0, 184, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "main.py":191
- *         self.date = None
- * 
- *     def set(self, tableName, table):             # <<<<<<<<<<<<<<
- *         self.tableName = tableName
- *         self.table = table
- */
+  
   __pyx_t_5 = __Pyx_CyFunction_New(&__pyx_mdef_6ver1_3_4main_16SaveReportThread_3set, 0, __pyx_n_s_SaveReportThread_set, NULL, __pyx_n_s_ver1_3_main, __pyx_d, ((PyObject *)__pyx_codeobj__88)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 191, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   if (__Pyx_SetNameInClass(__pyx_t_4, __pyx_n_s_set, __pyx_t_5) < 0) __PYX_ERR(0, 191, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "main.py":195
- *         self.table = table
- * 
- *     def run(self):             # <<<<<<<<<<<<<<
- *         def standartSave(nameInDB):
- *             item = cell.text()
- */
+  
   __pyx_t_5 = __Pyx_CyFunction_New(&__pyx_mdef_6ver1_3_4main_16SaveReportThread_5run, 0, __pyx_n_s_SaveReportThread_run, NULL, __pyx_n_s_ver1_3_main, __pyx_d, ((PyObject *)__pyx_codeobj__90)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 195, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   if (__Pyx_SetNameInClass(__pyx_t_4, __pyx_n_s_run, __pyx_t_5) < 0) __PYX_ERR(0, 195, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "main.py":181
- * 
- * 
- * class SaveReportThread(QThread):             # <<<<<<<<<<<<<<
- *     s_updPB = QtCore.pyqtSignal(str)
- * 
- */
+  
   __pyx_t_5 = __Pyx_Py3ClassCreate(__pyx_t_3, __pyx_n_s_SaveReportThread, __pyx_t_2, __pyx_t_4, NULL, 0, 0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 181, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_SaveReportThread, __pyx_t_5) < 0) __PYX_ERR(0, 181, __pyx_L1_error)
@@ -42652,13 +36777,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "main.py":252
- * 
- * 
- * class ReadReportThread(QThread):             # <<<<<<<<<<<<<<
- *     s_readedData = QtCore.pyqtSignal(int, int, str)
- * 
- */
+  
   __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_QThread); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 252, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 252, __pyx_L1_error)
@@ -42677,13 +36796,7 @@ if (!__Pyx_RefNanny) {
   }
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "main.py":253
- * 
- * class ReadReportThread(QThread):
- *     s_readedData = QtCore.pyqtSignal(int, int, str)             # <<<<<<<<<<<<<<
- * 
- *     def  __init__(self):
- */
+  
   __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_QtCore); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 253, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_pyqtSignal); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 253, __pyx_L1_error)
@@ -42714,49 +36827,25 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_5, __pyx_n_s_s_readedData, __pyx_t_3) < 0) __PYX_ERR(0, 253, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "main.py":255
- *     s_readedData = QtCore.pyqtSignal(int, int, str)
- * 
- *     def  __init__(self):             # <<<<<<<<<<<<<<
- *         QtCore.QThread.__init__(self)
- * 
- */
+  
   __pyx_t_3 = __Pyx_CyFunction_New(&__pyx_mdef_6ver1_3_4main_16ReadReportThread_1__init__, 0, __pyx_n_s_ReadReportThread___init, NULL, __pyx_n_s_ver1_3_main, __pyx_d, ((PyObject *)__pyx_codeobj__91)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 255, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   if (__Pyx_SetNameInClass(__pyx_t_5, __pyx_n_s_init, __pyx_t_3) < 0) __PYX_ERR(0, 255, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "main.py":262
- *         self.date = None
- * 
- *     def set(self, tableName, table):             # <<<<<<<<<<<<<<
- *         self.tableName = tableName
- *         self.table = table
- */
+  
   __pyx_t_3 = __Pyx_CyFunction_New(&__pyx_mdef_6ver1_3_4main_16ReadReportThread_3set, 0, __pyx_n_s_ReadReportThread_set, NULL, __pyx_n_s_ver1_3_main, __pyx_d, ((PyObject *)__pyx_codeobj__92)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 262, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   if (__Pyx_SetNameInClass(__pyx_t_5, __pyx_n_s_set, __pyx_t_3) < 0) __PYX_ERR(0, 262, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "main.py":266
- *         self.table = table
- * 
- *     def run(self):             # <<<<<<<<<<<<<<
- *         def standartRead(nameInDB, row, column):
- *             cursor.execute(f"SELECT {nameInDB} FROM {self.tableName} WHERE date = ?", (self.date,))
- */
+  
   __pyx_t_3 = __Pyx_CyFunction_New(&__pyx_mdef_6ver1_3_4main_16ReadReportThread_5run, 0, __pyx_n_s_ReadReportThread_run, NULL, __pyx_n_s_ver1_3_main, __pyx_d, ((PyObject *)__pyx_codeobj__94)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 266, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   if (__Pyx_SetNameInClass(__pyx_t_5, __pyx_n_s_run, __pyx_t_3) < 0) __PYX_ERR(0, 266, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "main.py":252
- * 
- * 
- * class ReadReportThread(QThread):             # <<<<<<<<<<<<<<
- *     s_readedData = QtCore.pyqtSignal(int, int, str)
- * 
- */
+  
   __pyx_t_3 = __Pyx_Py3ClassCreate(__pyx_t_4, __pyx_n_s_ReadReportThread, __pyx_t_2, __pyx_t_5, NULL, 0, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 252, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_ReadReportThread, __pyx_t_3) < 0) __PYX_ERR(0, 252, __pyx_L1_error)
@@ -42765,13 +36854,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "main.py":314
- * 
- * 
- * class SumReportThread(QThread):             # <<<<<<<<<<<<<<
- *     s_sumData = QtCore.pyqtSignal(int)
- * 
- */
+  
   __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_QThread); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 314, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 314, __pyx_L1_error)
@@ -42790,13 +36873,7 @@ if (!__Pyx_RefNanny) {
   }
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "main.py":315
- * 
- * class SumReportThread(QThread):
- *     s_sumData = QtCore.pyqtSignal(int)             # <<<<<<<<<<<<<<
- * 
- *     def  __init__(self):
- */
+  
   __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_QtCore); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 315, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_pyqtSignal); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 315, __pyx_L1_error)
@@ -42827,49 +36904,25 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_s_sumData, __pyx_t_4) < 0) __PYX_ERR(0, 315, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "main.py":317
- *     s_sumData = QtCore.pyqtSignal(int)
- * 
- *     def  __init__(self):             # <<<<<<<<<<<<<<
- *         QtCore.QThread.__init__(self)
- * 
- */
+  
   __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_6ver1_3_4main_15SumReportThread_1__init__, 0, __pyx_n_s_SumReportThread___init, NULL, __pyx_n_s_ver1_3_main, __pyx_d, ((PyObject *)__pyx_codeobj__95)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 317, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_init, __pyx_t_4) < 0) __PYX_ERR(0, 317, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "main.py":323
- *         self.columnList = [4, 5, 6, 9]
- * 
- *     def set(self, table):             # <<<<<<<<<<<<<<
- *         self.table = table
- * 
- */
+  
   __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_6ver1_3_4main_15SumReportThread_3set, 0, __pyx_n_s_SumReportThread_set, NULL, __pyx_n_s_ver1_3_main, __pyx_d, ((PyObject *)__pyx_codeobj__97)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 323, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_set, __pyx_t_4) < 0) __PYX_ERR(0, 323, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "main.py":326
- *         self.table = table
- * 
- *     def run(self):             # <<<<<<<<<<<<<<
- * 
- *         for column in self.columnList:
- */
+  
   __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_6ver1_3_4main_15SumReportThread_5run, 0, __pyx_n_s_SumReportThread_run, NULL, __pyx_n_s_ver1_3_main, __pyx_d, ((PyObject *)__pyx_codeobj__99)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 326, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_run, __pyx_t_4) < 0) __PYX_ERR(0, 326, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "main.py":314
- * 
- * 
- * class SumReportThread(QThread):             # <<<<<<<<<<<<<<
- *     s_sumData = QtCore.pyqtSignal(int)
- * 
- */
+  
   __pyx_t_4 = __Pyx_Py3ClassCreate(__pyx_t_5, __pyx_n_s_SumReportThread, __pyx_t_2, __pyx_t_3, NULL, 0, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 314, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_SumReportThread, __pyx_t_4) < 0) __PYX_ERR(0, 314, __pyx_L1_error)
@@ -42878,13 +36931,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "main.py":342
- * 
- * 
- * class SaveDialog(QDialog, saveDialogUI.Ui_Dialog, QSize):             # <<<<<<<<<<<<<<
- *     def __init__(self):
- *         super(SaveDialog, self).__init__()
- */
+  
   __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_QDialog); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 342, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_saveDialogUI); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 342, __pyx_L1_error)
@@ -42916,61 +36963,31 @@ if (!__Pyx_RefNanny) {
   }
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "main.py":343
- * 
- * class SaveDialog(QDialog, saveDialogUI.Ui_Dialog, QSize):
- *     def __init__(self):             # <<<<<<<<<<<<<<
- *         super(SaveDialog, self).__init__()
- *         self.setupUi(self)
- */
+  
   __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_6ver1_3_4main_10SaveDialog_1__init__, 0, __pyx_n_s_SaveDialog___init, NULL, __pyx_n_s_ver1_3_main, __pyx_d, ((PyObject *)__pyx_codeobj__100)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 343, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_init, __pyx_t_4) < 0) __PYX_ERR(0, 343, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "main.py":351
- *         self.setFixedSize(QSize(400, 84))
- * 
- *     def setTheme(self, style):             # <<<<<<<<<<<<<<
- *         self.setStyleSheet(style)
- * 
- */
+  
   __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_6ver1_3_4main_10SaveDialog_3setTheme, 0, __pyx_n_s_SaveDialog_setTheme, NULL, __pyx_n_s_ver1_3_main, __pyx_d, ((PyObject *)__pyx_codeobj__102)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 351, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_setTheme, __pyx_t_4) < 0) __PYX_ERR(0, 351, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "main.py":354
- *         self.setStyleSheet(style)
- * 
- *     def setRange(self, range_):             # <<<<<<<<<<<<<<
- *         self.pb_save.setRange(0, range_)
- * 
- */
+  
   __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_6ver1_3_4main_10SaveDialog_5setRange, 0, __pyx_n_s_SaveDialog_setRange, NULL, __pyx_n_s_ver1_3_main, __pyx_d, ((PyObject *)__pyx_codeobj__104)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 354, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_setRange, __pyx_t_4) < 0) __PYX_ERR(0, 354, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "main.py":357
- *         self.pb_save.setRange(0, range_)
- * 
- *     def add(self):             # <<<<<<<<<<<<<<
- *         self.pb_save.setValue(self.pb_save.value() + 1)
- * 
- */
+  
   __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_6ver1_3_4main_10SaveDialog_7add, 0, __pyx_n_s_SaveDialog_add, NULL, __pyx_n_s_ver1_3_main, __pyx_d, ((PyObject *)__pyx_codeobj__105)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 357, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_add, __pyx_t_4) < 0) __PYX_ERR(0, 357, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "main.py":342
- * 
- * 
- * class SaveDialog(QDialog, saveDialogUI.Ui_Dialog, QSize):             # <<<<<<<<<<<<<<
- *     def __init__(self):
- *         super(SaveDialog, self).__init__()
- */
+  
   __pyx_t_4 = __Pyx_Py3ClassCreate(__pyx_t_3, __pyx_n_s_SaveDialog, __pyx_t_5, __pyx_t_2, NULL, 0, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 342, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_SaveDialog, __pyx_t_4) < 0) __PYX_ERR(0, 342, __pyx_L1_error)
@@ -42979,13 +36996,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "main.py":361
- * 
- * 
- * class CreateDialog(QDialog, createDialogUI.Ui_Dialog, QSize):             # <<<<<<<<<<<<<<
- *     s_upd = QtCore.pyqtSignal()
- * 
- */
+  
   __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_QDialog); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 361, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_createDialogUI); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 361, __pyx_L1_error)
@@ -43017,13 +37028,7 @@ if (!__Pyx_RefNanny) {
   }
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "main.py":362
- * 
- * class CreateDialog(QDialog, createDialogUI.Ui_Dialog, QSize):
- *     s_upd = QtCore.pyqtSignal()             # <<<<<<<<<<<<<<
- * 
- *     def __init__(self):
- */
+  
   __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_QtCore); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 362, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_pyqtSignal); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 362, __pyx_L1_error)
@@ -43054,61 +37059,31 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_5, __pyx_n_s_s_upd, __pyx_t_4) < 0) __PYX_ERR(0, 362, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "main.py":364
- *     s_upd = QtCore.pyqtSignal()
- * 
- *     def __init__(self):             # <<<<<<<<<<<<<<
- *         super(CreateDialog, self).__init__()
- *         self.setupUi(self)
- */
+  
   __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_6ver1_3_4main_12CreateDialog_1__init__, 0, __pyx_n_s_CreateDialog___init, NULL, __pyx_n_s_ver1_3_main, __pyx_d, ((PyObject *)__pyx_codeobj__106)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 364, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (__Pyx_SetNameInClass(__pyx_t_5, __pyx_n_s_init, __pyx_t_4) < 0) __PYX_ERR(0, 364, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "main.py":374
- *         self.btn_create.clicked.connect(self.emitName)
- * 
- *     def setTheme(self, style):             # <<<<<<<<<<<<<<
- *         self.setStyleSheet(style)
- * 
- */
+  
   __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_6ver1_3_4main_12CreateDialog_3setTheme, 0, __pyx_n_s_CreateDialog_setTheme, NULL, __pyx_n_s_ver1_3_main, __pyx_d, ((PyObject *)__pyx_codeobj__107)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 374, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (__Pyx_SetNameInClass(__pyx_t_5, __pyx_n_s_setTheme, __pyx_t_4) < 0) __PYX_ERR(0, 374, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "main.py":377
- *         self.setStyleSheet(style)
- * 
- *     def emitName(self):             # <<<<<<<<<<<<<<
- *         connect = sqlite3.connect(f"{VERSIONPATH}/database/d.db")
- *         cursor = connect.cursor()
- */
+  
   __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_6ver1_3_4main_12CreateDialog_5emitName, 0, __pyx_n_s_CreateDialog_emitName, NULL, __pyx_n_s_ver1_3_main, __pyx_d, ((PyObject *)__pyx_codeobj__109)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 377, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (__Pyx_SetNameInClass(__pyx_t_5, __pyx_n_s_emitName, __pyx_t_4) < 0) __PYX_ERR(0, 377, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "main.py":421
- *             self.alert("    !")
- * 
- *     def alert(self, text, infoText):             # <<<<<<<<<<<<<<
- *         msg = QMessageBox(text=text,parent=self)
- *         msg.setStandardButtons(QMessageBox.StandardButton.Ok)
- */
+  
   __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_6ver1_3_4main_12CreateDialog_7alert, 0, __pyx_n_s_CreateDialog_alert, NULL, __pyx_n_s_ver1_3_main, __pyx_d, ((PyObject *)__pyx_codeobj__111)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 421, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (__Pyx_SetNameInClass(__pyx_t_5, __pyx_n_s_alert, __pyx_t_4) < 0) __PYX_ERR(0, 421, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "main.py":361
- * 
- * 
- * class CreateDialog(QDialog, createDialogUI.Ui_Dialog, QSize):             # <<<<<<<<<<<<<<
- *     s_upd = QtCore.pyqtSignal()
- * 
- */
+  
   __pyx_t_4 = __Pyx_Py3ClassCreate(__pyx_t_2, __pyx_n_s_CreateDialog, __pyx_t_3, __pyx_t_5, NULL, 0, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 361, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_CreateDialog, __pyx_t_4) < 0) __PYX_ERR(0, 361, __pyx_L1_error)
@@ -43117,13 +37092,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "main.py":429
- * 
- * 
- * class EditDialog(QDialog, editDialogUI.Ui_Dialog, QSize):             # <<<<<<<<<<<<<<
- *     # row, column, color(r, g, b), note
- *     s_info = QtCore.pyqtSignal(int, int, int, int, int, str)
- */
+  
   __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_QDialog); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 429, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_editDialogUI); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 429, __pyx_L1_error)
@@ -43155,13 +37124,7 @@ if (!__Pyx_RefNanny) {
   }
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "main.py":431
- * class EditDialog(QDialog, editDialogUI.Ui_Dialog, QSize):
- *     # row, column, color(r, g, b), note
- *     s_info = QtCore.pyqtSignal(int, int, int, int, int, str)             # <<<<<<<<<<<<<<
- * 
- *     def __init__(self):
- */
+  
   __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_QtCore); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 431, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_pyqtSignal); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 431, __pyx_L1_error)
@@ -43192,61 +37155,31 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_s_info, __pyx_t_4) < 0) __PYX_ERR(0, 431, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "main.py":433
- *     s_info = QtCore.pyqtSignal(int, int, int, int, int, str)
- * 
- *     def __init__(self):             # <<<<<<<<<<<<<<
- *         super(EditDialog, self).__init__()
- *         self.setupUi(self)
- */
+  
   __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_6ver1_3_4main_10EditDialog_1__init__, 0, __pyx_n_s_EditDialog___init, NULL, __pyx_n_s_ver1_3_main, __pyx_d, ((PyObject *)__pyx_codeobj__112)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 433, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_init, __pyx_t_4) < 0) __PYX_ERR(0, 433, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "main.py":450
- *         self.notes = None
- * 
- *     def setTheme(self, style):             # <<<<<<<<<<<<<<
- *         self.setStyleSheet(style)
- * 
- */
+  
   __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_6ver1_3_4main_10EditDialog_3setTheme, 0, __pyx_n_s_EditDialog_setTheme, NULL, __pyx_n_s_ver1_3_main, __pyx_d, ((PyObject *)__pyx_codeobj__113)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 450, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_setTheme, __pyx_t_4) < 0) __PYX_ERR(0, 450, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "main.py":453
- *         self.setStyleSheet(style)
- * 
- *     def colorDialog(self):             # <<<<<<<<<<<<<<
- *         self.color = QColorDialog.getColor()
- * 
- */
+  
   __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_6ver1_3_4main_10EditDialog_5colorDialog, 0, __pyx_n_s_EditDialog_colorDialog, NULL, __pyx_n_s_ver1_3_main, __pyx_d, ((PyObject *)__pyx_codeobj__114)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 453, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_colorDialog, __pyx_t_4) < 0) __PYX_ERR(0, 453, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "main.py":456
- *         self.color = QColorDialog.getColor()
- * 
- *     def save(self):             # <<<<<<<<<<<<<<
- *         notes = self.te_notes.toPlainText()
- *         timeIn = self.time_in.time().toString(Qt.DateFormat.ISODate)
- */
+  
   __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_6ver1_3_4main_10EditDialog_7save, 0, __pyx_n_s_EditDialog_save, NULL, __pyx_n_s_ver1_3_main, __pyx_d, ((PyObject *)__pyx_codeobj__116)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 456, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_save, __pyx_t_4) < 0) __PYX_ERR(0, 456, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "main.py":429
- * 
- * 
- * class EditDialog(QDialog, editDialogUI.Ui_Dialog, QSize):             # <<<<<<<<<<<<<<
- *     # row, column, color(r, g, b), note
- *     s_info = QtCore.pyqtSignal(int, int, int, int, int, str)
- */
+  
   __pyx_t_4 = __Pyx_Py3ClassCreate(__pyx_t_5, __pyx_n_s_EditDialog, __pyx_t_2, __pyx_t_3, NULL, 0, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 429, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_EditDialog, __pyx_t_4) < 0) __PYX_ERR(0, 429, __pyx_L1_error)
@@ -43255,13 +37188,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "main.py":503
- * 
- * 
- * class DeleteDialog(QDialog, deleteDialogUI.Ui_Dialog, QSize):             # <<<<<<<<<<<<<<
- *     s_cords = QtCore.pyqtSignal(int, int)
- * 
- */
+  
   __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_QDialog); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 503, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_deleteDialogUI); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 503, __pyx_L1_error)
@@ -43293,13 +37220,7 @@ if (!__Pyx_RefNanny) {
   }
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "main.py":504
- * 
- * class DeleteDialog(QDialog, deleteDialogUI.Ui_Dialog, QSize):
- *     s_cords = QtCore.pyqtSignal(int, int)             # <<<<<<<<<<<<<<
- * 
- *     def __init__(self):
- */
+  
   __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_QtCore); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 504, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_pyqtSignal); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 504, __pyx_L1_error)
@@ -43330,49 +37251,25 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_s_cords, __pyx_t_4) < 0) __PYX_ERR(0, 504, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "main.py":506
- *     s_cords = QtCore.pyqtSignal(int, int)
- * 
- *     def __init__(self):             # <<<<<<<<<<<<<<
- *         super(DeleteDialog, self).__init__()
- *         self.setupUi(self)
- */
+  
   __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_6ver1_3_4main_12DeleteDialog_1__init__, 0, __pyx_n_s_DeleteDialog___init, NULL, __pyx_n_s_ver1_3_main, __pyx_d, ((PyObject *)__pyx_codeobj__117)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 506, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_init, __pyx_t_4) < 0) __PYX_ERR(0, 506, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "main.py":520
- *         self.btn_del.clicked.connect(self.delete)
- * 
- *     def setTheme(self, style):             # <<<<<<<<<<<<<<
- *         self.setStyleSheet(style)
- * 
- */
+  
   __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_6ver1_3_4main_12DeleteDialog_3setTheme, 0, __pyx_n_s_DeleteDialog_setTheme, NULL, __pyx_n_s_ver1_3_main, __pyx_d, ((PyObject *)__pyx_codeobj__118)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 520, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_setTheme, __pyx_t_4) < 0) __PYX_ERR(0, 520, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "main.py":523
- *         self.setStyleSheet(style)
- * 
- *     def delete(self):             # <<<<<<<<<<<<<<
- *         dayOut = self.date_out.date().dayOfYear()
- *         monthCount = self.date_in.date()
- */
+  
   __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_6ver1_3_4main_12DeleteDialog_5delete, 0, __pyx_n_s_DeleteDialog_delete, NULL, __pyx_n_s_ver1_3_main, __pyx_d, ((PyObject *)__pyx_codeobj__120)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 523, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_delete, __pyx_t_4) < 0) __PYX_ERR(0, 523, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "main.py":503
- * 
- * 
- * class DeleteDialog(QDialog, deleteDialogUI.Ui_Dialog, QSize):             # <<<<<<<<<<<<<<
- *     s_cords = QtCore.pyqtSignal(int, int)
- * 
- */
+  
   __pyx_t_4 = __Pyx_Py3ClassCreate(__pyx_t_3, __pyx_n_s_DeleteDialog, __pyx_t_5, __pyx_t_2, NULL, 0, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 503, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_DeleteDialog, __pyx_t_4) < 0) __PYX_ERR(0, 503, __pyx_L1_error)
@@ -43381,13 +37278,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "main.py":558
- * 
- * 
- * class ReportDialog(QMainWindow, reportUI.Ui_MainWindow, QDate):             # <<<<<<<<<<<<<<
- *     def __init__(self):
- *         super(ReportDialog, self).__init__()
- */
+  
   __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_QMainWindow); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 558, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_reportUI); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 558, __pyx_L1_error)
@@ -43419,181 +37310,91 @@ if (!__Pyx_RefNanny) {
   }
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "main.py":559
- * 
- * class ReportDialog(QMainWindow, reportUI.Ui_MainWindow, QDate):
- *     def __init__(self):             # <<<<<<<<<<<<<<
- *         super(ReportDialog, self).__init__()
- *         self.setupUi(self)
- */
+  
   __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_6ver1_3_4main_12ReportDialog_1__init__, 0, __pyx_n_s_ReportDialog___init, NULL, __pyx_n_s_ver1_3_main, __pyx_d, ((PyObject *)__pyx_codeobj__121)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 559, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (__Pyx_SetNameInClass(__pyx_t_5, __pyx_n_s_init, __pyx_t_4) < 0) __PYX_ERR(0, 559, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "main.py":582
- *         self.btn_save.clicked.connect(self.save)
- * 
- *     def setTheme(self, theme, style):             # <<<<<<<<<<<<<<
- *         if theme == "Dark":
- *             self.setStyleSheet(style)
- */
+  
   __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_6ver1_3_4main_12ReportDialog_3setTheme, 0, __pyx_n_s_ReportDialog_setTheme, NULL, __pyx_n_s_ver1_3_main, __pyx_d, ((PyObject *)__pyx_codeobj__123)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 582, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (__Pyx_SetNameInClass(__pyx_t_5, __pyx_n_s_setTheme, __pyx_t_4) < 0) __PYX_ERR(0, 582, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "main.py":671
- *             self.setStyleSheet(style)
- * 
- *     def start(self):             # <<<<<<<<<<<<<<
- * 
- *         self.setTable()
- */
+  
   __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_6ver1_3_4main_12ReportDialog_5start, 0, __pyx_n_s_ReportDialog_start, NULL, __pyx_n_s_ver1_3_main, __pyx_d, ((PyObject *)__pyx_codeobj__124)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 671, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (__Pyx_SetNameInClass(__pyx_t_5, __pyx_n_s_start, __pyx_t_4) < 0) __PYX_ERR(0, 671, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "main.py":686
- *         self.tw_reportTable.cellChanged.connect(self.calculate)
- * 
- *     def resizeable(self):             # <<<<<<<<<<<<<<
- * 
- *         verLayout = QVBoxLayout()
- */
+  
   __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_6ver1_3_4main_12ReportDialog_7resizeable, 0, __pyx_n_s_ReportDialog_resizeable, NULL, __pyx_n_s_ver1_3_main, __pyx_d, ((PyObject *)__pyx_codeobj__126)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 686, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (__Pyx_SetNameInClass(__pyx_t_5, __pyx_n_s_resizeable, __pyx_t_4) < 0) __PYX_ERR(0, 686, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "main.py":708
- *         self.centralwidget.setLayout(verLayout)
- * 
- *     def setSumRow(self):             # <<<<<<<<<<<<<<
- *         if self.tw_reportTable.item(self.tw_reportTable.rowCount()-1, 0) != None:
- * 
- */
+  
   __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_6ver1_3_4main_12ReportDialog_9setSumRow, 0, __pyx_n_s_ReportDialog_setSumRow, NULL, __pyx_n_s_ver1_3_main, __pyx_d, ((PyObject *)__pyx_codeobj__128)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 708, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (__Pyx_SetNameInClass(__pyx_t_5, __pyx_n_s_setSumRow, __pyx_t_4) < 0) __PYX_ERR(0, 708, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "main.py":722
- *                     self.tw_reportTable.item(lastRow, i).setBackground(QtGui.QColor(187,255,169))
- * 
- *     def changeSumRow(self, total):             # <<<<<<<<<<<<<<
- * 
- *         lastRow = self.tw_reportTable.rowCount() - 1
- */
+  
   __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_6ver1_3_4main_12ReportDialog_11changeSumRow, 0, __pyx_n_s_ReportDialog_changeSumRow, NULL, __pyx_n_s_ver1_3_main, __pyx_d, ((PyObject *)__pyx_codeobj__130)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 722, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (__Pyx_SetNameInClass(__pyx_t_5, __pyx_n_s_changeSumRow, __pyx_t_4) < 0) __PYX_ERR(0, 722, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "main.py":743
- *             self.totalList.clear()
- * 
- *     def set(self, calTable, tableName):             # <<<<<<<<<<<<<<
- *         self.calTable = calTable
- *         self.tableName = tableName
- */
+  
   __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_6ver1_3_4main_12ReportDialog_13set, 0, __pyx_n_s_ReportDialog_set, NULL, __pyx_n_s_ver1_3_main, __pyx_d, ((PyObject *)__pyx_codeobj__132)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 743, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (__Pyx_SetNameInClass(__pyx_t_5, __pyx_n_s_set, __pyx_t_4) < 0) __PYX_ERR(0, 743, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "main.py":747
- *         self.tableName = tableName
- * 
- *     def setTable(self):             # <<<<<<<<<<<<<<
- * 
- *         def color(row, column, red, green, blue):
- */
+  
   __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_6ver1_3_4main_12ReportDialog_15setTable, 0, __pyx_n_s_ReportDialog_setTable, NULL, __pyx_n_s_ver1_3_main, __pyx_d, ((PyObject *)__pyx_codeobj__134)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 747, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (__Pyx_SetNameInClass(__pyx_t_5, __pyx_n_s_setTable, __pyx_t_4) < 0) __PYX_ERR(0, 747, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "main.py":793
- *             horHeader.setSectionResizeMode(i, QHeaderView.ResizeMode.Stretch)
- * 
- *     def color(self, row, column):             # <<<<<<<<<<<<<<
- * 
- *         colors = ((191,255,172), (255,219,224), (249,211,249),
- */
+  
   __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_6ver1_3_4main_12ReportDialog_17color, 0, __pyx_n_s_ReportDialog_color, NULL, __pyx_n_s_ver1_3_main, __pyx_d, ((PyObject *)__pyx_codeobj__136)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 793, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (__Pyx_SetNameInClass(__pyx_t_5, __pyx_n_s_color, __pyx_t_4) < 0) __PYX_ERR(0, 793, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "main.py":837
- *                 cell.setBackground(QtGui.QColor(red, green, blue))
- * 
- *     def write(self, row, column, text):             # <<<<<<<<<<<<<<
- *         aligment = QtCore.Qt.AlignmentFlag.AlignCenter
- *         self.tw_reportTable.setItem(row, column, QTableWidgetItem())
- */
+  
   __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_6ver1_3_4main_12ReportDialog_19write, 0, __pyx_n_s_ReportDialog_write, NULL, __pyx_n_s_ver1_3_main, __pyx_d, ((PyObject *)__pyx_codeobj__138)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 837, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (__Pyx_SetNameInClass(__pyx_t_5, __pyx_n_s_write, __pyx_t_4) < 0) __PYX_ERR(0, 837, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "main.py":845
- *         self.color(row, column)
- * 
- *     def insertDates(self):             # <<<<<<<<<<<<<<
- * 
- *         # fetching dates
- */
+  
   __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_6ver1_3_4main_12ReportDialog_21insertDates, 0, __pyx_n_s_ReportDialog_insertDates, NULL, __pyx_n_s_ver1_3_main, __pyx_d, ((PyObject *)__pyx_codeobj__140)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 845, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (__Pyx_SetNameInClass(__pyx_t_5, __pyx_n_s_insertDates, __pyx_t_4) < 0) __PYX_ERR(0, 845, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "main.py":937
- *                 self.write(row, 1, days)
- * 
- *     def calculate(self, row, column):             # <<<<<<<<<<<<<<
- *         if column == 2:
- *             entered = self.tw_reportTable.currentItem()
- */
+  
   __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_6ver1_3_4main_12ReportDialog_23calculate, 0, __pyx_n_s_ReportDialog_calculate, NULL, __pyx_n_s_ver1_3_main, __pyx_d, ((PyObject *)__pyx_codeobj__142)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 937, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (__Pyx_SetNameInClass(__pyx_t_5, __pyx_n_s_calculate, __pyx_t_4) < 0) __PYX_ERR(0, 937, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "main.py":948
- *             self.reportSum.start()
- * 
- *     def save(self):             # <<<<<<<<<<<<<<
- *         self.saveDialog.setRange(self.tw_reportTable.rowCount() * self.tw_reportTable.columnCount())
- *         self.saveDialog.show()
- */
+  
   __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_6ver1_3_4main_12ReportDialog_25save, 0, __pyx_n_s_ReportDialog_save, NULL, __pyx_n_s_ver1_3_main, __pyx_d, ((PyObject *)__pyx_codeobj__143)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 948, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (__Pyx_SetNameInClass(__pyx_t_5, __pyx_n_s_save, __pyx_t_4) < 0) __PYX_ERR(0, 948, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "main.py":955
- *         self.reportSave.start()
- * 
- *     def saveDialog(self, msg):             # <<<<<<<<<<<<<<
- *         if msg == 'upd':
- *             self.saveDialog.add()
- */
+  
   __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_6ver1_3_4main_12ReportDialog_27saveDialog, 0, __pyx_n_s_ReportDialog_saveDialog, NULL, __pyx_n_s_ver1_3_main, __pyx_d, ((PyObject *)__pyx_codeobj__145)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 955, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (__Pyx_SetNameInClass(__pyx_t_5, __pyx_n_s_saveDialog, __pyx_t_4) < 0) __PYX_ERR(0, 955, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "main.py":558
- * 
- * 
- * class ReportDialog(QMainWindow, reportUI.Ui_MainWindow, QDate):             # <<<<<<<<<<<<<<
- *     def __init__(self):
- *         super(ReportDialog, self).__init__()
- */
+  
   __pyx_t_4 = __Pyx_Py3ClassCreate(__pyx_t_2, __pyx_n_s_ReportDialog, __pyx_t_3, __pyx_t_5, NULL, 0, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 558, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_ReportDialog, __pyx_t_4) < 0) __PYX_ERR(0, 558, __pyx_L1_error)
@@ -43602,13 +37403,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "main.py":962
- * 
- * 
- * class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor, QSize, QSizePolicy, QHeaderView, QGridLayout):             # <<<<<<<<<<<<<<
- *     def __init__(self):
- *         super(MainWindow, self).__init__()
- */
+  
   __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_QMainWindow); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 962, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_mainUI); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 962, __pyx_L1_error)
@@ -43665,169 +37460,85 @@ if (!__Pyx_RefNanny) {
   }
   __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
 
-  /* "main.py":963
- * 
- * class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor, QSize, QSizePolicy, QHeaderView, QGridLayout):
- *     def __init__(self):             # <<<<<<<<<<<<<<
- *         super(MainWindow, self).__init__()
- *         self.setupUi(self)
- */
+  
   __pyx_t_11 = __Pyx_CyFunction_New(&__pyx_mdef_6ver1_3_4main_10MainWindow_1__init__, 0, __pyx_n_s_MainWindow___init, NULL, __pyx_n_s_ver1_3_main, __pyx_d, ((PyObject *)__pyx_codeobj__146)); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 963, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
   if (__Pyx_SetNameInClass(__pyx_t_7, __pyx_n_s_init, __pyx_t_11) < 0) __PYX_ERR(0, 963, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
 
-  /* "main.py":1025
- *         self.setTheme()
- * 
- *     def resizeable(self):             # <<<<<<<<<<<<<<
- * 
- *         verLayout = QVBoxLayout()
- */
+  
   __pyx_t_11 = __Pyx_CyFunction_New(&__pyx_mdef_6ver1_3_4main_10MainWindow_3resizeable, 0, __pyx_n_s_MainWindow_resizeable, NULL, __pyx_n_s_ver1_3_main, __pyx_d, ((PyObject *)__pyx_codeobj__147)); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 1025, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
   if (__Pyx_SetNameInClass(__pyx_t_7, __pyx_n_s_resizeable, __pyx_t_11) < 0) __PYX_ERR(0, 1025, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
 
-  /* "main.py":1047
- *         self.centralwidget.setLayout(verLayout)
- * 
- *     def setTheme(self):             # <<<<<<<<<<<<<<
- *         if self.theme == "Light":
- *             style = """
- */
+  
   __pyx_t_11 = __Pyx_CyFunction_New(&__pyx_mdef_6ver1_3_4main_10MainWindow_5setTheme, 0, __pyx_n_s_MainWindow_setTheme, NULL, __pyx_n_s_ver1_3_main, __pyx_d, ((PyObject *)__pyx_codeobj__148)); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 1047, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
   if (__Pyx_SetNameInClass(__pyx_t_7, __pyx_n_s_setTheme, __pyx_t_11) < 0) __PYX_ERR(0, 1047, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
 
-  /* "main.py":1233
- *             self.theme = "Light"
- * 
- *     def setTable(self):             # <<<<<<<<<<<<<<
- * 
- *         self.tw_table.setRowCount(12)
- */
+  
   __pyx_t_11 = __Pyx_CyFunction_New(&__pyx_mdef_6ver1_3_4main_10MainWindow_7setTable, 0, __pyx_n_s_MainWindow_setTable, NULL, __pyx_n_s_ver1_3_main, __pyx_d, ((PyObject *)__pyx_codeobj__150)); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 1233, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
   if (__Pyx_SetNameInClass(__pyx_t_7, __pyx_n_s_setTable, __pyx_t_11) < 0) __PYX_ERR(0, 1233, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
 
-  /* "main.py":1261
- *             horHeader.setSectionResizeMode(i, QHeaderView.ResizeMode.Stretch)
- * 
- *     def fetchTables(self):             # <<<<<<<<<<<<<<
- * 
- *         def makeAct(name, item):
- */
+  
   __pyx_t_11 = __Pyx_CyFunction_New(&__pyx_mdef_6ver1_3_4main_10MainWindow_9fetchTables, 0, __pyx_n_s_MainWindow_fetchTables, NULL, __pyx_n_s_ver1_3_main, __pyx_d, ((PyObject *)__pyx_codeobj__152)); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 1261, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
   if (__Pyx_SetNameInClass(__pyx_t_7, __pyx_n_s_fetchTables, __pyx_t_11) < 0) __PYX_ERR(0, 1261, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
 
-  /* "main.py":1304
- *         indexCount = 0
- * 
- *     def updateTableList(self):             # <<<<<<<<<<<<<<
- *         self.changeMenu.clear()
- *         self.fetchTables()
- */
+  
   __pyx_t_11 = __Pyx_CyFunction_New(&__pyx_mdef_6ver1_3_4main_10MainWindow_11updateTableList, 0, __pyx_n_s_MainWindow_updateTableList, NULL, __pyx_n_s_ver1_3_main, __pyx_d, ((PyObject *)__pyx_codeobj__153)); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 1304, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
   if (__Pyx_SetNameInClass(__pyx_t_7, __pyx_n_s_updateTableList, __pyx_t_11) < 0) __PYX_ERR(0, 1304, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
 
-  /* "main.py":1308
- *         self.fetchTables()
- * 
- *     def savingDialog(self, msg):             # <<<<<<<<<<<<<<
- *         if msg == 'upd':
- *             self.saveDialog.add()
- */
+  
   __pyx_t_11 = __Pyx_CyFunction_New(&__pyx_mdef_6ver1_3_4main_10MainWindow_13savingDialog, 0, __pyx_n_s_MainWindow_savingDialog, NULL, __pyx_n_s_ver1_3_main, __pyx_d, ((PyObject *)__pyx_codeobj__154)); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 1308, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
   if (__Pyx_SetNameInClass(__pyx_t_7, __pyx_n_s_savingDialog, __pyx_t_11) < 0) __PYX_ERR(0, 1308, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
 
-  /* "main.py":1314
- *             self.saveDialog.close()
- * 
- *     def save(self, uselessArg):             # <<<<<<<<<<<<<<
- *         self.saveDialog.show()
- *         self.saveDialog.setRange(self.tw_table.columnCount() * self.tw_table.rowCount())
- */
+  
   __pyx_t_11 = __Pyx_CyFunction_New(&__pyx_mdef_6ver1_3_4main_10MainWindow_15save, 0, __pyx_n_s_MainWindow_save, NULL, __pyx_n_s_ver1_3_main, __pyx_d, ((PyObject *)__pyx_codeobj__156)); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 1314, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
   if (__Pyx_SetNameInClass(__pyx_t_7, __pyx_n_s_save, __pyx_t_11) < 0) __PYX_ERR(0, 1314, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
 
-  /* "main.py":1321
- *         self.saveThread.start()
- * 
- *     def read(self):             # <<<<<<<<<<<<<<
- *         self.readThread.setTableName(self.tableName)
- *         self.readThread.start()
- */
+  
   __pyx_t_11 = __Pyx_CyFunction_New(&__pyx_mdef_6ver1_3_4main_10MainWindow_17read, 0, __pyx_n_s_MainWindow_read, NULL, __pyx_n_s_ver1_3_main, __pyx_d, ((PyObject *)__pyx_codeobj__157)); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 1321, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
   if (__Pyx_SetNameInClass(__pyx_t_7, __pyx_n_s_read, __pyx_t_11) < 0) __PYX_ERR(0, 1321, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
 
-  /* "main.py":1325
- *         self.readThread.start()
- * 
- *     def write(self, row, column, red, green, blue, notes):             # <<<<<<<<<<<<<<
- *         self.tw_table.setItem(row, column, QTableWidgetItem())
- * 
- */
+  
   __pyx_t_11 = __Pyx_CyFunction_New(&__pyx_mdef_6ver1_3_4main_10MainWindow_19write, 0, __pyx_n_s_MainWindow_write, NULL, __pyx_n_s_ver1_3_main, __pyx_d, ((PyObject *)__pyx_codeobj__159)); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 1325, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
   if (__Pyx_SetNameInClass(__pyx_t_7, __pyx_n_s_write, __pyx_t_11) < 0) __PYX_ERR(0, 1325, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
 
-  /* "main.py":1334
- *             self.tw_table.item(row, column).setToolTip(notes)
- * 
- *     def clear(self, row, column):             # <<<<<<<<<<<<<<
- *         self.tw_table.setItem(row, column, None)
- * 
- */
+  
   __pyx_t_11 = __Pyx_CyFunction_New(&__pyx_mdef_6ver1_3_4main_10MainWindow_21clear, 0, __pyx_n_s_MainWindow_clear, NULL, __pyx_n_s_ver1_3_main, __pyx_d, ((PyObject *)__pyx_codeobj__161)); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 1334, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
   if (__Pyx_SetNameInClass(__pyx_t_7, __pyx_n_s_clear, __pyx_t_11) < 0) __PYX_ERR(0, 1334, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
 
-  /* "main.py":1337
- *         self.tw_table.setItem(row, column, None)
- * 
- *     def report(self, uselessArg):             # <<<<<<<<<<<<<<
- *         self.save(uselessArg)
- *         self.reportOpenAllow = True
- */
+  
   __pyx_t_11 = __Pyx_CyFunction_New(&__pyx_mdef_6ver1_3_4main_10MainWindow_23report, 0, __pyx_n_s_MainWindow_report, NULL, __pyx_n_s_ver1_3_main, __pyx_d, ((PyObject *)__pyx_codeobj__162)); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 1337, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
   if (__Pyx_SetNameInClass(__pyx_t_7, __pyx_n_s_report, __pyx_t_11) < 0) __PYX_ERR(0, 1337, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
 
-  /* "main.py":1341
- *         self.reportOpenAllow = True
- * 
- *     def reportOpen(self):             # <<<<<<<<<<<<<<
- *         if self.reportOpenAllow and self.saveThread.finished:
- *             self.reportDialog.set(self.tw_table, self.tableName)
- */
+  
   __pyx_t_11 = __Pyx_CyFunction_New(&__pyx_mdef_6ver1_3_4main_10MainWindow_25reportOpen, 0, __pyx_n_s_MainWindow_reportOpen, NULL, __pyx_n_s_ver1_3_main, __pyx_d, ((PyObject *)__pyx_codeobj__163)); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 1341, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
   if (__Pyx_SetNameInClass(__pyx_t_7, __pyx_n_s_reportOpen, __pyx_t_11) < 0) __PYX_ERR(0, 1341, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
 
-  /* "main.py":962
- * 
- * 
- * class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor, QSize, QSizePolicy, QHeaderView, QGridLayout):             # <<<<<<<<<<<<<<
- *     def __init__(self):
- *         super(MainWindow, self).__init__()
- */
+  
   __pyx_t_11 = __Pyx_Py3ClassCreate(__pyx_t_9, __pyx_n_s_MainWindow, __pyx_t_10, __pyx_t_7, NULL, 0, 0); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 962, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_MainWindow, __pyx_t_11) < 0) __PYX_ERR(0, 962, __pyx_L1_error)
@@ -43836,17 +37547,13 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
 
-  /* "main.py":1
- * import sys             # <<<<<<<<<<<<<<
- * from PyQt6 import QtWidgets, QtCore, QtGui
- * from PyQt6.QtWidgets import *
- */
+  
   __pyx_t_10 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 1, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_test, __pyx_t_10) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
 
-  /*--- Wrapped vars code ---*/
+  
 
   goto __pyx_L0;
   __pyx_L1_error:;
@@ -43887,25 +37594,22 @@ if (!__Pyx_RefNanny) {
   return;
   #endif
 }
-/* #### Code section: cleanup_globals ### */
-/* #### Code section: cleanup_module ### */
-/* #### Code section: main_method ### */
-/* #### Code section: utility_code_pragmas ### */
+
+
+
+
 #ifdef _MSC_VER
 #pragma warning( push )
-/* Warning 4127: conditional expression is constant
- * Cython uses constant conditional expressions to allow in inline functions to be optimized at
- * compile-time, so this warning is not useful
- */
+
 #pragma warning( disable : 4127 )
 #endif
 
 
 
-/* #### Code section: utility_code_def ### */
 
-/* --- Runtime support code --- */
-/* Refnanny */
+
+
+
 #if CYTHON_REFNANNY
 static __Pyx_RefNannyAPIStruct *__Pyx_RefNannyImportAPI(const char *modname) {
     PyObject *m = NULL, *p = NULL;
@@ -43922,7 +37626,7 @@ end:
 }
 #endif
 
-/* PyErrExceptionMatches */
+
 #if CYTHON_FAST_THREAD_STATE
 static int __Pyx_PyErr_ExceptionMatchesTuple(PyObject *exc_type, PyObject *tuple) {
     Py_ssize_t i, n;
@@ -43965,7 +37669,7 @@ static CYTHON_INLINE int __Pyx_PyErr_ExceptionMatchesInState(PyThreadState* tsta
 }
 #endif
 
-/* PyErrFetchRestore */
+
 #if CYTHON_FAST_THREAD_STATE
 static CYTHON_INLINE void __Pyx_ErrRestoreInState(PyThreadState *tstate, PyObject *type, PyObject *value, PyObject *tb) {
 #if PY_VERSION_HEX >= 0x030C00A6
@@ -44022,7 +37726,7 @@ static CYTHON_INLINE void __Pyx_ErrFetchInState(PyThreadState *tstate, PyObject 
 }
 #endif
 
-/* PyObjectGetAttrStr */
+
 #if CYTHON_USE_TYPE_SLOTS
 static CYTHON_INLINE PyObject* __Pyx_PyObject_GetAttrStr(PyObject* obj, PyObject* attr_name) {
     PyTypeObject* tp = Py_TYPE(obj);
@@ -44036,7 +37740,7 @@ static CYTHON_INLINE PyObject* __Pyx_PyObject_GetAttrStr(PyObject* obj, PyObject
 }
 #endif
 
-/* PyObjectGetAttrStrNoError */
+
 static void __Pyx_PyObject_GetAttrStr_ClearAttributeError(void) {
     __Pyx_PyThreadState_declare
     __Pyx_PyThreadState_assign
@@ -44058,7 +37762,7 @@ static CYTHON_INLINE PyObject* __Pyx_PyObject_GetAttrStrNoError(PyObject* obj, P
     return result;
 }
 
-/* GetBuiltinName */
+
 static PyObject *__Pyx_GetBuiltinName(PyObject *name) {
     PyObject* result = __Pyx_PyObject_GetAttrStrNoError(__pyx_b, name);
     if (unlikely(!result) && !PyErr_Occurred()) {
@@ -44072,7 +37776,7 @@ static PyObject *__Pyx_GetBuiltinName(PyObject *name) {
     return result;
 }
 
-/* TupleAndListFromArray */
+
 #if CYTHON_COMPILING_IN_CPYTHON
 static CYTHON_INLINE void __Pyx_copy_object_array(PyObject *const *CYTHON_RESTRICT src, PyObject** CYTHON_RESTRICT dest, Py_ssize_t length) {
     PyObject *v;
@@ -44109,7 +37813,7 @@ __Pyx_PyList_FromArray(PyObject *const *src, Py_ssize_t n)
 }
 #endif
 
-/* BytesEquals */
+
 static CYTHON_INLINE int __Pyx_PyBytes_Equals(PyObject* s1, PyObject* s2, int equals) {
 #if CYTHON_COMPILING_IN_PYPY || CYTHON_COMPILING_IN_LIMITED_API
     return PyObject_RichCompareBool(s1, s2, equals);
@@ -44156,7 +37860,7 @@ static CYTHON_INLINE int __Pyx_PyBytes_Equals(PyObject* s1, PyObject* s2, int eq
 #endif
 }
 
-/* UnicodeEquals */
+
 static CYTHON_INLINE int __Pyx_PyUnicode_Equals(PyObject* s1, PyObject* s2, int equals) {
 #if CYTHON_COMPILING_IN_PYPY || CYTHON_COMPILING_IN_LIMITED_API
     return PyObject_RichCompareBool(s1, s2, equals);
@@ -44258,7 +37962,7 @@ return_ne:
 #endif
 }
 
-/* fastcall */
+
 #if CYTHON_METH_FASTCALL
 static CYTHON_INLINE PyObject * __Pyx_GetKwValue_FASTCALL(PyObject *kwnames, PyObject *const *kwvalues, PyObject *s)
 {
@@ -44279,7 +37983,7 @@ static CYTHON_INLINE PyObject * __Pyx_GetKwValue_FASTCALL(PyObject *kwnames, PyO
 }
 #endif
 
-/* RaiseDoubleKeywords */
+
 static void __Pyx_RaiseDoubleKeywordsError(
     const char* func_name,
     PyObject* kw_name)
@@ -44293,7 +37997,7 @@ static void __Pyx_RaiseDoubleKeywordsError(
         #endif
 }
 
-/* ParseKeywords */
+
 static int __Pyx_ParseOptionalKeywords(
     PyObject *kwds,
     PyObject *const *kwvalues,
@@ -44449,7 +38153,7 @@ bad:
     return -1;
 }
 
-/* RaiseArgTupleInvalid */
+
 static void __Pyx_RaiseArgtupleInvalid(
     const char* func_name,
     int exact,
@@ -44475,7 +38179,7 @@ static void __Pyx_RaiseArgtupleInvalid(
                  (num_expected == 1) ? "" : "s", num_found);
 }
 
-/* PyDictVersioning */
+
 #if CYTHON_USE_DICT_VERSIONS && CYTHON_USE_TYPE_SLOTS
 static CYTHON_INLINE PY_UINT64_T __Pyx_get_tp_dict_version(PyObject *obj) {
     PyObject *dict = Py_TYPE(obj)->tp_dict;
@@ -44501,7 +38205,7 @@ static CYTHON_INLINE int __Pyx_object_dict_version_matches(PyObject* obj, PY_UIN
 }
 #endif
 
-/* GetModuleGlobalName */
+
 #if CYTHON_USE_DICT_VERSIONS
 static PyObject *__Pyx__GetModuleGlobalName(PyObject *name, PY_UINT64_T *dict_version, PyObject **dict_cached_value)
 #else
@@ -44544,7 +38248,7 @@ static CYTHON_INLINE PyObject *__Pyx__GetModuleGlobalName(PyObject *name)
     return __Pyx_GetBuiltinName(name);
 }
 
-/* PyFunctionFastCall */
+
 #if CYTHON_FAST_PYCALL && !CYTHON_VECTORCALL
 static PyObject* __Pyx_PyFunction_FastCallNoKw(PyCodeObject *co, PyObject **args, Py_ssize_t na,
                                                PyObject *globals) {
@@ -44554,10 +38258,7 @@ static PyObject* __Pyx_PyFunction_FastCallNoKw(PyCodeObject *co, PyObject **args
     Py_ssize_t i;
     PyObject *result;
     assert(globals != NULL);
-    /* XXX Perhaps we should create a specialized
-       PyFrame_New() that doesn't take locals, but does
-       take builtins without sanity checking them.
-       */
+    
     assert(tstate != NULL);
     f = PyFrame_New(tstate, co, globals, NULL);
     if (f == NULL) {
@@ -44604,8 +38305,7 @@ static PyObject *__Pyx_PyFunction_FastCallDict(PyObject *func, PyObject **args, 
         }
         else if (nargs == 0 && argdefs != NULL
                  && co->co_argcount == Py_SIZE(argdefs)) {
-            /* function called with no arguments, but all parameters have
-               a default value: use default values as arguments .*/
+            
             args = &PyTuple_GET_ITEM(argdefs, 0);
             result =__Pyx_PyFunction_FastCallNoKw(co, args, Py_SIZE(argdefs), globals);
             goto done;
@@ -44661,7 +38361,7 @@ done:
 }
 #endif
 
-/* PyObjectCall */
+
 #if CYTHON_COMPILING_IN_CPYTHON
 static CYTHON_INLINE PyObject* __Pyx_PyObject_Call(PyObject *func, PyObject *arg, PyObject *kw) {
     PyObject *result;
@@ -44681,7 +38381,7 @@ static CYTHON_INLINE PyObject* __Pyx_PyObject_Call(PyObject *func, PyObject *arg
 }
 #endif
 
-/* PyObjectCallMethO */
+
 #if CYTHON_COMPILING_IN_CPYTHON
 static CYTHON_INLINE PyObject* __Pyx_PyObject_CallMethO(PyObject *func, PyObject *arg) {
     PyObject *self, *result;
@@ -44701,7 +38401,7 @@ static CYTHON_INLINE PyObject* __Pyx_PyObject_CallMethO(PyObject *func, PyObject
 }
 #endif
 
-/* PyObjectFastCall */
+
 static PyObject* __Pyx_PyObject_FastCall_fallback(PyObject *func, PyObject **args, size_t nargs, PyObject *kwargs) {
     PyObject *argstuple;
     PyObject *result = 0;
@@ -44783,7 +38483,7 @@ static CYTHON_INLINE PyObject* __Pyx_PyObject_FastCallDict(PyObject *func, PyObj
     return __Pyx_PyObject_FastCall_fallback(func, args, (size_t)nargs, kwargs);
 }
 
-/* PyObjectSetAttrStr */
+
 #if CYTHON_USE_TYPE_SLOTS
 static CYTHON_INLINE int __Pyx_PyObject_SetAttrStr(PyObject* obj, PyObject* attr_name, PyObject* value) {
     PyTypeObject* tp = Py_TYPE(obj);
@@ -44797,7 +38497,7 @@ static CYTHON_INLINE int __Pyx_PyObject_SetAttrStr(PyObject* obj, PyObject* attr
 }
 #endif
 
-/* UnicodeConcatInPlace */
+
 # if CYTHON_COMPILING_IN_CPYTHON && PY_MAJOR_VERSION >= 3
 static int
 __Pyx_unicode_modifiable(PyObject *unicode)
@@ -44859,7 +38559,7 @@ static CYTHON_INLINE PyObject *__Pyx_PyUnicode_ConcatInPlaceImpl(PyObject **p_le
   }
 #endif
 
-/* PyIntBinop */
+
 #if !CYTHON_COMPILING_IN_PYPY
 static PyObject* __Pyx_PyInt_AddObjC(PyObject *op1, PyObject *op2, long intval, int inplace, int zerodivision_check) {
     CYTHON_MAYBE_UNUSED_VAR(intval);
@@ -44992,13 +38692,13 @@ static PyObject* __Pyx_PyInt_AddObjC(PyObject *op1, PyObject *op2, long intval, 
 }
 #endif
 
-/* PyObjectCallOneArg */
+
 static CYTHON_INLINE PyObject* __Pyx_PyObject_CallOneArg(PyObject *func, PyObject *arg) {
     PyObject *args[2] = {NULL, arg};
     return __Pyx_PyObject_FastCall(func, args+1, 1 | __Pyx_PY_VECTORCALL_ARGUMENTS_OFFSET);
 }
 
-/* PyIntCompare */
+
 static CYTHON_INLINE int __Pyx_PyInt_BoolNeObjC(PyObject *op1, PyObject *op2, long intval, long inplace) {
     CYTHON_MAYBE_UNUSED_VAR(intval);
     CYTHON_UNUSED_VAR(inplace);
@@ -45070,7 +38770,7 @@ static CYTHON_INLINE int __Pyx_PyInt_BoolNeObjC(PyObject *op1, PyObject *op2, lo
         PyObject_RichCompare(op1, op2, Py_NE));
 }
 
-/* JoinPyUnicode */
+
 static PyObject* __Pyx_PyUnicode_Join(PyObject* value_tuple, Py_ssize_t value_count, Py_ssize_t result_ulength,
                                       Py_UCS4 max_char) {
 #if CYTHON_USE_UNICODE_INTERNALS && CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
@@ -45139,7 +38839,7 @@ bad:
 #endif
 }
 
-/* GetItemInt */
+
 static PyObject *__Pyx_GetItemInt_Generic(PyObject *o, PyObject* j) {
     PyObject *r;
     if (unlikely(!j)) return NULL;
@@ -45234,20 +38934,20 @@ static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Fast(PyObject *o, Py_ssize_t i, 
     return __Pyx_GetItemInt_Generic(o, PyInt_FromSsize_t(i));
 }
 
-/* RaiseTooManyValuesToUnpack */
+
 static CYTHON_INLINE void __Pyx_RaiseTooManyValuesError(Py_ssize_t expected) {
     PyErr_Format(PyExc_ValueError,
                  "too many values to unpack (expected %" CYTHON_FORMAT_SSIZE_T "d)", expected);
 }
 
-/* RaiseNeedMoreValuesToUnpack */
+
 static CYTHON_INLINE void __Pyx_RaiseNeedMoreValuesError(Py_ssize_t index) {
     PyErr_Format(PyExc_ValueError,
                  "need more than %" CYTHON_FORMAT_SSIZE_T "d value%.1s to unpack",
                  index, (index == 1) ? "" : "s");
 }
 
-/* IterFinish */
+
 static CYTHON_INLINE int __Pyx_IterFinish(void) {
     __Pyx_PyThreadState_declare
     __Pyx_PyThreadState_assign
@@ -45261,7 +38961,7 @@ static CYTHON_INLINE int __Pyx_IterFinish(void) {
     return 0;
 }
 
-/* UnpackItemEndCheck */
+
 static int __Pyx_IternextUnpackEndCheck(PyObject *retval, Py_ssize_t expected) {
     if (unlikely(retval)) {
         Py_DECREF(retval);
@@ -45271,12 +38971,12 @@ static int __Pyx_IternextUnpackEndCheck(PyObject *retval, Py_ssize_t expected) {
     return __Pyx_IterFinish();
 }
 
-/* RaiseClosureNameError */
+
 static CYTHON_INLINE void __Pyx_RaiseClosureNameError(const char *varname) {
     PyErr_Format(PyExc_NameError, "free variable '%s' referenced before assignment in enclosing scope", varname);
 }
 
-/* FixUpExtensionType */
+
 #if CYTHON_USE_TYPE_SPECS
 static int __Pyx_fix_up_extension_type_from_spec(PyType_Spec *spec, PyTypeObject *type) {
 #if PY_VERSION_HEX > 0x030900B1 || CYTHON_COMPILING_IN_LIMITED_API
@@ -45349,7 +39049,7 @@ static int __Pyx_fix_up_extension_type_from_spec(PyType_Spec *spec, PyTypeObject
 }
 #endif
 
-/* FetchSharedCythonModule */
+
 static PyObject *__Pyx_FetchSharedCythonABIModule(void) {
     PyObject *abi_module = PyImport_AddModule((char*) __PYX_ABI_MODULE_NAME);
     if (unlikely(!abi_module)) return NULL;
@@ -45357,7 +39057,7 @@ static PyObject *__Pyx_FetchSharedCythonABIModule(void) {
     return abi_module;
 }
 
-/* FetchCommonType */
+
 static int __Pyx_VerifyCachedType(PyObject *cached_type,
                                const char *name,
                                Py_ssize_t basicsize,
@@ -45458,7 +39158,7 @@ bad:
 }
 #endif
 
-/* PyVectorcallFastCallDict */
+
 #if CYTHON_METH_FASTCALL
 static PyObject *__Pyx_PyVectorcall_FastCallDict_kw(PyObject *func, __pyx_vectorcallfunc vc, PyObject *const *args, size_t nargs, PyObject *kw)
 {
@@ -45514,7 +39214,7 @@ static CYTHON_INLINE PyObject *__Pyx_PyVectorcall_FastCallDict(PyObject *func, _
 }
 #endif
 
-/* CythonFunctionShared */
+
 static CYTHON_INLINE void __Pyx__CyFunction_SetClassObj(__pyx_CyFunctionObject* f, PyObject* classobj) {
 #if PY_VERSION_HEX < 0x030900B1 || CYTHON_COMPILING_IN_LIMITED_API
     __Pyx_Py_XDECREF_SET(
@@ -46502,7 +40202,7 @@ static CYTHON_INLINE void __Pyx_CyFunction_SetAnnotationsDict(PyObject *func, Py
     Py_INCREF(dict);
 }
 
-/* CythonFunction */
+
 static PyObject *__Pyx_CyFunction_New(PyMethodDef *ml, int flags, PyObject* qualname,
                                       PyObject *closure, PyObject *module, PyObject* globals, PyObject* code) {
     PyObject *op = __Pyx_CyFunction_Init(
@@ -46515,7 +40215,7 @@ static PyObject *__Pyx_CyFunction_New(PyMethodDef *ml, int flags, PyObject* qual
     return op;
 }
 
-/* PyIntBinop */
+
 #if !CYTHON_COMPILING_IN_PYPY
 static PyObject* __Pyx_PyInt_SubtractObjC(PyObject *op1, PyObject *op2, long intval, int inplace, int zerodivision_check) {
     CYTHON_MAYBE_UNUSED_VAR(intval);
@@ -46648,7 +40348,7 @@ static PyObject* __Pyx_PyInt_SubtractObjC(PyObject *op1, PyObject *op2, long int
 }
 #endif
 
-/* PyIntCompare */
+
 static CYTHON_INLINE int __Pyx_PyInt_BoolEqObjC(PyObject *op1, PyObject *op2, long intval, long inplace) {
     CYTHON_MAYBE_UNUSED_VAR(intval);
     CYTHON_UNUSED_VAR(inplace);
@@ -46720,7 +40420,7 @@ static CYTHON_INLINE int __Pyx_PyInt_BoolEqObjC(PyObject *op1, PyObject *op2, lo
         PyObject_RichCompare(op1, op2, Py_EQ));
 }
 
-/* GetTopmostException */
+
 #if CYTHON_USE_EXC_INFO_STACK && CYTHON_FAST_THREAD_STATE
 static _PyErr_StackItem *
 __Pyx_PyErr_GetTopmostException(PyThreadState *tstate)
@@ -46735,7 +40435,7 @@ __Pyx_PyErr_GetTopmostException(PyThreadState *tstate)
 }
 #endif
 
-/* SaveResetException */
+
 #if CYTHON_FAST_THREAD_STATE
 static CYTHON_INLINE void __Pyx__ExceptionSave(PyThreadState *tstate, PyObject **type, PyObject **value, PyObject **tb) {
   #if CYTHON_USE_EXC_INFO_STACK && PY_VERSION_HEX >= 0x030B00a4
@@ -46802,7 +40502,7 @@ static CYTHON_INLINE void __Pyx__ExceptionReset(PyThreadState *tstate, PyObject 
 }
 #endif
 
-/* FastTypeChecks */
+
 #if CYTHON_COMPILING_IN_CPYTHON
 static int __Pyx_InBases(PyTypeObject *a, PyTypeObject *b) {
     while (a) {
@@ -46918,7 +40618,7 @@ static CYTHON_INLINE int __Pyx_PyErr_GivenExceptionMatches2(PyObject *err, PyObj
 }
 #endif
 
-/* GetException */
+
 #if CYTHON_FAST_THREAD_STATE
 static int __Pyx__GetException(PyThreadState *tstate, PyObject **type, PyObject **value, PyObject **tb)
 #else
@@ -47013,13 +40713,13 @@ bad:
     return -1;
 }
 
-/* PyObjectCall2Args */
+
 static CYTHON_INLINE PyObject* __Pyx_PyObject_Call2Args(PyObject* function, PyObject* arg1, PyObject* arg2) {
     PyObject *args[3] = {NULL, arg1, arg2};
     return __Pyx_PyObject_FastCall(function, args+1, 2 | __Pyx_PY_VECTORCALL_ARGUMENTS_OFFSET);
 }
 
-/* PyObjectGetMethod */
+
 static int __Pyx_PyObject_GetMethod(PyObject *obj, PyObject *name, PyObject **method) {
     PyObject *attr;
 #if CYTHON_UNPACK_METHODS && CYTHON_COMPILING_IN_CPYTHON && CYTHON_USE_PYTYPE_LOOKUP
@@ -47120,7 +40820,7 @@ try_unpack:
     return 0;
 }
 
-/* PyObjectCallMethod1 */
+
 static PyObject* __Pyx__PyObject_CallMethod1(PyObject* method, PyObject* arg) {
     PyObject *result = __Pyx_PyObject_CallOneArg(method, arg);
     Py_DECREF(method);
@@ -47138,7 +40838,7 @@ static PyObject* __Pyx_PyObject_CallMethod1(PyObject* obj, PyObject* method_name
     return __Pyx__PyObject_CallMethod1(method, arg);
 }
 
-/* append */
+
 static CYTHON_INLINE int __Pyx_PyObject_Append(PyObject* L, PyObject* x) {
     if (likely(PyList_CheckExact(L))) {
         if (unlikely(__Pyx_PyList_Append(L, x) < 0)) return -1;
@@ -47151,7 +40851,7 @@ static CYTHON_INLINE int __Pyx_PyObject_Append(PyObject* L, PyObject* x) {
     return 0;
 }
 
-/* ObjectGetItem */
+
 #if CYTHON_USE_TYPE_SLOTS
 static PyObject *__Pyx_PyObject_GetIndex(PyObject *obj, PyObject *index) {
     PyObject *runerr = NULL;
@@ -47199,13 +40899,13 @@ static PyObject *__Pyx_PyObject_GetItem(PyObject *obj, PyObject *key) {
 }
 #endif
 
-/* PyObjectCallNoArg */
+
 static CYTHON_INLINE PyObject* __Pyx_PyObject_CallNoArg(PyObject *func) {
     PyObject *arg = NULL;
     return __Pyx_PyObject_FastCall(func, (&arg)+1, 0 | __Pyx_PY_VECTORCALL_ARGUMENTS_OFFSET);
 }
 
-/* PyObjectCallMethod0 */
+
 static PyObject* __Pyx_PyObject_CallMethod0(PyObject* obj, PyObject* method_name) {
     PyObject *method = NULL, *result = NULL;
     int is_method = __Pyx_PyObject_GetMethod(obj, method_name, &method);
@@ -47221,7 +40921,7 @@ bad:
     return result;
 }
 
-/* ValidateBasesTuple */
+
 #if CYTHON_COMPILING_IN_CPYTHON || CYTHON_COMPILING_IN_LIMITED_API || CYTHON_USE_TYPE_SPECS
 static int __Pyx_validate_bases_tuple(const char *type_name, Py_ssize_t dictoffset, PyObject *bases) {
     Py_ssize_t i, n;
@@ -47306,7 +41006,7 @@ static int __Pyx_validate_bases_tuple(const char *type_name, Py_ssize_t dictoffs
 }
 #endif
 
-/* PyType_Ready */
+
 static int __Pyx_PyType_Ready(PyTypeObject *t) {
 #if CYTHON_USE_TYPE_SPECS || !(CYTHON_COMPILING_IN_CPYTHON || CYTHON_COMPILING_IN_LIMITED_API) || defined(PYSTON_MAJOR_VERSION)
     (void)__Pyx_PyObject_CallMethod0;
@@ -47388,7 +41088,7 @@ static int __Pyx_PyType_Ready(PyTypeObject *t) {
 #endif
 }
 
-/* PyObject_GenericGetAttrNoDict */
+
 #if CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP && PY_VERSION_HEX < 0x03070000
 static PyObject *__Pyx_RaiseGenericGetAttributeError(PyTypeObject *tp, PyObject *attr_name) {
     __Pyx_TypeName type_name = __Pyx_PyType_GetName(tp);
@@ -47430,7 +41130,7 @@ static CYTHON_INLINE PyObject* __Pyx_PyObject_GenericGetAttrNoDict(PyObject* obj
 }
 #endif
 
-/* Import */
+
 static PyObject *__Pyx_Import(PyObject *name, PyObject *from_list, int level) {
     PyObject *module = 0;
     PyObject *empty_dict = 0;
@@ -47488,7 +41188,7 @@ bad:
     return module;
 }
 
-/* ImportDottedModule */
+
 #if PY_MAJOR_VERSION >= 3
 static PyObject *__Pyx__ImportDottedModule_Error(PyObject *name, PyObject *parts_tuple, Py_ssize_t count) {
     PyObject *partial_name = NULL, *slice = NULL, *sep = NULL;
@@ -47616,7 +41316,7 @@ static PyObject *__Pyx_ImportDottedModule(PyObject *name, PyObject *parts_tuple)
     return __Pyx__ImportDottedModule(name, parts_tuple);
 }
 
-/* ImportFrom */
+
 static PyObject* __Pyx_ImportFrom(PyObject* module, PyObject* name) {
     PyObject* value = __Pyx_PyObject_GetAttrStr(module, name);
     if (unlikely(!value) && PyErr_ExceptionMatches(PyExc_AttributeError)) {
@@ -47659,7 +41359,7 @@ static PyObject* __Pyx_ImportFrom(PyObject* module, PyObject* name) {
     return value;
 }
 
-/* Py3UpdateBases */
+
 static PyObject*
 __Pyx_PEP560_update_bases(PyObject *bases)
 {
@@ -47727,7 +41427,7 @@ error:
     return NULL;
 }
 
-/* CalculateMetaclass */
+
 static PyObject *__Pyx_CalculateMetaclass(PyTypeObject *metaclass, PyObject *bases) {
     Py_ssize_t i, nbases;
 #if CYTHON_ASSUME_SAFE_MACROS
@@ -47777,7 +41477,7 @@ static PyObject *__Pyx_CalculateMetaclass(PyTypeObject *metaclass, PyObject *bas
     return (PyObject*) metaclass;
 }
 
-/* PyObjectLookupSpecial */
+
 #if CYTHON_USE_PYTYPE_LOOKUP && CYTHON_USE_TYPE_SLOTS
 static CYTHON_INLINE PyObject* __Pyx__PyObject_LookupSpecial(PyObject* obj, PyObject* attr_name, int with_error) {
     PyObject *res;
@@ -47801,7 +41501,7 @@ static CYTHON_INLINE PyObject* __Pyx__PyObject_LookupSpecial(PyObject* obj, PyOb
 }
 #endif
 
-/* Py3ClassCreate */
+
 static PyObject *__Pyx_Py3MetaclassPrepare(PyObject *metaclass, PyObject *bases, PyObject *name,
                                            PyObject *qualname, PyObject *mkw, PyObject *modname, PyObject *doc) {
     PyObject *ns;
@@ -48008,7 +41708,7 @@ static PyObject *__Pyx_Py3ClassCreate(PyObject *metaclass, PyObject *name, PyObj
     return result;
 }
 
-/* CLineInTraceback */
+
 #ifndef CYTHON_CLINE_IN_TRACEBACK
 static int __Pyx_CLineForTraceback(PyThreadState *tstate, int c_line) {
     PyObject *use_cline;
@@ -48051,7 +41751,7 @@ static int __Pyx_CLineForTraceback(PyThreadState *tstate, int c_line) {
 }
 #endif
 
-/* CodeObjectCache */
+
 #if !CYTHON_COMPILING_IN_LIMITED_API
 static int __pyx_bisect_code_objects(__Pyx_CodeObjectCacheEntry* entries, int count, int code_line) {
     int start = 0, mid = 0, end = count - 1;
@@ -48133,7 +41833,7 @@ static void __pyx_insert_code_object(int code_line, PyCodeObject* code_object) {
 }
 #endif
 
-/* AddTraceback */
+
 #include "compile.h"
 #include "frameobject.h"
 #include "traceback.h"
@@ -48259,16 +41959,16 @@ static PyCodeObject* __Pyx_CreateCodeObjectForTraceback(
         0,
         0,
         0,
-        __pyx_empty_bytes, /*PyObject *code,*/
-        __pyx_empty_tuple, /*PyObject *consts,*/
-        __pyx_empty_tuple, /*PyObject *names,*/
-        __pyx_empty_tuple, /*PyObject *varnames,*/
-        __pyx_empty_tuple, /*PyObject *freevars,*/
-        __pyx_empty_tuple, /*PyObject *cellvars,*/
-        py_srcfile,   /*PyObject *filename,*/
-        py_funcname,  /*PyObject *name,*/
+        __pyx_empty_bytes, 
+        __pyx_empty_tuple, 
+        __pyx_empty_tuple, 
+        __pyx_empty_tuple, 
+        __pyx_empty_tuple, 
+        __pyx_empty_tuple, 
+        py_srcfile,   
+        py_funcname,  
         py_line,
-        __pyx_empty_bytes  /*PyObject *lnotab*/
+        __pyx_empty_bytes  
     );
     Py_DECREF(py_srcfile);
     #else
@@ -48298,8 +41998,7 @@ static void __Pyx_AddTraceback(const char *funcname, int c_line,
         py_code = __Pyx_CreateCodeObjectForTraceback(
             funcname, c_line, py_line, filename);
         if (!py_code) {
-            /* If the code object creation fails, then we should clear the
-               fetched exception references and propagate the new exception */
+            
             Py_XDECREF(ptype);
             Py_XDECREF(pvalue);
             Py_XDECREF(ptraceback);
@@ -48309,10 +42008,10 @@ static void __Pyx_AddTraceback(const char *funcname, int c_line,
         __pyx_insert_code_object(c_line ? -c_line : py_line, py_code);
     }
     py_frame = PyFrame_New(
-        tstate,            /*PyThreadState *tstate,*/
-        py_code,           /*PyCodeObject *code,*/
-        __pyx_d,    /*PyObject *globals,*/
-        0                  /*PyObject *locals*/
+        tstate,            
+        py_code,           
+        __pyx_d,    
+        0                  
     );
     if (!py_frame) goto bad;
     __Pyx_PyFrame_SetLineNumber(py_frame, py_line);
@@ -48323,7 +42022,7 @@ bad:
 }
 #endif
 
-/* CIntFromPyVerify */
+
 #define __PYX_VERIFY_RETURN_INT(target_type, func_type, func_value)\
     __PYX__VERIFY_RETURN_INT(target_type, func_type, func_value, 0)
 #define __PYX_VERIFY_RETURN_INT_EXC(target_type, func_type, func_value)\
@@ -48345,7 +42044,7 @@ bad:
         return (target_type) value;\
     }
 
-/* CIntToPy */
+
 static CYTHON_INLINE PyObject* __Pyx_PyInt_From_long(long value) {
 #ifdef __Pyx_HAS_GCC_DIAGNOSTIC
 #pragma GCC diagnostic push
@@ -48407,7 +42106,7 @@ static CYTHON_INLINE PyObject* __Pyx_PyInt_From_long(long value) {
     }
 }
 
-/* CIntFromPy */
+
 static CYTHON_INLINE long __Pyx_PyInt_As_long(PyObject *x) {
 #ifdef __Pyx_HAS_GCC_DIAGNOSTIC
 #pragma GCC diagnostic push
@@ -48680,7 +42379,7 @@ raise_neg_overflow:
     return (long) -1;
 }
 
-/* FormatTypeName */
+
 #if CYTHON_COMPILING_IN_LIMITED_API
 static __Pyx_TypeName
 __Pyx_PyType_GetName(PyTypeObject* tp)
@@ -48696,7 +42395,7 @@ __Pyx_PyType_GetName(PyTypeObject* tp)
 }
 #endif
 
-/* CIntFromPy */
+
 static CYTHON_INLINE int __Pyx_PyInt_As_int(PyObject *x) {
 #ifdef __Pyx_HAS_GCC_DIAGNOSTIC
 #pragma GCC diagnostic push
@@ -48969,13 +42668,13 @@ raise_neg_overflow:
     return (int) -1;
 }
 
-/* CStringEquals */
+
 static CYTHON_INLINE int __Pyx_StrEq(const char *s1, const char *s2) {
     while (*s1 != '\0' && *s1 == *s2) { s1++; s2++; }
     return *s1 == *s2;
 }
 
-/* CheckBinaryVersion */
+
 static int __Pyx_check_binary_version(void) {
     char ctversion[5];
     int same=1, i, found_dot;
@@ -49013,7 +42712,7 @@ static int __Pyx_check_binary_version(void) {
     return 0;
 }
 
-/* InitStrings */
+
 #if PY_MAJOR_VERSION >= 3
 static int __Pyx_InitString(__Pyx_StringTabEntry t, PyObject **str) {
     if (t.is_unicode | t.is_str) {
@@ -49298,12 +42997,12 @@ static CYTHON_INLINE PyObject * __Pyx_PyInt_FromSize_t(size_t ival) {
 }
 
 
-/* #### Code section: utility_code_pragmas_end ### */
+
 #ifdef _MSC_VER
 #pragma warning( pop )
 #endif
 
 
 
-/* #### Code section: end ### */
-#endif /* Py_PYTHON_H */
+
+#endif 
