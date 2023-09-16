@@ -115,7 +115,7 @@ class UpdateThread(QThread):
             except ConnectionRefusedError:
                 self.s_highMsg.emit("Не удаётся подключится к серверу обновлений.")
 
-                cursor.execute(f"SELECT path FROM versionData WHERE ROWID = ?", (1,))
+                cursor.execute("SELECT path FROM versionData WHERE ROWID = ?", (1,))
                 pathTemp = cursor.fetchone()
 
                 path = ""
