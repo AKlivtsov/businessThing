@@ -348,7 +348,7 @@ class SaveDialog(QDialog, saveDialogUI.Ui_Dialog, QSize):
         self.setWindowTitle("Сохранение")
         self.setFixedSize(QSize(400, 84))
 
-    def setTheme(self, style):
+    def setTheme(self, style, uselessArg):
         self.setStyleSheet(style)
 
     def setRange(self, range_):
@@ -371,10 +371,10 @@ class CreateDialog(QDialog, createDialogUI.Ui_Dialog, QSize):
 
         self.btn_create.clicked.connect(self.emitName)
 
-    def setTheme(self, style):
+    def setTheme(self, style, uselessArg):
         self.setStyleSheet(style)
 
-    def emitName(self):
+    def emitName(self, uselessArg):
         connect = sqlite3.connect(f"{VERSIONPATH}/database/d.db")
         cursor = connect.cursor()
 
@@ -447,13 +447,13 @@ class EditDialog(QDialog, editDialogUI.Ui_Dialog, QSize):
         self.color = None
         self.notes = None
 
-    def setTheme(self, style):
+    def setTheme(self, style, uselessArg):
         self.setStyleSheet(style)
 
-    def colorDialog(self):
+    def colorDialog(self, uselessArg):
         self.color = QColorDialog.getColor()
 
-    def save(self):
+    def save(self, uselessArg):
         notes = self.te_notes.toPlainText()
         timeIn = self.time_in.time().toString(Qt.DateFormat.ISODate)
         timeOut = self.time_out.time().toString(Qt.DateFormat.ISODate)
@@ -517,10 +517,10 @@ class DeleteDialog(QDialog, deleteDialogUI.Ui_Dialog, QSize):
         self.btn_cancel.clicked.connect(lambda: self.close())
         self.btn_del.clicked.connect(self.delete)
 
-    def setTheme(self, style):
+    def setTheme(self, style, uselessArg):
         self.setStyleSheet(style)
 
-    def delete(self):
+    def delete(self, uselessArg):
         dayOut = self.date_out.date().dayOfYear()
         monthCount = self.date_in.date()
         day = self.date_in.date().day()
@@ -579,7 +579,7 @@ class ReportDialog(QMainWindow, reportUI.Ui_MainWindow, QDate):
         self.btn_close.clicked.connect(lambda: self.close())
         self.btn_save.clicked.connect(self.save)
 
-    def setTheme(self, theme, style):
+    def setTheme(self, theme, style, uselessArg):
         if theme == "Dark":
             self.setStyleSheet(style)
             self.setStyleSheet("""
@@ -1019,8 +1019,8 @@ class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor, QSize, QSiz
         self.saveDialog = SaveDialog()
         self.reportDialog = ReportDialog()
 
-        self.read()
-        self.setTheme()
+        self.read(None) # None is for UselesArg, it's just a placeholder 
+        self.setTheme(None) # None is for UselesArg, it's just a placeholder
 
     def resizeable(self):
 
@@ -1044,7 +1044,7 @@ class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor, QSize, QSiz
 
         self.centralwidget.setLayout(verLayout)
 
-    def setTheme(self):
+    def setTheme(self, uselessArg):
         if self.theme == "Light":
             style = """
 
@@ -1129,11 +1129,11 @@ class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor, QSize, QSiz
 
             self.setStyleSheet(style)
 
-            self.reportDialog.setTheme(self.theme, style)
-            self.createDialog.setTheme(style)
-            self.deleteDialog.setTheme(style)
-            self.editDialog.setTheme(style)
-            self.saveDialog.setTheme(style)
+            self.reportDialog.setTheme(self.theme, style, uselessArg)
+            self.createDialog.setTheme(style, uselessArg)
+            self.deleteDialog.setTheme(style, uselessArg)
+            self.editDialog.setTheme(style, uselessArg)
+            self.saveDialog.setTheme(style, uselessArg)
 
             self.theme = "Dark"
 
@@ -1222,11 +1222,11 @@ class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor, QSize, QSiz
 
             self.setStyleSheet(style)
 
-            self.reportDialog.setTheme(self.theme, style)
-            self.createDialog.setTheme(style)
-            self.deleteDialog.setTheme(style)
-            self.editDialog.setTheme(style)
-            self.saveDialog.setTheme(style)
+            self.reportDialog.setTheme(self.theme, style, uselessArg)
+            self.createDialog.setTheme(style, uselessArg)
+            self.deleteDialog.setTheme(style, uselessArg)
+            self.editDialog.setTheme(style, uselessArg)
+            self.saveDialog.setTheme(style, uselessArg)
 
             self.theme = "Light"
 
@@ -1273,7 +1273,7 @@ class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor, QSize, QSiz
             self.tw_table.setColumnCount(0)
             self.setTable()
 
-            self.read()
+            self.read(None) # None is for UselesArg, it's just a placeholder 
 
         connect = sqlite3.connect(f"{VERSIONPATH}/database/d.db")
         cursor = connect.cursor()
@@ -1318,7 +1318,7 @@ class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor, QSize, QSiz
         self.saveThread.set(self.tableName, self.tw_table)
         self.saveThread.start()
     
-    def read(self):
+    def read(self, uselessArg):
         self.readThread.setTableName(self.tableName)
         self.readThread.start()
 

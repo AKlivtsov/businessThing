@@ -3,12 +3,12 @@
 /* BEGIN: Cython Metadata
 {
     "distutils": {
-        "name": "LaunchUI",
+        "name": "launchUI",
         "sources": [
             "launchUI.py"
         ]
     },
-    "module_name": "LaunchUI"
+    "module_name": "launchUI"
 }
 END: Cython Metadata */
 
@@ -1155,8 +1155,8 @@ static CYTHON_INLINE float __PYX_NAN() {
   #endif
 #endif
 
-#define __PYX_HAVE__LaunchUI
-#define __PYX_HAVE_API__LaunchUI
+#define __PYX_HAVE__launchUI
+#define __PYX_HAVE_API__launchUI
 /* Early includes */
 #ifdef _OPENMP
 #include <omp.h>
@@ -2022,14 +2022,14 @@ static int __Pyx_InitStrings(__Pyx_StringTabEntry *t);
 
 /* #### Code section: module_declarations ### */
 
-/* Module declarations from "LaunchUI" */
+/* Module declarations from "launchUI" */
 /* #### Code section: typeinfo ### */
 /* #### Code section: before_global_var ### */
-#define __Pyx_MODULE_NAME "LaunchUI"
-extern int __pyx_module_is_main_LaunchUI;
-int __pyx_module_is_main_LaunchUI = 0;
+#define __Pyx_MODULE_NAME "launchUI"
+extern int __pyx_module_is_main_launchUI;
+int __pyx_module_is_main_launchUI = 0;
 
-/* Implementation of "LaunchUI" */
+/* Implementation of "launchUI" */
 /* #### Code section: global_var ### */
 static PyObject *__pyx_builtin_object;
 /* #### Code section: string_decls ### */
@@ -2063,7 +2063,7 @@ static const char __pyx_k_setBold[] = "setBold";
 static const char __pyx_k_setFont[] = "setFont";
 static const char __pyx_k_setText[] = "setText";
 static const char __pyx_k_setupUi[] = "setupUi";
-static const char __pyx_k_LaunchUI[] = "LaunchUI";
+static const char __pyx_k_launchUI[] = "launchUI";
 static const char __pyx_k_qualname[] = "__qualname__";
 static const char __pyx_k_set_name[] = "__set_name__";
 static const char __pyx_k_QtWidgets[] = "QtWidgets";
@@ -2101,8 +2101,8 @@ static const char __pyx_k_connectSlotsByName[] = "connectSlotsByName";
 static const char __pyx_k_Ui_MainWindow_setupUi[] = "Ui_MainWindow.setupUi";
 static const char __pyx_k_Ui_MainWindow_retranslateUi[] = "Ui_MainWindow.retranslateUi";
 /* #### Code section: decls ### */
-static PyObject *__pyx_pf_8LaunchUI_13Ui_MainWindow_setupUi(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_MainWindow); /* proto */
-static PyObject *__pyx_pf_8LaunchUI_13Ui_MainWindow_2retranslateUi(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_MainWindow); /* proto */
+static PyObject *__pyx_pf_8launchUI_13Ui_MainWindow_setupUi(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_MainWindow); /* proto */
+static PyObject *__pyx_pf_8launchUI_13Ui_MainWindow_2retranslateUi(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_MainWindow); /* proto */
 /* #### Code section: late_includes ### */
 /* #### Code section: module_state ### */
 typedef struct {
@@ -2134,7 +2134,6 @@ typedef struct {
   #endif
   PyObject *__pyx_n_s_AlignCenter;
   PyObject *__pyx_n_s_AlignmentFlag;
-  PyObject *__pyx_n_s_LaunchUI;
   PyObject *__pyx_n_s_MainWindow;
   PyObject *__pyx_n_s_PyQt6;
   PyObject *__pyx_n_s_QCoreApplication;
@@ -2163,6 +2162,7 @@ typedef struct {
   PyObject *__pyx_n_s_init_subclass;
   PyObject *__pyx_n_s_is_coroutine;
   PyObject *__pyx_n_s_label;
+  PyObject *__pyx_n_s_launchUI;
   PyObject *__pyx_kp_s_launchUI_py;
   PyObject *__pyx_n_s_lbl_status;
   PyObject *__pyx_n_s_main;
@@ -2266,7 +2266,6 @@ static int __pyx_m_clear(PyObject *m) {
   #endif
   Py_CLEAR(clear_module_state->__pyx_n_s_AlignCenter);
   Py_CLEAR(clear_module_state->__pyx_n_s_AlignmentFlag);
-  Py_CLEAR(clear_module_state->__pyx_n_s_LaunchUI);
   Py_CLEAR(clear_module_state->__pyx_n_s_MainWindow);
   Py_CLEAR(clear_module_state->__pyx_n_s_PyQt6);
   Py_CLEAR(clear_module_state->__pyx_n_s_QCoreApplication);
@@ -2295,6 +2294,7 @@ static int __pyx_m_clear(PyObject *m) {
   Py_CLEAR(clear_module_state->__pyx_n_s_init_subclass);
   Py_CLEAR(clear_module_state->__pyx_n_s_is_coroutine);
   Py_CLEAR(clear_module_state->__pyx_n_s_label);
+  Py_CLEAR(clear_module_state->__pyx_n_s_launchUI);
   Py_CLEAR(clear_module_state->__pyx_kp_s_launchUI_py);
   Py_CLEAR(clear_module_state->__pyx_n_s_lbl_status);
   Py_CLEAR(clear_module_state->__pyx_n_s_main);
@@ -2376,7 +2376,6 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
   #endif
   Py_VISIT(traverse_module_state->__pyx_n_s_AlignCenter);
   Py_VISIT(traverse_module_state->__pyx_n_s_AlignmentFlag);
-  Py_VISIT(traverse_module_state->__pyx_n_s_LaunchUI);
   Py_VISIT(traverse_module_state->__pyx_n_s_MainWindow);
   Py_VISIT(traverse_module_state->__pyx_n_s_PyQt6);
   Py_VISIT(traverse_module_state->__pyx_n_s_QCoreApplication);
@@ -2405,6 +2404,7 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
   Py_VISIT(traverse_module_state->__pyx_n_s_init_subclass);
   Py_VISIT(traverse_module_state->__pyx_n_s_is_coroutine);
   Py_VISIT(traverse_module_state->__pyx_n_s_label);
+  Py_VISIT(traverse_module_state->__pyx_n_s_launchUI);
   Py_VISIT(traverse_module_state->__pyx_kp_s_launchUI_py);
   Py_VISIT(traverse_module_state->__pyx_n_s_lbl_status);
   Py_VISIT(traverse_module_state->__pyx_n_s_main);
@@ -2496,7 +2496,6 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
 #endif
 #define __pyx_n_s_AlignCenter __pyx_mstate_global->__pyx_n_s_AlignCenter
 #define __pyx_n_s_AlignmentFlag __pyx_mstate_global->__pyx_n_s_AlignmentFlag
-#define __pyx_n_s_LaunchUI __pyx_mstate_global->__pyx_n_s_LaunchUI
 #define __pyx_n_s_MainWindow __pyx_mstate_global->__pyx_n_s_MainWindow
 #define __pyx_n_s_PyQt6 __pyx_mstate_global->__pyx_n_s_PyQt6
 #define __pyx_n_s_QCoreApplication __pyx_mstate_global->__pyx_n_s_QCoreApplication
@@ -2525,6 +2524,7 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
 #define __pyx_n_s_init_subclass __pyx_mstate_global->__pyx_n_s_init_subclass
 #define __pyx_n_s_is_coroutine __pyx_mstate_global->__pyx_n_s_is_coroutine
 #define __pyx_n_s_label __pyx_mstate_global->__pyx_n_s_label
+#define __pyx_n_s_launchUI __pyx_mstate_global->__pyx_n_s_launchUI
 #define __pyx_kp_s_launchUI_py __pyx_mstate_global->__pyx_kp_s_launchUI_py
 #define __pyx_n_s_lbl_status __pyx_mstate_global->__pyx_n_s_lbl_status
 #define __pyx_n_s_main __pyx_mstate_global->__pyx_n_s_main
@@ -2595,15 +2595,15 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_8LaunchUI_13Ui_MainWindow_1setupUi(PyObject *__pyx_self, 
+static PyObject *__pyx_pw_8launchUI_13Ui_MainWindow_1setupUi(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-static PyMethodDef __pyx_mdef_8LaunchUI_13Ui_MainWindow_1setupUi = {"setupUi", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_8LaunchUI_13Ui_MainWindow_1setupUi, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_8LaunchUI_13Ui_MainWindow_1setupUi(PyObject *__pyx_self, 
+static PyMethodDef __pyx_mdef_8launchUI_13Ui_MainWindow_1setupUi = {"setupUi", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_8launchUI_13Ui_MainWindow_1setupUi, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_8launchUI_13Ui_MainWindow_1setupUi(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -2688,11 +2688,11 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       __Pyx_Arg_XDECREF_FASTCALL(values[__pyx_temp]);
     }
   }
-  __Pyx_AddTraceback("LaunchUI.Ui_MainWindow.setupUi", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("launchUI.Ui_MainWindow.setupUi", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_8LaunchUI_13Ui_MainWindow_setupUi(__pyx_self, __pyx_v_self, __pyx_v_MainWindow);
+  __pyx_r = __pyx_pf_8launchUI_13Ui_MainWindow_setupUi(__pyx_self, __pyx_v_self, __pyx_v_MainWindow);
 
   /* function exit code */
   {
@@ -2705,7 +2705,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_8LaunchUI_13Ui_MainWindow_setupUi(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_MainWindow) {
+static PyObject *__pyx_pf_8launchUI_13Ui_MainWindow_setupUi(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_MainWindow) {
   PyObject *__pyx_v_font = NULL;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -3684,7 +3684,7 @@ static PyObject *__pyx_pf_8LaunchUI_13Ui_MainWindow_setupUi(CYTHON_UNUSED PyObje
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_AddTraceback("LaunchUI.Ui_MainWindow.setupUi", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("launchUI.Ui_MainWindow.setupUi", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_font);
@@ -3702,15 +3702,15 @@ static PyObject *__pyx_pf_8LaunchUI_13Ui_MainWindow_setupUi(CYTHON_UNUSED PyObje
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_8LaunchUI_13Ui_MainWindow_3retranslateUi(PyObject *__pyx_self, 
+static PyObject *__pyx_pw_8launchUI_13Ui_MainWindow_3retranslateUi(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-static PyMethodDef __pyx_mdef_8LaunchUI_13Ui_MainWindow_3retranslateUi = {"retranslateUi", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_8LaunchUI_13Ui_MainWindow_3retranslateUi, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_8LaunchUI_13Ui_MainWindow_3retranslateUi(PyObject *__pyx_self, 
+static PyMethodDef __pyx_mdef_8launchUI_13Ui_MainWindow_3retranslateUi = {"retranslateUi", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_8launchUI_13Ui_MainWindow_3retranslateUi, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_8launchUI_13Ui_MainWindow_3retranslateUi(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -3795,11 +3795,11 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       __Pyx_Arg_XDECREF_FASTCALL(values[__pyx_temp]);
     }
   }
-  __Pyx_AddTraceback("LaunchUI.Ui_MainWindow.retranslateUi", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("launchUI.Ui_MainWindow.retranslateUi", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_8LaunchUI_13Ui_MainWindow_2retranslateUi(__pyx_self, __pyx_v_self, __pyx_v_MainWindow);
+  __pyx_r = __pyx_pf_8launchUI_13Ui_MainWindow_2retranslateUi(__pyx_self, __pyx_v_self, __pyx_v_MainWindow);
 
   /* function exit code */
   {
@@ -3812,7 +3812,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_8LaunchUI_13Ui_MainWindow_2retranslateUi(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_MainWindow) {
+static PyObject *__pyx_pf_8launchUI_13Ui_MainWindow_2retranslateUi(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_MainWindow) {
   PyObject *__pyx_v__translate = NULL;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -3971,7 +3971,7 @@ static PyObject *__pyx_pf_8LaunchUI_13Ui_MainWindow_2retranslateUi(CYTHON_UNUSED
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
-  __Pyx_AddTraceback("LaunchUI.Ui_MainWindow.retranslateUi", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("launchUI.Ui_MainWindow.retranslateUi", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v__translate);
@@ -3998,7 +3998,6 @@ static int __Pyx_CreateStringTabAndInitStrings(void) {
   __Pyx_StringTabEntry __pyx_string_tab[] = {
     {&__pyx_n_s_AlignCenter, __pyx_k_AlignCenter, sizeof(__pyx_k_AlignCenter), 0, 0, 1, 1},
     {&__pyx_n_s_AlignmentFlag, __pyx_k_AlignmentFlag, sizeof(__pyx_k_AlignmentFlag), 0, 0, 1, 1},
-    {&__pyx_n_s_LaunchUI, __pyx_k_LaunchUI, sizeof(__pyx_k_LaunchUI), 0, 0, 1, 1},
     {&__pyx_n_s_MainWindow, __pyx_k_MainWindow, sizeof(__pyx_k_MainWindow), 0, 0, 1, 1},
     {&__pyx_n_s_PyQt6, __pyx_k_PyQt6, sizeof(__pyx_k_PyQt6), 0, 0, 1, 1},
     {&__pyx_n_s_QCoreApplication, __pyx_k_QCoreApplication, sizeof(__pyx_k_QCoreApplication), 0, 0, 1, 1},
@@ -4027,6 +4026,7 @@ static int __Pyx_CreateStringTabAndInitStrings(void) {
     {&__pyx_n_s_init_subclass, __pyx_k_init_subclass, sizeof(__pyx_k_init_subclass), 0, 0, 1, 1},
     {&__pyx_n_s_is_coroutine, __pyx_k_is_coroutine, sizeof(__pyx_k_is_coroutine), 0, 0, 1, 1},
     {&__pyx_n_s_label, __pyx_k_label, sizeof(__pyx_k_label), 0, 0, 1, 1},
+    {&__pyx_n_s_launchUI, __pyx_k_launchUI, sizeof(__pyx_k_launchUI), 0, 0, 1, 1},
     {&__pyx_kp_s_launchUI_py, __pyx_k_launchUI_py, sizeof(__pyx_k_launchUI_py), 0, 0, 1, 0},
     {&__pyx_n_s_lbl_status, __pyx_k_lbl_status, sizeof(__pyx_k_lbl_status), 0, 0, 1, 1},
     {&__pyx_n_s_main, __pyx_k_main, sizeof(__pyx_k_main), 0, 0, 1, 1},
@@ -4280,10 +4280,10 @@ static int __Pyx_modinit_function_import_code(void) {
 #if PY_MAJOR_VERSION >= 3
 #if CYTHON_PEP489_MULTI_PHASE_INIT
 static PyObject* __pyx_pymod_create(PyObject *spec, PyModuleDef *def); /*proto*/
-static int __pyx_pymod_exec_LaunchUI(PyObject* module); /*proto*/
+static int __pyx_pymod_exec_launchUI(PyObject* module); /*proto*/
 static PyModuleDef_Slot __pyx_moduledef_slots[] = {
   {Py_mod_create, (void*)__pyx_pymod_create},
-  {Py_mod_exec, (void*)__pyx_pymod_exec_LaunchUI},
+  {Py_mod_exec, (void*)__pyx_pymod_exec_launchUI},
   {0, NULL}
 };
 #endif
@@ -4296,7 +4296,7 @@ namespace {
   #endif
   {
       PyModuleDef_HEAD_INIT,
-      "LaunchUI",
+      "launchUI",
       0, /* m_doc */
     #if CYTHON_PEP489_MULTI_PHASE_INIT
       0, /* m_size */
@@ -4344,11 +4344,11 @@ namespace {
 
 
 #if PY_MAJOR_VERSION < 3
-__Pyx_PyMODINIT_FUNC initLaunchUI(void) CYTHON_SMALL_CODE; /*proto*/
-__Pyx_PyMODINIT_FUNC initLaunchUI(void)
+__Pyx_PyMODINIT_FUNC initlaunchUI(void) CYTHON_SMALL_CODE; /*proto*/
+__Pyx_PyMODINIT_FUNC initlaunchUI(void)
 #else
-__Pyx_PyMODINIT_FUNC PyInit_LaunchUI(void) CYTHON_SMALL_CODE; /*proto*/
-__Pyx_PyMODINIT_FUNC PyInit_LaunchUI(void)
+__Pyx_PyMODINIT_FUNC PyInit_launchUI(void) CYTHON_SMALL_CODE; /*proto*/
+__Pyx_PyMODINIT_FUNC PyInit_launchUI(void)
 #if CYTHON_PEP489_MULTI_PHASE_INIT
 {
   return PyModuleDef_Init(&__pyx_moduledef);
@@ -4429,7 +4429,7 @@ bad:
 }
 
 
-static CYTHON_SMALL_CODE int __pyx_pymod_exec_LaunchUI(PyObject *__pyx_pyinit_module)
+static CYTHON_SMALL_CODE int __pyx_pymod_exec_launchUI(PyObject *__pyx_pyinit_module)
 #endif
 #endif
 {
@@ -4449,7 +4449,7 @@ static CYTHON_SMALL_CODE int __pyx_pymod_exec_LaunchUI(PyObject *__pyx_pyinit_mo
   #if CYTHON_PEP489_MULTI_PHASE_INIT
   if (__pyx_m) {
     if (__pyx_m == __pyx_pyinit_module) return 0;
-    PyErr_SetString(PyExc_RuntimeError, "Module 'LaunchUI' has already been imported. Re-initialisation is not supported.");
+    PyErr_SetString(PyExc_RuntimeError, "Module 'launchUI' has already been imported. Re-initialisation is not supported.");
     return -1;
   }
   #elif PY_MAJOR_VERSION >= 3
@@ -4461,13 +4461,13 @@ static CYTHON_SMALL_CODE int __pyx_pymod_exec_LaunchUI(PyObject *__pyx_pyinit_mo
   Py_INCREF(__pyx_m);
   #else
   #if PY_MAJOR_VERSION < 3
-  __pyx_m = Py_InitModule4("LaunchUI", __pyx_methods, 0, 0, PYTHON_API_VERSION); Py_XINCREF(__pyx_m);
+  __pyx_m = Py_InitModule4("launchUI", __pyx_methods, 0, 0, PYTHON_API_VERSION); Py_XINCREF(__pyx_m);
   if (unlikely(!__pyx_m)) __PYX_ERR(0, 1, __pyx_L1_error)
   #elif CYTHON_USE_MODULE_STATE
   __pyx_t_1 = PyModule_Create(&__pyx_moduledef); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1, __pyx_L1_error)
   {
     int add_module_result = PyState_AddModule(__pyx_t_1, &__pyx_moduledef);
-    __pyx_t_1 = 0; /* transfer ownership from __pyx_t_1 to LaunchUI pseudovariable */
+    __pyx_t_1 = 0; /* transfer ownership from __pyx_t_1 to launchUI pseudovariable */
     if (unlikely((add_module_result < 0))) __PYX_ERR(0, 1, __pyx_L1_error)
     pystate_addmodule_run = 1;
   }
@@ -4493,7 +4493,7 @@ if (!__Pyx_RefNanny) {
       Py_FatalError("failed to import 'refnanny' module");
 }
 #endif
-  __Pyx_RefNannySetupContext("__Pyx_PyMODINIT_FUNC PyInit_LaunchUI(void)", 0);
+  __Pyx_RefNannySetupContext("__Pyx_PyMODINIT_FUNC PyInit_launchUI(void)", 0);
   if (__Pyx_check_binary_version() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   #ifdef __Pxy_PyFrame_Initialize_Offsets
   __Pxy_PyFrame_Initialize_Offsets();
@@ -4531,14 +4531,14 @@ if (!__Pyx_RefNanny) {
   #if PY_MAJOR_VERSION < 3 && (__PYX_DEFAULT_STRING_ENCODING_IS_ASCII || __PYX_DEFAULT_STRING_ENCODING_IS_DEFAULT)
   if (__Pyx_init_sys_getdefaultencoding_params() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   #endif
-  if (__pyx_module_is_main_LaunchUI) {
+  if (__pyx_module_is_main_launchUI) {
     if (PyObject_SetAttr(__pyx_m, __pyx_n_s_name, __pyx_n_s_main) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   }
   #if PY_MAJOR_VERSION >= 3
   {
     PyObject *modules = PyImport_GetModuleDict(); if (unlikely(!modules)) __PYX_ERR(0, 1, __pyx_L1_error)
-    if (!PyDict_GetItemString(modules, "LaunchUI")) {
-      if (unlikely((PyDict_SetItemString(modules, "LaunchUI", __pyx_m) < 0))) __PYX_ERR(0, 1, __pyx_L1_error)
+    if (!PyDict_GetItemString(modules, "launchUI")) {
+      if (unlikely((PyDict_SetItemString(modules, "launchUI", __pyx_m) < 0))) __PYX_ERR(0, 1, __pyx_L1_error)
     }
   }
   #endif
@@ -4605,7 +4605,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = __Pyx_CalculateMetaclass(NULL, __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 12, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_4 = __Pyx_Py3MetaclassPrepare(__pyx_t_2, __pyx_t_3, __pyx_n_s_Ui_MainWindow, __pyx_n_s_Ui_MainWindow, (PyObject *) NULL, __pyx_n_s_LaunchUI, (PyObject *) NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 12, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_Py3MetaclassPrepare(__pyx_t_2, __pyx_t_3, __pyx_n_s_Ui_MainWindow, __pyx_n_s_Ui_MainWindow, (PyObject *) NULL, __pyx_n_s_launchUI, (PyObject *) NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 12, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (__pyx_t_3 != __pyx_tuple__9) {
     if (unlikely((PyDict_SetItemString(__pyx_t_4, "__orig_bases__", __pyx_tuple__9) < 0))) __PYX_ERR(0, 12, __pyx_L1_error)
@@ -4618,7 +4618,7 @@ if (!__Pyx_RefNanny) {
  *         MainWindow.setObjectName("MainWindow")
  *         MainWindow.resize(670, 300)
  */
-  __pyx_t_5 = __Pyx_CyFunction_New(&__pyx_mdef_8LaunchUI_13Ui_MainWindow_1setupUi, 0, __pyx_n_s_Ui_MainWindow_setupUi, NULL, __pyx_n_s_LaunchUI, __pyx_d, ((PyObject *)__pyx_codeobj__11)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 13, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_CyFunction_New(&__pyx_mdef_8launchUI_13Ui_MainWindow_1setupUi, 0, __pyx_n_s_Ui_MainWindow_setupUi, NULL, __pyx_n_s_launchUI, __pyx_d, ((PyObject *)__pyx_codeobj__11)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 13, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   if (__Pyx_SetNameInClass(__pyx_t_4, __pyx_n_s_setupUi, __pyx_t_5) < 0) __PYX_ERR(0, 13, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
@@ -4630,7 +4630,7 @@ if (!__Pyx_RefNanny) {
  *         _translate = QtCore.QCoreApplication.translate
  *         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
  */
-  __pyx_t_5 = __Pyx_CyFunction_New(&__pyx_mdef_8LaunchUI_13Ui_MainWindow_3retranslateUi, 0, __pyx_n_s_Ui_MainWindow_retranslateUi, NULL, __pyx_n_s_LaunchUI, __pyx_d, ((PyObject *)__pyx_codeobj__13)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 44, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_CyFunction_New(&__pyx_mdef_8launchUI_13Ui_MainWindow_3retranslateUi, 0, __pyx_n_s_Ui_MainWindow_retranslateUi, NULL, __pyx_n_s_launchUI, __pyx_d, ((PyObject *)__pyx_codeobj__13)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 44, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   if (__Pyx_SetNameInClass(__pyx_t_4, __pyx_n_s_retranslateUi, __pyx_t_5) < 0) __PYX_ERR(0, 44, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
@@ -4670,7 +4670,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_XDECREF(__pyx_t_5);
   if (__pyx_m) {
     if (__pyx_d && stringtab_initialized) {
-      __Pyx_AddTraceback("init LaunchUI", __pyx_clineno, __pyx_lineno, __pyx_filename);
+      __Pyx_AddTraceback("init launchUI", __pyx_clineno, __pyx_lineno, __pyx_filename);
     }
     #if !CYTHON_USE_MODULE_STATE
     Py_CLEAR(__pyx_m);
@@ -4684,7 +4684,7 @@ if (!__Pyx_RefNanny) {
     }
     #endif
   } else if (!PyErr_Occurred()) {
-    PyErr_SetString(PyExc_ImportError, "init LaunchUI");
+    PyErr_SetString(PyExc_ImportError, "init launchUI");
   }
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
