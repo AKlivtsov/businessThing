@@ -15,6 +15,9 @@ import deleteDialogUI
 # БД
 import sqlite3
 
+#ексель
+import pandas
+
 VERSIONPATH = 'ver1_3'
 
 
@@ -581,6 +584,7 @@ class ReportDialog(QMainWindow, reportUI.Ui_MainWindow, QDate):
         
         self.btn_close.clicked.connect(lambda: self.close())
         self.btn_save.clicked.connect(self.save)
+        self.btn_export.clicked.connect(self.export)
 
     def setTheme(self, theme, style):
         if theme == "Dark":
@@ -691,7 +695,7 @@ class ReportDialog(QMainWindow, reportUI.Ui_MainWindow, QDate):
         verLayout = QVBoxLayout()
         horLayout = QHBoxLayout()
 
-        btnList = [self.btn_close, self.btn_save]
+        btnList = [self.btn_close, self.btn_export, self.btn_save,]
 
         for button in btnList:
             horLayout.addWidget(button)
@@ -962,6 +966,8 @@ class ReportDialog(QMainWindow, reportUI.Ui_MainWindow, QDate):
         else:
             self.saveDialog.close()
 
+    def export(self):
+        pass
 
 class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor, QSize, QSizePolicy, QHeaderView, QGridLayout):
     def __init__(self):

@@ -59,6 +59,19 @@
      <string>сохранить</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="btn_export">
+    <property name="geometry">
+     <rect>
+      <x>770</x>
+      <y>460</y>
+      <width>121</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>экспорт</string>
+    </property>
+   </widget>
   </widget>
  </widget>
  <resources/>
