@@ -967,7 +967,26 @@ class ReportDialog(QMainWindow, reportUI.Ui_MainWindow, QDate):
             self.saveDialog.close()
 
     def export(self):
-        pass
+
+        rowList = []
+        data = {}
+
+        for column in range(self.tw_reportTable.columnCount()):
+            for row in range(self.tw_reportTable.rowCount()):
+
+                item = self.tw_reportTable.item(row, column)
+                if item is not None:
+                    rowList.append(item.text())
+
+                for item in rowList:
+                    data[rowList[0]] = rowList
+
+
+            
+
+        print(data)
+
+        # data = pandas.DataFrame({'Период аренды': ['aadd'], })
 
 class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor, QSize, QSizePolicy, QHeaderView, QGridLayout):
     def __init__(self):
