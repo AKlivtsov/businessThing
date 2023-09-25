@@ -967,26 +967,64 @@ class ReportDialog(QMainWindow, reportUI.Ui_MainWindow, QDate):
             self.saveDialog.close()
 
     def export(self):
-
-        rowList = []
         data = {}
+        tempDict = {}
+        columnName = []
 
         for column in range(self.tw_reportTable.columnCount()):
-            for row in range(self.tw_reportTable.rowCount()):
+            item = self.tw_reportTable.item(0, column)
+            if item is not None:
+                columnName.append(item.text())
 
-                item = self.tw_reportTable.item(row, column)
-                if item is not None:
-                    rowList.append(item.text())
+            if columnName != 'Оплата':
+
+                for row in range(1, self.tw_reportTable.rowCount()):
+                    rowList = []
+
+                    item = self.tw_reportTable.item(row, column)
+                    if item is not None:
+                        rowList.append(item.text())
 
                 for item in rowList:
-                    data[rowList[0]] = rowList
+                    data[columnName[0]] = rowList
+
+        for column in range(1, self.tw_reportTable.columnCount()):
+            item = self.tw_reportTable.item(1, column)
+            if item is not None:
+                columnName.append(item.text())
+
+        print("columnName: ", columnName)
+
+        exceptionList = ['Бронь', 'Гость', 'Авито', 'Расход', 'Показания', 'Доход']
+
+        for column in columnName:
+            if column not in exceptionList:
+
+                rowList = []
+                for row in range(1, self.tw_reportTable.rowCount()):
+
+                    item = self.tw_reportTable.item(row, columnName.index(column))
+                    if item is not None:
+                        rowList.append(item.text())
+
+                for item in rowList:
+                    data[column] = rowList
 
 
-            
+            else:
+                rowList = []
+                for row in range(2, self.tw_reportTable.rowCount() - 1) :
 
-        print(data)
+                    item = self.tw_reportTable.item(row, columnName.index(column)-1)
+                    if item is not None:
+                        rowList.append(item.text())
 
-        # data = pandas.DataFrame({'Период аренды': ['aadd'], })
+                tempDict[column] = rowList
+                
+                data['Оплата'] = tempDict
+
+        df = pandas.DataFrame(data)
+        pandas.to_excel('./export.xlsx')
 
 class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor, QSize, QSizePolicy, QHeaderView, QGridLayout):
     def __init__(self):
