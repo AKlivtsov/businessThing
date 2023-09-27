@@ -968,7 +968,6 @@ class ReportDialog(QMainWindow, reportUI.Ui_MainWindow, QDate):
 
     def export(self):
         data = {}
-        tempDict = {}
         columnName = []
 
         for column in range(self.tw_reportTable.columnCount()):
@@ -991,11 +990,13 @@ class ReportDialog(QMainWindow, reportUI.Ui_MainWindow, QDate):
         for column in range(1, self.tw_reportTable.columnCount()):
             item = self.tw_reportTable.item(1, column)
             if item is not None:
-                columnName.append(item.text())
+                if item != "Оплата":
+                    columnName.append(item.text())
 
         print("columnName: ", columnName)
 
-        exceptionList = ['Бронь', 'Гость', 'Авито', 'Расход', 'Показания', 'Доход']
+
+        exceptionList = []
 
         for column in columnName:
             if column not in exceptionList:
@@ -1018,13 +1019,16 @@ class ReportDialog(QMainWindow, reportUI.Ui_MainWindow, QDate):
                     item = self.tw_reportTable.item(row, columnName.index(column)-1)
                     if item is not None:
                         rowList.append(item.text())
-
-                tempDict[column] = rowList
                 
-                data['Оплата'] = tempDict
+                data[column] = rowList
 
-        df = pandas.DataFrame(data)
-        pandas.to_excel('./export.xlsx')
+
+
+        print(data)
+
+        df = pandas.DataFrame.from_dict(data, orient='index')
+        df = df.transpose()
+        df.to_excel('./export.xlsx')
 
 class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor, QSize, QSizePolicy, QHeaderView, QGridLayout):
     def __init__(self):
