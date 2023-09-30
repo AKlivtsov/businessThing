@@ -4,6 +4,7 @@ from PyQt6.QtWidgets import QMainWindow, QApplication
 from PyQt6.QtCore import QThread, QObject, QSize
 
 # окно 
+sys.path.insert(1,'~/Desktop/CodieStuff/businessThing/main/launchUI.py')
 import launchUI
 
 # подключение

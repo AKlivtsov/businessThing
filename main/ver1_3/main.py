@@ -973,62 +973,31 @@ class ReportDialog(QMainWindow, reportUI.Ui_MainWindow, QDate):
         for column in range(self.tw_reportTable.columnCount()):
             item = self.tw_reportTable.item(0, column)
             if item is not None:
-                columnName.append(item.text())
-
-            if columnName != 'Оплата':
-
-                for row in range(1, self.tw_reportTable.rowCount()):
-                    rowList = []
-
-                    item = self.tw_reportTable.item(row, column)
-                    if item is not None:
-                        rowList.append(item.text())
-
-                for item in rowList:
-                    data[columnName[0]] = rowList
-
-        for column in range(1, self.tw_reportTable.columnCount()):
-            item = self.tw_reportTable.item(1, column)
-            if item is not None:
-                if item != "Оплата":
+                if item.text() != "Оплата":
                     columnName.append(item.text())
-
-        print("columnName: ", columnName)
-
-
-        exceptionList = []
+                else:
+                    for column in range(1, self.tw_reportTable.columnCount()):
+                        item = self.tw_reportTable.item(1, column)
+                        if item is not None:
+                            columnName.append(item.text())
 
         for column in columnName:
-            if column not in exceptionList:
+            rowList = []
+            for row in range(2, self.tw_reportTable.rowCount()):
 
-                rowList = []
-                for row in range(1, self.tw_reportTable.rowCount()):
+                item = self.tw_reportTable.item(row, columnName.index(column))
+                if item is not None:
+                    rowList.append(item.text())
+                else:
+                    rowList.append('')
 
-                    item = self.tw_reportTable.item(row, columnName.index(column))
-                    if item is not None:
-                        rowList.append(item.text())
-
-                for item in rowList:
-                    data[column] = rowList
-
-
-            else:
-                rowList = []
-                for row in range(2, self.tw_reportTable.rowCount() - 1) :
-
-                    item = self.tw_reportTable.item(row, columnName.index(column)-1)
-                    if item is not None:
-                        rowList.append(item.text())
-                
+            for item in rowList:
                 data[column] = rowList
-
-
-
-        print(data)
 
         df = pandas.DataFrame.from_dict(data, orient='index')
         df = df.transpose()
         df.to_excel('./export.xlsx')
+
 
 class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor, QSize, QSizePolicy, QHeaderView, QGridLayout):
     def __init__(self):
