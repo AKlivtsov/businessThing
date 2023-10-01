@@ -585,6 +585,8 @@ class ReportDialog(QMainWindow, reportUI.Ui_MainWindow, QDate):
         self.btn_close.clicked.connect(lambda: self.close())
         self.btn_save.clicked.connect(self.save)
         self.btn_export.clicked.connect(self.export)
+        
+        self.path = None
 
     def setTheme(self, theme, style):
         if theme == "Dark":
@@ -965,6 +967,9 @@ class ReportDialog(QMainWindow, reportUI.Ui_MainWindow, QDate):
             self.saveDialog.add()
         else:
             self.saveDialog.close()
+            
+    def exportDialog(self):
+        self.path = QFileDialog.getUrl()
 
     def export(self):
         data = {}
