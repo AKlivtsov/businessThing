@@ -598,6 +598,12 @@ class ReportDialog(QMainWindow, reportUI.Ui_MainWindow, QDate):
                     color: #FFFFFF;
                     border-radius: 5px;
                 }
+                               
+                QLabel{
+                    background-color: #2E2E2E;
+                    color: #FFFFFF;
+                    border-radius: 5px;    
+                }               
 
                 QPushButton{
                     background-color: #5E5E5E;
