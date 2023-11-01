@@ -5,7 +5,7 @@ from PyQt6.QtCore import *
 from PyQt6.QtGui import *
 
 # окна
-import mainUI
+import mainUITest
 import reportUI
 import editDialogUI
 import saveDialogUI
@@ -568,7 +568,7 @@ class ReportDialog(QMainWindow, reportUI.Ui_MainWindow, QDate):
 
         self.setWindowIcon(QtGui.QIcon(f'{VERSIONPATH}/icon96px.ico'))
         self.setWindowTitle("Отчёт")
-        self.resizeable()
+        # self.resizeable()
 
         self.calTable = None
         self.tableName = None
@@ -704,6 +704,7 @@ class ReportDialog(QMainWindow, reportUI.Ui_MainWindow, QDate):
         self.reportSum.set(self.tw_reportTable)
         self.tw_reportTable.cellChanged.connect(self.calculate)
 
+    '''
     def resizeable(self):
 
         verLayout = QVBoxLayout()
@@ -730,7 +731,7 @@ class ReportDialog(QMainWindow, reportUI.Ui_MainWindow, QDate):
         verLayout.addLayout(horLayout)
 
         self.centralwidget.setLayout(verLayout)
-
+    '''
     def setSumRow(self):
         if self.tw_reportTable.item(self.tw_reportTable.rowCount()-1, 0) != None:
 
@@ -1041,7 +1042,7 @@ class ReportDialog(QMainWindow, reportUI.Ui_MainWindow, QDate):
         self.an_labelMsg.start()
         """
 
-class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor, QSize, QSizePolicy, QHeaderView, QGridLayout):
+class MainWindow(QMainWindow, mainUITest.Ui_MainWindow, QDialog, QColor, QSize, QSizePolicy, QHeaderView, QGridLayout):
     def __init__(self):
         super(MainWindow, self).__init__()
         self.setupUi(self)
@@ -1050,7 +1051,7 @@ class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor, QSize, QSiz
         self.theme = "Light"
         self.reportOpenAllow = False
 
-        self.resizeable()
+        # self.resizeable()
 
         self.setWindowIcon(QtGui.QIcon(f'{VERSIONPATH}/assets/icon96px.ico'))
         self.setWindowTitle("BusinessThing")
@@ -1103,7 +1104,7 @@ class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor, QSize, QSiz
 
         self.read()
         self.setTheme()
-
+    '''
     def resizeable(self):
 
         verLayout = QVBoxLayout()
@@ -1125,7 +1126,7 @@ class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor, QSize, QSiz
         verLayout.addLayout(horLayout)
 
         self.centralwidget.setLayout(verLayout)
-
+    '''
     def setTheme(self):
         if self.theme == "Light":
             style = """
