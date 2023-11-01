@@ -587,6 +587,9 @@ class ReportDialog(QMainWindow, reportUI.Ui_MainWindow, QDate):
         self.btn_export.clicked.connect(self.export)
         
         self.path = None
+        
+        self.an_frameMsg = QPropertyAnimation(self.f_msg, b"pos")
+        self.an_labelMsg = QPropertyAnimation(self.lbl_msg, b"pos")
 
     def setTheme(self, theme, style):
         if theme == "Dark":
@@ -599,11 +602,14 @@ class ReportDialog(QMainWindow, reportUI.Ui_MainWindow, QDate):
                     border-radius: 5px;
                 }
                                
-                QLabel{
-                    background-color: #2E2E2E;
-                    color: #FFFFFF;
+                QFrame{
+                    background-color: #5E5E5E;
                     border-radius: 5px;    
                 }               
+                
+                QLabel{
+                    color: #FFFFFF;
+                }
 
                 QPushButton{
                     background-color: #5E5E5E;
@@ -703,13 +709,18 @@ class ReportDialog(QMainWindow, reportUI.Ui_MainWindow, QDate):
         verLayout = QVBoxLayout()
         horLayout = QHBoxLayout()
 
-        btnList = [self.btn_close, self.btn_export, self.btn_save,]
+        lowRowItems = [self.btn_close, self.f_msg, self.btn_export, self.btn_save,]
 
-        for button in btnList:
-            horLayout.addWidget(button)
-            button.setMinimumSize(QSize(130, 30))
+        for item in lowRowItems:
+            horLayout.addWidget(item)
 
-        horLayout.insertStretch(1, 500)
+            if item == self.f_msg:
+                item.setMinimumSize(QSize(300, 40))
+            else:
+                item.setMinimumSize(QSize(130, 30))
+
+        horLayout.insertStretch(1, 100)
+        horLayout.insertStretch(3, 30)
 
         verLayout.addWidget(self.tw_reportTable)
 
@@ -1009,6 +1020,26 @@ class ReportDialog(QMainWindow, reportUI.Ui_MainWindow, QDate):
         df = df.transpose()
         df.to_excel('./export.xlsx')
 
+        self.expAnimation()
+
+    def expAnimation(self):
+        # frame animation
+        self.an_frameMsg.setEasingCurve(QEasingCurve.Type.InOutCubic)
+        self.an_frameMsg.setKeyValueAt(0.1, QPoint(340, 510))
+        self.an_frameMsg.setKeyValueAt(0.3, QPoint(340, 440))
+        self.an_frameMsg.setEndValue(QPoint(340, 450))
+        self.an_frameMsg.setDuration(400)
+        self.an_frameMsg.start()
+
+        # label animation
+        """
+        self.an_labelMsg.setEasingCurve(QEasingCurve.Type.InOutCubic)
+        self.an_labelMsg.setKeyValueAt(0.1, QPoint(50, 220))
+        self.an_labelMsg.setKeyValueAt(0.3, QPoint(90, 220))
+        self.an_labelMsg.setEndValue(QPoint(70, 220))
+        self.an_labelMsg.setDuration(400)
+        self.an_labelMsg.start()
+        """
 
 class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor, QSize, QSizePolicy, QHeaderView, QGridLayout):
     def __init__(self):
@@ -1104,6 +1135,15 @@ class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor, QSize, QSiz
                     color: #1F1F1F;
                     border-radius: 5px;
                 }
+                
+                QFrame{
+                    background-color: #7A7A7A;
+                    border-radius: 5px;    
+                }
+                
+                QLabel{
+                    color: #FFFFFF;
+                }     
 
                 QPushButton{
                     background-color: #7A7A7A;

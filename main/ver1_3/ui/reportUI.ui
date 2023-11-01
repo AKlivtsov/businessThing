@@ -72,7 +72,7 @@
      <string>экспорт</string>
     </property>
    </widget>
-   <widget class="QLabel" name="lbl_msg">
+   <widget class="QFrame" name="f_msg">
     <property name="geometry">
      <rect>
       <x>340</x>
@@ -81,12 +81,28 @@
       <height>40</height>
      </rect>
     </property>
-    <property name="text">
-     <string>Placeholder text!</string>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
     </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
     </property>
+    <widget class="QLabel" name="lbl_msg">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>300</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Placeholder text!</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
    </widget>
   </widget>
  </widget>
