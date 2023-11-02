@@ -561,17 +561,14 @@ class DeleteDialog(QDialog, deleteDialogUI.Ui_Dialog, QSize):
                 workie = False
 
 
-class ReportDialog(QMainWindow, reportUI.Ui_MainWindow, QDate):
+class ReportDialog(QMainWindow, QDate):
     def __init__(self):
-        super(ReportDialog, self).__init__()
-        self.setupUi(self)
-
-        self.setWindowIcon(QtGui.QIcon(f'{VERSIONPATH}/icon96px.ico'))
-        self.setWindowTitle("Отчёт")
-        # self.resizeable()
-
         self.calTable = None
         self.tableName = None
+        self.tw_reportTable = None
+        self.btn_save = None
+        self.btn_export = None
+        self.btn_close = None           #TODO: delete btn_close
         self.totalList = []
 
         self.reportSave = SaveReportThread()
@@ -582,113 +579,11 @@ class ReportDialog(QMainWindow, reportUI.Ui_MainWindow, QDate):
 
         self.saveDialog = SaveDialog()
         
-        self.btn_close.clicked.connect(lambda: self.close())
-        self.btn_save.clicked.connect(self.save)
-        self.btn_export.clicked.connect(self.export)
-        
         self.path = None
-        
-        self.an_frameMsg = QPropertyAnimation(self.f_msg, b"pos")
-        self.an_labelMsg = QPropertyAnimation(self.lbl_msg, b"pos")
 
-    def setTheme(self, theme, style):
-        if theme == "Dark":
-            self.setStyleSheet(style)
-            self.setStyleSheet("""
-
-                QWidget{
-                    background-color: #2E2E2E;
-                    color: #FFFFFF;
-                    border-radius: 5px;
-                }
-                               
-                QFrame{
-                    background-color: #5E5E5E;
-                    border-radius: 5px;    
-                }               
-                
-                QLabel{
-                    color: #FFFFFF;
-                }
-
-                QPushButton{
-                    background-color: #5E5E5E;
-                    color: #FFFFFF;
-                }
-
-                QPushButton:pressed {
-                    background-color: #767676;
-                    color: #FFFFFF;
-                }
-
-                QTableWidget{
-                    background-color: #8D8D8D;
-                    color: #000000;
-                }
-
-                QHeaderView::section{
-                    background-color: #3e3e3e;
-                    border: solid;
-                }
-
-                QTableView QTableCornerButton::section {
-                    background-color: #3e3e3e;
-                    border: solid;
-                }
-
-                QHeaderView::section:checked{
-                    background-color: #BDBDBD;
-                }
-
-                QLineEdit{
-                    background-color: #515151;
-                }
-
-                QTextEdit {
-                    background-color: #515151;
-                }
-
-                QScrollBar{
-                    margin: 2px 20px 2px 20px;
-                    border: 1px solid grey;
-                    background: #5E5E5E;
-                    border-radius: 2px;
-                    height: 15px;
-                }
-
-                QScrollBar::handle{
-                    background: #5E5E5E;
-                } 
-
-                QScrollBar::add-line:horizontal {
-                    border: solid;
-                    border-radius: 2px;
-                    background: #5E5E5E;
-                    width: 15px;
-
-                    image: url(ver1_3/assets/right-light-arrow-50.png);
-
-                    subcontrol-position: right;
-                    subcontrol-origin: margin;
-                }
-
-                QScrollBar::sub-line:horizontal {
-                    border: solid;
-                    border-radius: 2px;
-                    background: #5E5E5E;
-                    width: 15px;
-
-                    image: url(ver1_3/assets/left-light-arrow-50.png);
-
-                    subcontrol-position: left;
-                    subcontrol-origin: margin;
-                }
-
-                """)
-
-        else:
-            self.setStyleSheet(style)
-
+    def setTheme(self, a, b):
+        pass
+    
     def start(self):
 
         self.setTable()
@@ -767,10 +662,18 @@ class ReportDialog(QMainWindow, reportUI.Ui_MainWindow, QDate):
 
             self.totalList.clear()
 
-    def set(self, calTable, tableName):
+    def set(self, calTable, tableName, repoTable, btns:list):
         self.calTable = calTable
         self.tableName = tableName
-
+        self.tw_reportTable = repoTable
+        
+        self.btn_close, self.btn_export, self.btn_save = btns
+        
+        self.btn_close.clicked.connect(lambda: self.close())
+        self.btn_save.clicked.connect(self.save)
+        self.btn_export.clicked.connect(self.export)
+        
+        
     def setTable(self):
 
         def color(row, column, red, green, blue):
@@ -1042,6 +945,7 @@ class ReportDialog(QMainWindow, reportUI.Ui_MainWindow, QDate):
         self.an_labelMsg.start()
         """
 
+
 class MainWindow(QMainWindow, mainUITest.Ui_MainWindow, QDialog, QColor, QSize, QSizePolicy, QHeaderView, QGridLayout):
     def __init__(self):
         super(MainWindow, self).__init__()
@@ -1050,6 +954,7 @@ class MainWindow(QMainWindow, mainUITest.Ui_MainWindow, QDialog, QColor, QSize, 
         self.tableName = "DefaultTable"
         self.theme = "Light"
         self.reportOpenAllow = False
+        self.sw_main.setCurrentIndex(0) # calendar open first
 
         # self.resizeable()
 
@@ -1129,95 +1034,8 @@ class MainWindow(QMainWindow, mainUITest.Ui_MainWindow, QDialog, QColor, QSize, 
     '''
     def setTheme(self):
         if self.theme == "Light":
-            style = """
-
-                QWidget{
-                    background-color: #E0E0E0;
-                    color: #1F1F1F;
-                    border-radius: 5px;
-                }
-                
-                QFrame{
-                    background-color: #7A7A7A;
-                    border-radius: 5px;    
-                }
-                
-                QLabel{
-                    color: #FFFFFF;
-                }     
-
-                QPushButton{
-                    background-color: #7A7A7A;
-                    color: #FFFFFF;
-                }
-
-                QPushButton:pressed {
-                    background-color: #494949;
-                    color: #FFFFFF;
-                }
-
-                QLineEdit{
-                    background-color: #BDBDBD;
-                }
-
-                QTextEdit {
-                    background-color: #BDBDBD;
-                }
-
-                QTableWidget{
-                    background-color: #BDBDBD;
-                }
-
-                QHeaderView::section{
-                    background-color: #d4d4d4;
-                    border: solid;
-                }
-
-                QTableView QTableCornerButton::section {
-                    background-color: #d4d4d4;
-                    border: solid;
-                }
-
-                QHeaderView::section:checked{
-                    background-color: #BDBDBD;
-                }
-
-                QScrollBar{
-                    margin: 2px 20px 2px 20px;
-                    border: 1px solid grey;
-                    border-radius: 2px;
-                    height: 15px;
-                }
-
-                QScrollBar::handle{
-                    background: #BDBDBD;
-                } 
-
-                QScrollBar::add-line:horizontal {
-                    border: solid;
-                    border-radius: 2px;
-                    background: #BDBDBD;
-                    width: 15px;
-
-                    image: url(ver1_3/assets/right-dark-arrow-50.png);
-
-                    subcontrol-position: right;
-                    subcontrol-origin: margin;
-                }
-
-                QScrollBar::sub-line:horizontal {
-                    border: solid;
-                    border-radius: 2px;
-                    background: #BDBDBD;
-                    width: 15px;
-
-                    image: url(ver1_3/assets/left-dark-arrow-50.png);
-
-                    subcontrol-position: left;
-                    subcontrol-origin: margin;
-                }
-
-                """
+            with open('ver1_3/themes/lightDefault.css') as file:
+                style = file.read()
 
             self.setStyleSheet(style)
 
@@ -1230,87 +1048,8 @@ class MainWindow(QMainWindow, mainUITest.Ui_MainWindow, QDialog, QColor, QSize, 
             self.theme = "Dark"
 
         else:
-            style = """
-
-                QWidget{
-                    background-color: #2E2E2E;
-                    color: #FFFFFF;
-                    border-radius: 5px;
-                }
-
-                QPushButton{
-                    background-color: #5E5E5E;
-                    color: #FFFFFF;
-                }
-
-                QPushButton:pressed {
-                    background-color: #767676;
-                    color: #FFFFFF;
-                }
-
-                QTableWidget{
-                    background-color: #515151;
-                }
-
-                QHeaderView::section{
-                    background-color: #3e3e3e;
-                    border: solid;
-                }
-
-                QTableView QTableCornerButton::section {
-                    background-color: #3e3e3e;
-                    border: solid;
-                }
-
-                QHeaderView::section:checked{
-                    background-color: #BDBDBD;
-                }
-
-                QLineEdit{
-                    background-color: #515151;
-                }
-
-                QTextEdit {
-                    background-color: #515151;
-                }
-
-                QScrollBar{
-                    margin: 2px 20px 2px 20px;
-                    border: 1px solid grey;
-                    background: #5E5E5E;
-                    border-radius: 2px;
-                    height: 15px;
-                }
-
-                QScrollBar::handle{
-                    background: #5E5E5E;
-                } 
-
-                QScrollBar::add-line:horizontal {
-                    border: solid;
-                    border-radius: 2px;
-                    background: #5E5E5E;
-                    width: 15px;
-
-                    image: url(ver1_3/assets/right-light-arrow-50.png);
-
-                    subcontrol-position: right;
-                    subcontrol-origin: margin;
-                }
-
-                QScrollBar::sub-line:horizontal {
-                    border: solid;
-                    border-radius: 2px;
-                    background: #5E5E5E;
-                    width: 15px;
-
-                    image: url(ver1_3/assets/left-light-arrow-50.png);
-
-                    subcontrol-position: left;
-                    subcontrol-origin: margin;
-                }
-
-                """
+            with open('ver1_3/themes/darkDefault.css') as file:
+                style = file.read()
 
             self.setStyleSheet(style)
 
@@ -1432,8 +1171,11 @@ class MainWindow(QMainWindow, mainUITest.Ui_MainWindow, QDialog, QColor, QSize, 
 
     def reportOpen(self):
         if self.reportOpenAllow and self.saveThread.finished:
-            self.reportDialog.set(self.tw_table, self.tableName)
+            btnsList = [self.btn_close, self.btn_export, self.btn_save_2]
+            
+            self.reportDialog.set(self.tw_table, self.tableName, self.tw_reportTable,btnsList)
             self.reportDialog.start()
             self.reportDialog.show()
 
             self.reportOpenAllow = False
+            self.sw_main.setCurrentIndex(1)
