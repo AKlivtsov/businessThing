@@ -561,15 +561,18 @@ class DeleteDialog(QDialog, deleteDialogUI.Ui_Dialog, QSize):
                 workie = False
 
 
-class ReportDialog(QMainWindow, QDate):
+class ReportDialog(QMainWindow, reportUI.Ui_MainWindow, QDate):
     def __init__(self):
+        super(ReportDialog, self).__init__()
+        self.setupUi(self)
+        
         self.calTable = None
         self.tableName = None
-        self.tw_reportTable = None
-        self.btn_save = None
-        self.btn_export = None
-        self.btn_close = None           #TODO: delete btn_close
         self.totalList = []
+        
+        self.btn_close.clicked.connect(lambda: self.close())
+        self.btn_save.clicked.connect(self.save)
+        self.btn_export.clicked.connect(self.export)
 
         self.reportSave = SaveReportThread()
         self.reportSave.s_updPB.connect(self.saveDialog)
@@ -599,7 +602,6 @@ class ReportDialog(QMainWindow, QDate):
         self.reportSum.set(self.tw_reportTable)
         self.tw_reportTable.cellChanged.connect(self.calculate)
 
-    '''
     def resizeable(self):
 
         verLayout = QVBoxLayout()
@@ -626,7 +628,7 @@ class ReportDialog(QMainWindow, QDate):
         verLayout.addLayout(horLayout)
 
         self.centralwidget.setLayout(verLayout)
-    '''
+    
     def setSumRow(self):
         if self.tw_reportTable.item(self.tw_reportTable.rowCount()-1, 0) != None:
 
@@ -662,17 +664,9 @@ class ReportDialog(QMainWindow, QDate):
 
             self.totalList.clear()
 
-    def set(self, calTable, tableName, repoTable, btns:list):
+    def set(self, calTable, tableName):
         self.calTable = calTable
         self.tableName = tableName
-        self.tw_reportTable = repoTable
-        
-        self.btn_close, self.btn_export, self.btn_save = btns
-        
-        self.btn_close.clicked.connect(lambda: self.close())
-        self.btn_save.clicked.connect(self.save)
-        self.btn_export.clicked.connect(self.export)
-        
         
     def setTable(self):
 
@@ -956,7 +950,7 @@ class MainWindow(QMainWindow, mainUITest.Ui_MainWindow, QDialog, QColor, QSize, 
         self.reportOpenAllow = False
         self.sw_main.setCurrentIndex(0) # calendar open first
 
-        # self.resizeable()
+        self.resizeable()
 
         self.setWindowIcon(QtGui.QIcon(f'{VERSIONPATH}/assets/icon96px.ico'))
         self.setWindowTitle("BusinessThing")
@@ -1009,29 +1003,29 @@ class MainWindow(QMainWindow, mainUITest.Ui_MainWindow, QDialog, QColor, QSize, 
 
         self.read()
         self.setTheme()
-    '''
+    
     def resizeable(self):
 
         verLayout = QVBoxLayout()
         horLayout = QHBoxLayout()
 
-        btnList = [self.btn_report, self.btn_del, self.btn_notes, self.btn_save]
+        highItems = [self.lbl_logo, self.btn_report, self.btn_calendar]
 
-        for button in btnList:
-            horLayout.addWidget(button)
-            button.setMinimumSize(QSize(130, 30))
+        for item in highItems:
+            horLayout.addWidget(item)
+            item.setMinimumSize(QSize(130, 30))
 
         horLayout.insertStretch(1, 500)
-
-        verLayout.addWidget(self.tw_table)
-
-        sizePolicy = QtWidgets.QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
-        self.tw_table.setSizePolicy(sizePolicy)
-
+        
         verLayout.addLayout(horLayout)
 
+        verLayout.addWidget(self.sw_main)
+
+        sizePolicy = QtWidgets.QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
+        self.sw_main.setSizePolicy(sizePolicy)
+
         self.centralwidget.setLayout(verLayout)
-    '''
+    
     def setTheme(self):
         if self.theme == "Light":
             with open('ver1_3/themes/lightDefault.css') as file:
@@ -1171,11 +1165,10 @@ class MainWindow(QMainWindow, mainUITest.Ui_MainWindow, QDialog, QColor, QSize, 
 
     def reportOpen(self):
         if self.reportOpenAllow and self.saveThread.finished:
-            btnsList = [self.btn_close, self.btn_export, self.btn_save_2]
-            
-            self.reportDialog.set(self.tw_table, self.tableName, self.tw_reportTable,btnsList)
+            self.reportDialog.set(self.tw_table, self.tableName)
             self.reportDialog.start()
-            self.reportDialog.show()
+            # self.reportDialog.show()
 
             self.reportOpenAllow = False
-            self.sw_main.setCurrentIndex(1)
+            self.sw_main.addWidget(self.reportDialog)
+            self.sw_main.setCurrentIndex(2)
