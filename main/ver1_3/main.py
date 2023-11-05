@@ -5,8 +5,9 @@ from PyQt6.QtCore import *
 from PyQt6.QtGui import *
 
 # окна
-import mainUITest
+import mainUI
 import reportUI
+import calendarUI
 import editDialogUI
 import saveDialogUI
 import createDialogUI
@@ -354,9 +355,6 @@ class SaveDialog(QDialog, saveDialogUI.Ui_Dialog, QSize):
         self.setWindowTitle("Сохранение")
         self.setFixedSize(QSize(400, 84))
 
-    def setTheme(self, style):
-        self.setStyleSheet(style)
-
     def setRange(self, range_):
         self.pb_save.setRange(0, range_)
 
@@ -376,9 +374,6 @@ class CreateDialog(QDialog, createDialogUI.Ui_Dialog, QSize):
         self.setFixedSize(QSize(350, 110))
 
         self.btn_create.clicked.connect(self.emitName)
-
-    def setTheme(self, style):
-        self.setStyleSheet(style)
 
     def emitName(self):
         connect = sqlite3.connect(f"{VERSIONPATH}/database/d.db")
@@ -453,9 +448,6 @@ class EditDialog(QDialog, editDialogUI.Ui_Dialog, QSize):
         self.color = None
         self.notes = None
 
-    def setTheme(self, style):
-        self.setStyleSheet(style)
-
     def colorDialog(self):
         self.color = QColorDialog.getColor()
 
@@ -523,9 +515,6 @@ class DeleteDialog(QDialog, deleteDialogUI.Ui_Dialog, QSize):
         self.btn_cancel.clicked.connect(lambda: self.close())
         self.btn_del.clicked.connect(self.delete)
 
-    def setTheme(self, style):
-        self.setStyleSheet(style)
-
     def delete(self):
         dayOut = self.date_out.date().dayOfYear()
         monthCount = self.date_in.date()
@@ -561,16 +550,15 @@ class DeleteDialog(QDialog, deleteDialogUI.Ui_Dialog, QSize):
                 workie = False
 
 
-class ReportDialog(QMainWindow, reportUI.Ui_MainWindow, QDate):
+class ReportPage(QMainWindow, reportUI.Ui_MainWindow, QDate):
     def __init__(self):
-        super(ReportDialog, self).__init__()
+        super(ReportPage, self).__init__()
         self.setupUi(self)
         
         self.calTable = None
         self.tableName = None
         self.totalList = []
         
-        self.btn_close.clicked.connect(lambda: self.close())
         self.btn_save.clicked.connect(self.save)
         self.btn_export.clicked.connect(self.export)
 
@@ -583,9 +571,6 @@ class ReportDialog(QMainWindow, reportUI.Ui_MainWindow, QDate):
         self.saveDialog = SaveDialog()
         
         self.path = None
-
-    def setTheme(self, a, b):
-        pass
     
     def start(self):
 
@@ -607,7 +592,7 @@ class ReportDialog(QMainWindow, reportUI.Ui_MainWindow, QDate):
         verLayout = QVBoxLayout()
         horLayout = QHBoxLayout()
 
-        lowRowItems = [self.btn_close, self.f_msg, self.btn_export, self.btn_save,]
+        lowRowItems = [self.btn_export, self.f_msg, self.btn_save,]
 
         for item in lowRowItems:
             horLayout.addWidget(item)
@@ -940,121 +925,61 @@ class ReportDialog(QMainWindow, reportUI.Ui_MainWindow, QDate):
         """
 
 
-class MainWindow(QMainWindow, mainUITest.Ui_MainWindow, QDialog, QColor, QSize, QSizePolicy, QHeaderView, QGridLayout):
+class CalendarPage(QMainWindow, calendarUI.Ui_MainWindow, QDialog, QColor, QSize, QSizePolicy, QHeaderView, QGridLayout):
+    s_saveFinished = QtCore.pyqtSignal(bool)
+    
     def __init__(self):
-        super(MainWindow, self).__init__()
+        super(CalendarPage, self).__init__()
         self.setupUi(self)
-
+        
         self.tableName = "DefaultTable"
-        self.theme = "Light"
         self.reportOpenAllow = False
-        self.sw_main.setCurrentIndex(0) # calendar open first
-
-        self.resizeable()
-
-        self.setWindowIcon(QtGui.QIcon(f'{VERSIONPATH}/assets/icon96px.ico'))
-        self.setWindowTitle("BusinessThing")
-        self.setTable()
-
-        self.changeMenu = QMenu('сменить таблицу', self)
-
-        self.loadAct = QAction('Загрузить', self)
-        self.saveAct = QAction('Сохранить', self)
-        self.createAct = QAction('Создать', self)
-        self.m_file.addAction(self.createAct)
-        self.m_file.addAction(self.saveAct)
-        self.m_file.addAction(self.loadAct)
-
-        self.themeAct = QAction('Сменить тему', self)
-        self.m_settings.addAction(self.themeAct)
-
-        self.themeAct.triggered.connect(self.setTheme)
-        self.saveAct.triggered.connect(self.save)
-        self.loadAct.triggered.connect(self.read)
-        self.createAct.triggered.connect(lambda: self.createDialog.show())
-        self.fetchTables()
-
+        
         self.tw_table.cellDoubleClicked.connect(lambda: self.deleteDialog.show())
         self.tw_table.cellClicked.connect(lambda: self.editDialog.show())
-
-        self.btn_report.clicked.connect(self.report)
         self.btn_notes.clicked.connect(lambda: self.editDialog.show())
         self.btn_del.clicked.connect(lambda: self.deleteDialog.show())
         self.btn_save.clicked.connect(self.save)
-
+        
         self.readThread = ReadThread()
         self.readThread.s_data.connect(self.write)
 
         self.saveThread = SaveThread()
         self.saveThread.s_update.connect(self.savingDialog)
-        self.saveThread.finished.connect(self.reportOpen)
+        self.saveThread.finished.connect(lambda: self.s_saveFinished.emit(True))
 
         self.editDialog = EditDialog()
         self.editDialog.s_info.connect(self.write)
 
         self.deleteDialog = DeleteDialog()
         self.deleteDialog.s_cords.connect(self.clear)
-
-        self.createDialog = CreateDialog()
-        self.createDialog.s_upd.connect(self.updateTableList)
-
+        
         self.saveDialog = SaveDialog()
-        self.reportDialog = ReportDialog()
 
+        self.setTable()
         self.read()
-        self.setTheme()
-    
+        
     def resizeable(self):
-
+    
         verLayout = QVBoxLayout()
         horLayout = QHBoxLayout()
 
-        highItems = [self.lbl_logo, self.btn_report, self.btn_calendar]
+        btnList = [self.btn_del, self.btn_notes, self.btn_save]
 
-        for item in highItems:
-            horLayout.addWidget(item)
-            item.setMinimumSize(QSize(130, 30))
+        for button in btnList:
+            horLayout.addWidget(button)
+            button.setMinimumSize(QSize(130, 30))
 
         horLayout.insertStretch(1, 500)
-        
-        verLayout.addLayout(horLayout)
 
-        verLayout.addWidget(self.sw_main)
+        verLayout.addWidget(self.tw_table)
 
         sizePolicy = QtWidgets.QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
-        self.sw_main.setSizePolicy(sizePolicy)
+        self.tw_table.setSizePolicy(sizePolicy)
 
+        verLayout.addLayout(horLayout)
         self.centralwidget.setLayout(verLayout)
-    
-    def setTheme(self):
-        if self.theme == "Light":
-            with open('ver1_3/themes/lightDefault.css') as file:
-                style = file.read()
-
-            self.setStyleSheet(style)
-
-            self.reportDialog.setTheme(self.theme, style)
-            self.createDialog.setTheme(style)
-            self.deleteDialog.setTheme(style)
-            self.editDialog.setTheme(style)
-            self.saveDialog.setTheme(style)
-
-            self.theme = "Dark"
-
-        else:
-            with open('ver1_3/themes/darkDefault.css') as file:
-                style = file.read()
-
-            self.setStyleSheet(style)
-
-            self.reportDialog.setTheme(self.theme, style)
-            self.createDialog.setTheme(style)
-            self.deleteDialog.setTheme(style)
-            self.editDialog.setTheme(style)
-            self.saveDialog.setTheme(style)
-
-            self.theme = "Light"
-
+        
     def setTable(self):
 
         self.tw_table.setRowCount(12)
@@ -1082,6 +1007,156 @@ class MainWindow(QMainWindow, mainUITest.Ui_MainWindow, QDialog, QColor, QSize, 
 
         for i in range(self.tw_table.columnCount()):
             horHeader.setSectionResizeMode(i, QHeaderView.ResizeMode.Stretch)
+
+    def savingDialog(self, msg):
+        if msg == 'upd':
+            self.saveDialog.add()
+        else:
+            self.saveDialog.close()
+
+    def save(self):
+        self.saveDialog.show()
+        self.saveDialog.setRange(self.tw_table.columnCount() * self.tw_table.rowCount())
+
+        self.saveThread.set(self.tableName, self.tw_table)
+        self.saveThread.start()
+    
+    def read(self):
+        self.readThread.setTableName(self.tableName)
+        self.readThread.start()
+
+    def write(self, row, column, red, green, blue, notes):
+        self.tw_table.setItem(row, column, QTableWidgetItem())
+
+        if red != None:
+            self.tw_table.item(row, column).setBackground(QtGui.QColor(red,green,blue))
+
+        if notes != None:
+            self.tw_table.item(row, column).setToolTip(notes)
+
+    def clear(self, row, column):
+        self.tw_table.setItem(row, column, None)
+
+        
+class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor, QSize, QSizePolicy, QHeaderView, QGridLayout):
+    def __init__(self):
+        super(MainWindow, self).__init__()
+        self.setupUi(self)
+
+        self.setWindowIcon(QtGui.QIcon(f'{VERSIONPATH}/assets/icon96px.ico'))
+        self.setWindowTitle("BusinessThing")
+        self.theme = "Light"
+        self.resizeable()
+
+        self.changeMenu = QMenu('сменить таблицу', self)
+        
+        # TODO: make save'n'load menu buttons work by using sw_main.currentWidget thing (or smth else)
+
+        # self.loadAct = QAction('Загрузить', self)
+        # self.saveAct = QAction('Сохранить', self)
+        self.createAct = QAction('Создать', self)
+        self.m_file.addAction(self.createAct)
+        # self.m_file.addAction(self.saveAct)
+        # self.m_file.addAction(self.loadAct)
+
+        self.themeAct = QAction('Сменить тему', self)
+        self.m_settings.addAction(self.themeAct)
+
+        self.themeAct.triggered.connect(self.setTheme)
+        # self.saveAct.triggered.connect(self.save)
+        # self.loadAct.triggered.connect(self.read)
+        self.createAct.triggered.connect(lambda: self.createDialog.show())
+        self.fetchTables()
+
+        self.btn_calendar.clicked.connect(lambda: self.sw_main.setCurrentIndex(0))
+        self.btn_report.clicked.connect(self.report)
+        
+        self.deleteDialog = DeleteDialog()
+        self.saveDialog = SaveDialog()
+        self.editDialog = EditDialog()
+        
+        self.createDialog = CreateDialog()
+        self.createDialog.s_upd.connect(self.updateTableList)
+        
+        self.calendarPage = CalendarPage()
+        self.calendarPage.s_saveFinished.connect(self.reportOpen)
+        self.calendarPage.resizeable()
+        
+        self.reportPage = ReportPage()
+        self.reportPage.resizeable()
+        
+        self.sw_main.addWidget(self.calendarPage)
+        self.sw_main.setCurrentIndex(0)
+        
+        self.setTheme()
+        
+    def resizeable(self):
+        
+        # window
+        verLayout = QVBoxLayout()
+        horLayout = QHBoxLayout()
+
+        highItems = [self.lbl_logo, self.btn_report, self.btn_calendar]
+
+        for item in highItems:
+            horLayout.addWidget(item)
+            item.setMinimumSize(QSize(130, 30))
+
+        horLayout.insertStretch(1, 500)
+        
+        verLayout.addLayout(horLayout)
+
+        verLayout.addWidget(self.sw_main)
+
+        sizePolicy = QtWidgets.QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
+        self.sw_main.setSizePolicy(sizePolicy)
+
+        self.centralwidget.setLayout(verLayout)
+        
+    def setTheme(self):
+        if self.theme == "Light":
+            with open('ver1_3/themes/lightDefault/main.css') as file:
+                style = file.read()
+                self.setStyleSheet(style)
+                
+            with open('ver1_3/themes/lightDefault/report.css') as file:
+                style = file.read()
+                self.reportPage.setStyleSheet(style)
+                
+            with open('ver1_3/themes/lightDefault/calendar.css') as file:
+                style = file.read()
+                self.calendarPage.setStyleSheet(style)
+                
+            with open('ver1_3/themes/lightDefault/std.css') as file:
+                style = file.read()
+                self.createDialog.setStyleSheet(style)
+                self.deleteDialog.setStyleSheet(style)
+                self.editDialog.setStyleSheet(style)
+                self.saveDialog.setStyleSheet(style)
+
+            self.theme = "Dark"
+
+        else:
+            with open('ver1_3/themes/darkDefault/main.css') as file:
+                style = file.read()
+                self.setStyleSheet(style)
+                
+            with open('ver1_3/themes/darkDefault/report.css') as file:
+                style = file.read()
+                self.reportPage.setStyleSheet(style)
+                
+            with open('ver1_3/themes/darkDefault/calendar.css') as file:
+                style = file.read()
+                self.calendarPage.setStyleSheet(style)
+                
+            with open('ver1_3/themes/darkDefault/std.css') as file:
+                style = file.read()
+                self.createDialog.setStyleSheet(style)
+                self.deleteDialog.setStyleSheet(style)
+                self.editDialog.setStyleSheet(style)
+                self.saveDialog.setStyleSheet(style)
+
+            self.theme = "Light"
 
     def fetchTables(self):
 
@@ -1130,45 +1205,16 @@ class MainWindow(QMainWindow, mainUITest.Ui_MainWindow, QDialog, QColor, QSize, 
         self.changeMenu.clear()
         self.fetchTables()
 
-    def savingDialog(self, msg):
-        if msg == 'upd':
-            self.saveDialog.add()
-        else:
-            self.saveDialog.close()
-
-    def save(self):
-        self.saveDialog.show()
-        self.saveDialog.setRange(self.tw_table.columnCount() * self.tw_table.rowCount())
-
-        self.saveThread.set(self.tableName, self.tw_table)
-        self.saveThread.start()
-    
-    def read(self):
-        self.readThread.setTableName(self.tableName)
-        self.readThread.start()
-
-    def write(self, row, column, red, green, blue, notes):
-        self.tw_table.setItem(row, column, QTableWidgetItem())
-
-        if red != None:
-            self.tw_table.item(row, column).setBackground(QtGui.QColor(red,green,blue))
-
-        if notes != None:
-            self.tw_table.item(row, column).setToolTip(notes)
-
-    def clear(self, row, column):
-        self.tw_table.setItem(row, column, None)
-
     def report(self): 
-        self.save()
+        self.calendarPage.save()
         self.reportOpenAllow = True
 
-    def reportOpen(self):
-        if self.reportOpenAllow and self.saveThread.finished:
-            self.reportDialog.set(self.tw_table, self.tableName)
-            self.reportDialog.start()
-            # self.reportDialog.show()
+    def reportOpen(self, saveFinished):
+        if self.reportOpenAllow and saveFinished:
+            self.reportPage.set(self.calendarPage.tw_table, self.calendarPage.tableName)
+            self.reportPage.start()
 
             self.reportOpenAllow = False
-            self.sw_main.addWidget(self.reportDialog)
-            self.sw_main.setCurrentIndex(2)
+            self.sw_main.addWidget(self.reportPage)
+            self.sw_main.setCurrentIndex(1)
+            

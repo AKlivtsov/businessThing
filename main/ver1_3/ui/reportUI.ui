@@ -33,19 +33,6 @@
      <enum>QFrame::StyledPanel</enum>
     </property>
    </widget>
-   <widget class="QPushButton" name="btn_close">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>460</y>
-      <width>121</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Закрыть</string>
-    </property>
-   </widget>
    <widget class="QPushButton" name="btn_save">
     <property name="geometry">
      <rect>

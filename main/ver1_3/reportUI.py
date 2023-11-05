@@ -26,9 +26,6 @@ class Ui_MainWindow(object):
         self.tw_reportTable.setObjectName("tw_reportTable")
         self.tw_reportTable.setColumnCount(0)
         self.tw_reportTable.setRowCount(0)
-        self.btn_close = QtWidgets.QPushButton(parent=self.centralwidget)
-        self.btn_close.setGeometry(QtCore.QRect(0, 460, 121, 31))
-        self.btn_close.setObjectName("btn_close")
         self.btn_save = QtWidgets.QPushButton(parent=self.centralwidget)
         self.btn_save.setGeometry(QtCore.QRect(890, 460, 121, 31))
         self.btn_save.setObjectName("btn_save")
@@ -52,7 +49,6 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.btn_close.setText(_translate("MainWindow", "Закрыть"))
         self.btn_save.setText(_translate("MainWindow", "сохранить"))
         self.btn_export.setText(_translate("MainWindow", "экспорт"))
         self.lbl_msg.setText(_translate("MainWindow", "Placeholder text!"))

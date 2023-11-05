@@ -1,47 +1,31 @@
 QWidget{
-    background-color: #E0E0E0;
-    color: #1F1F1F;
+    background-color: #2E2E2E;
+    color: #FFFFFF;
     border-radius: 5px;
 }
 
-QFrame{
-    background-color: #7A7A7A;
-    border-radius: 5px;    
-}
-
-QLabel{
-    color: #FFFFFF;
-}     
-
 QPushButton{
-    background-color: #7A7A7A;
+    background-color: #5E5E5E;
     color: #FFFFFF;
 }
 
 QPushButton:pressed {
-    background-color: #494949;
+    background-color: #767676;
     color: #FFFFFF;
 }
 
-QLineEdit{
-    background-color: #BDBDBD;
-}
-
-QTextEdit {
-    background-color: #BDBDBD;
-}
-
 QTableWidget{
-    background-color: #BDBDBD;
+    background-color: #434343;
+    color: #8f8f8f;
 }
 
 QHeaderView::section{
-    background-color: #d4d4d4;
+    background-color: #3e3e3e;
     border: solid;
 }
 
 QTableView QTableCornerButton::section {
-    background-color: #d4d4d4;
+    background-color: #3e3e3e;
     border: solid;
 }
 
@@ -52,21 +36,22 @@ QHeaderView::section:checked{
 QScrollBar{
     margin: 2px 20px 2px 20px;
     border: 1px solid grey;
+    background: #5E5E5E;
     border-radius: 2px;
     height: 15px;
 }
 
 QScrollBar::handle{
-    background: #BDBDBD;
+    background: #5E5E5E;
 } 
 
 QScrollBar::add-line:horizontal {
     border: solid;
     border-radius: 2px;
-    background: #BDBDBD;
+    background: #5E5E5E;
     width: 15px;
 
-    image: url(ver1_3/assets/right-dark-arrow-50.png);
+    image: url(ver1_3/assets/right-light-arrow-50.png);
 
     subcontrol-position: right;
     subcontrol-origin: margin;
@@ -75,10 +60,10 @@ QScrollBar::add-line:horizontal {
 QScrollBar::sub-line:horizontal {
     border: solid;
     border-radius: 2px;
-    background: #BDBDBD;
+    background: #5E5E5E;
     width: 15px;
 
-    image: url(ver1_3/assets/left-dark-arrow-50.png);
+    image: url(ver1_3/assets/left-light-arrow-50.png);
 
     subcontrol-position: left;
     subcontrol-origin: margin;

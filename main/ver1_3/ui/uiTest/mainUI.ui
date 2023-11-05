@@ -42,84 +42,10 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
-    <widget class="QWidget" name="p_cal">
-     <widget class="QTableWidget" name="tw_table">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>911</width>
-        <height>401</height>
-       </rect>
-      </property>
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="frameShape">
-       <enum>QFrame::StyledPanel</enum>
-      </property>
-      <property name="sizeAdjustPolicy">
-       <enum>QAbstractScrollArea::AdjustToContents</enum>
-      </property>
-      <attribute name="horizontalHeaderCascadingSectionResizes">
-       <bool>true</bool>
-      </attribute>
-      <attribute name="horizontalHeaderStretchLastSection">
-       <bool>false</bool>
-      </attribute>
-      <attribute name="verticalHeaderCascadingSectionResizes">
-       <bool>true</bool>
-      </attribute>
-      <attribute name="verticalHeaderStretchLastSection">
-       <bool>false</bool>
-      </attribute>
-     </widget>
-     <widget class="QPushButton" name="btn_notes">
-      <property name="geometry">
-       <rect>
-        <x>670</x>
-        <y>410</y>
-        <width>121</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>добавить</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="btn_save">
-      <property name="geometry">
-       <rect>
-        <x>790</x>
-        <y>410</y>
-        <width>121</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>сохранить</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="btn_del">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>410</y>
-        <width>113</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>удалить</string>
-      </property>
-     </widget>
-    </widget>
-    <widget class="QWidget" name="p_report"/>
+    <widget class="QWidget" name="p1"/>
+    <widget class="QWidget" name="p2"/>
    </widget>
    <widget class="QPushButton" name="btn_calendar">
     <property name="geometry">
