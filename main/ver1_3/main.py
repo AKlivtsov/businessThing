@@ -1014,6 +1014,49 @@ class CalendarPage(QMainWindow, calendarUI.Ui_MainWindow, QDialog, QColor, QSize
         else:
             self.saveDialog.close()
 
+    def fetchTables(self):
+
+        def makeAct(name, item):
+            self.name = QAction(str(item), self)
+            self.changeMenu.addAction(self.name)
+            self.name.triggered.connect(lambda: tableChange(item))
+
+        def tableChange(name):
+            self.tableName = str(name)
+
+            # чистка таблицы
+            self.tw_table.setRowCount(0)
+            self.tw_table.setColumnCount(0)
+            self.setTable()
+
+            self.read()
+
+        connect = sqlite3.connect(f"{VERSIONPATH}/database/d.db")
+        cursor = connect.cursor()
+
+        cursor.execute("""SELECT name FROM sqlite_master WHERE type='table';""")
+        tableList = cursor.fetchall()
+
+        indexCount = 0
+
+        for item in tableList:
+
+            clearItem = ""
+            for i in item:
+                clearItem += str(i)
+
+            tableList[indexCount] = clearItem
+
+            if '_' in clearItem:
+                indexCount += 1
+
+            else:
+                makeAct(f"{tableList[indexCount]}Act", tableList[indexCount])
+                self.m_file.addMenu(self.changeMenu)
+                indexCount += 1
+
+        indexCount = 0
+
     def save(self):
         self.saveDialog.show()
         self.saveDialog.setRange(self.tw_table.columnCount() * self.tw_table.rowCount())
@@ -1049,22 +1092,20 @@ class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor, QSize, QSiz
         self.resizeable()
 
         self.changeMenu = QMenu('сменить таблицу', self)
-        
-        # TODO: make save'n'load menu buttons work by using sw_main.currentWidget thing (or smth else)
 
-        # self.loadAct = QAction('Загрузить', self)
-        # self.saveAct = QAction('Сохранить', self)
+        self.loadAct = QAction('Загрузить', self)
+        self.saveAct = QAction('Сохранить', self)
         self.createAct = QAction('Создать', self)
         self.m_file.addAction(self.createAct)
-        # self.m_file.addAction(self.saveAct)
-        # self.m_file.addAction(self.loadAct)
+        self.m_file.addAction(self.saveAct)
+        self.m_file.addAction(self.loadAct)
 
         self.themeAct = QAction('Сменить тему', self)
         self.m_settings.addAction(self.themeAct)
 
         self.themeAct.triggered.connect(self.setTheme)
-        # self.saveAct.triggered.connect(self.save)
-        # self.loadAct.triggered.connect(self.read)
+        self.saveAct.triggered.connect(self.pageSave)
+        self.loadAct.triggered.connect(self.pageRead)
         self.createAct.triggered.connect(lambda: self.createDialog.show())
         self.fetchTables()
 
@@ -1089,10 +1130,26 @@ class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor, QSize, QSiz
         self.sw_main.setCurrentIndex(0)
         
         self.setTheme()
+        self.reportOpenAllow = False
+        
+    def pageSave(self):
+        page = self.sw_main.currentIndex()
+        if page == 0:
+             self.calendarPage.save()
+                    
+        else:
+            self.reportPage.save()
+                
+    def pageRead(self):
+        page = self.sw_main.currentIndex()
+        if page == 0:
+            self.calendarPage.read()
+                
+        else:
+            self.reportPage.read()                        
         
     def resizeable(self):
         
-        # window
         verLayout = QVBoxLayout()
         horLayout = QHBoxLayout()
 
