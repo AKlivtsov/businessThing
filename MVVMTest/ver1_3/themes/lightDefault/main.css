@@ -1,0 +1,25 @@
+QWidget{
+    background-color: white;
+    color: #1F1F1F;
+    border-radius: 5px;
+}
+
+QStackedWidget{
+    border-radius: 5px;
+}
+
+QLabel{
+    color: #7A7A7A;
+}     
+
+QPushButton{
+    background-color: darkgrey;
+    color: white;
+    border-radius: 2px;
+}
+
+QPushButton:pressed{
+    background-color: #494949;
+    color: #FFFFFF;
+    border-radius: 2px;
+}
