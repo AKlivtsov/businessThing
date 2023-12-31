@@ -3,21 +3,24 @@ from PyQt6 import QtWidgets, QtCore, QtGui
 from PyQt6.QtWidgets import *
 from PyQt6.QtCore import *
 from PyQt6.QtGui import *
-
+ 
 # окна
-import mainUI
-import reportUI
-import calendarUI
-import editDialogUI
-import saveDialogUI
-import createDialogUI
-import deleteDialogUI
+import view.mainUI
+import view.reportUI
+import view.calendarUI
+import view.editDialogUI
+import view.saveDialogUI
+import view.createDialogUI
+import view.deleteDialogUI
 
 # БД
 import sqlite3
 
 #ексель
 import pandas
+
+#облако
+import CloudUpload
 
 VERSIONPATH = 'ver1_3'
 
@@ -346,7 +349,7 @@ class SumReportThread(QThread):
             self.s_sumData.emit(total)
 
 
-class SaveDialog(QDialog, saveDialogUI.Ui_Dialog, QSize):
+class SaveDialog(QDialog, view.saveDialogUI.Ui_Dialog, QSize):
     def __init__(self):
         super(SaveDialog, self).__init__()
         self.setupUi(self)
@@ -362,7 +365,7 @@ class SaveDialog(QDialog, saveDialogUI.Ui_Dialog, QSize):
         self.pb_save.setValue(self.pb_save.value() + 1)
 
 
-class CreateDialog(QDialog, createDialogUI.Ui_Dialog, QSize):
+class CreateDialog(QDialog, view.createDialogUI.Ui_Dialog, QSize):
     s_upd = QtCore.pyqtSignal()
 
     def __init__(self):
@@ -427,7 +430,7 @@ class CreateDialog(QDialog, createDialogUI.Ui_Dialog, QSize):
         ret = msg.exec()
 
 
-class EditDialog(QDialog, editDialogUI.Ui_Dialog, QSize):
+class EditDialog(QDialog, view.editDialogUI.Ui_Dialog, QSize):
     # row, column, color(r, g, b), note
     s_info = QtCore.pyqtSignal(int, int, int, int, int, str)
 
@@ -498,7 +501,7 @@ class EditDialog(QDialog, editDialogUI.Ui_Dialog, QSize):
                 workie = False
 
 
-class DeleteDialog(QDialog, deleteDialogUI.Ui_Dialog, QSize):
+class DeleteDialog(QDialog, view.deleteDialogUI.Ui_Dialog, QSize):
     s_cords = QtCore.pyqtSignal(int, int)
 
     def __init__(self):
@@ -523,9 +526,7 @@ class DeleteDialog(QDialog, deleteDialogUI.Ui_Dialog, QSize):
         addedMonths = 0
         addedDays = 0
 
-        workie = True
-
-        while workie:
+        while True:
 
             if curDay.dayOfYear() <= dayOut:
 
@@ -547,10 +548,10 @@ class DeleteDialog(QDialog, deleteDialogUI.Ui_Dialog, QSize):
                 curDay = self.date_in.date()
                 addedMonths = 0
                 addedDays = 0
-                workie = False
+                break
 
 
-class ReportPage(QMainWindow, reportUI.Ui_MainWindow, QDate):
+class ReportPage(QMainWindow, view.reportUI.Ui_MainWindow, QDate):
     def __init__(self):
         super(ReportPage, self).__init__()
         self.setupUi(self)
@@ -591,6 +592,7 @@ class ReportPage(QMainWindow, reportUI.Ui_MainWindow, QDate):
 
         verLayout = QVBoxLayout()
         horLayout = QHBoxLayout()
+        
 
         lowRowItems = [self.btn_export, self.f_msg, self.btn_save,]
 
@@ -602,6 +604,7 @@ class ReportPage(QMainWindow, reportUI.Ui_MainWindow, QDate):
             else:
                 item.setMinimumSize(QSize(130, 30))
 
+        
         horLayout.insertStretch(1, 100)
         horLayout.insertStretch(3, 30)
 
@@ -925,7 +928,7 @@ class ReportPage(QMainWindow, reportUI.Ui_MainWindow, QDate):
         """
 
 
-class CalendarPage(QMainWindow, calendarUI.Ui_MainWindow, QDialog, QColor, QSize, QSizePolicy, QHeaderView, QGridLayout):
+class CalendarPage(QMainWindow, view.calendarUI.Ui_MainWindow, QDialog, QColor, QSize, QSizePolicy, QHeaderView, QGridLayout):
     s_saveFinished = QtCore.pyqtSignal(bool)
     
     def __init__(self):
@@ -1008,6 +1011,9 @@ class CalendarPage(QMainWindow, calendarUI.Ui_MainWindow, QDialog, QColor, QSize
         for i in range(self.tw_table.columnCount()):
             horHeader.setSectionResizeMode(i, QHeaderView.ResizeMode.Stretch)
 
+        verHeader.setDefaultAlignment(QtCore.Qt.AlignCenter) #TODO: Fix that
+        horHeader.setDefaultAlignment(QtCore.Qt.AlignCenter) #TODO: n' that
+
     def savingDialog(self, msg):
         if msg == 'upd':
             self.saveDialog.add()
@@ -1081,7 +1087,7 @@ class CalendarPage(QMainWindow, calendarUI.Ui_MainWindow, QDialog, QColor, QSize
         self.tw_table.setItem(row, column, None)
 
         
-class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor, QSize, QSizePolicy, QHeaderView, QGridLayout):
+class MainWindow(QMainWindow, view.mainUI.Ui_MainWindow, QDialog, QColor, QSize, QSizePolicy, QHeaderView, QGridLayout):
     def __init__(self):
         super(MainWindow, self).__init__()
         self.setupUi(self)
@@ -1096,9 +1102,11 @@ class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor, QSize, QSiz
         self.loadAct = QAction('Загрузить', self)
         self.saveAct = QAction('Сохранить', self)
         self.createAct = QAction('Создать', self)
+        self.uploadAct = QAction('Сохранить в облаке', self)
         self.m_file.addAction(self.createAct)
         self.m_file.addAction(self.saveAct)
         self.m_file.addAction(self.loadAct)
+        self.m_file.addAction(self.uploadAct)
 
         self.themeAct = QAction('Сменить тему', self)
         self.m_settings.addAction(self.themeAct)
@@ -1106,6 +1114,7 @@ class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor, QSize, QSiz
         self.themeAct.triggered.connect(self.setTheme)
         self.saveAct.triggered.connect(self.pageSave)
         self.loadAct.triggered.connect(self.pageRead)
+        self.uploadAct.triggered.connect(lambda: CloudUpload.upload())
         self.createAct.triggered.connect(lambda: self.createDialog.show())
         self.fetchTables()
 
@@ -1159,7 +1168,9 @@ class MainWindow(QMainWindow, mainUI.Ui_MainWindow, QDialog, QColor, QSize, QSiz
             horLayout.addWidget(item)
             item.setMinimumSize(QSize(130, 30))
 
-        horLayout.insertStretch(1, 500)
+        horLayout.insertStretch(0, 15)
+        horLayout.insertStretch(2, 500)
+        horLayout.insertStretch(5, 13)
         
         verLayout.addLayout(horLayout)
 

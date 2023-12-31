@@ -20,6 +20,11 @@ import os
 IP = "127.0.0.1"
 PORT = 1233
 
+def stringCleaner(string) -> str : #! Check before use 
+    newString = ""
+    for i in string:
+        newString += str(i)
+    return newString
 
 class UpdateThread(QThread):
     s_highMsg = QtCore.pyqtSignal(str)
@@ -42,10 +47,9 @@ class UpdateThread(QThread):
                 localVersionTemp += str(i)
             localVersion = float(localVersionTemp)
 
-            try:
+            try: #TODO: rework like guard 'n' raise in swift
                 with socket.create_connection((IP, PORT)) as conn:
                     version = conn.recv(2048).decode("utf-8")
-
                     if version != "[ERR] CANNOT GET ACTUAL VERSION":
                         if localVersion < float(version):
                             # ------удаляем старую версию -------------------
@@ -99,17 +103,12 @@ class UpdateThread(QThread):
                                     (path, 1),
                                 )
                                 connect.commit()
-
                                 self.s_lowMsg.emit(True, path)
-
                                 os.remove(filename)
-
                             else:
                                 self.s_highMsg.emit("Ошибка обновления.")
-
                         else:
                             self.s_highMsg.emit("У вас установлена последняя версия")
-
                     else:
                         self.s_highMsg.emit("Ошибка обновления.")
 

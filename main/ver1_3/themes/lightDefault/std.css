@@ -16,11 +16,13 @@ QLabel{
 QPushButton{
     background-color: #7A7A7A;
     color: #FFFFFF;
+    border-radius: 2px;
 }
 
 QPushButton:pressed {
     background-color: #494949;
     color: #FFFFFF;
+    border-radius: 2px;
 }
 
 QLineEdit{

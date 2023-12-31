@@ -6,7 +6,7 @@ PORT = 1233
 
 
 def upload():
-    try:
+	try:
         with socket.create_connection((IP, PORT)) as conn:
 
             upload = conn.send(2048).encode("utf-8")
@@ -35,7 +35,6 @@ def upload():
             	data = conn.send(1024)
 
     except ConnectionRefusedError:
-        pass
 
 
 	

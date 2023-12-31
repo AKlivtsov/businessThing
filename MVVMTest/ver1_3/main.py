@@ -3,7 +3,7 @@ from PyQt6 import QtWidgets, QtCore, QtGui
 from PyQt6.QtWidgets import *
 from PyQt6.QtCore import *
 from PyQt6.QtGui import *
-
+ 
 # окна
 import view.mainUI
 import view.reportUI
@@ -346,7 +346,7 @@ class SumReportThread(QThread):
                     if item and item.text().isdigit():
                         total += int(item.text())
 
-            self.s_sumData.emit(total)
+            self.s_sumData.emit(total)        
 
 
 class SaveDialog(QDialog, view.saveDialogUI.Ui_Dialog, QSize):
@@ -551,17 +551,20 @@ class DeleteDialog(QDialog, view.deleteDialogUI.Ui_Dialog, QSize):
                 break
 
 
-class ReportPage(QMainWindow, view.reportUI.Ui_MainWindow, QDate):
+class ReportPage(QMainWindow, view.reportUI.Ui_MainWindow, view.reportUI.AnimationThread, QDate):
+    resized = QtCore.pyqtSignal()
+    
     def __init__(self):
         super(ReportPage, self).__init__()
         self.setupUi(self)
         
+        self.path = None
         self.calTable = None
         self.tableName = None
         self.totalList = []
         
         self.btn_save.clicked.connect(self.save)
-        self.btn_export.clicked.connect(self.export)
+        # self.btn_export.clicked.connect(self.export)
 
         self.reportSave = SaveReportThread()
         self.reportSave.s_updPB.connect(self.saveDialog)
@@ -571,8 +574,8 @@ class ReportPage(QMainWindow, view.reportUI.Ui_MainWindow, QDate):
 
         self.saveDialog = SaveDialog()
         
-        self.path = None
-    
+        self.btn_export.clicked.connect(self.expAnimation)
+        
     def start(self):
 
         self.setTable()
@@ -589,12 +592,10 @@ class ReportPage(QMainWindow, view.reportUI.Ui_MainWindow, QDate):
         self.tw_reportTable.cellChanged.connect(self.calculate)
 
     def resizeable(self):
-
         verLayout = QVBoxLayout()
         horLayout = QHBoxLayout()
         
-
-        lowRowItems = [self.btn_export, self.f_msg, self.btn_save,]
+        lowRowItems = [self.btn_export, self.btn_save,]
 
         for item in lowRowItems:
             horLayout.addWidget(item)
@@ -604,17 +605,11 @@ class ReportPage(QMainWindow, view.reportUI.Ui_MainWindow, QDate):
             else:
                 item.setMinimumSize(QSize(130, 30))
 
-        
-        horLayout.insertStretch(1, 100)
-        horLayout.insertStretch(3, 30)
-
+        horLayout.insertStretch(1, 130)
         verLayout.addWidget(self.tw_reportTable)
-
         sizePolicy = QtWidgets.QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
         self.tw_reportTable.setSizePolicy(sizePolicy)
-
         verLayout.addLayout(horLayout)
-
         self.centralwidget.setLayout(verLayout)
     
     def setSumRow(self):
@@ -708,7 +703,7 @@ class ReportPage(QMainWindow, view.reportUI.Ui_MainWindow, QDate):
             (249,211,249), (243,243,155), (255,237,178), 
             (202,199,248))
 
-        match column: 
+        match column:
 
             case 4:
                 if row == 0:
@@ -909,24 +904,29 @@ class ReportPage(QMainWindow, view.reportUI.Ui_MainWindow, QDate):
         self.expAnimation()
 
     def expAnimation(self):
-        # frame animation
-        self.an_frameMsg.setEasingCurve(QEasingCurve.Type.InOutCubic)
-        self.an_frameMsg.setKeyValueAt(0.1, QPoint(340, 510))
-        self.an_frameMsg.setKeyValueAt(0.3, QPoint(340, 440))
-        self.an_frameMsg.setEndValue(QPoint(340, 450))
-        self.an_frameMsg.setDuration(400)
-        self.an_frameMsg.start()
-
-        # label animation
-        """
-        self.an_labelMsg.setEasingCurve(QEasingCurve.Type.InOutCubic)
-        self.an_labelMsg.setKeyValueAt(0.1, QPoint(50, 220))
-        self.an_labelMsg.setKeyValueAt(0.3, QPoint(90, 220))
-        self.an_labelMsg.setEndValue(QPoint(70, 220))
-        self.an_labelMsg.setDuration(400)
-        self.an_labelMsg.start()
-        """
-
+        height = self.frameSize().height()
+        width = self.frameSize().width()
+        width = int(width/2 - 150)
+        self.animation.start() #! animation doesn't work
+    
+    def hideAnimation(self):
+        height = self.frameSize().height()
+        width = self.frameSize().width()
+        width = int(width/2 - 150)
+        
+        # 40px - height of frame
+        heightSteps = [int(height -40), 
+                       int(height -58), 
+                       int(height -48)]
+        
+        self.anFrameHide.setEasingCurve(QEasingCurve.Type.InOutCubic)
+        self.anFrameHide.setKeyValueAt(0.1, QPoint(width, heightSteps[2]))
+        self.anFrameHide.setKeyValueAt(0.2, QPoint(width, heightSteps[1]))
+        self.anFrameHide.setEndValue(QPoint(width, height + 200))
+        self.anFrameHide.setDuration(2000)
+        self.anFrameHide.start()
+    
+        
 
 class CalendarPage(QMainWindow, view.calendarUI.Ui_MainWindow, QDialog, QColor, QSize, QSizePolicy, QHeaderView, QGridLayout):
     s_saveFinished = QtCore.pyqtSignal(bool)
@@ -966,7 +966,7 @@ class CalendarPage(QMainWindow, view.calendarUI.Ui_MainWindow, QDialog, QColor, 
     
         verLayout = QVBoxLayout()
         horLayout = QHBoxLayout()
-
+        
         btnList = [self.btn_del, self.btn_notes, self.btn_save]
 
         for button in btnList:
@@ -974,9 +974,8 @@ class CalendarPage(QMainWindow, view.calendarUI.Ui_MainWindow, QDialog, QColor, 
             button.setMinimumSize(QSize(130, 30))
 
         horLayout.insertStretch(1, 500)
-
+        
         verLayout.addWidget(self.tw_table)
-
         sizePolicy = QtWidgets.QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
         self.tw_table.setSizePolicy(sizePolicy)
 
@@ -1011,57 +1010,14 @@ class CalendarPage(QMainWindow, view.calendarUI.Ui_MainWindow, QDialog, QColor, 
         for i in range(self.tw_table.columnCount()):
             horHeader.setSectionResizeMode(i, QHeaderView.ResizeMode.Stretch)
 
-        verHeader.setDefaultAlignment(QtCore.Qt.AlignCenter) #TODO: Fix that
-        horHeader.setDefaultAlignment(QtCore.Qt.AlignCenter) #TODO: n' that
+        # verHeader.setDefaultAlignment(QtCore.Qt.AlignCenter) #TODO: Fix that
+        # horHeader.setDefaultAlignment(QtCore.Qt.AlignCenter) #TODO: n' that
 
     def savingDialog(self, msg):
         if msg == 'upd':
             self.saveDialog.add()
         else:
             self.saveDialog.close()
-
-    def fetchTables(self):
-
-        def makeAct(name, item):
-            self.name = QAction(str(item), self)
-            self.changeMenu.addAction(self.name)
-            self.name.triggered.connect(lambda: tableChange(item))
-
-        def tableChange(name):
-            self.tableName = str(name)
-
-            # чистка таблицы
-            self.tw_table.setRowCount(0)
-            self.tw_table.setColumnCount(0)
-            self.setTable()
-
-            self.read()
-
-        connect = sqlite3.connect(f"{VERSIONPATH}/database/d.db")
-        cursor = connect.cursor()
-
-        cursor.execute("""SELECT name FROM sqlite_master WHERE type='table';""")
-        tableList = cursor.fetchall()
-
-        indexCount = 0
-
-        for item in tableList:
-
-            clearItem = ""
-            for i in item:
-                clearItem += str(i)
-
-            tableList[indexCount] = clearItem
-
-            if '_' in clearItem:
-                indexCount += 1
-
-            else:
-                makeAct(f"{tableList[indexCount]}Act", tableList[indexCount])
-                self.m_file.addMenu(self.changeMenu)
-                indexCount += 1
-
-        indexCount = 0
 
     def save(self):
         self.saveDialog.show()
@@ -1090,13 +1046,43 @@ class CalendarPage(QMainWindow, view.calendarUI.Ui_MainWindow, QDialog, QColor, 
 class MainWindow(QMainWindow, view.mainUI.Ui_MainWindow, QDialog, QColor, QSize, QSizePolicy, QHeaderView, QGridLayout):
     def __init__(self):
         super(MainWindow, self).__init__()
-        self.setupUi(self)
-
+        self.setupUi(self)        
         self.setWindowIcon(QtGui.QIcon(f'{VERSIONPATH}/assets/icon96px.ico'))
         self.setWindowTitle("BusinessThing")
-        self.theme = "Light"
+        self.statusbar.showMessage("ver 1.3")
         self.resizeable()
+        self.setActions()
+        self.fetchTables()
+        
+        self.deleteDialog = DeleteDialog()
+        self.saveDialog = SaveDialog()
+        self.editDialog = EditDialog()
+        
+        self.createDialog = CreateDialog()
+        self.createDialog.s_upd.connect(self.updateTableList)
+        
+        self.calendarPage = CalendarPage()
+        self.calendarPage.s_saveFinished.connect(self.reportOpen)
+        self.calendarPage.resizeable()
+        
+        self.reportPage = ReportPage()
+        self.reportPage.resizeable()
+        
+        self.theme = "Light"
+        self.reportOpenAllow = False
+        self.setTabBar(self.tb_main)
+        self.setTheme()
+        
+    def setTabBar(self, tabBar):
+        tabBar.addTab(self.calendarPage, "Календарь")
+        tabBar.addTab(self.reportPage, "Отчёт")
 
+        tabBar.setTabIcon(0, QIcon("assets/left-dark-arrow-50.png")) # placeholder
+        tabBar.setTabIcon(1, QIcon("assets/right-dark-arrow-50.png")) # placeholder
+        tabBar.tabBarClicked.connect(self.report)
+        tabBar.setCurrentIndex(2)
+
+    def setActions(self):
         self.changeMenu = QMenu('сменить таблицу', self)
 
         self.loadAct = QAction('Загрузить', self)
@@ -1116,71 +1102,7 @@ class MainWindow(QMainWindow, view.mainUI.Ui_MainWindow, QDialog, QColor, QSize,
         self.loadAct.triggered.connect(self.pageRead)
         self.uploadAct.triggered.connect(lambda: CloudUpload.upload())
         self.createAct.triggered.connect(lambda: self.createDialog.show())
-        self.fetchTables()
 
-        self.btn_calendar.clicked.connect(lambda: self.sw_main.setCurrentIndex(0))
-        self.btn_report.clicked.connect(self.report)
-        
-        self.deleteDialog = DeleteDialog()
-        self.saveDialog = SaveDialog()
-        self.editDialog = EditDialog()
-        
-        self.createDialog = CreateDialog()
-        self.createDialog.s_upd.connect(self.updateTableList)
-        
-        self.calendarPage = CalendarPage()
-        self.calendarPage.s_saveFinished.connect(self.reportOpen)
-        self.calendarPage.resizeable()
-        
-        self.reportPage = ReportPage()
-        self.reportPage.resizeable()
-        
-        self.sw_main.addWidget(self.calendarPage)
-        self.sw_main.setCurrentIndex(0)
-        
-        self.setTheme()
-        self.reportOpenAllow = False
-        
-    def pageSave(self):
-        page = self.sw_main.currentIndex()
-        if page == 0:
-             self.calendarPage.save()
-                    
-        else:
-            self.reportPage.save()
-                
-    def pageRead(self):
-        page = self.sw_main.currentIndex()
-        if page == 0:
-            self.calendarPage.read()
-                
-        else:
-            self.reportPage.read()                        
-        
-    def resizeable(self):
-        
-        verLayout = QVBoxLayout()
-        horLayout = QHBoxLayout()
-
-        highItems = [self.lbl_logo, self.btn_report, self.btn_calendar]
-
-        for item in highItems:
-            horLayout.addWidget(item)
-            item.setMinimumSize(QSize(130, 30))
-
-        horLayout.insertStretch(0, 15)
-        horLayout.insertStretch(2, 500)
-        horLayout.insertStretch(5, 13)
-        
-        verLayout.addLayout(horLayout)
-
-        verLayout.addWidget(self.sw_main)
-
-        sizePolicy = QtWidgets.QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
-        self.sw_main.setSizePolicy(sizePolicy)
-
-        self.centralwidget.setLayout(verLayout)
-        
     def setTheme(self):
         if self.theme == "Light":
             with open('ver1_3/themes/lightDefault/main.css') as file:
@@ -1226,6 +1148,28 @@ class MainWindow(QMainWindow, view.mainUI.Ui_MainWindow, QDialog, QColor, QSize,
 
             self.theme = "Light"
 
+    def resizeable(self):
+        sizePolicy = QtWidgets.QSizePolicy(QSizePolicy.Policy.Expanding, 
+                                           QSizePolicy.Policy.Expanding)
+        self.tb_main.setSizePolicy(sizePolicy)
+        self.setCentralWidget(self.tb_main)
+    
+    def pageSave(self):
+        page = self.sw_main.currentIndex()
+        if page == 0:
+             self.calendarPage.save()
+                    
+        else:
+            self.reportPage.save()
+                
+    def pageRead(self):
+        page = self.sw_main.currentIndex()
+        if page == 0:
+            self.calendarPage.read()
+                
+        else:
+            self.reportPage.read()                        
+        
     def fetchTables(self):
 
         def makeAct(name, item):
@@ -1234,14 +1178,14 @@ class MainWindow(QMainWindow, view.mainUI.Ui_MainWindow, QDialog, QColor, QSize,
             self.name.triggered.connect(lambda: tableChange(item))
 
         def tableChange(name):
-            self.tableName = str(name)
+            self.calendarPage.tableName = str(name)
 
-            # чистка таблицы
-            self.tw_table.setRowCount(0)
-            self.tw_table.setColumnCount(0)
-            self.setTable()
+            # сброс таблицы
+            self.calendarPage.tw_table.setRowCount(0)
+            self.calendarPage.tw_table.setColumnCount(0)
+            self.calendarPage.setTable()
 
-            self.read()
+            self.calendarPage.read()
 
         connect = sqlite3.connect(f"{VERSIONPATH}/database/d.db")
         cursor = connect.cursor()
@@ -1274,15 +1218,15 @@ class MainWindow(QMainWindow, view.mainUI.Ui_MainWindow, QDialog, QColor, QSize,
         self.fetchTables()
 
     def report(self): 
-        self.calendarPage.save()
-        self.reportOpenAllow = True
+        if self.tb_main.currentIndex() == 0:
+            self.calendarPage.save()
+            self.reportOpenAllow = True
 
     def reportOpen(self, saveFinished):
+        calendar = self.calendarPage
+        report = self.reportPage
+        
         if self.reportOpenAllow and saveFinished:
-            self.reportPage.set(self.calendarPage.tw_table, self.calendarPage.tableName)
-            self.reportPage.start()
-
+            report.set(calendar.tw_table, calendar.tableName)
+            report.start()
             self.reportOpenAllow = False
-            self.sw_main.addWidget(self.reportPage)
-            self.sw_main.setCurrentIndex(1)
-            

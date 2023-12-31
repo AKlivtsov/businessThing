@@ -6,82 +6,36 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>933</width>
-    <height>518</height>
+    <width>800</width>
+    <height>600</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QPushButton" name="btn_report">
+   <widget class="QTabWidget" name="tb_main">
     <property name="geometry">
      <rect>
-      <x>680</x>
-      <y>0</y>
-      <width>121</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>18</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>Отчёт</string>
-    </property>
-   </widget>
-   <widget class="QStackedWidget" name="sw_main">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>50</y>
-      <width>911</width>
-      <height>441</height>
+      <x>9</x>
+      <y>-1</y>
+      <width>781</width>
+      <height>541</height>
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
-    <widget class="QWidget" name="p1"/>
-    <widget class="QWidget" name="p2"/>
-   </widget>
-   <widget class="QPushButton" name="btn_calendar">
-    <property name="geometry">
-     <rect>
-      <x>800</x>
-      <y>0</y>
-      <width>121</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>18</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>Календарь</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="lbl_logo">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>10</y>
-      <width>71</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>18</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>Лого</string>
-    </property>
+    <widget class="QWidget" name="tb_report">
+     <attribute name="title">
+      <string>Tab 1</string>
+     </attribute>
+    </widget>
+    <widget class="QWidget" name="tb_calendar">
+     <attribute name="title">
+      <string>Tab 2</string>
+     </attribute>
+    </widget>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -89,23 +43,24 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>933</width>
+     <width>800</width>
      <height>24</height>
     </rect>
    </property>
    <widget class="QMenu" name="m_file">
     <property name="title">
-     <string>файл</string>
+     <string>File</string>
     </property>
    </widget>
    <widget class="QMenu" name="m_settings">
     <property name="title">
-     <string>настройки</string>
+     <string>Settings</string>
     </property>
    </widget>
    <addaction name="m_file"/>
    <addaction name="m_settings"/>
   </widget>
+  <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources/>
  <connections/>

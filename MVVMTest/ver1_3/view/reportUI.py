@@ -7,48 +7,118 @@
 
 
 from PyQt6 import QtCore, QtGui, QtWidgets
+from PyQt6.QtCore import QObject, QThread, QPropertyAnimation, QPoint, QEasingCurve
 
+class AnimationThread(QThread):    
+    def setup(self, frame, width, height):
+        self.height = height
+        self.width = width
+        self.frame = frame
+                
+        self.popUp = QPropertyAnimation(self.frame, b"pos")
+        heightSteps = [int(self.height -40), 
+                       int(self.height -58), 
+                       int(self.height -48)]
+        
+        self.popUp.setEasingCurve(QEasingCurve.Type.InOutCubic)
+        self.popUp.setKeyValueAt(0.1, QPoint(self.width, heightSteps[0]))
+        self.popUp.setKeyValueAt(0.2, QPoint(self.width, heightSteps[1]))
+        self.popUp.setEndValue(QPoint(self.width, heightSteps[2]))
+        self.popUp.setDuration(500)
+        
+        self.hide = QPropertyAnimation(self.frame, b"pos")
+        
+    def run(self):
+        # self.PopUpAnimation()
+        self.popUp.start()
+        self.msleep(2500)
+        self.hideAnimation()
+        
+    def PopUpAnimation(self):       
+        # 40px - height of frame
+        heightSteps = [int(self.height -40), 
+                       int(self.height -58), 
+                       int(self.height -48)]
+        
+        self.popUp.setEasingCurve(QEasingCurve.Type.InOutCubic)
+        self.popUp.setKeyValueAt(0.1, QPoint(self.width, heightSteps[0]))
+        self.popUp.setKeyValueAt(0.2, QPoint(self.width, heightSteps[1]))
+        self.popUp.setEndValue(QPoint(self.width, heightSteps[2]))
+        self.popUp.setDuration(500)
+        self.popUp.start()
+    
+    def hideAnimation(self):
+        pass
+        
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(1013, 495)
+        
         self.centralwidget = QtWidgets.QWidget(parent=MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.tw_reportTable = QtWidgets.QTableWidget(parent=self.centralwidget)
         self.tw_reportTable.setGeometry(QtCore.QRect(0, 0, 1011, 451))
+        
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Fixed, QtWidgets.QSizePolicy.Policy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.tw_reportTable.sizePolicy().hasHeightForWidth())
+        
         self.tw_reportTable.setSizePolicy(sizePolicy)
         self.tw_reportTable.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
         self.tw_reportTable.setObjectName("tw_reportTable")
         self.tw_reportTable.setColumnCount(0)
         self.tw_reportTable.setRowCount(0)
+        
         self.btn_save = QtWidgets.QPushButton(parent=self.centralwidget)
         self.btn_save.setGeometry(QtCore.QRect(890, 460, 121, 31))
         self.btn_save.setObjectName("btn_save")
+        
         self.btn_export = QtWidgets.QPushButton(parent=self.centralwidget)
         self.btn_export.setGeometry(QtCore.QRect(770, 460, 121, 31))
         self.btn_export.setObjectName("btn_export")
+        
         self.f_msg = QtWidgets.QFrame(parent=self.centralwidget)
         self.f_msg.setGeometry(QtCore.QRect(340, 440, 300, 40))
         self.f_msg.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
         self.f_msg.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
         self.f_msg.setObjectName("f_msg")
+        
         self.lbl_msg = QtWidgets.QLabel(parent=self.f_msg)
         self.lbl_msg.setGeometry(QtCore.QRect(0, 0, 300, 40))
         self.lbl_msg.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.lbl_msg.setObjectName("lbl_msg")
+        
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
+        
+        self.animation = AnimationThread(self.f_msg)
+        
+        height = self.frameSize().height()
+        width = self.frameSize().width()
+        width = int(width/2 - 150)
+        self.animation.setup(self.f_msg, width, height)
+        
+        self.resized.connect(self.frameReposition)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.btn_save.setText(_translate("MainWindow", "сохранить"))
-        self.btn_export.setText(_translate("MainWindow", "экспорт"))
-        self.lbl_msg.setText(_translate("MainWindow", "Placeholder text!"))
+        self.btn_save.setText(_translate("MainWindow", "Сохранить"))
+        self.btn_export.setText(_translate("MainWindow", "Экспорт"))
+        self.lbl_msg.setText(_translate("MainWindow", "Таблица экспортирована!"))
+
+    def resizeEvent(self, event):
+        self.resized.emit()
+        return self.resizeEvent(event)
+    
+    def frameReposition(self):
+        height = self.frameSize().height()
+        width = self.frameSize().width()
+        width = int(width/2 - 150)
+        self.f_msg.move(QPoint(width, height + 200))
+        self.animation.setup(self.f_msg, width, height)

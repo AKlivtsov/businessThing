@@ -1,34 +1,37 @@
 QWidget{
     background-color: white;
     color: balck;
-    border-radius: 5px;
+    border-radius: 2px;
 }  
 
 QPushButton{
-    background-color: darkgrey;
-    color: #FFFFFF;
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
     border-radius: 2px;
+    border: 2px solid rgb(0, 0, 0);
 }
 
-QPushButton:pressed {
-    background-color: #494949;
+QPushButton:pressed{
+    background-color: #000000;
     color: #FFFFFF;
     border-radius: 2px;
+    border: 2px solid rgb(0, 0, 0);
 }
 
 QTableWidget{
     background-color: white;
+    border: 1px solid black;
 }
 
 QHeaderView::section{
     background-color: white;
-    border: solid;
-    text-align: center;
+    border: 0.5px solid black;
+    padding-left: 4px;
 }
 
 QTableView QTableCornerButton::section {
     background-color: white;
-    border: solid;
+    border: 1px solid black;
 }
 
 QHeaderView::section:checked{

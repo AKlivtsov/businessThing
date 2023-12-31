@@ -1,25 +1,60 @@
 QWidget{
     background-color: white;
-    color: #1F1F1F;
-    border-radius: 5px;
+    color: #000000;
+    border-radius: 2px;
 }
 
-QStackedWidget{
-    border-radius: 5px;
+QStatusBar {
+    background-color: rgb(81, 81, 81);
+    color: white;
 }
 
 QLabel{
-    color: #7A7A7A;
+    color: #000000;
 }     
 
 QPushButton{
-    background-color: darkgrey;
-    color: white;
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
     border-radius: 2px;
+    border: 2px solid rgb(0, 0, 0);
 }
 
 QPushButton:pressed{
-    background-color: #494949;
+    background-color: #000000;
     color: #FFFFFF;
     border-radius: 2px;
+    border: 2px solid rgb(0, 0, 0);
+}
+
+QTabWidget::pane { /* The tab widget frame */
+    border-top: 2px solid black;
+    margin-left: 8px;
+    margin-right: 8px;
+}
+
+QTabWidget::tab-bar {
+    alignment: center;
+    margin-top: 10px;
+}
+
+QTabBar::tab {
+    background: white;
+    border: 2px solid black; 
+    border-bottom: 0px solid black;
+    border-top-right-radius: 2px;
+    border-top-left-radius: 2px;
+    min-width: 8ex;
+    padding: 2px;
+    margin-right: 1px;
+    margin-top: 5px;
+}
+
+QTabBar::tab:selected {
+    border-color: #000000;
+    border-bottom-color: black;
+}
+
+QTabBar::tab:!selected {
+    margin-top: 2px;
 }
