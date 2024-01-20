@@ -13,11 +13,14 @@ import view.saveDialogUI
 import view.createDialogUI
 import view.deleteDialogUI
 
+# проверка обновлений
+import launch
+
 # БД
 import sqlite3
 
 #ексель
-import pandas
+import reportExport
 
 #облако
 import CloudUpload
@@ -450,6 +453,9 @@ class EditDialog(QDialog, view.editDialogUI.Ui_Dialog, QSize):
         
         self.color = None
         self.notes = None
+        
+    def setStyle(self, style):
+        self.setStyleSheet(style)
 
     def colorDialog(self):
         self.color = QColorDialog.getColor()
@@ -550,10 +556,11 @@ class DeleteDialog(QDialog, view.deleteDialogUI.Ui_Dialog, QSize):
                 addedDays = 0
                 break
 
-
-class ReportPage(QMainWindow, view.reportUI.Ui_MainWindow, view.reportUI.AnimationThread, QDate):
-    resized = QtCore.pyqtSignal()
+    def setStyle(self, styleSheet):
+        self.setStyleSheet(styleSheet)
     
+    
+class ReportPage(QMainWindow, view.reportUI.Ui_MainWindow, QDate):
     def __init__(self):
         super(ReportPage, self).__init__()
         self.setupUi(self)
@@ -564,17 +571,17 @@ class ReportPage(QMainWindow, view.reportUI.Ui_MainWindow, view.reportUI.Animati
         self.totalList = []
         
         self.btn_save.clicked.connect(self.save)
-        # self.btn_export.clicked.connect(self.export)
+        self.btn_export.clicked.connect(self.export) 
 
         self.reportSave = SaveReportThread()
         self.reportSave.s_updPB.connect(self.saveDialog)
 
         self.reportSum = SumReportThread()
         self.reportSum.s_sumData.connect(self.changeSumRow)
+        
+        self.reportExport = reportExport
 
         self.saveDialog = SaveDialog()
-        
-        self.btn_export.clicked.connect(self.expAnimation)
         
     def start(self):
 
@@ -589,42 +596,7 @@ class ReportPage(QMainWindow, view.reportUI.Ui_MainWindow, view.reportUI.Animati
         self.reportRead.start()
 
         self.reportSum.set(self.tw_reportTable)
-        self.tw_reportTable.cellChanged.connect(self.calculate)
-
-    def resizeable(self):
-        verLayout = QVBoxLayout()
-        horLayout = QHBoxLayout()
-        
-        lowRowItems = [self.btn_export, self.btn_save,]
-
-        for item in lowRowItems:
-            horLayout.addWidget(item)
-
-            if item == self.f_msg:
-                item.setMinimumSize(QSize(300, 40))
-            else:
-                item.setMinimumSize(QSize(130, 30))
-
-        horLayout.insertStretch(1, 130)
-        verLayout.addWidget(self.tw_reportTable)
-        sizePolicy = QtWidgets.QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
-        self.tw_reportTable.setSizePolicy(sizePolicy)
-        verLayout.addLayout(horLayout)
-        self.centralwidget.setLayout(verLayout)
-    
-    def setSumRow(self):
-        if self.tw_reportTable.item(self.tw_reportTable.rowCount()-1, 0) != None:
-
-            lastRow = self.tw_reportTable.rowCount() + 1 
-            self.tw_reportTable.setRowCount(self.tw_reportTable.rowCount() + 2)
-
-            self.write(lastRow, 0, "Сумма:")
-            self.tw_reportTable.item(lastRow, 0).setBackground(QtGui.QColor(187,255,169))
-
-            for i in range(10):
-                if i != 0:
-                    self.tw_reportTable.setItem(lastRow, i, QTableWidgetItem())
-                    self.tw_reportTable.item(lastRow, i).setBackground(QtGui.QColor(187,255,169))
+        self.tw_reportTable.cellChanged.connect(self.calculate) 
 
     def changeSumRow(self, total):
 
@@ -651,52 +623,6 @@ class ReportPage(QMainWindow, view.reportUI.Ui_MainWindow, view.reportUI.Animati
         self.calTable = calTable
         self.tableName = tableName
         
-    def setTable(self):
-
-        def color(row, column, red, green, blue):
-            cell = self.tw_reportTable.item(row, column)
-            cell.setBackground(QtGui.QColor(red, green, blue))
-
-        self.tw_reportTable.verticalHeader().setVisible(False)
-        self.tw_reportTable.horizontalHeader().setVisible(False)
-        self.tw_reportTable.setColumnCount(10)
-        self.tw_reportTable.setRowCount(2)
-
-        for i in range(4):
-            self.tw_reportTable.setSpan(0, i, 2, 1)
-
-        self.tw_reportTable.setSpan(0, 4, 1, 6)
-
-        names = ('Период аренды','Кол-во суток','Стоимость',
-            'Сумма','Оплата','Бронь','Гость','Авито','Расход',
-            'Показания','Доход')
-
-        row = 0
-        column = 0 
-        i = 0
-
-        while column < 10:
-            
-            if column == 4: 
-                self.write(row, column, names[i]) 
-                self.write(row + 1, column, names[i + 1])
-                self.color(row, column) 
-                self.color(row + 1, column)
-                row = 1 
-                i += 1
-
-            else:
-                self.write(row, column, names[i])
-                self.color(row, column)
-
-            column += 1
-            i += 1
-
-        horHeader = self.tw_reportTable.horizontalHeader()
-
-        for i in range(self.tw_reportTable.columnCount()):
-            horHeader.setSectionResizeMode(i, QHeaderView.ResizeMode.Stretch)
-
     def color(self, row, column):
 
         colors = ((191,255,172), (255,219,224), (249,211,249), 
@@ -870,62 +796,9 @@ class ReportPage(QMainWindow, view.reportUI.Ui_MainWindow, view.reportUI.Animati
         self.path = QFileDialog.getUrl()
 
     def export(self):
-        data = {}
-        columnName = []
-
-        for column in range(self.tw_reportTable.columnCount()):
-            item = self.tw_reportTable.item(0, column)
-            if item is not None:
-                if item.text() != "Оплата":
-                    columnName.append(item.text())
-                else:
-                    for column in range(1, self.tw_reportTable.columnCount()):
-                        item = self.tw_reportTable.item(1, column)
-                        if item is not None:
-                            columnName.append(item.text())
-
-        for column in columnName:
-            rowList = []
-            for row in range(2, self.tw_reportTable.rowCount()):
-
-                item = self.tw_reportTable.item(row, columnName.index(column))
-                if item is not None:
-                    rowList.append(item.text())
-                else:
-                    rowList.append('')
-
-            for item in rowList:
-                data[column] = rowList
-
-        df = pandas.DataFrame.from_dict(data, orient='index')
-        df = df.transpose()
-        df.to_excel('./export.xlsx')
-
-        self.expAnimation()
-
-    def expAnimation(self):
-        height = self.frameSize().height()
-        width = self.frameSize().width()
-        width = int(width/2 - 150)
-        self.animation.start() #! animation doesn't work
-    
-    def hideAnimation(self):
-        height = self.frameSize().height()
-        width = self.frameSize().width()
-        width = int(width/2 - 150)
-        
-        # 40px - height of frame
-        heightSteps = [int(height -40), 
-                       int(height -58), 
-                       int(height -48)]
-        
-        self.anFrameHide.setEasingCurve(QEasingCurve.Type.InOutCubic)
-        self.anFrameHide.setKeyValueAt(0.1, QPoint(width, heightSteps[2]))
-        self.anFrameHide.setKeyValueAt(0.2, QPoint(width, heightSteps[1]))
-        self.anFrameHide.setEndValue(QPoint(width, height + 200))
-        self.anFrameHide.setDuration(2000)
-        self.anFrameHide.start()
-    
+        msg = self.reportExport.export(self.tw_reportTable)
+        if msg:
+            self.animations.PopUpAnimation()
         
 
 class CalendarPage(QMainWindow, view.calendarUI.Ui_MainWindow, QDialog, QColor, QSize, QSizePolicy, QHeaderView, QGridLayout):
@@ -981,6 +854,11 @@ class CalendarPage(QMainWindow, view.calendarUI.Ui_MainWindow, QDialog, QColor, 
 
         verLayout.addLayout(horLayout)
         self.centralwidget.setLayout(verLayout)
+        
+    def setStyle(self, style):
+        self.editDialog.setStyleSheet(style)
+        self.deleteDialog.setStyleSheet(style)
+        self.saveDialog.setStyleSheet(style)
         
     def setTable(self):
 
@@ -1116,13 +994,11 @@ class MainWindow(QMainWindow, view.mainUI.Ui_MainWindow, QDialog, QColor, QSize,
             with open('ver1_3/themes/lightDefault/calendar.css') as file:
                 style = file.read()
                 self.calendarPage.setStyleSheet(style)
-                
-            with open('ver1_3/themes/lightDefault/std.css') as file:
+        
+            with open('ver1_3/themes/lightDefault/std.css') as file: 
                 style = file.read()
                 self.createDialog.setStyleSheet(style)
-                self.deleteDialog.setStyleSheet(style)
-                self.editDialog.setStyleSheet(style)
-                self.saveDialog.setStyleSheet(style)
+                self.calendarPage.setStyle(style)
 
             self.theme = "Dark"
 
@@ -1139,12 +1015,10 @@ class MainWindow(QMainWindow, view.mainUI.Ui_MainWindow, QDialog, QColor, QSize,
                 style = file.read()
                 self.calendarPage.setStyleSheet(style)
                 
-            with open('ver1_3/themes/darkDefault/std.css') as file:
+            with open('ver1_3/themes/darkDefault/std.css') as file: 
                 style = file.read()
                 self.createDialog.setStyleSheet(style)
-                self.deleteDialog.setStyleSheet(style)
-                self.editDialog.setStyleSheet(style)
-                self.saveDialog.setStyleSheet(style)
+                self.calendarPage.setStyle(style)
 
             self.theme = "Light"
 
@@ -1230,3 +1104,11 @@ class MainWindow(QMainWindow, view.mainUI.Ui_MainWindow, QDialog, QColor, QSize,
             report.set(calendar.tw_table, calendar.tableName)
             report.start()
             self.reportOpenAllow = False
+
+
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
+    m = MainWindow()
+    m.show()
+    sys.exit(app.exec())
+    

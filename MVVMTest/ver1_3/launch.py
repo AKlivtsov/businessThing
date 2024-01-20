@@ -4,13 +4,12 @@ from PyQt6.QtWidgets import QMainWindow, QApplication
 from PyQt6.QtCore import QThread, QObject, QSize
 
 # окно
-sys.path.insert(1,'~/Desktop/CodieStuff/businessThing/main/launchUI.py')
 import launchUI
 
 # подключение
 import socket
 
-# прчоее
+# прочее
 import tarfile as tar
 import pathlib
 import shutil
@@ -20,11 +19,12 @@ import os
 IP = "127.0.0.1"
 PORT = 1233
 
-def stringCleaner(string) -> str : #! Check before use 
+def stringCleaner(string: str) -> str :
     newString = ""
     for i in string:
         newString += str(i)
     return newString
+
 
 class UpdateThread(QThread):
     s_highMsg = QtCore.pyqtSignal(str)
@@ -35,17 +35,14 @@ class UpdateThread(QThread):
         QtCore.QThread.__init__(self)
 
     def run(self):
-        connect = sqlite3.connect("launch.db")
+        connect = sqlite3.connect("/Users/a.klivtsov/Desktop/CodieStuff/businessThing/MVVMTest/ver1_3/launch.db")
         cursor = connect.cursor()
 
         cursor.execute("SELECT localVersion FROM versionData WHERE ROWID = ?", (1,))
         localVersion = cursor.fetchone()
 
         if localVersion is not None:
-            localVersionTemp = ""
-            for i in localVersion:
-                localVersionTemp += str(i)
-            localVersion = float(localVersionTemp)
+            localVersion = float(stringCleaner(localVersion))
 
             try: #TODO: rework like guard 'n' raise in swift
                 with socket.create_connection((IP, PORT)) as conn:
@@ -56,12 +53,7 @@ class UpdateThread(QThread):
                             cursor.execute(
                                 "SELECT path FROM versionData WHERE ROWID = ?", (1,)
                             )
-                            pathTemp = cursor.fetchone()
-
-                            path = ""
-                            for i in pathTemp:
-                                path += str(i)
-
+                            path = stringCleaner(cursor.fetchone())
                             shutil.rmtree(path)
 
                             file = path + ".tar"
@@ -116,12 +108,7 @@ class UpdateThread(QThread):
                 self.s_highMsg.emit("Не удаётся подключится к серверу обновлений.")
 
                 cursor.execute("SELECT path FROM versionData WHERE ROWID = ?", (1,))
-                pathTemp = cursor.fetchone()
-
-                path = ""
-                for i in pathTemp:
-                    path += str(i)
-
+                path = stringCleaner(cursor.fetchone())
                 self.s_lowMsg.emit(True, path)
 
         else:
@@ -131,6 +118,8 @@ class UpdateThread(QThread):
 
 
 class MainWindow(QMainWindow, launchUI.Ui_MainWindow, QSize):
+    startMsg = QtCore.pyqtSignal(bool)
+    
     def __init__(self):
         super(MainWindow, self).__init__()
         self.setupUi(self)
@@ -156,22 +145,10 @@ class MainWindow(QMainWindow, launchUI.Ui_MainWindow, QSize):
         if msg == "Не удаётся подключится к серверу обновлений.":
             self.refusedConn = True
 
-    def startMainApp(self, state, filename):
+    def startMainApp(self, state):
         if state:
             self.lbl_status.setText("Запуск...")
-
-            sys.path.insert(1, f"{filename}/")
-
-            import main
-
-            m = main.MainWindow()
-            m.show()
-
-            self.close()
-
-
-if __name__ == "__main__":
-    app = QApplication(sys.argv)
-    m = MainWindow()
-    m.show()
-    sys.exit(app.exec())
+            self.startMsg.emit(True)
+            # self.close()
+            
+        
