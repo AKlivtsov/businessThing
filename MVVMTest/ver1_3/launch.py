@@ -1,6 +1,6 @@
 import sys
 from PyQt6 import QtWidgets, QtCore, QtGui
-from PyQt6.QtWidgets import QMainWindow, QApplication
+from PyQt6.QtWidgets import QMainWindow, QApplication 
 from PyQt6.QtCore import QThread, QObject, QSize
 
 # окно
@@ -15,6 +15,7 @@ import pathlib
 import shutil
 import sqlite3
 import os
+import subprocess
 
 IP = "127.0.0.1"
 PORT = 1233
@@ -49,6 +50,9 @@ class UpdateThread(QThread):
                     version = conn.recv(2048).decode("utf-8")
                     if version != "[ERR] CANNOT GET ACTUAL VERSION":
                         if localVersion < float(version):
+                            
+                            #TODO: save database (or old version)
+                            
                             # ------удаляем старую версию -------------------
                             cursor.execute(
                                 "SELECT path FROM versionData WHERE ROWID = ?", (1,)
@@ -149,6 +153,14 @@ class MainWindow(QMainWindow, launchUI.Ui_MainWindow, QSize):
         if state:
             self.lbl_status.setText("Запуск...")
             self.startMsg.emit(True)
-            # self.close()
+            self.close()
+            subprocess.run(["chmod", "-R", "777", "ver1_3/main.py"]) #! if error with permissions
+            subprocess.run(["python3","ver1_3/main.py"]) #! change to exe when finished
             
-        
+            
+            
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
+    m = MainWindow()
+    m.show()
+    sys.exit(app.exec())        
