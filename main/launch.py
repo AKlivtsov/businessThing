@@ -4,7 +4,6 @@ from PyQt6.QtWidgets import QMainWindow, QApplication
 from PyQt6.QtCore import QThread, QObject, QSize
 
 # окно
-sys.path.insert(1,'~/Desktop/CodieStuff/businessThing/main/launchUI.py')
 import launchUI
 
 # подключение
@@ -16,6 +15,8 @@ import pathlib
 import shutil
 import sqlite3
 import os
+import time # yep
+import random
 
 IP = "127.0.0.1"
 PORT = 1233
@@ -106,12 +107,15 @@ class UpdateThread(QThread):
 
                             else:
                                 self.s_highMsg.emit("Ошибка обновления.")
+                                time.sleep(10)
 
                         else:
                             self.s_highMsg.emit("У вас установлена последняя версия")
+                            time.sleep(5)
 
                     else:
                         self.s_highMsg.emit("Ошибка обновления.")
+                        time.sleep(10)
 
             except ConnectionRefusedError:
                 self.s_highMsg.emit("Не удаётся подключится к серверу обновлений.")
@@ -125,8 +129,11 @@ class UpdateThread(QThread):
 
                 self.s_lowMsg.emit(True, path)
 
+                time.sleep(5)
+
         else:
             self.s_highMsg.emit("Ошибка базы данных. Переустанвоите программу.")
+            time.sleep(10)
 
         connect.close()
 
@@ -156,6 +163,8 @@ class MainWindow(QMainWindow, launchUI.Ui_MainWindow, QSize):
 
         if msg == "Не удаётся подключится к серверу обновлений.":
             self.refusedConn = True
+
+        time.sleep(random.randint(3, 7))
 
     def startMainApp(self, state, filename):
         if state:

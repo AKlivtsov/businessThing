@@ -1011,8 +1011,8 @@ class CalendarPage(QMainWindow, view.calendarUI.Ui_MainWindow, QDialog, QColor, 
         for i in range(self.tw_table.columnCount()):
             horHeader.setSectionResizeMode(i, QHeaderView.ResizeMode.Stretch)
 
-        verHeader.setDefaultAlignment(QtCore.Qt.AlignCenter) #TODO: Fix that
-        horHeader.setDefaultAlignment(QtCore.Qt.AlignCenter) #TODO: n' that
+        # verHeader.setDefaultAlignment(QtCore.Qt.AlignCenter) #TODO: Fix that
+        # horHeader.setDefaultAlignment(QtCore.Qt.AlignCenter) #TODO: n' that
 
     def savingDialog(self, msg):
         if msg == 'upd':

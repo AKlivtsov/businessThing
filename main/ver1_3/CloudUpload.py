@@ -6,7 +6,7 @@ PORT = 1233
 
 
 def upload():
-	try:
+    try:
         with socket.create_connection((IP, PORT)) as conn:
 
             upload = conn.send(2048).encode("utf-8")
@@ -31,10 +31,8 @@ def upload():
             print("success")
             
             if isUploadPossible:
-            	file = open(path, "wb")
-            	data = conn.send(1024)
+                file = open(path, "wb")
+                data = conn.send(1024)
 
     except ConnectionRefusedError:
-
-
-	
+        print("Connection refused")
